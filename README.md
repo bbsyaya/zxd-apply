@@ -1,7 +1,7 @@
 ### Apply 申请模块
 
 #### 介绍
-  Apply相关接口
+  贷前申请相关接口
 
 #### 编译打包方式
 > 执行命令: `gradle clean build -Penv=test` 
@@ -10,11 +10,13 @@
 > 编译通过生成的war或jar包在目录build/libs/下
 
 #### 主要组件
- 1. `com.zhixindu.apply.facade.business.DubboApplyBusiness` 申请业务接口
+ 1. `com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness` 贷前申请Wechat业务接口
+ 2. `com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness` 贷前申请Mgt业务接口
+ 3. `com.zhixindu.apply.facade.loan.business.DubboApplyLoanWechatBusiness` 贷款申请Wechat业务接口
+ 4. `com.zhixindu.apply.facade.loan.business.DubboApplyLoanMgtBusiness` 贷款申请Mgt业务接口
+ 5. `com.zhixindu.apply.facade.region.business.DubboApplyRegionBusiness` 行政区域业务接口
 
 #### 版本历史
 
 v0.1 初始版本
-  1. 迁移聚信立、闪银等接口
-  2. 对外提供查询报告、查询信息等接口
-  3. 对接融360、算话、考拉等接口
+  1. 提供提交贷前申请、查询，提交贷款申请、查询，行政区域查询业务接口
