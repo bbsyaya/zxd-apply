@@ -1,14 +1,50 @@
 group 'com.zhixindu.apply'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
 
-sourceCompatibility = 1.5
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
 
 repositories {
+    maven { url "http://99.48.18.230:8081/repository/zxd-groups/"}
     mavenCentral()
+    maven { url "http://repo.spring.io/release/" }
+    maven { url "http://repo.spring.io/milestone/" }
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.zhixindu.commons:zxd-api:1.2.10.RELEASE',
+            'org.projectlombok:lombok:1.16.8'
 }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+configurations {
+    deployerJars
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+            repository(url: "http://99.48.18.230:8081/repository/zxd-snapshots/") {
+                authentication(userName: "develop", password: "develop")
+            }
+            pom.version = version
+            pom.artifactId = 'zxd-apply-facade'
+            pom.groupId = 'com.zhixindu.apply'
+        }
+    }
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
