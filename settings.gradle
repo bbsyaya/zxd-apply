@@ -1,0 +1,5 @@
+rootProject.name = 'zxd-apply'
+include 'apply-core'
+include 'zxd-apply-core'
+include 'zxd-apply-facade'
+

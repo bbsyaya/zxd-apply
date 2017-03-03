@@ -1,0 +1,14 @@
+.idea/
+.gradle/
+build/
+out/
+*.iml
+*.class
+zxd-apply-core/disconf/
+zxd-apply-core/build/
+zxd-apply-core/generated/
+zxd-apply-core/generated_tests/
+zxd-apply-core/coverage-report/
+zxd-apply-facade/build/
+zxd-apply-facade/generated/
+zxd-apply-facade/generated_tests/
