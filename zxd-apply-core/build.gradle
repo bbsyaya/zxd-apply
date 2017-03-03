@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile project(':zxd-watson-facade')
+    compile project(':zxd-apply-facade')
     compile 'org.springframework:spring-context:4.2.5.RELEASE',
             'org.springframework:spring-core:4.2.5.RELEASE',
             'org.springframework:spring-beans:4.2.5.RELEASE',
