@@ -1,88 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.loan.dao.LoanWorkflowStepInstanceMapper">
-  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
-    <id column="step_instance_id" jdbcType="INTEGER" property="step_instance_id" />
-    <result column="loan_id" jdbcType="INTEGER" property="loan_id" />
-    <result column="step_definition_id" jdbcType="INTEGER" property="step_definition_id" />
-    <result column="processing_time" jdbcType="TIMESTAMP" property="processing_time" />
-    <result column="processing_state" jdbcType="TINYINT" property="processing_state" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
+        <id column="step_instance_id" jdbcType="INTEGER" property="step_instance_id"/>
+        <result column="loan_id" jdbcType="INTEGER" property="loan_id"/>
+        <result column="step_definition_id" jdbcType="INTEGER" property="step_definition_id"/>
+        <result column="processing_time" jdbcType="TIMESTAMP" property="processing_time"/>
+        <result column="processing_state" jdbcType="TINYINT" property="processing_state"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     step_instance_id, loan_id, step_definition_id, processing_time, processing_state
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from loan_workflow_step_instance
-    where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from loan_workflow_step_instance
+        where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from loan_workflow_step_instance
     where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
-    insert into loan_workflow_step_instance (step_instance_id, loan_id, step_definition_id, 
-      processing_time, processing_state)
-    values (#{step_instance_id,jdbcType=INTEGER}, #{loan_id,jdbcType=INTEGER}, #{step_definition_id,jdbcType=INTEGER}, 
-      #{processing_time,jdbcType=TIMESTAMP}, #{processing_state,jdbcType=TINYINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
-    insert into loan_workflow_step_instance
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="step_instance_id != null">
-        step_instance_id,
-      </if>
-      <if test="loan_id != null">
-        loan_id,
-      </if>
-      <if test="step_definition_id != null">
-        step_definition_id,
-      </if>
-      <if test="processing_time != null">
-        processing_time,
-      </if>
-      <if test="processing_state != null">
-        processing_state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="step_instance_id != null">
-        #{step_instance_id,jdbcType=INTEGER},
-      </if>
-      <if test="loan_id != null">
-        #{loan_id,jdbcType=INTEGER},
-      </if>
-      <if test="step_definition_id != null">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
+        <selectKey keyProperty="step_instance_id" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into loan_workflow_step_instance (step_instance_id, loan_id, step_definition_id,
+        processing_time, processing_state)
+        values (#{step_instance_id,jdbcType=INTEGER}, #{loan_id,jdbcType=INTEGER},
         #{step_definition_id,jdbcType=INTEGER},
-      </if>
-      <if test="processing_time != null">
-        #{processing_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="processing_state != null">
-        #{processing_state,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
-    update loan_workflow_step_instance
-    <set>
-      <if test="loan_id != null">
-        loan_id = #{loan_id,jdbcType=INTEGER},
-      </if>
-      <if test="step_definition_id != null">
-        step_definition_id = #{step_definition_id,jdbcType=INTEGER},
-      </if>
-      <if test="processing_time != null">
-        processing_time = #{processing_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="processing_state != null">
-        processing_state = #{processing_state,jdbcType=TINYINT},
-      </if>
-    </set>
-    where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
+        #{processing_time,jdbcType=TIMESTAMP}, #{processing_state,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
+        insert into loan_workflow_step_instance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="step_instance_id != null">
+                step_instance_id,
+            </if>
+            <if test="loan_id != null">
+                loan_id,
+            </if>
+            <if test="step_definition_id != null">
+                step_definition_id,
+            </if>
+            <if test="processing_time != null">
+                processing_time,
+            </if>
+            <if test="processing_state != null">
+                processing_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="step_instance_id != null">
+                #{step_instance_id,jdbcType=INTEGER},
+            </if>
+            <if test="loan_id != null">
+                #{loan_id,jdbcType=INTEGER},
+            </if>
+            <if test="step_definition_id != null">
+                #{step_definition_id,jdbcType=INTEGER},
+            </if>
+            <if test="processing_time != null">
+                #{processing_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processing_state != null">
+                #{processing_state,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
+        update loan_workflow_step_instance
+        <set>
+            <if test="loan_id != null">
+                loan_id = #{loan_id,jdbcType=INTEGER},
+            </if>
+            <if test="step_definition_id != null">
+                step_definition_id = #{step_definition_id,jdbcType=INTEGER},
+            </if>
+            <if test="processing_time != null">
+                processing_time = #{processing_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processing_state != null">
+                processing_state = #{processing_state,jdbcType=TINYINT},
+            </if>
+        </set>
+        where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.loan.domain.LoanWorkflowStepInstance">
     update loan_workflow_step_instance
     set loan_id = #{loan_id,jdbcType=INTEGER},
       step_definition_id = #{step_definition_id,jdbcType=INTEGER},

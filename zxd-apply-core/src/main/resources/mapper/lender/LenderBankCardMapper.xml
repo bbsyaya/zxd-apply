@@ -23,7 +23,10 @@
     where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    insert into lender_bank_card (bank_card_id, lender_id, bank_card_number, 
+      <selectKey keyProperty="bank_card_id" resultType="int">
+          select LAST_INSERT_ID()
+      </selectKey>
+    insert into lender_bank_card (bank_card_id, lender_id, bank_card_number,
       bank_name, bank_code, bank_verfy
       )
     values (#{bank_card_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR}, 
