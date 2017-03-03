@@ -17,7 +17,7 @@ public class Region implements Serializable {
 
     private String py;
 
-    private Short level;
+    private Integer level;
 
     private Integer parent_code;
 
@@ -79,11 +79,11 @@ public class Region implements Serializable {
         this.py = py == null ? null : py.trim();
     }
 
-    public Short getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Short level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

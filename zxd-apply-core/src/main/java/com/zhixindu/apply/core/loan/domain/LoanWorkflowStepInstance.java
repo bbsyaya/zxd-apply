@@ -12,7 +12,7 @@ public class LoanWorkflowStepInstance implements Serializable {
 
     private Date processing_time;
 
-    private Byte processing_state;
+    private Integer processing_state;
 
     private static final long serialVersionUID = 1L;
 
@@ -48,11 +48,11 @@ public class LoanWorkflowStepInstance implements Serializable {
         this.processing_time = processing_time;
     }
 
-    public Byte getProcessing_state() {
+    public Integer getProcessing_state() {
         return processing_state;
     }
 
-    public void setProcessing_state(Byte processing_state) {
+    public void setProcessing_state(Integer processing_state) {
         this.processing_state = processing_state;
     }
 }

@@ -15,9 +15,9 @@ public class Lender implements Serializable {
 
     private String id_card;
 
-    private Byte mobile_verify;
+    private Integer mobile_verify;
 
-    private Byte bank_card_verify;
+    private Integer bank_card_verify;
 
     private String credit_situation;
 
@@ -71,19 +71,19 @@ public class Lender implements Serializable {
         this.id_card = id_card == null ? null : id_card.trim();
     }
 
-    public Byte getMobile_verify() {
+    public Integer getMobile_verify() {
         return mobile_verify;
     }
 
-    public void setMobile_verify(Byte mobile_verify) {
+    public void setMobile_verify(Integer mobile_verify) {
         this.mobile_verify = mobile_verify;
     }
 
-    public Byte getBank_card_verify() {
+    public Integer getBank_card_verify() {
         return bank_card_verify;
     }
 
-    public void setBank_card_verify(Byte bank_card_verify) {
+    public void setBank_card_verify(Integer bank_card_verify) {
         this.bank_card_verify = bank_card_verify;
     }
 

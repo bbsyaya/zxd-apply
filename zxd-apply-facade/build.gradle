@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     compile 'com.zhixindu.commons:zxd-api:1.2.10.RELEASE',
+            'com.zhixindu.commons:zxd-commons-core:1.2.17.RELEASE',
             'org.projectlombok:lombok:1.16.8'
 }
 

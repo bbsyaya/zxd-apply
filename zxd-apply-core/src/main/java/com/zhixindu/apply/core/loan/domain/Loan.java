@@ -16,9 +16,9 @@ public class Loan implements Serializable {
 
     private BigDecimal loan_amount;
 
-    private Short loan_term;
+    private Integer loan_term;
 
-    private Short interest_rate;
+    private Integer interest_rate;
 
     private BigDecimal loan_interest;
 
@@ -80,19 +80,19 @@ public class Loan implements Serializable {
         this.loan_amount = loan_amount;
     }
 
-    public Short getLoan_term() {
+    public Integer getLoan_term() {
         return loan_term;
     }
 
-    public void setLoan_term(Short loan_term) {
+    public void setLoan_term(Integer loan_term) {
         this.loan_term = loan_term;
     }
 
-    public Short getInterest_rate() {
+    public Integer getInterest_rate() {
         return interest_rate;
     }
 
-    public void setInterest_rate(Short interest_rate) {
+    public void setInterest_rate(Integer interest_rate) {
         this.interest_rate = interest_rate;
     }
 

@@ -1,8 +1,13 @@
-package com.zhixindu.apply.core.lender.domain;
+package com.zhixindu.apply.facade.lender.bo;
+
+import com.zhixindu.apply.facade.lender.enums.WorkState;
 
 import java.io.Serializable;
 
 public class LenderAddress implements Serializable {
+
+    private static final long serialVersionUID = 2319732869984633192L;
+
     private Integer address_id;
 
     private Integer lender_id;
@@ -11,15 +16,13 @@ public class LenderAddress implements Serializable {
 
     private String home_address;
 
-    private Integer work_state;
+    private WorkState work_state;
 
     private String company_name;
 
     private Integer company_address_code;
 
     private String company_address;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getAddress_id() {
         return address_id;
@@ -53,11 +56,11 @@ public class LenderAddress implements Serializable {
         this.home_address = home_address == null ? null : home_address.trim();
     }
 
-    public Integer getWork_state() {
+    public WorkState getWork_state() {
         return work_state;
     }
 
-    public void setWork_state(Integer work_state) {
+    public void setWork_state(WorkState work_state) {
         this.work_state = work_state;
     }
 

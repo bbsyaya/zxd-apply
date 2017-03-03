@@ -1,92 +1,355 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.lender.dao.LenderContactMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderContact">
-        <id column="contact_id" jdbcType="INTEGER" property="contact_id"/>
-        <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
-        <result column="contact_relationship" jdbcType="SMALLINT" property="contact_relationship"/>
-        <result column="contact_name" jdbcType="VARCHAR" property="contact_name"/>
-        <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile"/>
-    </resultMap>
-    <sql id="Base_Column_List">
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderContact">
+    <id column="contact_id" jdbcType="INTEGER" property="contact_id" />
+    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="contact_relationship" jdbcType="INTEGER" property="contact_relationship" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contact_name" />
+    <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
     contact_id, lender_id, contact_relationship, contact_name, contact_mobile
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from lender_contact
-        where contact_id = #{contact_id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from lender_contact
     where contact_id = #{contact_id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
-        <selectKey keyProperty="contact_id" resultType="int">
-            select LAST_INSERT_ID()
-        </selectKey>
-        insert into lender_contact (contact_id, lender_id, contact_relationship,
-        contact_name, contact_mobile)
-        values (#{contact_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER},
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact (contact_id, lender_id, contact_relationship, 
+      contact_name, contact_mobile)
+    values (#{contact_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{contact_relationship,jdbcType=INTEGER}, 
+      #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        contact_id,
+      </if>
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship,
+      </if>
+      <if test="contact_name != null">
+        contact_name,
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        #{contact_id,jdbcType=INTEGER},
+      </if>
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        #{contact_relationship,jdbcType=INTEGER},
+      </if>
+      <if test="contact_name != null">
+        #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    <set>
+      <if test="lender_id != null">
+        lender_id = #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship = #{contact_relationship,jdbcType=INTEGER},
+      </if>
+      <if test="contact_name != null">
+        contact_name = #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    set lender_id = #{lender_id,jdbcType=INTEGER},
+      contact_relationship = #{contact_relationship,jdbcType=INTEGER},
+      contact_name = #{contact_name,jdbcType=VARCHAR},
+      contact_mobile = #{contact_mobile,jdbcType=VARCHAR}
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderContact">
+    <id column="contact_id" jdbcType="INTEGER" property="contact_id" />
+    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="contact_relationship" jdbcType="SMALLINT" property="contact_relationship" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contact_name" />
+    <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    contact_id, lender_id, contact_relationship, contact_name, contact_mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact (contact_id, lender_id, contact_relationship, 
+      contact_name, contact_mobile)
+    values (#{contact_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{contact_relationship,jdbcType=SMALLINT}, 
+      #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        contact_id,
+      </if>
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship,
+      </if>
+      <if test="contact_name != null">
+        contact_name,
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        #{contact_id,jdbcType=INTEGER},
+      </if>
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
         #{contact_relationship,jdbcType=SMALLINT},
-        #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
-        insert into lender_contact
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="contact_id != null">
-                contact_id,
-            </if>
-            <if test="lender_id != null">
-                lender_id,
-            </if>
-            <if test="contact_relationship != null">
-                contact_relationship,
-            </if>
-            <if test="contact_name != null">
-                contact_name,
-            </if>
-            <if test="contact_mobile != null">
-                contact_mobile,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="contact_id != null">
-                #{contact_id,jdbcType=INTEGER},
-            </if>
-            <if test="lender_id != null">
-                #{lender_id,jdbcType=INTEGER},
-            </if>
-            <if test="contact_relationship != null">
-                #{contact_relationship,jdbcType=SMALLINT},
-            </if>
-            <if test="contact_name != null">
-                #{contact_name,jdbcType=VARCHAR},
-            </if>
-            <if test="contact_mobile != null">
-                #{contact_mobile,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
-        update lender_contact
-        <set>
-            <if test="lender_id != null">
-                lender_id = #{lender_id,jdbcType=INTEGER},
-            </if>
-            <if test="contact_relationship != null">
-                contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
-            </if>
-            <if test="contact_name != null">
-                contact_name = #{contact_name,jdbcType=VARCHAR},
-            </if>
-            <if test="contact_mobile != null">
-                contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where contact_id = #{contact_id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+      </if>
+      <if test="contact_name != null">
+        #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    <set>
+      <if test="lender_id != null">
+        lender_id = #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
+      </if>
+      <if test="contact_name != null">
+        contact_name = #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    set lender_id = #{lender_id,jdbcType=INTEGER},
+      contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
+      contact_name = #{contact_name,jdbcType=VARCHAR},
+      contact_mobile = #{contact_mobile,jdbcType=VARCHAR}
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderContact">
+    <id column="contact_id" jdbcType="INTEGER" property="contact_id" />
+    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="contact_relationship" jdbcType="SMALLINT" property="contact_relationship" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contact_name" />
+    <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    contact_id, lender_id, contact_relationship, contact_name, contact_mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact (contact_id, lender_id, contact_relationship, 
+      contact_name, contact_mobile)
+    values (#{contact_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{contact_relationship,jdbcType=SMALLINT}, 
+      #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        contact_id,
+      </if>
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship,
+      </if>
+      <if test="contact_name != null">
+        contact_name,
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        #{contact_id,jdbcType=INTEGER},
+      </if>
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        #{contact_relationship,jdbcType=SMALLINT},
+      </if>
+      <if test="contact_name != null">
+        #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    <set>
+      <if test="lender_id != null">
+        lender_id = #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
+      </if>
+      <if test="contact_name != null">
+        contact_name = #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    set lender_id = #{lender_id,jdbcType=INTEGER},
+      contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
+      contact_name = #{contact_name,jdbcType=VARCHAR},
+      contact_mobile = #{contact_mobile,jdbcType=VARCHAR}
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderContact">
+    <id column="contact_id" jdbcType="INTEGER" property="contact_id" />
+    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="contact_relationship" jdbcType="SMALLINT" property="contact_relationship" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contact_name" />
+    <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    contact_id, lender_id, contact_relationship, contact_name, contact_mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lender_contact
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact (contact_id, lender_id, contact_relationship, 
+      contact_name, contact_mobile)
+    values (#{contact_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{contact_relationship,jdbcType=SMALLINT}, 
+      #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    insert into lender_contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        contact_id,
+      </if>
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship,
+      </if>
+      <if test="contact_name != null">
+        contact_name,
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contact_id != null">
+        #{contact_id,jdbcType=INTEGER},
+      </if>
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        #{contact_relationship,jdbcType=SMALLINT},
+      </if>
+      <if test="contact_name != null">
+        #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
+    update lender_contact
+    <set>
+      <if test="lender_id != null">
+        lender_id = #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="contact_relationship != null">
+        contact_relationship = #{contact_relationship,jdbcType=SMALLINT},
+      </if>
+      <if test="contact_name != null">
+        contact_name = #{contact_name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact_mobile != null">
+        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contact_id = #{contact_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderContact">
     update lender_contact
     set lender_id = #{lender_id,jdbcType=INTEGER},
       contact_relationship = #{contact_relationship,jdbcType=SMALLINT},

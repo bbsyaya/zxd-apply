@@ -1,4 +1,4 @@
-package com.zhixindu.apply.core.lender.domain;
+package com.zhixindu.apply.facade.lender.bo;
 
 import java.io.Serializable;
 
