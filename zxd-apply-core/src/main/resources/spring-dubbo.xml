@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <context:property-placeholder location="classpath:/apply.properties" file-encoding="UTF-8"/>
+    <dubbo:application name="zxd-apply"/>
+    <dubbo:registry id="registry" address="${zookeeper.registry}"/>
+    <dubbo:protocol name="dubbo" port="20788"/>
+    <dubbo:consumer check="false" timeout="5000"/>
+
+    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness"
+                   ref="dubboApplyLenderWechatBusiness"/>
+    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness"
+                   ref="dubboApplyLenderMgtBusiness"/>
+    <dubbo:service interface="com.zhixindu.apply.facade.loan.business.DubboApplyLoanWechatBusiness"
+                   ref="dubboApplyLoanWechatBusiness"/>
+    <dubbo:service interface="com.zhixindu.apply.facade.loan.business.DubboApplyLoanMgtBusiness"
+                   ref="dubboApplyLoanMgtBusiness"/>
+    <dubbo:service interface="com.zhixindu.apply.facade.region.business.DubboApplyRegionBusiness"
+                   ref="dubboApplyRegionBusiness"/>
+
+</beans>
