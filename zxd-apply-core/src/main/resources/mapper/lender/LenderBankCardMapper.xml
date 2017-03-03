@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.lender.dao.LenderBankCardMapper">
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderBankCard">
+    <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id" />
+    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bank_name" />
+    <result column="bank_code" jdbcType="SMALLINT" property="bank_code" />
+    <result column="bank_verfy" jdbcType="TINYINT" property="bank_verfy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bank_card_id, lender_id, bank_card_number, bank_name, bank_code, bank_verfy
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender_bank_card
+    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lender_bank_card
+    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
+    insert into lender_bank_card (bank_card_id, lender_id, bank_card_number, 
+      bank_name, bank_code, bank_verfy
+      )
+    values (#{bank_card_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR}, 
+      #{bank_name,jdbcType=VARCHAR}, #{bank_code,jdbcType=SMALLINT}, #{bank_verfy,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
+    insert into lender_bank_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bank_card_id != null">
+        bank_card_id,
+      </if>
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="bank_card_number != null">
+        bank_card_number,
+      </if>
+      <if test="bank_name != null">
+        bank_name,
+      </if>
+      <if test="bank_code != null">
+        bank_code,
+      </if>
+      <if test="bank_verfy != null">
+        bank_verfy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bank_card_id != null">
+        #{bank_card_id,jdbcType=INTEGER},
+      </if>
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="bank_card_number != null">
+        #{bank_card_number,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_name != null">
+        #{bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_code != null">
+        #{bank_code,jdbcType=SMALLINT},
+      </if>
+      <if test="bank_verfy != null">
+        #{bank_verfy,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
+    update lender_bank_card
+    <set>
+      <if test="lender_id != null">
+        lender_id = #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="bank_card_number != null">
+        bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_name != null">
+        bank_name = #{bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_code != null">
+        bank_code = #{bank_code,jdbcType=SMALLINT},
+      </if>
+      <if test="bank_verfy != null">
+        bank_verfy = #{bank_verfy,jdbcType=TINYINT},
+      </if>
+    </set>
+    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
+    update lender_bank_card
+    set lender_id = #{lender_id,jdbcType=INTEGER},
+      bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+      bank_name = #{bank_name,jdbcType=VARCHAR},
+      bank_code = #{bank_code,jdbcType=SMALLINT},
+      bank_verfy = #{bank_verfy,jdbcType=TINYINT}
+    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+  </update>
+</mapper>

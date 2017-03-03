@@ -30,7 +30,7 @@ import java.util.Properties;
 @MapperScan({"com.zhixindu.apply.core.*.dao"})
 @PropertySource(value = {"classpath:/apply.properties"})
 @EnableTransactionManagement
-public class AppDataConfig {
+public class DatabaseConfig {
 
     @Value("${connection.url}")
     private String url;
@@ -123,7 +123,7 @@ public class AppDataConfig {
         paginationInterceptor.setProperties(properties);
         sessionFactory.setPlugins(new Interceptor[]{paginationInterceptor});
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mapper/*Mapper.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mapper/**/*Mapper.xml"));
         return sessionFactory;
     }
 

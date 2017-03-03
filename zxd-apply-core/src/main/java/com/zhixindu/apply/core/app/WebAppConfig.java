@@ -1,8 +1,6 @@
 package com.zhixindu.apply.core.app;
 
 import com.zhixindu.commons.client.JedisClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,8 +27,6 @@ import redis.clients.jedis.JedisPoolConfig;
 @ImportResource({"classpath:/spring-dubbo.xml"})
 public class WebAppConfig {
 
-    public final static Logger LOGGER = LoggerFactory.getLogger(WebAppConfig.class);
-
     @Value("${redis.hostName}")
     private String redisHostName;
     @Value("${redis.port}")
@@ -41,6 +37,8 @@ public class WebAppConfig {
     private String redisPassword;
     @Value("${redis.database}")
     private int redisDatabase;
+    @Value("${redis.clientName}")
+    private String clientName;
 
     @Value("${redis.pool.maxIdle}")
     private int redisMaxIdle;
@@ -58,7 +56,9 @@ public class WebAppConfig {
         jedisPoolConfig.setMinIdle(redisMinIdle);
         jedisPoolConfig.setMaxTotal(redisMaxTotal);
         jedisPoolConfig.setMaxWaitMillis(redisMaxWaitMillis);
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig,redisHostName,redisPort,redisTimeout,redisPassword,redisDatabase);
+
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisHostName, redisPort, redisTimeout, redisPassword,
+                redisDatabase, clientName);
         JedisClient jedisClient = new JedisClient();
         jedisClient.setJedisPool(jedisPool);
         return jedisClient;

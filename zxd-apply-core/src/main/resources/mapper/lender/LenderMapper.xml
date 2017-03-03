@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.lender.dao.LenderMapper">
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.Lender">
+    <id column="lender_id" jdbcType="INTEGER" property="lender_id" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customer_id" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="service_password" jdbcType="VARCHAR" property="service_password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id_card" jdbcType="VARCHAR" property="id_card" />
+    <result column="mobile_verify" jdbcType="TINYINT" property="mobile_verify" />
+    <result column="bank_card_verify" jdbcType="TINYINT" property="bank_card_verify" />
+    <result column="credit_situation" jdbcType="VARCHAR" property="credit_situation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    lender_id, customer_id, mobile, service_password, name, id_card, mobile_verify, bank_card_verify, 
+    credit_situation
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lender
+    where lender_id = #{lender_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lender
+    where lender_id = #{lender_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.Lender">
+    insert into lender (lender_id, customer_id, mobile, 
+      service_password, name, id_card, 
+      mobile_verify, bank_card_verify, credit_situation
+      )
+    values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR}, 
+      #{mobile_verify,jdbcType=TINYINT}, #{bank_card_verify,jdbcType=TINYINT}, #{credit_situation,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.Lender">
+    insert into lender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lender_id != null">
+        lender_id,
+      </if>
+      <if test="customer_id != null">
+        customer_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="service_password != null">
+        service_password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="id_card != null">
+        id_card,
+      </if>
+      <if test="mobile_verify != null">
+        mobile_verify,
+      </if>
+      <if test="bank_card_verify != null">
+        bank_card_verify,
+      </if>
+      <if test="credit_situation != null">
+        credit_situation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lender_id != null">
+        #{lender_id,jdbcType=INTEGER},
+      </if>
+      <if test="customer_id != null">
+        #{customer_id,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="service_password != null">
+        #{service_password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id_card != null">
+        #{id_card,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile_verify != null">
+        #{mobile_verify,jdbcType=TINYINT},
+      </if>
+      <if test="bank_card_verify != null">
+        #{bank_card_verify,jdbcType=TINYINT},
+      </if>
+      <if test="credit_situation != null">
+        #{credit_situation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.Lender">
+    update lender
+    <set>
+      <if test="customer_id != null">
+        customer_id = #{customer_id,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="service_password != null">
+        service_password = #{service_password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id_card != null">
+        id_card = #{id_card,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile_verify != null">
+        mobile_verify = #{mobile_verify,jdbcType=TINYINT},
+      </if>
+      <if test="bank_card_verify != null">
+        bank_card_verify = #{bank_card_verify,jdbcType=TINYINT},
+      </if>
+      <if test="credit_situation != null">
+        credit_situation = #{credit_situation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lender_id = #{lender_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.Lender">
+    update lender
+    set customer_id = #{customer_id,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      service_password = #{service_password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      id_card = #{id_card,jdbcType=VARCHAR},
+      mobile_verify = #{mobile_verify,jdbcType=TINYINT},
+      bank_card_verify = #{bank_card_verify,jdbcType=TINYINT},
+      credit_situation = #{credit_situation,jdbcType=VARCHAR}
+    where lender_id = #{lender_id,jdbcType=INTEGER}
+  </update>
+</mapper>
