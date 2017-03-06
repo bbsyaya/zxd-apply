@@ -12,6 +12,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtInfo;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtQueryParm;
+import com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by SteveGuo on 2017/3/3.
  */
 @Business("lenderMgtBusiness")
-public class LenderMgtBusinessImpl implements LenderMgtBusiness {
+public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
 
     @Inject
     private LenderMapper lenderMapper;

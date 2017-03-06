@@ -1,9 +1,13 @@
-package com.zhixindu.apply.core.loan.domain;
+package com.zhixindu.apply.facade.loan.bo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Loan implements Serializable {
+/**
+ * Created by SteveGuo on 2017/3/3.
+ */
+public class LoanBO implements Serializable{
+    private static final long serialVersionUID = 7495884147315934344L;
     private Integer loan_id;
 
     private Integer lender_id;
@@ -29,8 +33,6 @@ public class Loan implements Serializable {
     private BigDecimal account_amount;
 
     private String receipt_card_number;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getLoan_id() {
         return loan_id;
