@@ -60,12 +60,6 @@ public class DatabaseConfig {
     private boolean testOnReturn;
     @Value("${druid.poolPreparedStatements}")
     private boolean poolPreparedStatements;
-    @Value("${druid.removeAbandoned}")
-    private boolean removeAbandoned;
-    @Value("${druid.removeAbandonedTimeoutMillis}")
-    private long removeAbandonedTimeoutMillis;
-    @Value("${druid.logAbandoned}")
-    private boolean logAbandoned;
     @Value("${druid.filters}")
     private String filters;
     @Value("${druid.connectionProperties}")
