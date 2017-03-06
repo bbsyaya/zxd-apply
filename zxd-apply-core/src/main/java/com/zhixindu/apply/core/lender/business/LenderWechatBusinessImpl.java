@@ -69,7 +69,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == lenderPO) {
             lenderPO = new LenderPO();
             BeanUtils.copyProperties(lenderBaseInfoBO, lenderPO);
-            lenderService.saveLender(lenderPO);
+            lenderService.saveLenderBaseInfo(lenderPO);
         }
         BeanUtils.copyProperties(lenderPO, lenderBO);
         AddressPO addressPO = lenderAddressMapper.selectByLenderId(lenderBO.getLender_id());

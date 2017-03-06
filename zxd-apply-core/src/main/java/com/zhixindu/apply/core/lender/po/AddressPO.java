@@ -1,5 +1,7 @@
 package com.zhixindu.apply.core.lender.po;
 
+import com.zhixindu.apply.facade.lender.enums.WorkState;
+
 import java.io.Serializable;
 
 public class AddressPO implements Serializable {
@@ -14,7 +16,7 @@ public class AddressPO implements Serializable {
 
     private String home_address;
 
-    private Integer work_state;
+    private WorkState work_state;
 
     private String company_name;
 
@@ -54,11 +56,11 @@ public class AddressPO implements Serializable {
         this.home_address = home_address == null ? null : home_address.trim();
     }
 
-    public Integer getWork_state() {
+    public WorkState getWork_state() {
         return work_state;
     }
 
-    public void setWork_state(Integer work_state) {
+    public void setWork_state(WorkState work_state) {
         this.work_state = work_state;
     }
 
