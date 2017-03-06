@@ -10,10 +10,12 @@ import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
+import com.zhixindu.commons.repository.PageRepository;
 import com.zhixindu.commons.utils.Parameters;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -23,6 +25,9 @@ public class LoanMgtBusinessImpl implements DubboApplyLoanMgtBusiness{
 
     @Inject
     private LoanMapper loanMapper;
+
+    @Inject
+    private PageRepository pageRepository;
 
     @Override
     public LoanMgtInfo getLoanInfoByLenderId(Integer lender_id) throws ServiceException {
@@ -38,6 +43,13 @@ public class LoanMgtBusinessImpl implements DubboApplyLoanMgtBusiness{
 
     @Override
     public PageResult<LoanMgtInfo> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException {
-      return null;
+        if(parm == null){
+            return new PageResult<LoanMgtInfo>(new ArrayList<LoanMgtInfo>(0), 0);
+        }
+        PageResult<LoanMgtInfo> pageResult = pageRepository.selectPaging(LoanMapper.class,"selectLoansByPage",parm);
+        if(pageResult == null){
+            return new PageResult<LoanMgtInfo>(new ArrayList<LoanMgtInfo>(0), 0);
+        }
+        return pageResult;
     }
 }

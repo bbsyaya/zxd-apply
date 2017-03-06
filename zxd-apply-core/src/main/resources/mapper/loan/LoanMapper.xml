@@ -23,6 +23,11 @@
         receipt_card_number
       </sql>
 
+    <sql id="whereSql">
+        <where>
+        </where>
+    </sql>
+
       <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -199,6 +204,14 @@
         <include refid="Base_Column_List" />
         from loan
         where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectLoansByPage" parameterType="com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfoParm" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from loan
+        <include refid="whereSql"/>
     </select>
 
 </mapper>
