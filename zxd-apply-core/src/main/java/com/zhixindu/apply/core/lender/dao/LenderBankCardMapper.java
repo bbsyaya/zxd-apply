@@ -1,17 +1,17 @@
 package com.zhixindu.apply.core.lender.dao;
 
 
-import com.zhixindu.apply.core.lender.po.BankCardPO;
+import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LenderBankCardMapper {
 
-    int insertSelective(BankCardPO record);
+    int insertSelective(BankCardBO record);
 
-    BankCardPO selectByPrimaryKey(Integer bank_card_id);
+    BankCardBO selectByPrimaryKey(Integer bank_card_id);
 
-    int updateByPrimaryKeySelective(BankCardPO record);
+    int updateByPrimaryKeySelective(BankCardBO record);
 
-    BankCardPO selectByLenderId(Integer lender_id);
+    BankCardBO selectByLenderId(Integer lender_id);
 }

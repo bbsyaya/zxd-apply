@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.lenderBO.dao.LenderMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.po.LenderPO">
+<mapper namespace="com.zhixindu.apply.core.lenderInfoBO.dao.LenderMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.LenderBO">
         <id column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
@@ -21,15 +21,15 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lenderBO
+        from lenderInfoBO
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.po.LenderPO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lenderBO
+        insert into lenderInfoBO
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="customer_id != null">
                 customer_id,
@@ -84,8 +84,8 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.po.LenderPO">
-        update lenderBO
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        update lenderInfoBO
         <set>
             <if test="customer_id != null">
                 customer_id = #{customer_id,jdbcType=VARCHAR},
@@ -117,14 +117,14 @@
 
     <select id="selectCreditSituationByCustomerId" parameterType="java.lang.String" resultType="java.lang.String">
         select credit_situation
-        from lenderBO
+        from lenderInfoBO
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
     <select id="selectByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lenderBO
+        from lenderInfoBO
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 

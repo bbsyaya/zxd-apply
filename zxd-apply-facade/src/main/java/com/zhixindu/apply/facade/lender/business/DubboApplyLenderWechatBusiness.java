@@ -3,7 +3,7 @@ package com.zhixindu.apply.facade.lender.business;
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
-import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileBO;
 import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
@@ -27,7 +27,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderBaseInfoBO
      * @return
      */
-    LenderBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO);
+    LenderInfoBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO);
 
     /**
      * 根据lenderId查找借款人联系人信息

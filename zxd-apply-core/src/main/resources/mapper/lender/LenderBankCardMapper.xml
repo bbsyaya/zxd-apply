@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.lenderBO.dao.LenderBankCardMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.po.BankCardPO">
+<mapper namespace="com.zhixindu.apply.core.lenderInfoBO.dao.LenderBankCardMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
@@ -21,7 +21,7 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.po.BankCardPO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -63,7 +63,7 @@
     </insert>
 
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.zhixindu.apply.core.lender.po.BankCardPO">
+            parameterType="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         update lender_bank_card
         <set>
             <if test="lender_id != null">

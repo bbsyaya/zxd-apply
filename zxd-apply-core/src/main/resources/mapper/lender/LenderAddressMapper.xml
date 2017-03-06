@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.lenderBO.dao.AddressMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.po.AddressPO">
+<mapper namespace="com.zhixindu.apply.core.lenderInfoBO.dao.AddressMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.AddressBO">
         <id column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="home_address_code" jdbcType="INTEGER" property="home_address_code"/>
@@ -24,7 +24,7 @@
         where address_id = #{address_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.core.lender.po.AddressPO">
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -36,7 +36,7 @@
           #{company_address_code,jdbcType=INTEGER}, #{company_address,jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.po.AddressPO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
         update lender_address
         set lender_id = #{lender_id,jdbcType=INTEGER},
           home_address_code = #{home_address_code,jdbcType=INTEGER},

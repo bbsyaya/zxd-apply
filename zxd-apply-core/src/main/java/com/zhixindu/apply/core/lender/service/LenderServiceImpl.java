@@ -4,10 +4,10 @@ import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
-import com.zhixindu.apply.core.lender.po.AddressPO;
-import com.zhixindu.apply.core.lender.po.BankCardPO;
-import com.zhixindu.apply.core.lender.po.ContactPO;
-import com.zhixindu.apply.core.lender.po.LenderPO;
+import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.MobileBO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,22 +32,22 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveLenderBaseInfo(LenderPO lenderPO) {
-        return lenderMapper.insertSelective(lenderPO);
+    public int saveLenderBaseInfo(LenderBO lenderBO) {
+        return lenderMapper.insertSelective(lenderBO);
     }
 
     @Override
-    public int saveOrUpdateAddress(AddressPO addressPO) {
+    public int saveOrUpdateAddress(AddressBO addressBO) {
         return 0;
     }
 
     @Override
-    public int saveOrUpdateContact(List<ContactPO> contactPOList) {
+    public int saveOrUpdateContact(List<ContactBO> contactBOList) {
         return 0;
     }
 
     @Override
-    public int saveOrUpdateBankCard(BankCardPO bankCardPO) {
+    public int saveOrUpdateBankCard(BankCardBO bankCardBO) {
         return 0;
     }
 

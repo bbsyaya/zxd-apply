@@ -5,14 +5,11 @@ import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
-import com.zhixindu.apply.core.lender.po.AddressPO;
-import com.zhixindu.apply.core.lender.po.BankCardPO;
-import com.zhixindu.apply.core.lender.po.ContactPO;
-import com.zhixindu.apply.core.lender.po.LenderPO;
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtInfo;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtQueryParm;
 import com.zhixindu.commons.annotation.Business;
@@ -23,7 +20,6 @@ import com.zhixindu.commons.utils.Parameters;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,36 +41,30 @@ public class LenderMgtBusinessImpl implements LenderMgtBusiness {
     private LenderAddressMapper lenderAddressMapper;
 
     @Override
-    public PageResult<LenderBO> findLenderInfoByPage(LenderMgtQueryParm param) throws ServiceException {
+    public PageResult<LenderInfoBO> findLenderInfoByPage(LenderMgtQueryParm param) throws ServiceException {
         return null;
     }
 
     @Override
     public LenderMgtInfo getLenderInfo(String customer_id) throws ServiceException {
         Parameters.requireNotNull(customer_id,"getLenderInfo customerId illegal_param !");
-        LenderPO lender = lenderMapper.selectByCustomerId(customer_id);
+        LenderBO lender = lenderMapper.selectByCustomerId(customer_id);
         if(null == lender){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询的申请信息无结果!!!");
         }
         LenderMgtInfo lenderMgtInfo = new LenderMgtInfo();
         BeanUtils.copyProperties(lenderMgtInfo,lender);
-        BankCardPO bankCardPO = lenderBankCardMapper.selectByLenderId(lender.getLender_id());
-        if(bankCardPO != null){
-            BankCardBO bankCardBO = new BankCardBO();
-            BeanUtils.copyProperties(bankCardBO,bankCardPO);
+        BankCardBO bankCardBO = lenderBankCardMapper.selectByLenderId(lender.getLender_id());
+        if(bankCardBO != null){
             lenderMgtInfo.setBankCardBO(bankCardBO);
         }
 
-        List<ContactPO> lenderContacts = lenderContactMapper.selectByLenderId(lender.getLender_id());
-        if(CollectionUtils.isNotEmpty(lenderContacts)){
-            List<ContactBO> contactBOs = new ArrayList<>();
-            BeanUtils.copyProperties(lenderContacts,contactBOs);
-            lenderMgtInfo.setContactBOs(contactBOs);
+        List<ContactBO> contactBOList = lenderContactMapper.selectByLenderId(lender.getLender_id());
+        if(CollectionUtils.isNotEmpty(contactBOList)){
+            lenderMgtInfo.setContactBOs(contactBOList);
         }
-        AddressPO lenderAddress = lenderAddressMapper.selectByLenderId(lender.getLender_id());
-        if(lenderAddress != null){
-            AddressBO addressBO = new AddressBO();
-            BeanUtils.copyProperties(addressBO,lenderAddress);
+        AddressBO addressBO = lenderAddressMapper.selectByLenderId(lender.getLender_id());
+        if(addressBO != null){
             lenderMgtInfo.setAddressBO(addressBO);
         }
         return lenderMgtInfo;

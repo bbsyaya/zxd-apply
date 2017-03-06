@@ -1,20 +1,20 @@
 package com.zhixindu.apply.core.lender.dao;
 
 
-import com.zhixindu.apply.core.lender.po.LenderPO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LenderMapper {
 
-    int insertSelective(LenderPO record);
+    int insertSelective(LenderBO record);
 
-    LenderPO selectByPrimaryKey(Integer lender_id);
+    LenderBO selectByPrimaryKey(Integer lender_id);
 
-    int updateByPrimaryKeySelective(LenderPO record);
+    int updateByPrimaryKeySelective(LenderBO record);
 
     String selectCreditSituationByCustomerId(String customer_id);
 
-    LenderPO selectByCustomerId(String customer_id);
+    LenderBO selectByCustomerId(String customer_id);
 
 }

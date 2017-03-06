@@ -1,10 +1,10 @@
 package com.zhixindu.apply.core.lender.service;
 
 
-import com.zhixindu.apply.core.lender.po.AddressPO;
-import com.zhixindu.apply.core.lender.po.BankCardPO;
-import com.zhixindu.apply.core.lender.po.ContactPO;
-import com.zhixindu.apply.core.lender.po.LenderPO;
+import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.MobileBO;
 
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface LenderService {
 
-    int saveLenderBaseInfo(LenderPO lenderPO);
+    int saveLenderBaseInfo(LenderBO lenderBO);
 
-    int saveOrUpdateAddress(AddressPO addressPO);
+    int saveOrUpdateAddress(AddressBO addressBO);
 
-    int saveOrUpdateContact(List<ContactPO> contactPOList);
+    int saveOrUpdateContact(List<ContactBO> contactBOList);
 
-    int saveOrUpdateBankCard(BankCardPO bankCardPO);
+    int saveOrUpdateBankCard(BankCardBO bankCardBO);
 
     int saveMobileVerify(MobileBO mobileBO);
 
