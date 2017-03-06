@@ -4,8 +4,11 @@ package com.zhixindu.apply.facade.lender.business;
  * Created by SteveGuo on 2017/3/3.
  */
 
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtInfo;
+import com.zhixindu.apply.facade.lender.bo.LenderMgtQueryParm;
 import com.zhixindu.commons.api.ServiceException;
+import com.zhixindu.commons.page.PageResult;
 
 /**
  * @author SteveGuo
@@ -13,6 +16,11 @@ import com.zhixindu.commons.api.ServiceException;
  * @description
  */
 public interface DubboApplyLenderMgtBusiness {
+
+    /**
+     * 申请人列表
+     */
+    PageResult<LenderBO>  findLenderInfoByPage(LenderMgtQueryParm param) throws ServiceException;
 
     /**
      * 通过customerId获取申请基本信息

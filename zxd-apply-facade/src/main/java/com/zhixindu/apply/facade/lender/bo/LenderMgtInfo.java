@@ -19,11 +19,11 @@ public class LenderMgtInfo implements Serializable {
     private static final long serialVersionUID = -8507298900725978088L;
 
     /**
-     * 借款人ID
+     * 借款ID
      */
     private Integer lender_id;
     /**
-     * 借款人客户ID
+     * 借款人ID
      */
     private String customer_id;
     /**
@@ -49,15 +49,15 @@ public class LenderMgtInfo implements Serializable {
     /**
      * 地址
      */
-    private LenderMgtAddress lenderMgtAddress;
+    private AddressBO addressBO;
     /**
      * 联系人
      */
-    private List<LenderMgtContact> lenderMgtContacts;
+    private List<ContactBO> contactBOs;
     /**
      * 银行卡
      */
-    private LenderMgtBankCard lenderMgtBankCard;
+    private BankCardBO bankCardBO;
 
     public Integer getLender_id() {
         return lender_id;
@@ -115,27 +115,27 @@ public class LenderMgtInfo implements Serializable {
         this.bank_card_verify = bank_card_verify;
     }
 
-    public LenderMgtAddress getLenderMgtAddress() {
-        return lenderMgtAddress;
+    public AddressBO getAddressBO() {
+        return addressBO;
     }
 
-    public void setLenderMgtAddress(LenderMgtAddress lenderMgtAddress) {
-        this.lenderMgtAddress = lenderMgtAddress;
+    public void setAddressBO(AddressBO addressBO) {
+        this.addressBO = addressBO;
     }
 
-    public List<LenderMgtContact> getLenderMgtContacts() {
-        return lenderMgtContacts;
+    public List<ContactBO> getContactBOs() {
+        return contactBOs;
     }
 
-    public void setLenderMgtContacts(List<LenderMgtContact> lenderMgtContacts) {
-        this.lenderMgtContacts = lenderMgtContacts;
+    public void setContactBOs(List<ContactBO> contactBOs) {
+        this.contactBOs = contactBOs;
     }
 
-    public LenderMgtBankCard getLenderMgtBankCard() {
-        return lenderMgtBankCard;
+    public BankCardBO getBankCardBO() {
+        return bankCardBO;
     }
 
-    public void setLenderMgtBankCard(LenderMgtBankCard lenderMgtBankCard) {
-        this.lenderMgtBankCard = lenderMgtBankCard;
+    public void setBankCardBO(BankCardBO bankCardBO) {
+        this.bankCardBO = bankCardBO;
     }
 }
