@@ -2,7 +2,9 @@ package com.zhixindu.apply.core.lender.dao;
 
 
 import com.zhixindu.apply.core.lender.po.AddressPO;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LenderAddressMapper {
 
     int insert(AddressPO record);
