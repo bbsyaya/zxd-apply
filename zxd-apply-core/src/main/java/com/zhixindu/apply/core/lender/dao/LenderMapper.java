@@ -11,4 +11,6 @@ public interface LenderMapper {
 
     int updateByPrimaryKeySelective(Lender record);
 
+    Lender selectByCustomerId(String customer_id);
+
 }

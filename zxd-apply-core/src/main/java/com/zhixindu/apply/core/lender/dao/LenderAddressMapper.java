@@ -14,4 +14,6 @@ public interface LenderAddressMapper {
     int updateByPrimaryKeySelective(LenderAddress record);
 
     int updateByPrimaryKey(LenderAddress record);
+
+    LenderAddress selectByLenderId(Integer lender_id);
 }

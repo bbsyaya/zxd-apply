@@ -103,4 +103,12 @@
       bank_card_verify = #{bank_card_verify,jdbcType=INTEGER}
     where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
   </update>
+
+    <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lender_bank_card
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
 </mapper>

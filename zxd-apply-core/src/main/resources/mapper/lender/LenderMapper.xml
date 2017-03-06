@@ -120,5 +120,11 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
+    <select id="selectByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lender
+        where customer_id = #{customer_id,jdbcType=INTEGER}
+    </select>
 
 </mapper>
