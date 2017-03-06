@@ -21,6 +21,19 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </select>
 
+    <insert id="insert" parameterType="om.zhixindu.apply.facade.lender.bo.BankCardBO">
+        <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender_bank_card (lender_id, bank_card_number,
+        bank_name, bank_address_code, bank_card_verify
+        )
+        values (#{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
+        #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},
+        #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        )
+    </insert>
+
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
@@ -57,7 +70,7 @@
                 #{bank_address_code,jdbcType=INTEGER},
             </if>
             <if test="bank_card_verify != null">
-                #{bank_card_verify,jdbcType=INTEGER},
+                #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
         </trim>
     </insert>
@@ -79,9 +92,19 @@
                 bank_address_code = #{bank_address_code,jdbcType=INTEGER},
             </if>
             <if test="bank_card_verify != null">
-                bank_card_verify = #{bank_card_verify,jdbcType=INTEGER},
+                bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
         </set>
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="om.zhixindu.apply.facade.lender.bo.BankCardBO">
+        update lender_bank_card
+        set lender_id = #{lender_id,jdbcType=INTEGER},
+        bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+        bank_name = #{bank_name,jdbcType=VARCHAR},
+        bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+        bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </update>
 
@@ -90,6 +113,13 @@
         <include refid="Base_Column_List"/>
         from lender_bank_card
         where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+    </select>
+
+    <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(bank_card_id)
+        from lender_bank_card
+        where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
 </mapper>

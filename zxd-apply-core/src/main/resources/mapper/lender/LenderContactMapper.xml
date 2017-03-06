@@ -26,14 +26,69 @@
         </selectKey>
         insert into lender_contact (lender_id, contact_relationship,
           contact_name, contact_mobile)
-        values (#{lender_id,jdbcType=INTEGER}, #{contact_relationship,jdbcType=INTEGER},
+        values (#{lender_id,jdbcType=INTEGER},
+          #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
      </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.ContactBO">
+        <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender_contact
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                lender_id,
+            </if>
+            <if test="contact_relationship != null">
+                contact_relationship,
+            </if>
+            <if test="contact_name != null">
+                contact_name,
+            </if>
+            <if test="contact_mobile != null">
+                contact_mobile,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="contact_relationship != null">
+                #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="contact_name != null">
+                #{contact_name,jdbcType=VARCHAR},
+            </if>
+            <if test="contact_mobile != null">
+                #{contact_mobile,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.ContactBO">
+        update lender_contact
+        <set>
+            <if test="lender_id != null">
+                lender_id = #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="contact_relationship != null">
+                contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="contact_name != null">
+                contact_name = #{contact_name,jdbcType=VARCHAR},
+            </if>
+            <if test="contact_mobile != null">
+                contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where contact_id = #{contact_id,jdbcType=INTEGER}
+    </update>
 
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.ContactBO">
         update lender_contact
         set lender_id = #{lender_id,jdbcType=INTEGER},
-          contact_relationship = #{contact_relationship,jdbcType=INTEGER},
+          contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           contact_name = #{contact_name,jdbcType=VARCHAR},
           contact_mobile = #{contact_mobile,jdbcType=VARCHAR}
         where contact_id = #{contact_id,jdbcType=INTEGER}
@@ -42,6 +97,13 @@
     <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
+        from lender_contact
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(contact_id)
         from lender_contact
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>

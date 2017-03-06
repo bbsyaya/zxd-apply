@@ -49,7 +49,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     @Override
     public boolean checkCreditSituation(String customerId) {
         Parameters.requireNotNull(customerId, "customerId不能为空");
-        String creditSituation = lenderMapper.selectCreditSituationByCustomerId(customerId);
+        String creditSituation = lenderMapper.selectCreditSituation(customerId);
         if(StringUtils.isBlank(creditSituation)) {
             return true;
         }
@@ -136,22 +136,24 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public int submitLenderAddress(AddressBO addressBO) {
-        return 0;
+        Parameters.requireAllPropertyNotNull(addressBO);
+        return lenderService.saveOrUpdateAddress(addressBO);
     }
 
     @Override
     public int submitLenderContact(List<ContactBO> contactBOList) {
-        return 0;
+        Parameters.requireAllPropertyNotNull(contactBOList);
+        return lenderService.saveOrUpdateContact(contactBOList);
     }
 
     @Override
     public int submitLenderBankCard(BankCardBO bankCardBO) {
-        return 0;
+        return lenderService.saveOrUpdateBankCard(bankCardBO);
     }
 
     @Override
     public int submitMobile(MobileBO mobileBO) {
-        return 0;
+        return lenderService.saveMobileVerify(mobileBO);
     }
 
 }

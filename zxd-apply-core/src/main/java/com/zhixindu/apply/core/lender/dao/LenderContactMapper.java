@@ -9,14 +9,18 @@ import java.util.List;
 @Repository
 public interface LenderContactMapper {
 
-    int deleteByPrimaryKey(Integer contact_id);
-
     int insert(ContactBO record);
+
+    int insertSelective(ContactBO record);
 
     ContactBO selectByPrimaryKey(Integer contact_id);
 
     int updateByPrimaryKey(ContactBO record);
 
+    int updateByPrimaryKeySelective(ContactBO record);
+
     List<ContactBO> selectByLenderId(Integer lender_id);
+
+    int countByLenderId(Integer lender_id);
 
 }

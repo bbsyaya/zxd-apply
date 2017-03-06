@@ -21,15 +21,31 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lenderInfoBO
+        from lender
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender (customer_id, mobile,
+        service_password, name, id_card,
+        mobile_verify, bank_card_verify, credit_situation
+        )
+        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+        #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
+        #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{credit_situation,jdbcType=VARCHAR}
+        )
+    </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lenderInfoBO
+        insert into lender
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="customer_id != null">
                 customer_id,
@@ -73,10 +89,10 @@
                 #{id_card,jdbcType=VARCHAR},
             </if>
             <if test="mobile_verify != null">
-                #{mobile_verify,jdbcType=INTEGER},
+                #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="bank_card_verify != null">
-                #{bank_card_verify,jdbcType=INTEGER},
+                #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="credit_situation != null">
                 #{credit_situation,jdbcType=VARCHAR},
@@ -85,7 +101,7 @@
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
-        update lenderInfoBO
+        update lender
         <set>
             <if test="customer_id != null">
                 customer_id = #{customer_id,jdbcType=VARCHAR},
@@ -103,10 +119,10 @@
                 id_card = #{id_card,jdbcType=VARCHAR},
             </if>
             <if test="mobile_verify != null">
-                mobile_verify = #{mobile_verify,jdbcType=INTEGER},
+                mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="bank_card_verify != null">
-                bank_card_verify = #{bank_card_verify,jdbcType=INTEGER},
+                bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="credit_situation != null">
                 credit_situation = #{credit_situation,jdbcType=VARCHAR},
@@ -115,17 +131,49 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        update lender
+        set customer_id = #{customer_id,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=VARCHAR},
+        service_password = #{service_password,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        id_card = #{id_card,jdbcType=VARCHAR},
+        mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_situation = #{credit_situation,jdbcType=VARCHAR}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
     <select id="selectCreditSituationByCustomerId" parameterType="java.lang.String" resultType="java.lang.String">
         select credit_situation
-        from lenderInfoBO
+        from lender
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
     <select id="selectByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lenderInfoBO
+        from lender
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
+
+    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.MobileBO">
+        update lender
+        set service_password = #{service_password,jdbcType=VARCHAR},
+        mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateBankCardVerify">
+        update lender
+        set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateCreditSituation">
+        update lender
+        set credit_situation = #{credit_situation,jdbcType=VARCHAR}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

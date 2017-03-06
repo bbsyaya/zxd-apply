@@ -36,24 +36,42 @@ public class LenderServiceImpl implements LenderService {
         return lenderMapper.insertSelective(lenderBO);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveOrUpdateAddress(AddressBO addressBO) {
-        return 0;
+        if(null != addressBO.getAddress_id()) {
+            return lenderAddressMapper.updateByPrimaryKey(addressBO);
+        } else {
+            return lenderAddressMapper.insert(addressBO);
+        }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveOrUpdateContact(List<ContactBO> contactBOList) {
-        return 0;
+       return contactBOList.stream().mapToInt(contactBO -> {
+            if(null != contactBO.getContact_id()) {
+                return lenderContactMapper.updateByPrimaryKey(contactBO);
+            } else {
+                return lenderContactMapper.insert(contactBO);
+            }
+        }).reduce(Integer::sum).orElse(0);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveOrUpdateBankCard(BankCardBO bankCardBO) {
-        return 0;
+        if(null != bankCardBO.getBank_id()) {
+            return lenderBankCardMapper.updateByPrimaryKey(bankCardBO);
+        } else {
+            return lenderBankCardMapper.insert(bankCardBO);
+        }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveMobileVerify(MobileBO mobileBO) {
-        return 0;
+        return lenderMapper.updateMobileVerify(mobileBO);
     }
 
 
