@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.loan.dao.LoanMapper">
-      <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.loan.domain.Loan">
+      <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.loan.bo.LoanBO">
         <id column="loan_id" jdbcType="INTEGER" property="loan_id" />
         <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
         <result column="address_id" jdbcType="INTEGER" property="address_id" />
@@ -35,7 +35,7 @@
         where loan_id = #{loan_id,jdbcType=INTEGER}
       </delete>
 
-      <insert id="insert" parameterType="com.zhixindu.apply.core.loan.domain.Loan">
+      <insert id="insert" parameterType="com.zhixindu.apply.facade.loan.bo.LoanBO">
         insert into loan (loan_id, lender_id, address_id,
           contact_id_list, bank_card_id_list, loan_amount,
           loan_term, interest_rate, loan_interest,
@@ -48,7 +48,7 @@
           #{account_amount,jdbcType=DECIMAL}, #{receipt_card_number,jdbcType=VARCHAR})
       </insert>
 
-      <insert id="insertSelective" parameterType="com.zhixindu.apply.core.loan.domain.Loan">
+      <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.loan.bo.LoanBO">
         insert into loan
         <trim prefix="(" suffix=")" suffixOverrides=",">
           <if test="loan_id != null">
@@ -133,7 +133,7 @@
           </if>
         </trim>
       </insert>
-      <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.loan.domain.Loan">
+      <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.loan.bo.LoanBO">
         update loan
         <set>
           <if test="lender_id != null">
@@ -176,7 +176,7 @@
         where loan_id = #{loan_id,jdbcType=INTEGER}
       </update>
 
-      <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.loan.domain.Loan">
+      <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.loan.bo.LoanBO">
         update loan
         set lender_id = #{lender_id,jdbcType=INTEGER},
           address_id = #{address_id,jdbcType=INTEGER},
