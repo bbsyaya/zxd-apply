@@ -1,8 +1,8 @@
-package com.zhixindu.apply.facade.lender.bo;
+package com.zhixindu.apply.facade.lender.bo.wechat;
 
 import java.io.Serializable;
 
-public class LenderContact implements Serializable {
+public class Contact implements Serializable {
     private Integer contact_id;
 
     private Integer lender_id;

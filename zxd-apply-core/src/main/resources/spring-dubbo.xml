@@ -22,7 +22,7 @@
                    ref="dubboApplyLoanWechatBusiness"/>
     <dubbo:service interface="com.zhixindu.apply.facade.loan.business.DubboApplyLoanMgtBusiness"
                    ref="dubboApplyLoanMgtBusiness"/>
-    <dubbo:service interface="com.zhixindu.apply.facade.region.business.DubboApplyRegionBusiness"
+    <dubbo:service interface="com.zhixindu.apply.facade.system.business.DubboApplyRegionBusiness"
                    ref="dubboApplyRegionBusiness"/>
 
 </beans>

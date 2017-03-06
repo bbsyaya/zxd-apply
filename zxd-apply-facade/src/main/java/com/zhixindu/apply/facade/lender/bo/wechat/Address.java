@@ -1,10 +1,10 @@
-package com.zhixindu.apply.facade.lender.bo;
+package com.zhixindu.apply.facade.lender.bo.wechat;
 
 import com.zhixindu.apply.facade.lender.enums.WorkState;
 
 import java.io.Serializable;
 
-public class LenderAddress implements Serializable {
+public class Address implements Serializable {
 
     private static final long serialVersionUID = 2319732869984633192L;
 

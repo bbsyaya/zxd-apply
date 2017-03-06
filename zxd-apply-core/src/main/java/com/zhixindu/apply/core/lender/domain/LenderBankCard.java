@@ -13,7 +13,7 @@ public class LenderBankCard implements Serializable {
 
     private Integer bank_address_code;
 
-    private Integer bank_verfy;
+    private Integer bank_card_verify;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,11 +57,11 @@ public class LenderBankCard implements Serializable {
         this.bank_address_code = bank_address_code;
     }
 
-    public Integer getBank_verfy() {
-        return bank_verfy;
+    public Integer getBank_card_verify() {
+        return bank_card_verify;
     }
 
-    public void setBank_verfy(Integer bank_verfy) {
-        this.bank_verfy = bank_verfy;
+    public void setBank_card_verify(Integer bank_card_verify) {
+        this.bank_card_verify = bank_card_verify;
     }
 }

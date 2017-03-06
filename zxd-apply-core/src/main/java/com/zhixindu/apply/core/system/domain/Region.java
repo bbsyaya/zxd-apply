@@ -1,4 +1,4 @@
-package com.zhixindu.apply.core.region.domain;
+package com.zhixindu.apply.core.system.domain;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ public class Region implements Serializable {
 
     private String suffix;
 
-    private String fullname;
+    private String full_name;
 
     private String pinyin;
 
@@ -55,12 +55,12 @@ public class Region implements Serializable {
         this.suffix = suffix == null ? null : suffix.trim();
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname == null ? null : fullname.trim();
+    public void setFull_name(String full_name) {
+        this.full_name = full_name == null ? null : full_name.trim();
     }
 
     public String getPinyin() {

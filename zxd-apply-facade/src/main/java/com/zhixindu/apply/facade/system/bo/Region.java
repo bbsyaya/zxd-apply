@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.region.bean;
+package com.zhixindu.apply.facade.system.bo;
 
 /**
  * Created by SteveGuo on 2017/3/3.

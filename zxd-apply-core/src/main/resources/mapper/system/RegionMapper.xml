@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.region.dao.RegionMapper">
-  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.region.domain.Region">
+<mapper namespace="com.zhixindu.apply.core.system.dao.RegionMapper">
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.system.domain.Region">
     <id column="region_id" jdbcType="INTEGER" property="region_id" />
     <result column="code" jdbcType="INTEGER" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="suffix" jdbcType="VARCHAR" property="suffix" />
-    <result column="fullname" jdbcType="VARCHAR" property="fullname" />
+    <result column="full_name" jdbcType="VARCHAR" property="full_name" />
     <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
     <result column="py" jdbcType="VARCHAR" property="py" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="parent_code" jdbcType="INTEGER" property="parent_code" />
   </resultMap>
   <sql id="Base_Column_List">
-    region_id, code, name, suffix, fullname, pinyin, py, level, parent_code
+    region_id, code, name, suffix, full_name, pinyin, py, level, parent_code
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,17 +25,17 @@
     delete from region
     where region_id = #{region_id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zhixindu.apply.core.region.domain.Region">
+  <insert id="insert" parameterType="com.zhixindu.apply.core.system.domain.Region">
     insert into region (region_id, code, name, 
-      suffix, fullname, pinyin, 
+      suffix, full_name, pinyin, 
       py, level, parent_code
       )
     values (#{region_id,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{suffix,jdbcType=VARCHAR}, #{fullname,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
+      #{suffix,jdbcType=VARCHAR}, #{full_name,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
       #{py,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{parent_code,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.region.domain.Region">
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.system.domain.Region">
     insert into region
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="region_id != null">
@@ -50,8 +50,8 @@
       <if test="suffix != null">
         suffix,
       </if>
-      <if test="fullname != null">
-        fullname,
+      <if test="full_name != null">
+        full_name,
       </if>
       <if test="pinyin != null">
         pinyin,
@@ -79,8 +79,8 @@
       <if test="suffix != null">
         #{suffix,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
-        #{fullname,jdbcType=VARCHAR},
+      <if test="full_name != null">
+        #{full_name,jdbcType=VARCHAR},
       </if>
       <if test="pinyin != null">
         #{pinyin,jdbcType=VARCHAR},
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.region.domain.Region">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.system.domain.Region">
     update region
     <set>
       <if test="code != null">
@@ -108,8 +108,8 @@
       <if test="suffix != null">
         suffix = #{suffix,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
-        fullname = #{fullname,jdbcType=VARCHAR},
+      <if test="full_name != null">
+        full_name = #{full_name,jdbcType=VARCHAR},
       </if>
       <if test="pinyin != null">
         pinyin = #{pinyin,jdbcType=VARCHAR},
@@ -126,12 +126,12 @@
     </set>
     where region_id = #{region_id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.region.domain.Region">
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.system.domain.Region">
     update region
     set code = #{code,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       suffix = #{suffix,jdbcType=VARCHAR},
-      fullname = #{fullname,jdbcType=VARCHAR},
+      full_name = #{full_name,jdbcType=VARCHAR},
       pinyin = #{pinyin,jdbcType=VARCHAR},
       py = #{py,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},

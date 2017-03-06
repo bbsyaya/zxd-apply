@@ -1,6 +1,6 @@
-package com.zhixindu.apply.core.region.dao;
+package com.zhixindu.apply.core.system.dao;
 
-import com.zhixindu.apply.core.region.domain.Region;
+import com.zhixindu.apply.core.system.domain.Region;
 
 public interface RegionMapper {
     int deleteByPrimaryKey(Integer region_id);

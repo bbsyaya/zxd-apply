@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.system.dao.BankMapper">
+  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.system.domain.Bank">
+    <id column="bank_id" jdbcType="INTEGER" property="bank_id" />
+    <result column="bin" jdbcType="INTEGER" property="bin" />
+    <result column="bin_length" jdbcType="INTEGER" property="bin_length" />
+    <result column="card_type" jdbcType="INTEGER" property="card_type" />
+    <result column="card_level" jdbcType="INTEGER" property="card_level" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bank_name" />
+    <result column="card_name" jdbcType="VARCHAR" property="card_name" />
+    <result column="card_full_name" jdbcType="VARCHAR" property="card_full_name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bank_id, bin, bin_length, card_type, card_level, bank_name, card_name, card_full_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank
+    where bank_id = #{bank_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bank
+    where bank_id = #{bank_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhixindu.apply.core.system.domain.Bank">
+    insert into bank (bank_id, bin, bin_length, 
+      card_type, card_level, bank_name, 
+      card_name, card_full_name)
+    values (#{bank_id,jdbcType=INTEGER}, #{bin,jdbcType=INTEGER}, #{bin_length,jdbcType=INTEGER}, 
+      #{card_type,jdbcType=INTEGER}, #{card_level,jdbcType=INTEGER}, #{bank_name,jdbcType=VARCHAR}, 
+      #{card_name,jdbcType=VARCHAR}, #{card_full_name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.system.domain.Bank">
+    insert into bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bank_id != null">
+        bank_id,
+      </if>
+      <if test="bin != null">
+        bin,
+      </if>
+      <if test="bin_length != null">
+        bin_length,
+      </if>
+      <if test="card_type != null">
+        card_type,
+      </if>
+      <if test="card_level != null">
+        card_level,
+      </if>
+      <if test="bank_name != null">
+        bank_name,
+      </if>
+      <if test="card_name != null">
+        card_name,
+      </if>
+      <if test="card_full_name != null">
+        card_full_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bank_id != null">
+        #{bank_id,jdbcType=INTEGER},
+      </if>
+      <if test="bin != null">
+        #{bin,jdbcType=INTEGER},
+      </if>
+      <if test="bin_length != null">
+        #{bin_length,jdbcType=INTEGER},
+      </if>
+      <if test="card_type != null">
+        #{card_type,jdbcType=INTEGER},
+      </if>
+      <if test="card_level != null">
+        #{card_level,jdbcType=INTEGER},
+      </if>
+      <if test="bank_name != null">
+        #{bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="card_name != null">
+        #{card_name,jdbcType=VARCHAR},
+      </if>
+      <if test="card_full_name != null">
+        #{card_full_name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.system.domain.Bank">
+    update bank
+    <set>
+      <if test="bin != null">
+        bin = #{bin,jdbcType=INTEGER},
+      </if>
+      <if test="bin_length != null">
+        bin_length = #{bin_length,jdbcType=INTEGER},
+      </if>
+      <if test="card_type != null">
+        card_type = #{card_type,jdbcType=INTEGER},
+      </if>
+      <if test="card_level != null">
+        card_level = #{card_level,jdbcType=INTEGER},
+      </if>
+      <if test="bank_name != null">
+        bank_name = #{bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="card_name != null">
+        card_name = #{card_name,jdbcType=VARCHAR},
+      </if>
+      <if test="card_full_name != null">
+        card_full_name = #{card_full_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bank_id = #{bank_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.system.domain.Bank">
+    update bank
+    set bin = #{bin,jdbcType=INTEGER},
+      bin_length = #{bin_length,jdbcType=INTEGER},
+      card_type = #{card_type,jdbcType=INTEGER},
+      card_level = #{card_level,jdbcType=INTEGER},
+      bank_name = #{bank_name,jdbcType=VARCHAR},
+      card_name = #{card_name,jdbcType=VARCHAR},
+      card_full_name = #{card_full_name,jdbcType=VARCHAR}
+    where bank_id = #{bank_id,jdbcType=INTEGER}
+  </update>
+</mapper>
