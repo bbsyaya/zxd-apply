@@ -1,8 +1,9 @@
 package com.zhixindu.apply.core.lender.dao;
 
 import com.zhixindu.apply.core.lender.domain.LenderBankCard;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LenderBankCardMapper {
     int deleteByPrimaryKey(Integer bank_card_id);
 

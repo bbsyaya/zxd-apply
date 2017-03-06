@@ -18,24 +18,45 @@ public class LenderMgtInfo implements Serializable {
 
     private static final long serialVersionUID = -8507298900725978088L;
 
+    /**
+     * 借款人ID
+     */
     private Integer lender_id;
-
+    /**
+     * 借款人客户ID
+     */
     private String customer_id;
-
+    /**
+     * 手机号
+     */
     private String mobile;
-
+    /**
+     * 姓名
+     */
     private String name;
-
+    /**
+     * 身份证号
+     */
     private String id_card;
-
+    /**
+     * 手机号认证信息
+     */
     private Integer mobile_verify;
-
+    /**
+     * 银行卡认证信息
+     */
     private Integer bank_card_verify;
-
+    /**
+     * 地址
+     */
     private LenderMgtAddress lenderMgtAddress;
-
+    /**
+     * 联系人
+     */
     private List<LenderMgtContact> lenderMgtContacts;
-
+    /**
+     * 银行卡
+     */
     private LenderMgtBankCard lenderMgtBankCard;
 
     public Integer getLender_id() {

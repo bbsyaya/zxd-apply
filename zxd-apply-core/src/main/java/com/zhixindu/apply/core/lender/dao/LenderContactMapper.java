@@ -1,7 +1,10 @@
 package com.zhixindu.apply.core.lender.dao;
 
 import com.zhixindu.apply.core.lender.domain.LenderContact;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public interface LenderContactMapper {
     int deleteByPrimaryKey(Integer contact_id);
 
@@ -15,5 +18,5 @@ public interface LenderContactMapper {
 
     int updateByPrimaryKey(LenderContact record);
 
-    LenderContact selectByLenderId(Integer lender_id);
+    List<LenderContact> selectListByLenderId(Integer lender_id);
 }

@@ -1,7 +1,9 @@
 package com.zhixindu.apply.core.lender.dao;
 
 import com.zhixindu.apply.core.lender.domain.LenderAddress;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LenderAddressMapper {
     int deleteByPrimaryKey(Integer address_id);
 
