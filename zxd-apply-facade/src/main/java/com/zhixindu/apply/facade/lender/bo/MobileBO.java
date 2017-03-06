@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.lender.bo;
 
+import com.zhixindu.apply.facade.lender.enums.MobileVerify;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +17,8 @@ public class MobileBO implements Serializable{
     private String mobile;
     /** 服务密码 */
     private String service_password;
+    /** 手机号验证 */
+    private MobileVerify mobile_verify;
 
     public Integer getLender_id() {
         return lender_id;
@@ -38,5 +42,13 @@ public class MobileBO implements Serializable{
 
     public void setService_password(String service_password) {
         this.service_password = service_password;
+    }
+
+    public MobileVerify getMobile_verify() {
+        return mobile_verify;
+    }
+
+    public void setMobile_verify(MobileVerify mobile_verify) {
+        this.mobile_verify = mobile_verify;
     }
 }
