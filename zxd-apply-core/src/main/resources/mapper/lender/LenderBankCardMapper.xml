@@ -1,106 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.lender.dao.LenderBankCardMapper">
-  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id" />
-    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
-    <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number" />
-    <result column="bank_name" jdbcType="VARCHAR" property="bank_name" />
-    <result column="bank_address_code" jdbcType="INTEGER" property="bank_address_code" />
-    <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    bank_card_id, lender_id, bank_card_number, bank_name, bank_address_code, bank_card_verify
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from lender_bank_card
-    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from lender_bank_card
-    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    insert into lender_bank_card (bank_card_id, lender_id, bank_card_number, 
-      bank_name, bank_address_code, bank_card_verify
-      )
-    values (#{bank_card_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR}, 
-      #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER}, #{bank_card_verify,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    insert into lender_bank_card
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bank_card_id != null">
-        bank_card_id,
-      </if>
-      <if test="lender_id != null">
-        lender_id,
-      </if>
-      <if test="bank_card_number != null">
-        bank_card_number,
-      </if>
-      <if test="bank_name != null">
-        bank_name,
-      </if>
-      <if test="bank_address_code != null">
-        bank_address_code,
-      </if>
-      <if test="bank_card_verify != null">
-        bank_card_verify,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bank_card_id != null">
-        #{bank_card_id,jdbcType=INTEGER},
-      </if>
-      <if test="lender_id != null">
-        #{lender_id,jdbcType=INTEGER},
-      </if>
-      <if test="bank_card_number != null">
-        #{bank_card_number,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_name != null">
-        #{bank_name,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_address_code != null">
-        #{bank_address_code,jdbcType=INTEGER},
-      </if>
-      <if test="bank_card_verify != null">
-        #{bank_card_verify,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    update lender_bank_card
-    <set>
-      <if test="lender_id != null">
-        lender_id = #{lender_id,jdbcType=INTEGER},
-      </if>
-      <if test="bank_card_number != null">
-        bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_name != null">
-        bank_name = #{bank_name,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_address_code != null">
-        bank_address_code = #{bank_address_code,jdbcType=INTEGER},
-      </if>
-      <if test="bank_card_verify != null">
-        bank_card_verify = #{bank_card_verify,jdbcType=INTEGER},
-      </if>
-    </set>
-    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.lender.domain.LenderBankCard">
-    update lender_bank_card
-    set lender_id = #{lender_id,jdbcType=INTEGER},
-      bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
-      bank_name = #{bank_name,jdbcType=VARCHAR},
-      bank_address_code = #{bank_address_code,jdbcType=INTEGER},
-      bank_card_verify = #{bank_card_verify,jdbcType=INTEGER}
-    where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.zhixindu.apply.core.lenderBO.dao.LenderBankCardMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.lender.po.BankCardPO">
+        <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
+        <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
+        <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
+        <result column="bank_address_code" jdbcType="INTEGER" property="bank_address_code"/>
+        <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      bank_card_id, lender_id, bank_card_number, bank_name, bank_address_code, bank_card_verify
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lender_bank_card
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.lender.po.BankCardPO">
+        <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                lender_id,
+            </if>
+            <if test="bank_card_number != null">
+                bank_card_number,
+            </if>
+            <if test="bank_name != null">
+                bank_name,
+            </if>
+            <if test="bank_address_code != null">
+                bank_address_code,
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_number != null">
+                #{bank_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_name != null">
+                #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_address_code != null">
+                #{bank_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_verify != null">
+                #{bank_card_verify,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.zhixindu.apply.core.lender.po.BankCardPO">
+        update lender_bank_card
+        <set>
+            <if test="lender_id != null">
+                lender_id = #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_number != null">
+                bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_name != null">
+                bank_name = #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_address_code != null">
+                bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify = #{bank_card_verify,jdbcType=INTEGER},
+            </if>
+        </set>
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lender_bank_card
+        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+    </select>
+
 </mapper>

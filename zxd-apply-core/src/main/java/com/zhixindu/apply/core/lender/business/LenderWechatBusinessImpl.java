@@ -1,63 +1,170 @@
 package com.zhixindu.apply.core.lender.business;
 
-import com.zhixindu.apply.facade.lender.bo.wechat.Address;
-import com.zhixindu.apply.facade.lender.bo.wechat.BankCard;
-import com.zhixindu.apply.facade.lender.bo.wechat.Contact;
-import com.zhixindu.apply.facade.lender.bo.wechat.Lender;
-import com.zhixindu.apply.facade.lender.bo.wechat.LenderInfo;
-import com.zhixindu.apply.facade.lender.bo.wechat.MobileVerify;
-import com.zhixindu.apply.facade.lender.bo.wechat.VerifyInfo;
+import com.google.common.collect.Lists;
+import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
+import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
+import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
+import com.zhixindu.apply.core.lender.dao.LenderMapper;
+import com.zhixindu.apply.core.lender.po.AddressPO;
+import com.zhixindu.apply.core.lender.po.BankCardPO;
+import com.zhixindu.apply.core.lender.po.ContactPO;
+import com.zhixindu.apply.core.lender.po.LenderPO;
+import com.zhixindu.apply.core.lender.service.LenderService;
+import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.MobileBO;
+import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
+import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.apply.facade.lender.enums.MobileVerify;
+import com.zhixindu.commons.annotation.Business;
+import com.zhixindu.commons.api.ServiceCode;
+import com.zhixindu.commons.api.ServiceException;
+import com.zhixindu.commons.utils.Parameters;
+import com.zhixindu.commons.utils.StringUtil;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 
+import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by SteveGuo on 2017/3/3.
  */
+@Business("lenderWechatBusiness")
 public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness {
+
+    @Inject
+    private LenderMapper lenderMapper;
+    @Inject
+    private LenderAddressMapper lenderAddressMapper;
+    @Inject
+    private LenderContactMapper lenderContactMapper;
+    @Inject
+    private LenderBankCardMapper lenderBankCardMapper;
+    @Inject
+    private LenderService lenderService;
 
     @Override
     public boolean checkCreditSituation(String customerId) {
+        Parameters.requireNotNull(customerId, "customerId不能为空");
+        String creditSituation = lenderMapper.selectCreditSituationByCustomerId(customerId);
+        if(StringUtils.isBlank(creditSituation)) {
+            return true;
+        }
+        // TODO 解析信用结果
         return false;
     }
 
     @Override
-    public LenderInfo findLenderInfo(String customerId) {
-        return null;
+    public LenderBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO) {
+        Parameters.requireAllPropertyNotNull(lenderBaseInfoBO);
+        LenderBO lenderBO = new LenderBO();
+        LenderPO lenderPO = lenderMapper.selectByCustomerId(lenderBaseInfoBO.getCustomer_id());
+        if(null == lenderPO) {
+            lenderPO = new LenderPO();
+            BeanUtils.copyProperties(lenderBaseInfoBO, lenderPO);
+            lenderService.saveLender(lenderPO);
+        }
+        BeanUtils.copyProperties(lenderPO, lenderBO);
+        AddressPO addressPO = lenderAddressMapper.selectByLenderId(lenderBO.getLender_id());
+        if(null != addressPO) {
+            AddressBO addressBO = new AddressBO();
+            BeanUtils.copyProperties(addressPO, addressBO);
+            lenderBO.setAddressBO(addressBO);
+        }
+        wrap(lenderBO);
+        return lenderBO;
+    }
+
+    /**
+     * 对关键信息最掩码
+     * @param lenderInfo
+     */
+    private void wrap(LenderBO lenderInfo){
+        lenderInfo.setMobile(StringUtil.maskMobile(lenderInfo.getMobile()));
+        lenderInfo.setId_card(StringUtil.maskIdNo(lenderInfo.getId_card()));
     }
 
     @Override
-    public List<Contact> findLenderContact(int lenderId) {
-        return null;
+    public List<ContactBO> findLenderContact(int lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        List<ContactPO> contactPOList = lenderContactMapper.selectByLenderId(lenderId);
+        if(CollectionUtils.isEmpty(contactPOList)){
+            return Lists.newArrayListWithCapacity(0);
+        }
+        return contactPOList.stream()
+                .map(contactPO -> {
+                    ContactBO contactBO = new ContactBO();
+                    BeanUtils.copyProperties(contactPO, contactBO);
+                    return contactBO;
+                }).collect(Collectors.toList());
     }
 
     @Override
-    public VerifyInfo findLenderVerify(int lenderId) {
-        return null;
+    public VerifyInfoBO findLenderVerify(int lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        LenderPO lenderPO = lenderMapper.selectByPrimaryKey(lenderId);
+        if(null == lenderPO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
+        }
+        VerifyInfoBO verifyInfoBO = new VerifyInfoBO();
+        verifyInfoBO.setLender_id(lenderId);
+        verifyInfoBO.setMobile_verify(MobileVerify.VERIFIED.matches(lenderPO.getMobile_verify()));
+        verifyInfoBO.setBank_card_verify(BankCardVerify.VERIFIED.matches(lenderPO.getBank_card_verify()));
+        return verifyInfoBO;
     }
 
     @Override
-    public int saveLender(Lender lender) {
+    public BankCardBO findBankCard(int lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        BankCardPO bankCardPO = lenderBankCardMapper.selectByLenderId(lenderId);
+        if(null == bankCardPO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
+        }
+        BankCardBO bankCardBO = new BankCardBO();
+        BeanUtils.copyProperties(bankCardPO, bankCardBO);
+        return bankCardBO;
+    }
+
+    @Override
+    public MobileBO findMobileInfo(int lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        LenderPO lenderPO = lenderMapper.selectByPrimaryKey(lenderId);
+        if(null == lenderPO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
+        }
+        MobileBO mobileBO = new MobileBO();
+        mobileBO.setLender_id(lenderId);
+        mobileBO.setMobile(StringUtil.maskMobile(lenderPO.getMobile()));
+        // TODO 手机服务密码解密，掩码
+        mobileBO.setService_password("");
+        return mobileBO;
+    }
+
+    @Override
+    public int submitLenderAddress(AddressBO addressBO) {
         return 0;
     }
 
     @Override
-    public int submitLenderAddress(Address address) {
+    public int submitLenderContact(List<ContactBO> contactBOList) {
         return 0;
     }
 
     @Override
-    public int submitLenderContact(List<Contact> contactList) {
+    public int submitLenderBankCard(BankCardBO bankCardBO) {
         return 0;
     }
 
     @Override
-    public int submitLenderBankCard(BankCard bankCard) {
+    public int submitMobile(MobileBO mobileBO) {
         return 0;
     }
 
-    @Override
-    public int submitMobileVerify(MobileVerify mobileVerify) {
-        return 0;
-    }
 }

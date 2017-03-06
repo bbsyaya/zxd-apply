@@ -1,17 +1,19 @@
 package com.zhixindu.apply.core.lender.dao;
 
-import com.zhixindu.apply.core.lender.domain.LenderContact;
+
+import com.zhixindu.apply.core.lender.po.ContactPO;
+
+import java.util.List;
 
 public interface LenderContactMapper {
     int deleteByPrimaryKey(Integer contact_id);
 
-    int insert(LenderContact record);
+    int insert(ContactPO record);
 
-    int insertSelective(LenderContact record);
+    ContactPO selectByPrimaryKey(Integer contact_id);
 
-    LenderContact selectByPrimaryKey(Integer contact_id);
+    int updateByPrimaryKey(ContactPO record);
 
-    int updateByPrimaryKeySelective(LenderContact record);
+    List<ContactPO> selectByLenderId(Integer lender_id);
 
-    int updateByPrimaryKey(LenderContact record);
 }

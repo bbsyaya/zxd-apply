@@ -1,19 +1,22 @@
-package com.zhixindu.apply.core.lender.domain;
+package com.zhixindu.apply.core.lender.po;
+
+import com.zhixindu.apply.facade.lender.enums.ContactRelationship;
 
 import java.io.Serializable;
 
-public class LenderContact implements Serializable {
+public class ContactPO implements Serializable {
+
+    private static final long serialVersionUID = 5728212550894388859L;
+
     private Integer contact_id;
 
     private Integer lender_id;
 
-    private Integer contact_relationship;
+    private ContactRelationship contact_relationship;
 
     private String contact_name;
 
     private String contact_mobile;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getContact_id() {
         return contact_id;
@@ -31,11 +34,11 @@ public class LenderContact implements Serializable {
         this.lender_id = lender_id;
     }
 
-    public Integer getContact_relationship() {
+    public ContactRelationship getContact_relationship() {
         return contact_relationship;
     }
 
-    public void setContact_relationship(Integer contact_relationship) {
+    public void setContact_relationship(ContactRelationship contact_relationship) {
         this.contact_relationship = contact_relationship;
     }
 

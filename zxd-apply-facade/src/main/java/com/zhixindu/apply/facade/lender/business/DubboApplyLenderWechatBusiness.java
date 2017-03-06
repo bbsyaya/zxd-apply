@@ -1,12 +1,12 @@
 package com.zhixindu.apply.facade.lender.business;
 
-import com.zhixindu.apply.facade.lender.bo.wechat.Lender;
-import com.zhixindu.apply.facade.lender.bo.wechat.Address;
-import com.zhixindu.apply.facade.lender.bo.wechat.BankCard;
-import com.zhixindu.apply.facade.lender.bo.wechat.Contact;
-import com.zhixindu.apply.facade.lender.bo.wechat.LenderInfo;
-import com.zhixindu.apply.facade.lender.bo.wechat.MobileVerify;
-import com.zhixindu.apply.facade.lender.bo.wechat.VerifyInfo;
+import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.MobileBO;
+import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
 
 import java.util.List;
 
@@ -23,59 +23,66 @@ public interface DubboApplyLenderWechatBusiness {
     boolean checkCreditSituation(String customerId);
 
     /**
-     * 根据customerId查找借款人信息
-     * @param customerId
+     * 申请借款
+     * @param lenderBaseInfoBO
      * @return
      */
-    LenderInfo findLenderInfo(String customerId);
+    LenderBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO);
 
     /**
      * 根据lenderId查找借款人联系人信息
      * @param lenderId
      * @return
      */
-    List<Contact> findLenderContact(int lenderId);
+    List<ContactBO> findLenderContact(int lenderId);
 
     /**
      * 根据借款人ID查找借款验证信息
      * @param lenderId
      * @return
      */
-    VerifyInfo findLenderVerify(int lenderId);
+    VerifyInfoBO findLenderVerify(int lenderId);
 
     /**
-     * 保存借款人关键信息
-     * @param lender
+     * 根据借款人ID查找银行卡信息
+     * @param lenderId
      * @return
      */
-    int saveLender(Lender lender);
+    BankCardBO findBankCard(int lenderId);
+
+    /**
+     * 根据借款人ID查找手机信息
+     * @param lenderId
+     * @return
+     */
+    MobileBO findMobileInfo(int lenderId);
 
     /**
      * 提交借款人地址信息
-     * @param address
+     * @param addressBO
      * @return
      */
-    int submitLenderAddress(Address address);
+    int submitLenderAddress(AddressBO addressBO);
 
     /**
      * 提交借款人联系人信息
-     * @param contactList
+     * @param contactBOList
      * @return
      */
-    int submitLenderContact(List<Contact> contactList);
+    int submitLenderContact(List<ContactBO> contactBOList);
 
     /**
      * 提交借款人银行卡信息
-     * @param bankCard
+     * @param bankCardBO
      * @return
      */
-    int submitLenderBankCard(BankCard bankCard);
+    int submitLenderBankCard(BankCardBO bankCardBO);
 
     /**
      * 提交手机号码验证
-     * @param mobileVerify
+     * @param mobileBO
      * @return
      */
-    int submitMobileVerify(MobileVerify mobileVerify);
+    int submitMobile(MobileBO mobileBO);
 
 }

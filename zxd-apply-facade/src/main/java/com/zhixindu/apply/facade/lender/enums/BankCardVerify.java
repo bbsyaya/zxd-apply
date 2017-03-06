@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by SteveGuo on 2017/3/3.
+ * Created by SteveGuo on 2017/3/6.
  */
-public enum WorkState implements IEnum<Integer> {
-    UNEMPLOYED(0, "待业"), EMPLOYEE(1, "在职"), STUDENT(2, "学生");
+public enum BankCardVerify implements IEnum<Integer> {
+    UNVERIFIED(0, "未验证"), VERIFIED(1, "已验证");
 
     private int value;
     private String desc;
 
-    WorkState(int value, String desc) {
+    BankCardVerify(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -45,14 +45,14 @@ public enum WorkState implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, WorkState> mappings = new HashMap<>();
+    private static Map<Integer, BankCardVerify> mappings = new HashMap<>();
     static {
-        for (WorkState workState : WorkState.values()) {
-            mappings.put(workState.getValue(), workState);
+        for (BankCardVerify bankCardVerify : BankCardVerify.values()) {
+            mappings.put(bankCardVerify.getValue(), bankCardVerify);
         }
     }
 
-    public static WorkState resolve(int workState) {
-        return mappings.get(workState);
+    public static BankCardVerify resolve(int bankCardVerify) {
+        return mappings.get(bankCardVerify);
     }
 }

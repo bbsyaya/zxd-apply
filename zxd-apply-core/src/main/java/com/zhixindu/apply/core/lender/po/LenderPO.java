@@ -1,8 +1,14 @@
-package com.zhixindu.apply.core.lender.domain;
+package com.zhixindu.apply.core.lender.po;
+
+import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 
 import java.io.Serializable;
 
-public class Lender implements Serializable {
+public class LenderPO implements Serializable {
+
+    private static final long serialVersionUID = -1373173161346766532L;
+
     private Integer lender_id;
 
     private String customer_id;
@@ -15,13 +21,11 @@ public class Lender implements Serializable {
 
     private String id_card;
 
-    private Integer mobile_verify;
+    private MobileVerify mobile_verify;
 
-    private Integer bank_card_verify;
+    private BankCardVerify bank_card_verify;
 
     private String credit_situation;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getLender_id() {
         return lender_id;
@@ -71,19 +75,19 @@ public class Lender implements Serializable {
         this.id_card = id_card == null ? null : id_card.trim();
     }
 
-    public Integer getMobile_verify() {
+    public MobileVerify getMobile_verify() {
         return mobile_verify;
     }
 
-    public void setMobile_verify(Integer mobile_verify) {
+    public void setMobile_verify(MobileVerify mobile_verify) {
         this.mobile_verify = mobile_verify;
     }
 
-    public Integer getBank_card_verify() {
+    public BankCardVerify getBank_card_verify() {
         return bank_card_verify;
     }
 
-    public void setBank_card_verify(Integer bank_card_verify) {
+    public void setBank_card_verify(BankCardVerify bank_card_verify) {
         this.bank_card_verify = bank_card_verify;
     }
 

@@ -1,8 +1,11 @@
-package com.zhixindu.apply.core.lender.domain;
+package com.zhixindu.apply.core.lender.po;
 
 import java.io.Serializable;
 
-public class LenderAddress implements Serializable {
+public class AddressPO implements Serializable {
+
+    private static final long serialVersionUID = -5578830862677257741L;
+
     private Integer address_id;
 
     private Integer lender_id;
@@ -18,8 +21,6 @@ public class LenderAddress implements Serializable {
     private Integer company_address_code;
 
     private String company_address;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getAddress_id() {
         return address_id;

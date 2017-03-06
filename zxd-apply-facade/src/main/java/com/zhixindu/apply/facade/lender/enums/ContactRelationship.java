@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by SteveGuo on 2017/3/3.
+ * Created by SteveGuo on 2017/3/6.
  */
-public enum WorkState implements IEnum<Integer> {
-    UNEMPLOYED(0, "待业"), EMPLOYEE(1, "在职"), STUDENT(2, "学生");
+public enum ContactRelationship implements IEnum<Integer> {
+
+    PARENT(1, "父母"), SPOUSE(2, "配偶"), CHILD(3, "子女"), FRIEND(4, "朋友");
 
     private int value;
     private String desc;
 
-    WorkState(int value, String desc) {
+    ContactRelationship(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -45,14 +46,15 @@ public enum WorkState implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, WorkState> mappings = new HashMap<>();
+    private static Map<Integer, ContactRelationship> mappings = new HashMap<>();
     static {
-        for (WorkState workState : WorkState.values()) {
-            mappings.put(workState.getValue(), workState);
+        for (ContactRelationship contactRelationship : ContactRelationship.values()) {
+            mappings.put(contactRelationship.getValue(), contactRelationship);
         }
     }
 
-    public static WorkState resolve(int workState) {
-        return mappings.get(workState);
+    public static ContactRelationship resolve(int contactRelationship) {
+        return mappings.get(contactRelationship);
     }
+
 }

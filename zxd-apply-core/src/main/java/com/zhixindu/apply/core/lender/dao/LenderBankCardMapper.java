@@ -1,17 +1,15 @@
 package com.zhixindu.apply.core.lender.dao;
 
-import com.zhixindu.apply.core.lender.domain.LenderBankCard;
+
+import com.zhixindu.apply.core.lender.po.BankCardPO;
 
 public interface LenderBankCardMapper {
-    int deleteByPrimaryKey(Integer bank_card_id);
 
-    int insert(LenderBankCard record);
+    int insertSelective(BankCardPO record);
 
-    int insertSelective(LenderBankCard record);
+    BankCardPO selectByPrimaryKey(Integer bank_card_id);
 
-    LenderBankCard selectByPrimaryKey(Integer bank_card_id);
+    int updateByPrimaryKeySelective(BankCardPO record);
 
-    int updateByPrimaryKeySelective(LenderBankCard record);
-
-    int updateByPrimaryKey(LenderBankCard record);
+    BankCardPO selectByLenderId(Integer lender_id);
 }

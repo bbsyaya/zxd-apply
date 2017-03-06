@@ -1,14 +1,18 @@
 package com.zhixindu.apply.core.lender.dao;
 
-import com.zhixindu.apply.core.lender.domain.Lender;
+
+import com.zhixindu.apply.core.lender.po.LenderPO;
 
 public interface LenderMapper {
-    int deleteByPrimaryKey(Integer lender_id);
 
-    int insertSelective(Lender record);
+    int insertSelective(LenderPO record);
 
-    Lender selectByPrimaryKey(Integer lender_id);
+    LenderPO selectByPrimaryKey(Integer lender_id);
 
-    int updateByPrimaryKeySelective(Lender record);
+    int updateByPrimaryKeySelective(LenderPO record);
+
+    String selectCreditSituationByCustomerId(String customer_id);
+
+    LenderPO selectByCustomerId(String customer_id);
 
 }

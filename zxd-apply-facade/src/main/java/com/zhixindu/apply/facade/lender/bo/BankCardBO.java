@@ -1,9 +1,9 @@
-package com.zhixindu.apply.facade.lender.bo.wechat;
+package com.zhixindu.apply.facade.lender.bo;
 
 import java.io.Serializable;
 
-public class BankCard implements Serializable {
-    private Integer bank_card_id;
+public class BankCardBO implements Serializable {
+    private static final long serialVersionUID = -4569790136583162019L;
 
     private Integer lender_id;
 
@@ -12,18 +12,6 @@ public class BankCard implements Serializable {
     private String bank_name;
 
     private Integer bank_address_code;
-
-    private Integer bank_verfy;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getBank_card_id() {
-        return bank_card_id;
-    }
-
-    public void setBank_card_id(Integer bank_card_id) {
-        this.bank_card_id = bank_card_id;
-    }
 
     public Integer getLender_id() {
         return lender_id;
@@ -57,11 +45,4 @@ public class BankCard implements Serializable {
         this.bank_address_code = bank_address_code;
     }
 
-    public Integer getBank_verfy() {
-        return bank_verfy;
-    }
-
-    public void setBank_verfy(Integer bank_verfy) {
-        this.bank_verfy = bank_verfy;
-    }
 }

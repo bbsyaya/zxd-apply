@@ -1,19 +1,21 @@
-package com.zhixindu.apply.facade.lender.bo.wechat;
+package com.zhixindu.apply.facade.lender.bo;
+
+import com.zhixindu.apply.facade.lender.enums.ContactRelationship;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable {
+public class ContactBO implements Serializable {
+    private static final long serialVersionUID = -2075646585551667198L;
+
     private Integer contact_id;
 
     private Integer lender_id;
 
-    private Integer contact_relationship;
+    private ContactRelationship contact_relationship;
 
     private String contact_name;
 
     private String contact_mobile;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getContact_id() {
         return contact_id;
@@ -31,11 +33,11 @@ public class Contact implements Serializable {
         this.lender_id = lender_id;
     }
 
-    public Integer getContact_relationship() {
+    public ContactRelationship getContact_relationship() {
         return contact_relationship;
     }
 
-    public void setContact_relationship(Integer contact_relationship) {
+    public void setContact_relationship(ContactRelationship contact_relationship) {
         this.contact_relationship = contact_relationship;
     }
 

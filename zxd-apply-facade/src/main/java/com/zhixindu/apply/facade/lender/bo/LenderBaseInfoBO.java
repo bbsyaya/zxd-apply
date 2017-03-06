@@ -1,33 +1,19 @@
-package com.zhixindu.apply.facade.lender.bo.wechat;
+package com.zhixindu.apply.facade.lender.bo;
 
 import java.io.Serializable;
 
-/**
- * Created by SteveGuo on 2017/3/3.
- */
-public class LenderInfo implements Serializable {
+public class LenderBaseInfoBO implements Serializable {
 
-    private static final long serialVersionUID = 1514697726721474544L;
+    private static final long serialVersionUID = 1046135059755108694L;
 
-    private Integer lender_id;
-
+    /** 客户ID */
     private String customer_id;
-
+    /** 手机号 */
     private String mobile;
-
+    /** 姓名 */
     private String name;
-
+    /** 身份证 */
     private String id_card;
-
-    private Address address;
-
-    public Integer getLender_id() {
-        return lender_id;
-    }
-
-    public void setLender_id(Integer lender_id) {
-        this.lender_id = lender_id;
-    }
 
     public String getCustomer_id() {
         return customer_id;
@@ -61,11 +47,4 @@ public class LenderInfo implements Serializable {
         this.id_card = id_card == null ? null : id_card.trim();
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }
