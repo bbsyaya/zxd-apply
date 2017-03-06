@@ -10,13 +10,13 @@
 
     <context:property-placeholder location="classpath:/apply.properties" file-encoding="UTF-8"/>
     <dubbo:application name="zxd-apply"/>
-    <dubbo:registry id="registry" addressVO="${zookeeper.registry}"/>
+    <dubbo:registry id="registry" address="${zookeeper.registry}"/>
     <dubbo:protocol name="dubbo" port="20788"/>
     <dubbo:consumer check="false" timeout="5000"/>
 
-    <dubbo:service interface="com.zhixindu.apply.facade.lenderBaseInfoBO.business.DubboApplyLenderWechatBusiness"
+    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness"
                    ref="dubboApplyLenderWechatBusiness"/>
-    <dubbo:service interface="com.zhixindu.apply.facade.lenderBaseInfoBO.business.DubboApplyLenderMgtBusiness"
+    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness"
                    ref="dubboApplyLenderMgtBusiness"/>
     <dubbo:service interface="com.zhixindu.apply.facade.loan.business.DubboApplyLoanWechatBusiness"
                    ref="dubboApplyLoanWechatBusiness"/>

@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
@@ -26,7 +25,7 @@ import javax.inject.Inject;
  * @description
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebAppConfig.class, DatabaseConfig.class},loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {WebAppConfig.class, DatabaseConfig.class})
 @WebAppConfiguration
 public class MgtBusinessImplTest {
     private final static Logger LOGGER = LoggerFactory.getLogger(MgtBusinessImplTest.class);
