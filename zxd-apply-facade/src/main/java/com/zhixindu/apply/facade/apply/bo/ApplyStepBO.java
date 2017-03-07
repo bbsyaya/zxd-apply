@@ -1,24 +1,28 @@
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class ApplyStepBO implements Serializable {
+
+    private static final long serialVersionUID = -3234057634470113420L;
+    /** 申请步骤ID */
     private Integer step_id;
-
+    /** 申请借款ID */
     private Integer apply_id;
-
+    /** 开始时间 */
     private Date start_time;
-
+    /** 结束时间 */
     private Date end_time;
-
-    private Integer process_step;
-
+    /** 处理步骤（1提交申请、2审核、3放款） */
+    private ProcessStep process_step;
+    /** 处理时间 */
     private Date process_time;
-
-    private Integer process_state;
-
-    private static final long serialVersionUID = 1L;
+    /** 处理状态（0失败、1成功、2中） */
+    private ProcessState process_state;
 
     public Integer getStep_id() {
         return step_id;
@@ -52,11 +56,11 @@ public class ApplyStepBO implements Serializable {
         this.end_time = end_time;
     }
 
-    public Integer getProcess_step() {
+    public ProcessStep getProcess_step() {
         return process_step;
     }
 
-    public void setProcess_step(Integer process_step) {
+    public void setProcess_step(ProcessStep process_step) {
         this.process_step = process_step;
     }
 
@@ -68,11 +72,11 @@ public class ApplyStepBO implements Serializable {
         this.process_time = process_time;
     }
 
-    public Integer getProcess_state() {
+    public ProcessState getProcess_state() {
         return process_state;
     }
 
-    public void setProcess_state(Integer process_state) {
+    public void setProcess_state(ProcessState process_state) {
         this.process_state = process_state;
     }
 }

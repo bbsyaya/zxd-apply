@@ -7,9 +7,9 @@ import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyLoanWorkflowStepBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
-import com.zhixindu.apply.facade.apply.bo.WorkflowStepInstanceBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -57,21 +57,21 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
         }
         BeanUtils.copyProperties(applyBO, applyLoanDetailBO);
-        List<WorkflowStepInstanceBO> workflowStepInstanceBOList = applyStepMapper.selectListByApplyId(applyId);
-        List<ApplyLoanWorkflowStepBO> applyLoanWorkflowStepBOList = Lists.newArrayListWithCapacity(0);
-        if(CollectionUtils.isNotEmpty(workflowStepInstanceBOList)) {
-            applyLoanWorkflowStepBOList = workflowStepInstanceBOList.stream().map(instanceBO -> {
-                ApplyLoanWorkflowStepBO applyWorkflowBO = new ApplyLoanWorkflowStepBO();
-                applyWorkflowBO.setProcessing_result(instanceBO.getStep_definition_id().getDesc() + instanceBO
-                        .getProcessing_state().getValue());
-                if (null != instanceBO.getProcessing_time()) {
-                    applyWorkflowBO.setProcessing_time(new DateTime(instanceBO.getProcessing_time()).toString
+        List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
+        List<ApplyLoanStepBO> applyLoanStepBOList = Lists.newArrayListWithCapacity(0);
+        if(CollectionUtils.isNotEmpty(applyStepBOList)) {
+            applyLoanStepBOList = applyStepBOList.stream().map(instanceBO -> {
+                ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
+                applyWorkflowBO.setProcessing_result(instanceBO.getProcess_step().getDesc() + instanceBO
+                        .getProcess_state().getValue());
+                if (null != instanceBO.getProcess_time()) {
+                    applyWorkflowBO.setProcessing_time(new DateTime(instanceBO.getProcess_time()).toString
                             ("yyyy-MM-dd HH:mm:ss"));
                 }
                 return applyWorkflowBO;
             }).collect(Collectors.toList());
         }
-        applyLoanDetailBO.setApplyLoanWorkflowStepList(applyLoanWorkflowStepBOList);
+        applyLoanDetailBO.setApplyLoanStepBOList(applyLoanStepBOList);
         return applyLoanDetailBO;
     }
 }

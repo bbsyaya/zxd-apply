@@ -35,7 +35,7 @@ public class ApplyLoanDetailBO extends ApplyLoanBO implements Serializable {
     /**
      * 申请借款流程步骤列表
      */
-    private List<ApplyLoanWorkflowStepBO> applyLoanWorkflowStepList;
+    private List<ApplyLoanStepBO> applyLoanStepBOList;
 
     public String getApply_no() {
         return apply_no;
@@ -77,11 +77,11 @@ public class ApplyLoanDetailBO extends ApplyLoanBO implements Serializable {
         this.receipt_card_number = receipt_card_number;
     }
 
-    public List<ApplyLoanWorkflowStepBO> getApplyLoanWorkflowStepList() {
-        return applyLoanWorkflowStepList;
+    public List<ApplyLoanStepBO> getApplyLoanStepBOList() {
+        return applyLoanStepBOList;
     }
 
-    public void setApplyLoanWorkflowStepList(List<ApplyLoanWorkflowStepBO> applyLoanWorkflowStepList) {
-        this.applyLoanWorkflowStepList = applyLoanWorkflowStepList;
+    public void setApplyLoanStepBOList(List<ApplyLoanStepBO> applyLoanStepBOList) {
+        this.applyLoanStepBOList = applyLoanStepBOList;
     }
 }

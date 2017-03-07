@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/7.
  */
-public class ApplyLoanWorkflowStepBO implements Serializable{
+public class ApplyLoanStepBO implements Serializable{
 
     private static final long serialVersionUID = 2204700862297492400L;
     /**

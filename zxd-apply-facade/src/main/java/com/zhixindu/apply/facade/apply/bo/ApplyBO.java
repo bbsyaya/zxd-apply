@@ -6,37 +6,37 @@ import java.math.BigDecimal;
 public class ApplyBO implements Serializable {
 
     private static final long serialVersionUID = 2181984961531019781L;
-
+    /** 申请借款ID */
     private Integer apply_id;
-
+    /** 借款人ID */
     private Integer lender_id;
-
+    /** 客户ID */
     private String customer_id;
-
+    /** 地址ID */
     private Integer address_id;
-
+    /** 联系人ID列表 */
     private String contact_id_list;
-
+    /** 银行卡ID列表 */
     private String bank_card_id_list;
-
+    /** 申请编号 */
     private String apply_no;
-
+    /** 借款金额 */
     private BigDecimal loan_amount;
-
+    /** 借款期限 */
     private Integer loan_term;
-
+    /** 日利率 */
     private Integer interest_rate;
-
+    /** 借款利息 */
     private BigDecimal loan_interest;
-
+    /** 平台管理费 */
     private BigDecimal platform_manage_fee;
-
+    /** 总费用 */
     private BigDecimal total_fee;
-
+    /** 到期还款 */
     private BigDecimal repayment_amount;
-
+    /** 到账金额 */
     private BigDecimal account_amount;
-
+    /** 收款卡号 */
     private String receipt_card_number;
 
     public Integer getApply_id() {

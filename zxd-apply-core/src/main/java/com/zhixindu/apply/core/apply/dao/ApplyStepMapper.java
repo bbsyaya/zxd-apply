@@ -1,7 +1,6 @@
 package com.zhixindu.apply.core.apply.dao;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
-import com.zhixindu.apply.facade.apply.bo.WorkflowStepInstanceBO;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ public interface ApplyStepMapper {
 
     int updateByPrimaryKey(ApplyStepBO record);
 
-    List<WorkflowStepInstanceBO> selectListByApplyId(Integer apply_id);
+    List<ApplyStepBO> selectListByApplyId(Integer apply_id);
 }
