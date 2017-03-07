@@ -1,8 +1,8 @@
-package com.zhixindu.apply.core.system.domain;
+package com.zhixindu.apply.facade.system.bo;
 
 import java.io.Serializable;
 
-public class Region implements Serializable {
+public class RegionBO implements Serializable {
     private Integer region_id;
 
     private Integer code;

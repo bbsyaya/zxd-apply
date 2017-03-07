@@ -1,9 +1,9 @@
-package com.zhixindu.apply.core.workflow.domain;
+package com.zhixindu.apply.facade.workflow.bo;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class WorkflowStepInstance implements Serializable {
+public class WorkflowStepInstanceBO implements Serializable {
     private Integer step_instance_id;
 
     private Integer apply_id;

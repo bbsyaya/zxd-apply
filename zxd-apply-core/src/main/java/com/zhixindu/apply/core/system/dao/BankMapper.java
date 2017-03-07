@@ -1,17 +1,17 @@
 package com.zhixindu.apply.core.system.dao;
 
-import com.zhixindu.apply.core.system.domain.Bank;
+import com.zhixindu.apply.facade.system.bo.BankBO;
 
 public interface BankMapper {
     int deleteByPrimaryKey(Integer bank_id);
 
-    int insert(Bank record);
+    int insert(BankBO record);
 
-    int insertSelective(Bank record);
+    int insertSelective(BankBO record);
 
-    Bank selectByPrimaryKey(Integer bank_id);
+    BankBO selectByPrimaryKey(Integer bank_id);
 
-    int updateByPrimaryKeySelective(Bank record);
+    int updateByPrimaryKeySelective(BankBO record);
 
-    int updateByPrimaryKey(Bank record);
+    int updateByPrimaryKey(BankBO record);
 }

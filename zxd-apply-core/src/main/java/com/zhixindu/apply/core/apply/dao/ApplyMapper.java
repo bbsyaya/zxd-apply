@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ApplyMapper {
-    int deleteByPrimaryKey(Integer apply_id);
 
     int insert(ApplyBO record);
 

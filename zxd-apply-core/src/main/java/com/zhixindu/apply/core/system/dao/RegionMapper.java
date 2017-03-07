@@ -1,17 +1,17 @@
 package com.zhixindu.apply.core.system.dao;
 
-import com.zhixindu.apply.core.system.domain.Region;
+import com.zhixindu.apply.facade.system.bo.RegionBO;
 
 public interface RegionMapper {
     int deleteByPrimaryKey(Integer region_id);
 
-    int insert(Region record);
+    int insert(RegionBO record);
 
-    int insertSelective(Region record);
+    int insertSelective(RegionBO record);
 
-    Region selectByPrimaryKey(Integer region_id);
+    RegionBO selectByPrimaryKey(Integer region_id);
 
-    int updateByPrimaryKeySelective(Region record);
+    int updateByPrimaryKeySelective(RegionBO record);
 
-    int updateByPrimaryKey(Region record);
+    int updateByPrimaryKey(RegionBO record);
 }

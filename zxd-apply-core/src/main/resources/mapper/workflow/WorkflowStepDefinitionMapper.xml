@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.workflow.dao.WorkflowStepDefinitionMapper">
-  <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.workflow.domain.WorkflowStepDefinition">
-    <id column="step_definition_id" jdbcType="INTEGER" property="step_definition_id" />
-    <result column="step_name" jdbcType="VARCHAR" property="step_name" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    step_definition_id, step_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from workflow_step_definition
-    where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from workflow_step_definition
-    where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepDefinition">
-    insert into workflow_step_definition (step_definition_id, step_name)
-    values (#{step_definition_id,jdbcType=INTEGER}, #{step_name,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepDefinition">
-    insert into workflow_step_definition
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="step_definition_id != null">
-        step_definition_id,
-      </if>
-      <if test="step_name != null">
-        step_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="step_definition_id != null">
-        #{step_definition_id,jdbcType=INTEGER},
-      </if>
-      <if test="step_name != null">
-        #{step_name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepDefinition">
-    update workflow_step_definition
-    <set>
-      <if test="step_name != null">
-        step_name = #{step_name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepDefinition">
-    update workflow_step_definition
-    set step_name = #{step_name,jdbcType=VARCHAR}
-    where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.workflow.bo.WorkflowStepDefinitionBO">
+        <id column="step_definition_id" jdbcType="INTEGER" property="step_definition_id"/>
+        <result column="step_name" jdbcType="VARCHAR" property="step_name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      step_definition_id, step_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from workflow_step_definition
+        where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.workflow.bo.WorkflowStepDefinitionBO">
+        <selectKey keyProperty="step_definition_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into workflow_step_definition (step_name)
+        values (#{step_name,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.workflow.bo.WorkflowStepDefinitionBO">
+        <selectKey keyProperty="step_definition_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into workflow_step_definition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="step_name != null">
+                step_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="step_name != null">
+                #{step_name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.zhixindu.apply.facade.workflow.bo.WorkflowStepDefinitionBO">
+        update workflow_step_definition
+        <set>
+            <if test="step_name != null">
+                step_name = #{step_name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.workflow.bo.WorkflowStepDefinitionBO">
+        update workflow_step_definition
+        set step_name = #{step_name,jdbcType=VARCHAR}
+        where step_definition_id = #{step_definition_id,jdbcType=INTEGER}
+    </update>
+
+
 </mapper>
