@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.lenderInfoBO.dao.LenderMapper">
+<mapper namespace="com.zhixindu.apply.core.lender.dao.LenderMapper">
     <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.LenderBO">
         <id column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
