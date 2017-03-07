@@ -167,4 +167,9 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         return lenderService.saveCreditSituation(lenderId, creditSituation);
     }
 
+    @Override
+    public String findBankCardNumber(Integer lenderId) {
+        return lenderBankCardMapper.selectBankCardNumber(lenderId);
+    }
+
 }

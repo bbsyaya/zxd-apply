@@ -19,5 +19,7 @@ public interface LenderBankCardMapper {
 
     BankCardBO selectByLenderId(Integer lender_id);
 
+    String selectBankCardNumber(Integer lender_id);
+
     int countByLenderId(Integer lender_id);
 }
