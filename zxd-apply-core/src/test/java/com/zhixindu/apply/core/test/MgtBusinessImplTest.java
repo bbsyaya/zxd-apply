@@ -27,8 +27,8 @@ public class MgtBusinessImplTest {
 */
     public static void main(String [] args){
         ApplyMgtDetailBO bo = new ApplyMgtDetailBO();
-        bo.setStep_definition_id(3);
-        bo.setProcessing_state(0);
+        bo.setProcess_step(3);
+        bo.setProcess_state(0);
         System.out.println(bo.getApply_status_desc());
 
 //        System.out.println(StepDefinition1.resolve(1).getDesc());
