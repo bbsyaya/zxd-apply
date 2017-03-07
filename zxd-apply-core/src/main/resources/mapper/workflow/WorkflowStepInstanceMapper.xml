@@ -3,7 +3,7 @@
 <mapper namespace="com.zhixindu.apply.core.workflow.dao.WorkflowStepInstanceMapper">
   <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.workflow.domain.WorkflowStepInstance">
     <id column="step_instance_id" jdbcType="INTEGER" property="step_instance_id" />
-    <result column="loan_id" jdbcType="INTEGER" property="loan_id" />
+    <result column="apply_id" jdbcType="INTEGER" property="apply_id" />
     <result column="step_definition_id" jdbcType="INTEGER" property="step_definition_id" />
     <result column="start_time" jdbcType="TIMESTAMP" property="start_time" />
     <result column="end_time" jdbcType="TIMESTAMP" property="end_time" />
@@ -11,7 +11,7 @@
     <result column="processing_state" jdbcType="INTEGER" property="processing_state" />
   </resultMap>
   <sql id="Base_Column_List">
-    step_instance_id, loan_id, step_definition_id, start_time, end_time, processing_time, 
+    step_instance_id, apply_id, step_definition_id, start_time, end_time, processing_time, 
     processing_state
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -25,10 +25,10 @@
     where step_instance_id = #{step_instance_id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepInstance">
-    insert into workflow_step_instance (step_instance_id, loan_id, step_definition_id, 
+    insert into workflow_step_instance (step_instance_id, apply_id, step_definition_id, 
       start_time, end_time, processing_time, 
       processing_state)
-    values (#{step_instance_id,jdbcType=INTEGER}, #{loan_id,jdbcType=INTEGER}, #{step_definition_id,jdbcType=INTEGER}, 
+    values (#{step_instance_id,jdbcType=INTEGER}, #{apply_id,jdbcType=INTEGER}, #{step_definition_id,jdbcType=INTEGER}, 
       #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP}, #{processing_time,jdbcType=TIMESTAMP}, 
       #{processing_state,jdbcType=INTEGER})
   </insert>
@@ -38,8 +38,8 @@
       <if test="step_instance_id != null">
         step_instance_id,
       </if>
-      <if test="loan_id != null">
-        loan_id,
+      <if test="apply_id != null">
+        apply_id,
       </if>
       <if test="step_definition_id != null">
         step_definition_id,
@@ -61,8 +61,8 @@
       <if test="step_instance_id != null">
         #{step_instance_id,jdbcType=INTEGER},
       </if>
-      <if test="loan_id != null">
-        #{loan_id,jdbcType=INTEGER},
+      <if test="apply_id != null">
+        #{apply_id,jdbcType=INTEGER},
       </if>
       <if test="step_definition_id != null">
         #{step_definition_id,jdbcType=INTEGER},
@@ -84,8 +84,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepInstance">
     update workflow_step_instance
     <set>
-      <if test="loan_id != null">
-        loan_id = #{loan_id,jdbcType=INTEGER},
+      <if test="apply_id != null">
+        apply_id = #{apply_id,jdbcType=INTEGER},
       </if>
       <if test="step_definition_id != null">
         step_definition_id = #{step_definition_id,jdbcType=INTEGER},
@@ -107,7 +107,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.workflow.domain.WorkflowStepInstance">
     update workflow_step_instance
-    set loan_id = #{loan_id,jdbcType=INTEGER},
+    set apply_id = #{apply_id,jdbcType=INTEGER},
       step_definition_id = #{step_definition_id,jdbcType=INTEGER},
       start_time = #{start_time,jdbcType=TIMESTAMP},
       end_time = #{end_time,jdbcType=TIMESTAMP},

@@ -6,7 +6,7 @@ import java.util.Date;
 public class WorkflowStepInstance implements Serializable {
     private Integer step_instance_id;
 
-    private Integer loan_id;
+    private Integer apply_id;
 
     private Integer step_definition_id;
 
@@ -28,12 +28,12 @@ public class WorkflowStepInstance implements Serializable {
         this.step_instance_id = step_instance_id;
     }
 
-    public Integer getLoan_id() {
-        return loan_id;
+    public Integer getApply_id() {
+        return apply_id;
     }
 
-    public void setLoan_id(Integer loan_id) {
-        this.loan_id = loan_id;
+    public void setApply_id(Integer apply_id) {
+        this.apply_id = apply_id;
     }
 
     public Integer getStep_definition_id() {
