@@ -1,8 +1,8 @@
 package com.zhixindu.apply.core.loan.dao;
 
 import com.zhixindu.apply.facade.loan.bo.LoanBO;
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfo;
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfoParm;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtDetailBO;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtInfoParm;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface LoanMapper {
 
     LoanBO selectByLenderId(Integer lender_id);
 
-    List<LoanMgtInfo> selectLoansByPage(LoanMgtInfoParm parm);
+    List<LoanMgtDetailBO> selectLoansByPage(LoanMgtInfoParm parm);
 }

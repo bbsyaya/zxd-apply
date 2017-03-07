@@ -39,11 +39,11 @@ public class LenderMgtInfo implements Serializable {
      */
     private String id_card;
     /**
-     * 手机号认证信息
+     * 手机号认证信息（0未验证，1已验证）
      */
     private Integer mobile_verify;
     /**
-     * 银行卡认证信息
+     * 银行卡认证信息（0未验证，1已验证）
      */
     private Integer bank_card_verify;
     /**

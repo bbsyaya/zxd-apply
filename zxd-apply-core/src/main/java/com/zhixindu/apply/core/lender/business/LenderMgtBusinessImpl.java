@@ -47,9 +47,9 @@ public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
     }
 
     @Override
-    public LenderMgtInfo getLenderInfo(String customer_id) throws ServiceException {
-        Parameters.requireNotNull(customer_id,"getLenderInfo customerId illegal_param !");
-        LenderBO lender = lenderMapper.selectByCustomerId(customer_id);
+    public LenderMgtInfo getLenderInfo(Integer lender_id) throws ServiceException {
+        Parameters.requireNotNull(lender_id,"getLenderInfo lender_id illegal_param !");
+        LenderBO lender = lenderMapper.selectByPrimaryKey(lender_id);
         if(null == lender){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询的申请信息无结果!!!");
         }

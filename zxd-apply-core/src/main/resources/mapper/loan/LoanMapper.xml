@@ -23,11 +23,6 @@
         receipt_card_number
       </sql>
 
-    <sql id="whereSql">
-        <where>
-        </where>
-    </sql>
-
       <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -206,12 +201,35 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
+    <sql id="whereSql">
+        <where>
+            <if test="mobile != null"> AND le.mobile=#{mobile}</if>
+            <if test="id_card != null"> AND le.id_card=#{id_card}</if>
+            <if test="lender_id != null"> AND le.lender_id=#{lender_id}</if>
+            <if test="status != null and status == 1 "> AND de.step_definition_id = 1 </if>
+            <if test="status != null and status == 2 "> AND de.step_definition_id = 2 AND ins.processing_state=1</if>
+            <if test="status != null and status == 3 "> AND de.step_definition_id = 2 AND ins.processing_state=2</if>
+            <if test="status != null and status == 4 "> AND de.step_definition_id = 3 AND ins.processing_state=1</if>
+            <if test="status != null and status == 5 "> AND de.step_definition_id = 3 AND ins.processing_state=2</if>
+            <if test="lender_start_time != null"> AND ins.start_time &gt; #{lender_start_time}</if>
+            <if test="lender_end_time != null"> AND ins.start_time &lt; #{lender_end_time}</if>
+        </where>
+    </sql>
 
-    <select id="selectLoansByPage" parameterType="com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfoParm" resultMap="BaseResultMap">
+    <select id="selectLoansByPage" parameterType="com.zhixindu.apply.facade.loan.bo.LoanMgtInfoParm" resultType="com.zhixindu.apply.facade.loan.bo.LoanMgtDetailBO">
         select
-        <include refid="Base_Column_List" />
-        from loan
+        le.lender_id as lender_id,
+        le.mobile as mobile,
+        le.name as name,
+        le.id_card as id_card,
+        ins.step_definition_id as step_definition_id,
+        ins.start_time as start_time,
+        ins.processing_state as processing_state
+        from loan lo
+        LEFT JOIN lender le ON le.lender_id= lo.lender_id
+        LEFT JOIN workflow_step_instance ins ON ins.loan_id = lo.loan_id
         <include refid="whereSql"/>
+        ORDER BY ins.start_time DESC
     </select>
 
 </mapper>

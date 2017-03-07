@@ -3,7 +3,7 @@
  * You can get our information at http://www.zhixindu.com
  * Anyone can't use this file without our permission.
  */
-package com.zhixindu.apply.facade.loan.bo.mgt;
+package com.zhixindu.apply.facade.loan.bo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

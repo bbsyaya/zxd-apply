@@ -3,8 +3,9 @@ package com.zhixindu.apply.core.loan.business;
 
 import com.zhixindu.apply.core.loan.dao.LoanMapper;
 import com.zhixindu.apply.facade.loan.bo.LoanBO;
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfo;
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfoParm;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtDetailBO;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtInfo;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtInfoParm;
 import com.zhixindu.apply.facade.loan.business.DubboApplyLoanMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -42,13 +43,13 @@ public class LoanMgtBusinessImpl implements DubboApplyLoanMgtBusiness{
     }
 
     @Override
-    public PageResult<LoanMgtInfo> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException {
+    public PageResult<LoanMgtDetailBO> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException {
         if(parm == null){
-            return new PageResult<LoanMgtInfo>(new ArrayList<LoanMgtInfo>(0), 0);
+            return new PageResult<LoanMgtDetailBO>(new ArrayList<LoanMgtDetailBO>(0), 0);
         }
-        PageResult<LoanMgtInfo> pageResult = pageRepository.selectPaging(LoanMapper.class,"selectLoansByPage",parm);
+        PageResult<LoanMgtDetailBO> pageResult = pageRepository.selectPaging(LoanMapper.class,"selectLoansByPage",parm);
         if(pageResult == null){
-            return new PageResult<LoanMgtInfo>(new ArrayList<LoanMgtInfo>(0), 0);
+            return new PageResult<LoanMgtDetailBO>(new ArrayList<LoanMgtDetailBO>(0), 0);
         }
         return pageResult;
     }

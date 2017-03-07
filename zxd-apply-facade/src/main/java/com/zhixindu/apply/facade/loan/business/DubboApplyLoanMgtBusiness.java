@@ -1,7 +1,8 @@
 package com.zhixindu.apply.facade.loan.business;
 
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfo;
-import com.zhixindu.apply.facade.loan.bo.mgt.LoanMgtInfoParm;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtDetailBO;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtInfo;
+import com.zhixindu.apply.facade.loan.bo.LoanMgtInfoParm;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
 
@@ -20,5 +21,5 @@ public interface DubboApplyLoanMgtBusiness {
      * 获取申请借款列表
      * @throws ServiceException
      */
-    PageResult<LoanMgtInfo> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException;
+    PageResult<LoanMgtDetailBO> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException;
 }

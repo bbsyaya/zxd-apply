@@ -23,10 +23,10 @@ public interface DubboApplyLenderMgtBusiness {
     PageResult<LenderInfoBO>  findLenderInfoByPage(LenderMgtQueryParm param) throws ServiceException;
 
     /**
-     * 通过customerId获取申请基本信息
+     * 通过lender_id获取申请基本信息
      * @throws ServiceException
      */
-    LenderMgtInfo getLenderInfo(String customerId) throws ServiceException;
+    LenderMgtInfo getLenderInfo(Integer lender_id) throws ServiceException;
 
 
 }
