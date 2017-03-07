@@ -7,8 +7,7 @@ package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
-import com.zhixindu.apply.facade.workflow.enums.StepState;
-import com.zhixindu.commons.page.PageParam;
+import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,28 +18,41 @@ import java.util.Date;
  * @date 2017/3/6
  * @description
  */
-public class ApplyMgtInfoParm implements Serializable,PageParam {
+public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
 
-    private static final long serialVersionUID = 2481093266378962060L;
-    /**用户手机号**/
+    private static final long serialVersionUID = -3851235801784011500L;
+    /**
+     * 用户手机号
+     **/
     private String mobile;
-    /**用户身份证号**/
+    /**
+     * 用户身份证号
+     **/
     private String id_card;
-    /**申请ID**/
+    /**
+     * 申请ID
+     **/
     private String lender_id;
-    /**申请状态 1审核中，2审核成功，3审核失败，4放款成功，5放款失败**/
+    /**
+     * 申请状态 1审核中，2审核成功，3审核失败，4放款成功，5放款失败
+     **/
     private ApplyStatus apply_status;
-    /**申请开始时间**/
+    /**
+     * 申请开始时间
+     **/
     private Date apply_start_time;
-    /**申请结束时间**/
+    /**
+     * 申请结束时间
+     **/
     private Date apply_end_time;
-    /**页数**/
-    private int page = 0;
-    /**每页大小**/
-    private int count = 10;
-
+    /**
+     * 流程步骤定义
+     */
     private StepDefinition step_definition;
-    private StepState step_state;
+    /**
+     * 流程步骤状态
+     */
+    private ProcessingState step_state;
 
     public String getMobile() {
         return mobile;
@@ -82,11 +94,11 @@ public class ApplyMgtInfoParm implements Serializable,PageParam {
         this.step_definition = step_definition;
     }
 
-    public StepState getStep_state() {
+    public ProcessingState getStep_state() {
         return apply_status.getStepState();
     }
 
-    public void setStep_state(StepState step_state) {
+    public void setStep_state(ProcessingState step_state) {
         this.step_state = step_state;
     }
 
@@ -106,21 +118,4 @@ public class ApplyMgtInfoParm implements Serializable,PageParam {
         this.apply_end_time = apply_end_time;
     }
 
-    @Override
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    @Override
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

@@ -52,7 +52,7 @@ public enum StepDefinition implements IEnum<Integer> {
         }
     }
 
-    public static StepDefinition resolve(int stepDefinition) {
-        return mappings.get(stepDefinition);
+    public static StepDefinition resolve(int stepDefinitionId) {
+        return mappings.get(stepDefinitionId);
     }
 }

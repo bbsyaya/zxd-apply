@@ -1,9 +1,10 @@
 package com.zhixindu.apply.core.system.dao;
 
 import com.zhixindu.apply.facade.system.bo.RegionBO;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RegionMapper {
-    int deleteByPrimaryKey(Integer region_id);
 
     int insert(RegionBO record);
 

@@ -2,7 +2,7 @@ package com.zhixindu.apply.facade.apply.business;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
-import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
 
@@ -21,5 +21,5 @@ public interface DubboApplyMgtBusiness {
      * 获取申请借款列表
      * @throws ServiceException
      */
-    PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtInfoParm parm) throws ServiceException;
+    PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtPageParam pageParam) throws ServiceException;
 }

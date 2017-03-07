@@ -1,9 +1,10 @@
 package com.zhixindu.apply.core.system.dao;
 
 import com.zhixindu.apply.facade.system.bo.BankBO;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BankMapper {
-    int deleteByPrimaryKey(Integer bank_id);
 
     int insert(BankBO record);
 

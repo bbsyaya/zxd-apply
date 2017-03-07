@@ -7,7 +7,7 @@ package com.zhixindu.apply.facade.apply.enums;
 
 import com.google.common.collect.ImmutableMap;
 import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
-import com.zhixindu.apply.facade.workflow.enums.StepState;
+import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
 import com.zhixindu.commons.bean.IEnum;
 
 import java.util.HashMap;
@@ -21,17 +21,17 @@ import java.util.Map;
  */
 public enum ApplyStatus implements IEnum<Integer>{
 
-    UNDER_REVIEW(1, "审核中", ImmutableMap.of(StepDefinition.REVIEW, StepState.PROCESSING)),
-    REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(StepDefinition.REVIEW, StepState.SUCCESS)),
-    REVIEW_FAIL(3, "审核失败", ImmutableMap.of(StepDefinition.REVIEW, StepState.FAIL)),
-    LOAN_SUCCESS(4, "放款成功", ImmutableMap.of(StepDefinition.LOAN, StepState.SUCCESS)),
-    LOAN_FAIL(5, "放款失败", ImmutableMap.of(StepDefinition.LOAN, StepState.FAIL));
+    UNDER_REVIEW(1, "审核中", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.PROCESSING)),
+    REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.SUCCESS)),
+    REVIEW_FAIL(3, "审核失败", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.FAIL)),
+    LOAN_SUCCESS(4, "放款成功", ImmutableMap.of(StepDefinition.LOAN, ProcessingState.SUCCESS)),
+    LOAN_FAIL(5, "放款失败", ImmutableMap.of(StepDefinition.LOAN, ProcessingState.FAIL));
 
     private int value;
     private String desc;
-    private Map<StepDefinition, StepState> definitionStateMapping;
+    private Map<StepDefinition, ProcessingState> definitionStateMapping;
 
-    ApplyStatus(int value, String desc, Map<StepDefinition, StepState> definitionStateMapping) {
+    ApplyStatus(int value, String desc, Map<StepDefinition, ProcessingState> definitionStateMapping) {
         this.value = value;
         this.desc = desc;
         this.definitionStateMapping = definitionStateMapping;
@@ -79,7 +79,7 @@ public enum ApplyStatus implements IEnum<Integer>{
         return definitionStateMapping.keySet().iterator().next();
     }
 
-    public StepState getStepState(){
+    public ProcessingState getStepState(){
         return definitionStateMapping.values().iterator().next();
     }
 }

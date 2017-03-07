@@ -5,7 +5,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
-import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -43,11 +43,11 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     }
 
     @Override
-    public PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtInfoParm parm) throws ServiceException {
-        if(parm == null){
+    public PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtPageParam pageParam) throws ServiceException {
+        if(pageParam == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
-        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectLoansByPage",parm);
+        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectLoansByPage",pageParam);
         if(pageResult == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }

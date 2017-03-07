@@ -2,7 +2,7 @@ package com.zhixindu.apply.core.apply.dao;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,6 +22,6 @@ public interface ApplyMapper {
 
     ApplyBO selectByLenderId(Integer lender_id);
 
-    List<ApplyMgtDetailBO> selectLoansByPage(ApplyMgtInfoParm parm);
+    List<ApplyMgtDetailBO> selectLoansByPage(ApplyMgtPageParam parm);
 
 }
