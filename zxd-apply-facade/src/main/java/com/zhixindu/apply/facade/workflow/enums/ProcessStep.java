@@ -8,13 +8,13 @@ import java.util.Map;
 /**
  * Created by SteveGuo on 2017/3/7.
  */
-public enum StepDefinition implements IEnum<Integer> {
+public enum ProcessStep implements IEnum<Integer> {
     SUBMIT_APPLICATION(1, "提交申请"), REVIEW(2, "审核"), LOAN(3, "放款");
 
     private int value;
     private String desc;
 
-    StepDefinition(int value, String desc) {
+    ProcessStep(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -45,14 +45,14 @@ public enum StepDefinition implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, StepDefinition> mappings = new HashMap<>();
+    private static Map<Integer, ProcessStep> mappings = new HashMap<>();
     static {
-        for (StepDefinition stepDefinition : StepDefinition.values()) {
-            mappings.put(stepDefinition.getValue(), stepDefinition);
+        for (ProcessStep processStep : ProcessStep.values()) {
+            mappings.put(processStep.getValue(), processStep);
         }
     }
 
-    public static StepDefinition resolve(int stepDefinitionId) {
-        return mappings.get(stepDefinitionId);
+    public static ProcessStep resolve(int processStep) {
+        return mappings.get(processStep);
     }
 }

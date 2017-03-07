@@ -5,8 +5,8 @@
  */
 package com.zhixindu.apply.facade.apply.bo;
 
-import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
-import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
+import com.zhixindu.apply.facade.workflow.enums.ProcessState;
+import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class ApplyMgtDetailBO implements Serializable {
     }
 
     public String getApply_status_desc() {
-        return StepDefinition.resolve(this.step_definition_id).getDesc()+ ProcessingState.resolve(this.processing_state).getDesc();
+        return ProcessStep.resolve(this.step_definition_id).getDesc()+ ProcessState.resolve(this.processing_state).getDesc();
     }
 
     public void setApply_status_desc(String apply_status_desc) {

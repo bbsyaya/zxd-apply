@@ -1,7 +1,7 @@
 package com.zhixindu.apply.facade.workflow.bo;
 
-import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
-import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
+import com.zhixindu.apply.facade.workflow.enums.ProcessState;
+import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +11,7 @@ public class WorkflowStepInstanceBO implements Serializable {
 
     private Integer apply_id;
 
-    private StepDefinition step_definition_id;
+    private ProcessStep step_definition_id;
 
     private Date start_time;
 
@@ -19,7 +19,7 @@ public class WorkflowStepInstanceBO implements Serializable {
 
     private Date processing_time;
 
-    private ProcessingState processing_state;
+    private ProcessState processing_state;
 
     private static final long serialVersionUID = 1L;
 
@@ -39,11 +39,11 @@ public class WorkflowStepInstanceBO implements Serializable {
         this.apply_id = apply_id;
     }
 
-    public StepDefinition getStep_definition_id() {
+    public ProcessStep getStep_definition_id() {
         return step_definition_id;
     }
 
-    public void setStep_definition_id(StepDefinition step_definition_id) {
+    public void setStep_definition_id(ProcessStep step_definition_id) {
         this.step_definition_id = step_definition_id;
     }
 
@@ -71,11 +71,11 @@ public class WorkflowStepInstanceBO implements Serializable {
         this.processing_time = processing_time;
     }
 
-    public ProcessingState getProcessing_state() {
+    public ProcessState getProcessing_state() {
         return processing_state;
     }
 
-    public void setProcessing_state(ProcessingState processing_state) {
+    public void setProcessing_state(ProcessState processing_state) {
         this.processing_state = processing_state;
     }
 }

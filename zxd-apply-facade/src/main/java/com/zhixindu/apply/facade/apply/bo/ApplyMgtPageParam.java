@@ -6,8 +6,8 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
-import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
+import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
+import com.zhixindu.apply.facade.workflow.enums.ProcessState;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -48,11 +48,11 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
     /**
      * 流程步骤定义
      */
-    private StepDefinition step_definition;
+    private ProcessStep step_definition;
     /**
      * 流程步骤状态
      */
-    private ProcessingState step_state;
+    private ProcessState step_state;
 
     public String getMobile() {
         return mobile;
@@ -86,19 +86,19 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
         this.apply_status = apply_status;
     }
 
-    public StepDefinition getStep_definition() {
+    public ProcessStep getStep_definition() {
         return apply_status.getStepDefinition();
     }
 
-    public void setStep_definition(StepDefinition step_definition) {
+    public void setStep_definition(ProcessStep step_definition) {
         this.step_definition = step_definition;
     }
 
-    public ProcessingState getStep_state() {
+    public ProcessState getStep_state() {
         return apply_status.getStepState();
     }
 
-    public void setStep_state(ProcessingState step_state) {
+    public void setStep_state(ProcessState step_state) {
         this.step_state = step_state;
     }
 

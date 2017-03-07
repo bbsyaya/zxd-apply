@@ -8,13 +8,13 @@ import java.util.Map;
 /**
  * Created by SteveGuo on 2017/3/6.
  */
-public enum ProcessingState implements IEnum<Integer> {
+public enum ProcessState implements IEnum<Integer> {
     FAIL(0, "失败"), SUCCESS(1, "成功"), PROCESSING(2, "中");
 
     private int value;
     private String desc;
 
-    ProcessingState(int value, String desc) {
+    ProcessState(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -45,14 +45,14 @@ public enum ProcessingState implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, ProcessingState> mappings = new HashMap<>();
+    private static Map<Integer, ProcessState> mappings = new HashMap<>();
     static {
-        for (ProcessingState processingState : ProcessingState.values()) {
-            mappings.put(processingState.getValue(), processingState);
+        for (ProcessState processState : ProcessState.values()) {
+            mappings.put(processState.getValue(), processState);
         }
     }
 
-    public static ProcessingState resolve(int stepState) {
-        return mappings.get(stepState);
+    public static ProcessState resolve(int processState) {
+        return mappings.get(processState);
     }
 }

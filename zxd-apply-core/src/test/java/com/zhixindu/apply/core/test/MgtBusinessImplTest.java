@@ -5,23 +5,7 @@
  */
 package com.zhixindu.apply.core.test;
 
-import com.zhixindu.apply.core.app.DatabaseConfig;
-import com.zhixindu.apply.core.app.WebAppConfig;
-import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
-import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
-import com.zhixindu.commons.bean.IEnum;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author yulei

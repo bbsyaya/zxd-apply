@@ -6,8 +6,8 @@
 package com.zhixindu.apply.facade.apply.enums;
 
 import com.google.common.collect.ImmutableMap;
-import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
-import com.zhixindu.apply.facade.workflow.enums.ProcessingState;
+import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
+import com.zhixindu.apply.facade.workflow.enums.ProcessState;
 import com.zhixindu.commons.bean.IEnum;
 
 import java.util.HashMap;
@@ -21,17 +21,17 @@ import java.util.Map;
  */
 public enum ApplyStatus implements IEnum<Integer>{
 
-    UNDER_REVIEW(1, "审核中", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.PROCESSING)),
-    REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.SUCCESS)),
-    REVIEW_FAIL(3, "审核失败", ImmutableMap.of(StepDefinition.REVIEW, ProcessingState.FAIL)),
-    LOAN_SUCCESS(4, "放款成功", ImmutableMap.of(StepDefinition.LOAN, ProcessingState.SUCCESS)),
-    LOAN_FAIL(5, "放款失败", ImmutableMap.of(StepDefinition.LOAN, ProcessingState.FAIL));
+    UNDER_REVIEW(1, "审核中", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.PROCESSING)),
+    REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.SUCCESS)),
+    REVIEW_FAIL(3, "审核失败", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.FAIL)),
+    LOAN_SUCCESS(4, "放款成功", ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
+    LOAN_FAIL(5, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL));
 
     private int value;
     private String desc;
-    private Map<StepDefinition, ProcessingState> definitionStateMapping;
+    private Map<ProcessStep, ProcessState> definitionStateMapping;
 
-    ApplyStatus(int value, String desc, Map<StepDefinition, ProcessingState> definitionStateMapping) {
+    ApplyStatus(int value, String desc, Map<ProcessStep, ProcessState> definitionStateMapping) {
         this.value = value;
         this.desc = desc;
         this.definitionStateMapping = definitionStateMapping;
@@ -75,11 +75,11 @@ public enum ApplyStatus implements IEnum<Integer>{
         return mappings.get(applyStatus);
     }
 
-    public StepDefinition getStepDefinition(){
+    public ProcessStep getStepDefinition(){
         return definitionStateMapping.keySet().iterator().next();
     }
 
-    public ProcessingState getStepState(){
+    public ProcessState getStepState(){
         return definitionStateMapping.values().iterator().next();
     }
 }
