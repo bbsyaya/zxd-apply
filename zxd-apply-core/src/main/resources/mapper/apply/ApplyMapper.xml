@@ -236,9 +236,9 @@
             <if test="mobile != null"> AND le.mobile=#{mobile}</if>
             <if test="id_card != null"> AND le.id_card=#{id_card}</if>
             <if test="lender_id != null"> AND le.lender_id=#{lender_id}</if>
-            <if test="step_definition != null "> AND ins.step_definition_id =
+            <if test="process_step != null "> AND ins.process_step =
                 #{step_definition,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
-            <if test="processing_state != null "> AND ins.processing_state =
+            <if test="process_state != null "> AND ins.process_state =
                 #{step_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="apply_start_time != null"> AND ins.start_time &gt; #{apply_start_time}</if>
             <if test="apply_end_time != null"> AND ins.start_time &lt; #{apply_end_time}</if>
@@ -253,12 +253,12 @@
         le.mobile as mobile,
         le.name as name,
         le.id_card as id_card,
-        ins.step_definition_id as step_definition_id,
+        ins.process_step as process_step,
         ins.start_time as start_time,
-        ins.processing_state as processing_state
+        ins.process_state as process_state
         from apply ap
         LEFT JOIN lender le ON le.lender_id= ap.lender_id
-        LEFT JOIN workflow_step_instance ins ON ins.apply_id = ap.apply_id
+        LEFT JOIN apply_step ins ON ins.apply_id = ap.apply_id
         <include refid="whereSql"/>
         ORDER BY ins.start_time DESC
     </select>

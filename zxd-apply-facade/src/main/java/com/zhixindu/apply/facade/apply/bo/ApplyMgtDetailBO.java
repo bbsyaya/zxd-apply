@@ -30,9 +30,9 @@ public class ApplyMgtDetailBO implements Serializable {
     /**用户身份证号**/
     private String id_card;
     /**步骤 1提交申请，2审核，3放款**/
-    private Integer step_definition_id;
+    private Integer process_step;
     /**处理状态（0失败、1成功、2中）**/
-    private Integer processing_state;
+    private Integer process_state;
     /**申请状态描述**/
     private String apply_status_desc;
     /**申请时间**/
@@ -48,7 +48,7 @@ public class ApplyMgtDetailBO implements Serializable {
     }
 
     public String getApply_status_desc() {
-        return ProcessStep.resolve(this.step_definition_id).getDesc()+ ProcessState.resolve(this.processing_state).getDesc();
+        return ProcessStep.resolve(this.process_step).getDesc()+ ProcessState.resolve(this.process_state).getDesc();
     }
 
     public void setApply_status_desc(String apply_status_desc) {
@@ -87,20 +87,20 @@ public class ApplyMgtDetailBO implements Serializable {
         this.id_card = id_card;
     }
 
-    public Integer getStep_definition_id() {
-        return step_definition_id;
+    public Integer getProcess_step() {
+        return process_step;
     }
 
-    public void setStep_definition_id(Integer step_definition_id) {
-        this.step_definition_id = step_definition_id;
+    public void setProcess_step(Integer process_step) {
+        this.process_step = process_step;
     }
 
-    public Integer getProcessing_state() {
-        return processing_state;
+    public Integer getProcess_state() {
+        return process_state;
     }
 
-    public void setProcessing_state(Integer processing_state) {
-        this.processing_state = processing_state;
+    public void setProcess_state(Integer process_state) {
+        this.process_state = process_state;
     }
 
     public Date getStart_time() {
