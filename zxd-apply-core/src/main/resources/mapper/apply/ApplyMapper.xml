@@ -1,224 +1,265 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyMapper">
-  <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyBO">
-    <id column="apply_id" jdbcType="INTEGER" property="apply_id" />
-    <result column="lender_id" jdbcType="INTEGER" property="lender_id" />
-    <result column="customer_id" jdbcType="VARCHAR" property="customer_id" />
-    <result column="address_id" jdbcType="INTEGER" property="address_id" />
-    <result column="contact_id_list" jdbcType="VARCHAR" property="contact_id_list" />
-    <result column="bank_card_id_list" jdbcType="VARCHAR" property="bank_card_id_list" />
-    <result column="apply_no" jdbcType="VARCHAR" property="apply_no" />
-    <result column="loan_amount" jdbcType="DECIMAL" property="loan_amount" />
-    <result column="loan_term" jdbcType="INTEGER" property="loan_term" />
-    <result column="interest_rate" jdbcType="INTEGER" property="interest_rate" />
-    <result column="loan_interest" jdbcType="DECIMAL" property="loan_interest" />
-    <result column="platform_manage_fee" jdbcType="DECIMAL" property="platform_manage_fee" />
-    <result column="total_fee" jdbcType="DECIMAL" property="total_fee" />
-    <result column="repayment_amount" jdbcType="DECIMAL" property="repayment_amount" />
-    <result column="account_amount" jdbcType="DECIMAL" property="account_amount" />
-    <result column="receipt_card_number" jdbcType="VARCHAR" property="receipt_card_number" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id_list, 
-    apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee, 
-    total_fee, repayment_amount, account_amount, receipt_card_number
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from apply
-    where apply_id = #{apply_id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from apply
-    where apply_id = #{apply_id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
-    insert into apply (apply_id, lender_id, customer_id, 
-      address_id, contact_id_list, bank_card_id_list, 
-      apply_no, loan_amount, loan_term, 
-      interest_rate, loan_interest, platform_manage_fee, 
-      total_fee, repayment_amount, account_amount, 
-      receipt_card_number)
-    values (#{apply_id,jdbcType=INTEGER}, #{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR}, 
-      #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR}, #{bank_card_id_list,jdbcType=VARCHAR}, 
-      #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER}, 
-      #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL}, 
-      #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL}, 
-      #{receipt_card_number,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
-    insert into apply
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="apply_id != null">
-        apply_id,
-      </if>
-      <if test="lender_id != null">
-        lender_id,
-      </if>
-      <if test="customer_id != null">
-        customer_id,
-      </if>
-      <if test="address_id != null">
-        address_id,
-      </if>
-      <if test="contact_id_list != null">
-        contact_id_list,
-      </if>
-      <if test="bank_card_id_list != null">
-        bank_card_id_list,
-      </if>
-      <if test="apply_no != null">
-        apply_no,
-      </if>
-      <if test="loan_amount != null">
-        loan_amount,
-      </if>
-      <if test="loan_term != null">
-        loan_term,
-      </if>
-      <if test="interest_rate != null">
-        interest_rate,
-      </if>
-      <if test="loan_interest != null">
-        loan_interest,
-      </if>
-      <if test="platform_manage_fee != null">
-        platform_manage_fee,
-      </if>
-      <if test="total_fee != null">
-        total_fee,
-      </if>
-      <if test="repayment_amount != null">
-        repayment_amount,
-      </if>
-      <if test="account_amount != null">
-        account_amount,
-      </if>
-      <if test="receipt_card_number != null">
-        receipt_card_number,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="apply_id != null">
-        #{apply_id,jdbcType=INTEGER},
-      </if>
-      <if test="lender_id != null">
-        #{lender_id,jdbcType=INTEGER},
-      </if>
-      <if test="customer_id != null">
-        #{customer_id,jdbcType=VARCHAR},
-      </if>
-      <if test="address_id != null">
-        #{address_id,jdbcType=INTEGER},
-      </if>
-      <if test="contact_id_list != null">
-        #{contact_id_list,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_card_id_list != null">
-        #{bank_card_id_list,jdbcType=VARCHAR},
-      </if>
-      <if test="apply_no != null">
-        #{apply_no,jdbcType=VARCHAR},
-      </if>
-      <if test="loan_amount != null">
-        #{loan_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="loan_term != null">
-        #{loan_term,jdbcType=INTEGER},
-      </if>
-      <if test="interest_rate != null">
-        #{interest_rate,jdbcType=INTEGER},
-      </if>
-      <if test="loan_interest != null">
-        #{loan_interest,jdbcType=DECIMAL},
-      </if>
-      <if test="platform_manage_fee != null">
-        #{platform_manage_fee,jdbcType=DECIMAL},
-      </if>
-      <if test="total_fee != null">
-        #{total_fee,jdbcType=DECIMAL},
-      </if>
-      <if test="repayment_amount != null">
-        #{repayment_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="account_amount != null">
-        #{account_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="receipt_card_number != null">
-        #{receipt_card_number,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
-    update apply
-    <set>
-      <if test="lender_id != null">
-        lender_id = #{lender_id,jdbcType=INTEGER},
-      </if>
-      <if test="customer_id != null">
-        customer_id = #{customer_id,jdbcType=VARCHAR},
-      </if>
-      <if test="address_id != null">
-        address_id = #{address_id,jdbcType=INTEGER},
-      </if>
-      <if test="contact_id_list != null">
-        contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
-      </if>
-      <if test="bank_card_id_list != null">
-        bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
-      </if>
-      <if test="apply_no != null">
-        apply_no = #{apply_no,jdbcType=VARCHAR},
-      </if>
-      <if test="loan_amount != null">
-        loan_amount = #{loan_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="loan_term != null">
-        loan_term = #{loan_term,jdbcType=INTEGER},
-      </if>
-      <if test="interest_rate != null">
-        interest_rate = #{interest_rate,jdbcType=INTEGER},
-      </if>
-      <if test="loan_interest != null">
-        loan_interest = #{loan_interest,jdbcType=DECIMAL},
-      </if>
-      <if test="platform_manage_fee != null">
-        platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
-      </if>
-      <if test="total_fee != null">
-        total_fee = #{total_fee,jdbcType=DECIMAL},
-      </if>
-      <if test="repayment_amount != null">
-        repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="account_amount != null">
-        account_amount = #{account_amount,jdbcType=DECIMAL},
-      </if>
-      <if test="receipt_card_number != null">
-        receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where apply_id = #{apply_id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
-    update apply
-    set lender_id = #{lender_id,jdbcType=INTEGER},
-      customer_id = #{customer_id,jdbcType=VARCHAR},
-      address_id = #{address_id,jdbcType=INTEGER},
-      contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
-      bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
-      apply_no = #{apply_no,jdbcType=VARCHAR},
-      loan_amount = #{loan_amount,jdbcType=DECIMAL},
-      loan_term = #{loan_term,jdbcType=INTEGER},
-      interest_rate = #{interest_rate,jdbcType=INTEGER},
-      loan_interest = #{loan_interest,jdbcType=DECIMAL},
-      platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
-      total_fee = #{total_fee,jdbcType=DECIMAL},
-      repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
-      account_amount = #{account_amount,jdbcType=DECIMAL},
-      receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR}
-    where apply_id = #{apply_id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+        <id column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
+        <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
+        <result column="address_id" jdbcType="INTEGER" property="address_id"/>
+        <result column="contact_id_list" jdbcType="VARCHAR" property="contact_id_list"/>
+        <result column="bank_card_id_list" jdbcType="VARCHAR" property="bank_card_id_list"/>
+        <result column="apply_no" jdbcType="VARCHAR" property="apply_no"/>
+        <result column="loan_amount" jdbcType="DECIMAL" property="loan_amount"/>
+        <result column="loan_term" jdbcType="INTEGER" property="loan_term"/>
+        <result column="interest_rate" jdbcType="INTEGER" property="interest_rate"/>
+        <result column="loan_interest" jdbcType="DECIMAL" property="loan_interest"/>
+        <result column="platform_manage_fee" jdbcType="DECIMAL" property="platform_manage_fee"/>
+        <result column="total_fee" jdbcType="DECIMAL" property="total_fee"/>
+        <result column="repayment_amount" jdbcType="DECIMAL" property="repayment_amount"/>
+        <result column="account_amount" jdbcType="DECIMAL" property="account_amount"/>
+        <result column="receipt_card_number" jdbcType="VARCHAR" property="receipt_card_number"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id_list,
+        apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
+        total_fee, repayment_amount, account_amount, receipt_card_number
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+        <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply (lender_id, customer_id,
+          address_id, contact_id_list, bank_card_id_list,
+          apply_no, loan_amount, loan_term,
+          interest_rate, loan_interest, platform_manage_fee,
+          total_fee, repayment_amount, account_amount,
+          receipt_card_number)
+        values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR},
+          #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR}, #{bank_card_id_list,jdbcType=VARCHAR},
+          #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
+          #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
+          #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
+          #{receipt_card_number,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+        <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                lender_id,
+            </if>
+            <if test="customer_id != null">
+                customer_id,
+            </if>
+            <if test="address_id != null">
+                address_id,
+            </if>
+            <if test="contact_id_list != null">
+                contact_id_list,
+            </if>
+            <if test="bank_card_id_list != null">
+                bank_card_id_list,
+            </if>
+            <if test="apply_no != null">
+                apply_no,
+            </if>
+            <if test="loan_amount != null">
+                loan_amount,
+            </if>
+            <if test="loan_term != null">
+                loan_term,
+            </if>
+            <if test="interest_rate != null">
+                interest_rate,
+            </if>
+            <if test="loan_interest != null">
+                loan_interest,
+            </if>
+            <if test="platform_manage_fee != null">
+                platform_manage_fee,
+            </if>
+            <if test="total_fee != null">
+                total_fee,
+            </if>
+            <if test="repayment_amount != null">
+                repayment_amount,
+            </if>
+            <if test="account_amount != null">
+                account_amount,
+            </if>
+            <if test="receipt_card_number != null">
+                receipt_card_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lender_id != null">
+                #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="customer_id != null">
+                #{customer_id,jdbcType=VARCHAR},
+            </if>
+            <if test="address_id != null">
+                #{address_id,jdbcType=INTEGER},
+            </if>
+            <if test="contact_id_list != null">
+                #{contact_id_list,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_card_id_list != null">
+                #{bank_card_id_list,jdbcType=VARCHAR},
+            </if>
+            <if test="apply_no != null">
+                #{apply_no,jdbcType=VARCHAR},
+            </if>
+            <if test="loan_amount != null">
+                #{loan_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="loan_term != null">
+                #{loan_term,jdbcType=INTEGER},
+            </if>
+            <if test="interest_rate != null">
+                #{interest_rate,jdbcType=INTEGER},
+            </if>
+            <if test="loan_interest != null">
+                #{loan_interest,jdbcType=DECIMAL},
+            </if>
+            <if test="platform_manage_fee != null">
+                #{platform_manage_fee,jdbcType=DECIMAL},
+            </if>
+            <if test="total_fee != null">
+                #{total_fee,jdbcType=DECIMAL},
+            </if>
+            <if test="repayment_amount != null">
+                #{repayment_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="account_amount != null">
+                #{account_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="receipt_card_number != null">
+                #{receipt_card_number,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+        update apply
+        <set>
+            <if test="lender_id != null">
+                lender_id = #{lender_id,jdbcType=INTEGER},
+            </if>
+            <if test="customer_id != null">
+                customer_id = #{customer_id,jdbcType=VARCHAR},
+            </if>
+            <if test="address_id != null">
+                address_id = #{address_id,jdbcType=INTEGER},
+            </if>
+            <if test="contact_id_list != null">
+                contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_card_id_list != null">
+                bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
+            </if>
+            <if test="apply_no != null">
+                apply_no = #{apply_no,jdbcType=VARCHAR},
+            </if>
+            <if test="loan_amount != null">
+                loan_amount = #{loan_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="loan_term != null">
+                loan_term = #{loan_term,jdbcType=INTEGER},
+            </if>
+            <if test="interest_rate != null">
+                interest_rate = #{interest_rate,jdbcType=INTEGER},
+            </if>
+            <if test="loan_interest != null">
+                loan_interest = #{loan_interest,jdbcType=DECIMAL},
+            </if>
+            <if test="platform_manage_fee != null">
+                platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
+            </if>
+            <if test="total_fee != null">
+                total_fee = #{total_fee,jdbcType=DECIMAL},
+            </if>
+            <if test="repayment_amount != null">
+                repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="account_amount != null">
+                account_amount = #{account_amount,jdbcType=DECIMAL},
+            </if>
+            <if test="receipt_card_number != null">
+                receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+        update apply
+        set lender_id = #{lender_id,jdbcType=INTEGER},
+          customer_id = #{customer_id,jdbcType=VARCHAR},
+          address_id = #{address_id,jdbcType=INTEGER},
+          contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
+          bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
+          apply_no = #{apply_no,jdbcType=VARCHAR},
+          loan_amount = #{loan_amount,jdbcType=DECIMAL},
+          loan_term = #{loan_term,jdbcType=INTEGER},
+          interest_rate = #{interest_rate,jdbcType=INTEGER},
+          loan_interest = #{loan_interest,jdbcType=DECIMAL},
+          platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
+          total_fee = #{total_fee,jdbcType=DECIMAL},
+          repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
+          account_amount = #{account_amount,jdbcType=DECIMAL},
+          receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from loan
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <sql id="whereSql">
+        <where>
+            <if test="mobile != null"> AND le.mobile=#{mobile}</if>
+            <if test="id_card != null"> AND le.id_card=#{id_card}</if>
+            <if test="lender_id != null"> AND le.lender_id=#{lender_id}</if>
+            <if test="status != null and status == 1 "> AND de.step_definition_id = 1 </if>
+            <if test="status != null and status == 2 "> AND de.step_definition_id = 2 AND ins.processing_state=1</if>
+            <if test="status != null and status == 3 "> AND de.step_definition_id = 2 AND ins.processing_state=2</if>
+            <if test="status != null and status == 4 "> AND de.step_definition_id = 3 AND ins.processing_state=1</if>
+            <if test="status != null and status == 5 "> AND de.step_definition_id = 3 AND ins.processing_state=2</if>
+            <if test="lender_start_time != null"> AND ins.start_time &gt; #{lender_start_time}</if>
+            <if test="lender_end_time != null"> AND ins.start_time &lt; #{lender_end_time}</if>
+        </where>
+    </sql>
+
+    <select id="selectLoansByPage" parameterType="com.zhixindu.apply.facade.apply.bo.LoanMgtInfoParm" resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
+        select
+        le.lender_id as lender_id,
+        le.mobile as mobile,
+        le.name as name,
+        le.id_card as id_card,
+        ins.step_definition_id as step_definition_id,
+        ins.start_time as start_time,
+        ins.processing_state as processing_state
+        from loan lo
+        LEFT JOIN lender le ON le.lender_id= lo.lender_id
+        LEFT JOIN workflow_step_instance ins ON ins.loan_id = lo.loan_id
+        <include refid="whereSql"/>
+        ORDER BY ins.start_time DESC
+    </select>
+
 </mapper>
