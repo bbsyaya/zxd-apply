@@ -20,6 +20,8 @@ import java.util.Date;
 public class ApplyMgtDetailBO implements Serializable {
     private static final long serialVersionUID = 2840701069750299567L;
     /**申请ID**/
+    private String apply_id;
+    /**申请人ID**/
     private String lender_id;
     /**用户手机号**/
     private String mobile;
@@ -36,6 +38,14 @@ public class ApplyMgtDetailBO implements Serializable {
     /**申请时间**/
     private Date start_time;
 
+
+    public String getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(String apply_id) {
+        this.apply_id = apply_id;
+    }
 
     public String getApply_status_desc() {
         return StepDefinition.resolve(this.step_definition_id).getDesc()+StepState.resolve(this.processing_state).getDesc();
