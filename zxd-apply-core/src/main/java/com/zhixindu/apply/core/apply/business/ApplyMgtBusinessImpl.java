@@ -3,9 +3,9 @@ package com.zhixindu.apply.core.apply.business;
 
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
-import com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO;
-import com.zhixindu.apply.facade.apply.bo.LoanMgtInfo;
-import com.zhixindu.apply.facade.apply.bo.LoanMgtInfoParm;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by SteveGuo on 2017/3/3.
  */
 @Business("loanMgtBusiness")
-public class LoanMgtBusinessImpl implements DubboApplyMgtBusiness {
+public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Inject
     private ApplyMapper applyMapper;
@@ -31,25 +31,25 @@ public class LoanMgtBusinessImpl implements DubboApplyMgtBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public LoanMgtInfo getLoanInfoByLenderId(Integer lender_id) throws ServiceException {
+    public ApplyMgtInfo getApplyInfoByLenderId(Integer lender_id) throws ServiceException {
         Parameters.requireNotNull(lender_id,"getLoanInfoByLenderId lender_id illargm_param");
         ApplyBO applyBO = applyMapper.selectByLenderId(lender_id);
         if(null == applyBO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
         }
-        LoanMgtInfo loanMgtInfo = new LoanMgtInfo();
+        ApplyMgtInfo loanMgtInfo = new ApplyMgtInfo();
         BeanUtils.copyProperties(loanMgtInfo,applyBO);
         return loanMgtInfo;
     }
 
     @Override
-    public PageResult<LoanMgtDetailBO> selectLoansByPage(LoanMgtInfoParm parm) throws ServiceException {
+    public PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtInfoParm parm) throws ServiceException {
         if(parm == null){
-            return new PageResult<LoanMgtDetailBO>(new ArrayList<LoanMgtDetailBO>(0), 0);
+            return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
-        PageResult<LoanMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectLoansByPage",parm);
+        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectLoansByPage",parm);
         if(pageResult == null){
-            return new PageResult<LoanMgtDetailBO>(new ArrayList<LoanMgtDetailBO>(0), 0);
+            return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
         return pageResult;
     }

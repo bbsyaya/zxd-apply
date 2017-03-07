@@ -11,5 +11,5 @@ package com.zhixindu.apply.facade.apply.bo;
  * @date 2017/3/7
  * @description
  */
-public enum LoanMgtParamStatusEnum {
+public enum ApplyMgtParamStatusEnum {
 }

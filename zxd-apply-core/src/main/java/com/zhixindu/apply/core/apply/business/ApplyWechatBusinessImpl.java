@@ -5,5 +5,5 @@ import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
-public class LoanWechatBusinessImpl implements DubboApplyWechatBusiness {
+public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 }

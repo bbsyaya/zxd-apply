@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * @date 2017/3/6
  * @description
  */
-public class LoanMgtInfo implements Serializable {
+public class ApplyMgtInfo implements Serializable {
     private static final long serialVersionUID = 3670587372380106486L;
     /**申请Id **/
     private Integer lender_id;

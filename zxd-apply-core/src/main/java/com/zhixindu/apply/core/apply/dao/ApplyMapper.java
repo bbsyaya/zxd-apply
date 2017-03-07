@@ -1,11 +1,13 @@
 package com.zhixindu.apply.core.apply.dao;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
-import com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO;
-import com.zhixindu.apply.facade.apply.bo.LoanMgtInfoParm;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ApplyMapper {
     int deleteByPrimaryKey(Integer apply_id);
 
@@ -21,6 +23,6 @@ public interface ApplyMapper {
 
     ApplyBO selectByLenderId(Integer lender_id);
 
-    List<LoanMgtDetailBO> selectLoansByPage(LoanMgtInfoParm parm);
+    List<ApplyMgtDetailBO> selectLoansByPage(ApplyMgtInfoParm parm);
 
 }

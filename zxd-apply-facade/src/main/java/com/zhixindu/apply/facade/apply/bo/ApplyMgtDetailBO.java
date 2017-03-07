@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2017/3/7
  * @description
  */
-public class LoanMgtDetailBO implements Serializable {
+public class ApplyMgtDetailBO implements Serializable {
     private static final long serialVersionUID = 2840701069750299567L;
     /**申请ID**/
     private String lender_id;

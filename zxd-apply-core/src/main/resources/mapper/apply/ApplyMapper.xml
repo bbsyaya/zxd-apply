@@ -246,7 +246,7 @@
         </where>
     </sql>
 
-    <select id="selectLoansByPage" parameterType="com.zhixindu.apply.facade.apply.bo.LoanMgtInfoParm" resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
+    <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm" resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
         select
         le.lender_id as lender_id,
         le.mobile as mobile,

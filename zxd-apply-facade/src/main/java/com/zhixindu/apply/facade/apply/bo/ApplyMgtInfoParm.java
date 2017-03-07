@@ -16,7 +16,7 @@ import java.util.Date;
  * @date 2017/3/6
  * @description
  */
-public class LoanMgtInfoParm implements Serializable,PageParam {
+public class ApplyMgtInfoParm implements Serializable,PageParam {
 
     private static final long serialVersionUID = 2481093266378962060L;
     /**用户手机号**/
