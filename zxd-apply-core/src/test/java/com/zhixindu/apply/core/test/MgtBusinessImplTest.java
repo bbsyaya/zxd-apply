@@ -39,10 +39,5 @@ public class MgtBusinessImplTest {
         System.out.println("fdsasfd");
     }
 
-    public static void main(String [] args){
-
-        System.out.println("afdsaf");
-    }
-
 
 }
