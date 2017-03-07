@@ -1,8 +1,8 @@
-package com.zhixindu.apply.core.system.domain;
+package com.zhixindu.apply.facade.system.bo;
 
 import java.io.Serializable;
 
-public class Bank implements Serializable {
+public class BankBO implements Serializable {
     private Integer bank_id;
 
     private Integer bin;

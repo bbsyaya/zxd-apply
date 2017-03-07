@@ -1,17 +1,16 @@
 package com.zhixindu.apply.core.workflow.dao;
 
-import com.zhixindu.apply.core.workflow.domain.WorkflowStepInstance;
+import com.zhixindu.apply.facade.workflow.bo.WorkflowStepInstanceBO;
 
 public interface WorkflowStepInstanceMapper {
-    int deleteByPrimaryKey(Integer step_instance_id);
 
-    int insert(WorkflowStepInstance record);
+    int insert(WorkflowStepInstanceBO record);
 
-    int insertSelective(WorkflowStepInstance record);
+    int insertSelective(WorkflowStepInstanceBO record);
 
-    WorkflowStepInstance selectByPrimaryKey(Integer step_instance_id);
+    WorkflowStepInstanceBO selectByPrimaryKey(Integer step_instance_id);
 
-    int updateByPrimaryKeySelective(WorkflowStepInstance record);
+    int updateByPrimaryKeySelective(WorkflowStepInstanceBO record);
 
-    int updateByPrimaryKey(WorkflowStepInstance record);
+    int updateByPrimaryKey(WorkflowStepInstanceBO record);
 }

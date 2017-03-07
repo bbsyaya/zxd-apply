@@ -1,8 +1,8 @@
-package com.zhixindu.apply.core.workflow.domain;
+package com.zhixindu.apply.facade.workflow.bo;
 
 import java.io.Serializable;
 
-public class WorkflowStepDefinition implements Serializable {
+public class WorkflowStepDefinitionBO implements Serializable {
     private Integer step_definition_id;
 
     private String step_name;
