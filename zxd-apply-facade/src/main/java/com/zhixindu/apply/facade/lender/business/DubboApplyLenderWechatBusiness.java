@@ -93,4 +93,11 @@ public interface DubboApplyLenderWechatBusiness {
      */
     int submitCreditSituation(Integer lenderId, String creditSituation);
 
+    /**
+     * 查找银行卡号
+     * @param lenderId
+     * @return
+     */
+    String findBankCardNumber(Integer lenderId);
+
 }
