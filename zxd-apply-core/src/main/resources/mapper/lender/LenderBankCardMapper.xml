@@ -7,11 +7,12 @@
         <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
         <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
         <result column="bank_address_code" jdbcType="INTEGER" property="bank_address_code"/>
+        <result column="reserved_mobile" jdbcType="VARCHAR" property="reserved_mobile" />
         <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-      bank_card_id, lender_id, bank_card_number, bank_name, bank_address_code, bank_card_verify
+      bank_card_id, lender_id, bank_card_number, bank_name, bank_address_code, reserved_mobile, bank_card_verify
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -29,7 +30,7 @@
         bank_name, bank_address_code, bank_card_verify
         )
         values (#{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
-        #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},
+        #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},#{reserved_mobile,jdbcType=VARCHAR},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         )
     </insert>
@@ -52,6 +53,9 @@
             <if test="bank_address_code != null">
                 bank_address_code,
             </if>
+            <if test="reserved_mobile != null">
+                reserved_mobile,
+            </if>
             <if test="bank_card_verify != null">
                 bank_card_verify,
             </if>
@@ -68,6 +72,9 @@
             </if>
             <if test="bank_address_code != null">
                 #{bank_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="reserved_mobile != null">
+                #{reserved_mobile,jdbcType=VARCHAR},
             </if>
             <if test="bank_card_verify != null">
                 #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -91,6 +98,9 @@
             <if test="bank_address_code != null">
                 bank_address_code = #{bank_address_code,jdbcType=INTEGER},
             </if>
+            <if test="reserved_mobile != null">
+                reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
+            </if>
             <if test="bank_card_verify != null">
                 bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
@@ -104,6 +114,7 @@
         bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
         bank_name = #{bank_name,jdbcType=VARCHAR},
         bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+        reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
         bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </update>

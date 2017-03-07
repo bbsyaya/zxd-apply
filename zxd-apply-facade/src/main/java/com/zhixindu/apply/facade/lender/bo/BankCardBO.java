@@ -17,6 +17,8 @@ public class BankCardBO implements Serializable {
 
     private Integer bank_address_code;
 
+    private String reserved_mobile;
+
     private BankCardVerify bank_card_verify;
 
     public Integer getBank_id() {
@@ -57,6 +59,14 @@ public class BankCardBO implements Serializable {
 
     public void setBank_address_code(Integer bank_address_code) {
         this.bank_address_code = bank_address_code;
+    }
+
+    public String getReserved_mobile() {
+        return reserved_mobile;
+    }
+
+    public void setReserved_mobile(String reserved_mobile) {
+        this.reserved_mobile = reserved_mobile;
     }
 
     public BankCardVerify getBank_card_verify() {
