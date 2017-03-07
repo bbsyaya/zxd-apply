@@ -236,17 +236,17 @@
             <if test="mobile != null"> AND le.mobile=#{mobile}</if>
             <if test="id_card != null"> AND le.id_card=#{id_card}</if>
             <if test="lender_id != null"> AND le.lender_id=#{lender_id}</if>
-            <if test="status != null and status == 1 "> AND de.step_definition_id = 1 </if>
-            <if test="status != null and status == 2 "> AND de.step_definition_id = 2 AND ins.processing_state=1</if>
-            <if test="status != null and status == 3 "> AND de.step_definition_id = 2 AND ins.processing_state=2</if>
-            <if test="status != null and status == 4 "> AND de.step_definition_id = 3 AND ins.processing_state=1</if>
-            <if test="status != null and status == 5 "> AND de.step_definition_id = 3 AND ins.processing_state=2</if>
+            <if test="step_definition != null "> AND ins.step_definition_id =
+                #{step_definition,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
+            <if test="processing_state != null "> AND ins.processing_state =
+                #{step_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="lender_start_time != null"> AND ins.start_time &gt; #{lender_start_time}</if>
             <if test="lender_end_time != null"> AND ins.start_time &lt; #{lender_end_time}</if>
         </where>
     </sql>
 
-    <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm" resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
+    <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm"
+            resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
         select
         le.lender_id as lender_id,
         le.mobile as mobile,

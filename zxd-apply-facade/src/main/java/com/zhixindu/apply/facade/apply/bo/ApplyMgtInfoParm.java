@@ -5,6 +5,9 @@
  */
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
+import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
+import com.zhixindu.apply.facade.workflow.enums.StepState;
 import com.zhixindu.commons.page.PageParam;
 
 import java.io.Serializable;
@@ -25,16 +28,19 @@ public class ApplyMgtInfoParm implements Serializable,PageParam {
     private String id_card;
     /**申请ID**/
     private String lender_id;
-    /**状态 1审核中，2审核成功，3审核失败，4放款成功，5放款失败**/
-    private Integer status;
+    /**申请状态 1审核中，2审核成功，3审核失败，4放款成功，5放款失败**/
+    private ApplyStatus apply_status;
     /**申请开始时间**/
-    private Date lender_start_time;
+    private Date apply_start_time;
     /**申请结束时间**/
-    private Date lender_end_time;
+    private Date apply_end_time;
     /**页数**/
     private int page = 0;
     /**每页大小**/
     private int count = 10;
+
+    private StepDefinition step_definition;
+    private StepState step_state;
 
     public String getMobile() {
         return mobile;
@@ -60,28 +66,44 @@ public class ApplyMgtInfoParm implements Serializable,PageParam {
         this.lender_id = lender_id;
     }
 
-    public Integer getStatus() {
-        return status;
+    public ApplyStatus getApply_status() {
+        return apply_status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setApply_status(ApplyStatus apply_status) {
+        this.apply_status = apply_status;
     }
 
-    public Date getLender_start_time() {
-        return lender_start_time;
+    public StepDefinition getStep_definition() {
+        return apply_status.getStepDefinition();
     }
 
-    public void setLender_start_time(Date lender_start_time) {
-        this.lender_start_time = lender_start_time;
+    public void setStep_definition(StepDefinition step_definition) {
+        this.step_definition = step_definition;
     }
 
-    public Date getLender_end_time() {
-        return lender_end_time;
+    public StepState getStep_state() {
+        return apply_status.getStepState();
     }
 
-    public void setLender_end_time(Date lender_end_time) {
-        this.lender_end_time = lender_end_time;
+    public void setStep_state(StepState step_state) {
+        this.step_state = step_state;
+    }
+
+    public Date getApply_start_time() {
+        return apply_start_time;
+    }
+
+    public void setApply_start_time(Date apply_start_time) {
+        this.apply_start_time = apply_start_time;
+    }
+
+    public Date getApply_end_time() {
+        return apply_end_time;
+    }
+
+    public void setApply_end_time(Date apply_end_time) {
+        this.apply_end_time = apply_end_time;
     }
 
     @Override
