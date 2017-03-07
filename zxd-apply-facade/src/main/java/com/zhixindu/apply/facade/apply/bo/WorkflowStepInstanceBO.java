@@ -1,7 +1,7 @@
-package com.zhixindu.apply.facade.workflow.bo;
+package com.zhixindu.apply.facade.apply.bo;
 
-import com.zhixindu.apply.facade.workflow.enums.ProcessState;
-import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
+import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.util.Date;

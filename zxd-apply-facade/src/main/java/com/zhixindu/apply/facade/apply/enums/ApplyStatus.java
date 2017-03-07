@@ -6,8 +6,6 @@
 package com.zhixindu.apply.facade.apply.enums;
 
 import com.google.common.collect.ImmutableMap;
-import com.zhixindu.apply.facade.workflow.enums.ProcessStep;
-import com.zhixindu.apply.facade.workflow.enums.ProcessState;
 import com.zhixindu.commons.bean.IEnum;
 
 import java.util.HashMap;

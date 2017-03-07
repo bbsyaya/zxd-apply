@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyStepMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyStepBO">
+        <id column="step_id" jdbcType="INTEGER" property="step_id"/>
+        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="start_time"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="end_time"/>
+        <result column="process_step" jdbcType="INTEGER" property="process_step" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="process_time" jdbcType="TIMESTAMP" property="process_time"/>
+        <result column="process_state" jdbcType="INTEGER" property="process_state" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        step_id, apply_id, start_time, end_time, process_step, process_time, process_state
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_step
+        where step_id = #{step_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStepBO">
+        <selectKey keyProperty="step_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_step (apply_id, start_time,
+          end_time, process_step, process_time,
+          process_state)
+        values (#{apply_id,jdbcType=INTEGER}, #{start_time,jdbcType=TIMESTAMP},
+          #{end_time,jdbcType=TIMESTAMP},
+          #{process_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{process_time,jdbcType=TIMESTAMP},
+          #{process_state,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStepBO">
+        <selectKey keyProperty="step_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_step
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                apply_id,
+            </if>
+            <if test="start_time != null">
+                start_time,
+            </if>
+            <if test="end_time != null">
+                end_time,
+            </if>
+            <if test="process_step != null">
+                process_step,
+            </if>
+            <if test="process_time != null">
+                process_time,
+            </if>
+            <if test="process_state != null">
+                process_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="start_time != null">
+                #{start_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end_time != null">
+                #{end_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="process_step != null">
+                #{process_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="process_time != null">
+                #{process_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="process_state != null">
+                #{process_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStepBO">
+        update apply_step
+        <set>
+            <if test="apply_id != null">
+                apply_id = #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="start_time != null">
+                start_time = #{start_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="end_time != null">
+                end_time = #{end_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="process_step != null">
+                process_step = #{process_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="process_time != null">
+                process_time = #{process_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="process_state != null">
+                process_state = #{process_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+        </set>
+        where step_id = #{step_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStepBO">
+        update apply_step
+        set apply_id = #{apply_id,jdbcType=INTEGER},
+          start_time = #{start_time,jdbcType=TIMESTAMP},
+          end_time = #{end_time,jdbcType=TIMESTAMP},
+          process_step = #{process_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          process_time = #{process_time,jdbcType=TIMESTAMP},
+          process_state = #{process_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where step_id = #{step_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectListByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_step
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

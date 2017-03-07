@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.workflow.bo;
+package com.zhixindu.apply.facade.apply.bo;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.workflow.enums;
+package com.zhixindu.apply.facade.apply.enums;
 
 import com.zhixindu.commons.bean.IEnum;
 

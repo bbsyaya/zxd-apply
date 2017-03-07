@@ -2,15 +2,15 @@ package com.zhixindu.apply.core.apply.business;
 
 import com.google.common.collect.Lists;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.service.ApplyService;
-import com.zhixindu.apply.core.workflow.dao.WorkflowStepInstanceMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLoanWorkflowStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
+import com.zhixindu.apply.facade.apply.bo.WorkflowStepInstanceBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
-import com.zhixindu.apply.facade.workflow.bo.ApplyLoanWorkflowStepBO;
-import com.zhixindu.apply.facade.workflow.bo.WorkflowStepInstanceBO;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -35,7 +35,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Inject
     private ApplyMapper applyMapper;
     @Inject
-    private WorkflowStepInstanceMapper workflowStepInstanceMapper;
+    private ApplyStepMapper applyStepMapper;
     @Inject
     private PageRepository pageRepository;
 
@@ -57,7 +57,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
         }
         BeanUtils.copyProperties(applyBO, applyLoanDetailBO);
-        List<WorkflowStepInstanceBO> workflowStepInstanceBOList = workflowStepInstanceMapper.selectListByApplyId(applyId);
+        List<WorkflowStepInstanceBO> workflowStepInstanceBOList = applyStepMapper.selectListByApplyId(applyId);
         List<ApplyLoanWorkflowStepBO> applyLoanWorkflowStepBOList = Lists.newArrayListWithCapacity(0);
         if(CollectionUtils.isNotEmpty(workflowStepInstanceBOList)) {
             applyLoanWorkflowStepBOList = workflowStepInstanceBOList.stream().map(instanceBO -> {
