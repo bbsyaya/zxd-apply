@@ -135,36 +135,36 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public int submitLenderAddress(AddressBO addressBO) {
+    public boolean submitLenderAddress(AddressBO addressBO) {
         Parameters.requireAllPropertyNotNull(addressBO, new Object[]{"lender_id"});
-        return lenderService.saveOrUpdateAddress(addressBO);
+        return lenderService.saveOrUpdateAddress(addressBO) > 0;
     }
 
     @Override
-    public int submitLenderContact(List<ContactBO> contactBOList) {
+    public boolean submitLenderContact(List<ContactBO> contactBOList) {
         if(CollectionUtils.isEmpty(contactBOList)) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
         }
-        return lenderService.saveOrUpdateContact(contactBOList);
+        return lenderService.saveOrUpdateContact(contactBOList) > 1;
     }
 
     @Override
-    public int submitLenderBankCard(BankCardBO bankCardBO) {
+    public boolean submitLenderBankCard(BankCardBO bankCardBO) {
         Parameters.requireAllPropertyNotNull(bankCardBO, new Object[]{"lender_id"});
-        return lenderService.saveOrUpdateBankCard(bankCardBO);
+        return lenderService.saveOrUpdateBankCard(bankCardBO) > 0;
     }
 
     @Override
-    public int submitMobile(MobileBO mobileBO) {
+    public boolean submitMobile(MobileBO mobileBO) {
         Parameters.requireAllPropertyNotNull(mobileBO);
-        return lenderService.saveMobileVerify(mobileBO);
+        return lenderService.saveMobileVerify(mobileBO) > 0;
     }
 
     @Override
-    public int submitCreditSituation(Integer lenderId, String creditSituation) {
+    public boolean submitCreditSituation(Integer lenderId, String creditSituation) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         Parameters.requireNotNull(creditSituation, "creditSituation不能为空");
-        return lenderService.saveCreditSituation(lenderId, creditSituation);
+        return lenderService.saveCreditSituation(lenderId, creditSituation) > 0;
     }
 
     @Override

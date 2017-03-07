@@ -62,28 +62,28 @@ public interface DubboApplyLenderWechatBusiness {
      * @param addressBO
      * @return
      */
-    int submitLenderAddress(AddressBO addressBO);
+    boolean submitLenderAddress(AddressBO addressBO);
 
     /**
      * 提交借款人联系人信息
      * @param contactBOList
      * @return
      */
-    int submitLenderContact(List<ContactBO> contactBOList);
+    boolean submitLenderContact(List<ContactBO> contactBOList);
 
     /**
      * 提交借款人银行卡信息
      * @param bankCardBO
      * @return
      */
-    int submitLenderBankCard(BankCardBO bankCardBO);
+    boolean submitLenderBankCard(BankCardBO bankCardBO);
 
     /**
      * 提交手机号码验证
      * @param mobileBO
      * @return
      */
-    int submitMobile(MobileBO mobileBO);
+    boolean submitMobile(MobileBO mobileBO);
 
     /**
      * 提交信用情况
@@ -91,7 +91,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param creditSituation
      * @return
      */
-    int submitCreditSituation(Integer lenderId, String creditSituation);
+    boolean submitCreditSituation(Integer lenderId, String creditSituation);
 
     /**
      * 查找银行卡号
