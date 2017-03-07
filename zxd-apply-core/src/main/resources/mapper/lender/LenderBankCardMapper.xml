@@ -27,10 +27,10 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into lender_bank_card (lender_id, bank_card_number,
-        bank_name, bank_address_code, bank_card_verify
+        bank_name, bank_address_code, reserved_mobile, bank_card_verify
         )
         values (#{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
-        #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},#{reserved_mobile,jdbcType=VARCHAR},
+        #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER}, #{reserved_mobile,jdbcType=VARCHAR},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         )
     </insert>

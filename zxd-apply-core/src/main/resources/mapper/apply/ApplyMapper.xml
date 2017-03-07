@@ -18,12 +18,13 @@
         <result column="repayment_amount" jdbcType="DECIMAL" property="repayment_amount"/>
         <result column="account_amount" jdbcType="DECIMAL" property="account_amount"/>
         <result column="receipt_card_number" jdbcType="VARCHAR" property="receipt_card_number"/>
+        <result column="apply_time" jdbcType="TIMESTAMP" property="apply_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
         apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id_list,
         apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
-        total_fee, repayment_amount, account_amount, receipt_card_number
+        total_fee, repayment_amount, account_amount, receipt_card_number, apply_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -42,13 +43,13 @@
           apply_no, loan_amount, loan_term,
           interest_rate, loan_interest, platform_manage_fee,
           total_fee, repayment_amount, account_amount,
-          receipt_card_number)
+          receipt_card_number, apply_time)
         values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR},
           #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR}, #{bank_card_id_list,jdbcType=VARCHAR},
           #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
           #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
           #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
-          #{receipt_card_number,jdbcType=VARCHAR})
+          #{receipt_card_number,jdbcType=VARCHAR}, #{apply_time,jdbcType=TIMESTAMP})
     </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
@@ -102,6 +103,9 @@
             <if test="receipt_card_number != null">
                 receipt_card_number,
             </if>
+            <if test="apply_time != null">
+                apply_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="lender_id != null">
@@ -148,6 +152,9 @@
             </if>
             <if test="receipt_card_number != null">
                 #{receipt_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="apply_time != null">
+                #{apply_time,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -200,6 +207,9 @@
             <if test="receipt_card_number != null">
                 receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
             </if>
+            <if test="apply_time != null">
+                apply_time = #{apply_time,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
@@ -220,7 +230,8 @@
           total_fee = #{total_fee,jdbcType=DECIMAL},
           repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
           account_amount = #{account_amount,jdbcType=DECIMAL},
-          receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR}
+          receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
+          apply_time = #{apply_time,jdbcType=TIMESTAMP}
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
@@ -240,12 +251,12 @@
                 #{step_definition,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="process_state != null "> AND ins.process_state =
                 #{step_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
-            <if test="apply_start_time != null"> AND ins.start_time &gt; #{apply_start_time}</if>
-            <if test="apply_end_time != null"> AND ins.start_time &lt; #{apply_end_time}</if>
+            <if test="apply_start_time != null"> AND ap.apply_time &gt; #{apply_start_time}</if>
+            <if test="apply_end_time != null"> AND ap.apply_time &lt; #{apply_end_time}</if>
         </where>
     </sql>
 
-    <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
+    <select id="selectListByPageForMgt" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
             resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO">
         select
         ap.apply_id as apply_id,
@@ -260,7 +271,14 @@
         LEFT JOIN lender le ON le.lender_id= ap.lender_id
         LEFT JOIN apply_step ins ON ins.apply_id = ap.apply_id
         <include refid="whereSql"/>
-        ORDER BY ins.start_time DESC
+        ORDER BY ap.apply_time DESC
+    </select>
+
+    <select id="selectListByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyPageParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from apply
+        order by apply_time desc
     </select>
 
 </mapper>

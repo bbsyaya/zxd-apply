@@ -36,7 +36,7 @@ public class ApplyMgtDetailBO implements Serializable {
     /**申请状态描述**/
     private String apply_status_desc;
     /**申请时间**/
-    private Date start_time;
+    private Date apply_time;
 
 
     public String getApply_id() {
@@ -103,11 +103,11 @@ public class ApplyMgtDetailBO implements Serializable {
         this.process_state = process_state;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public Date getApply_time() {
+        return apply_time;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setApply_time(Date apply_time) {
+        this.apply_time = apply_time;
     }
 }

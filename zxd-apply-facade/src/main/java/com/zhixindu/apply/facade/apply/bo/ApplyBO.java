@@ -2,6 +2,7 @@ package com.zhixindu.apply.facade.apply.bo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class ApplyBO implements Serializable {
 
@@ -38,6 +39,8 @@ public class ApplyBO implements Serializable {
     private BigDecimal account_amount;
     /** 收款卡号 */
     private String receipt_card_number;
+    /** 申请时间 */
+    private Date apply_time;
 
     public Integer getApply_id() {
         return apply_id;
@@ -165,5 +168,13 @@ public class ApplyBO implements Serializable {
 
     public void setReceipt_card_number(String receipt_card_number) {
         this.receipt_card_number = receipt_card_number == null ? null : receipt_card_number.trim();
+    }
+
+    public Date getApply_time() {
+        return apply_time;
+    }
+
+    public void setApply_time(Date apply_time) {
+        this.apply_time = apply_time;
     }
 }

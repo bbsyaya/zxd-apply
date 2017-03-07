@@ -47,7 +47,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         if(pageParam == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
-        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectLoansByPage",pageParam);
+        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListByPageForMgt",pageParam);
         if(pageResult == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }

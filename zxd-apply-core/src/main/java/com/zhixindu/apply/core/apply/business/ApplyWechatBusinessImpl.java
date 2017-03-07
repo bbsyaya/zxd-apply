@@ -16,6 +16,7 @@ import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
 import com.zhixindu.commons.repository.PageRepository;
+import com.zhixindu.commons.utils.Parameters;
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -46,24 +47,27 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam) {
-        return null;
+        Parameters.requireAllPropertyNotNull(pageParam, "分页查询参数不能为空");
+        PageResult<ApplyLoanBO> pageResult = pageRepository.selectPaging(ApplyMapper.class, "selectListByPage", pageParam);
+        return pageResult;
     }
 
     @Override
     public ApplyLoanDetailBO findApplyLoanDetail(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
         ApplyLoanDetailBO applyLoanDetailBO = new ApplyLoanDetailBO();
         ApplyBO applyBO = applyMapper.selectByPrimaryKey(applyId);
         if(null == applyBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
         }
         BeanUtils.copyProperties(applyBO, applyLoanDetailBO);
+
         List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
         List<ApplyLoanStepBO> applyLoanStepBOList = Lists.newArrayListWithCapacity(0);
         if(CollectionUtils.isNotEmpty(applyStepBOList)) {
             applyLoanStepBOList = applyStepBOList.stream().map(instanceBO -> {
                 ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
-                applyWorkflowBO.setProcessing_result(instanceBO.getProcess_step().getDesc() + instanceBO
-                        .getProcess_state().getValue());
+                applyWorkflowBO.setProcessing_result(instanceBO.getProcess_step().getDesc() + instanceBO.getProcess_state().getDesc());
                 if (null != instanceBO.getProcess_time()) {
                     applyWorkflowBO.setProcessing_time(new DateTime(instanceBO.getProcess_time()).toString
                             ("yyyy-MM-dd HH:mm:ss"));
