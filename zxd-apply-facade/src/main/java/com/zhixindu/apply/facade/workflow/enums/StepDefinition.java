@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by SteveGuo on 2017/3/6.
+ * Created by SteveGuo on 2017/3/7.
  */
-public enum WorkflowStepState implements IEnum<Integer> {
-    FAIL(0, "失败"), SUCCESS(1, "成功"), PROCESSING(2, "中");
+public enum StepDefinition implements IEnum<Integer> {
+    SUBMIT_APPLICATION(1, "提交申请"), REVIEW(2, "审核"), LOAN(3, "放款");
 
     private int value;
     private String desc;
 
-    WorkflowStepState(int value, String desc) {
+    StepDefinition(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -45,14 +45,14 @@ public enum WorkflowStepState implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, WorkflowStepState> mappings = new HashMap<>();
+    private static Map<Integer, StepDefinition> mappings = new HashMap<>();
     static {
-        for (WorkflowStepState workflowStepState : WorkflowStepState.values()) {
-            mappings.put(workflowStepState.getValue(), workflowStepState);
+        for (StepDefinition stepDefinition : StepDefinition.values()) {
+            mappings.put(stepDefinition.getValue(), stepDefinition);
         }
     }
 
-    public static WorkflowStepState resolve(int workflowStepState) {
-        return mappings.get(workflowStepState);
+    public static StepDefinition resolve(int stepDefinition) {
+        return mappings.get(stepDefinition);
     }
 }
