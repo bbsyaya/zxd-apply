@@ -240,13 +240,13 @@
                 #{step_definition,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="processing_state != null "> AND ins.processing_state =
                 #{step_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
-            <if test="lender_start_time != null"> AND ins.start_time &gt; #{lender_start_time}</if>
-            <if test="lender_end_time != null"> AND ins.start_time &lt; #{lender_end_time}</if>
+            <if test="apply_start_time != null"> AND ins.start_time &gt; #{apply_start_time}</if>
+            <if test="apply_end_time != null"> AND ins.start_time &lt; #{apply_end_time}</if>
         </where>
     </sql>
 
     <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtInfoParm"
-            resultType="com.zhixindu.apply.facade.apply.bo.LoanMgtDetailBO">
+            resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO">
         select
         le.lender_id as lender_id,
         le.mobile as mobile,
