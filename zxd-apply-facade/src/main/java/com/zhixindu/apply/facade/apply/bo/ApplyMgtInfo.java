@@ -16,6 +16,8 @@ import java.math.BigDecimal;
  */
 public class ApplyMgtInfo implements Serializable {
     private static final long serialVersionUID = 3670587372380106486L;
+    /**申请ID**/
+    private String apply_id;
     /**申请Id **/
     private Integer lender_id;
     /**申请金额 **/
@@ -30,6 +32,14 @@ public class ApplyMgtInfo implements Serializable {
     private BigDecimal platform_manage_fee;
     /**到期还款**/
     private BigDecimal repayment_amount;
+
+    public String getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(String apply_id) {
+        this.apply_id = apply_id;
+    }
 
     public Integer getLender_id() {
         return lender_id;

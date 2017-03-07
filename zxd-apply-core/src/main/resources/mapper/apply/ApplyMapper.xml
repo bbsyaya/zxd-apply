@@ -227,7 +227,7 @@
     <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from loan
+        from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
@@ -248,6 +248,7 @@
     <select id="selectApplysByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
             resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO">
         select
+        ap.apply_id as apply_id,
         le.lender_id as lender_id,
         le.mobile as mobile,
         le.name as name,
@@ -255,9 +256,9 @@
         ins.step_definition_id as step_definition_id,
         ins.start_time as start_time,
         ins.processing_state as processing_state
-        from loan lo
-        LEFT JOIN lender le ON le.lender_id= lo.lender_id
-        LEFT JOIN workflow_step_instance ins ON ins.loan_id = lo.loan_id
+        from apply ap
+        LEFT JOIN lender le ON le.lender_id= ap.lender_id
+        LEFT JOIN workflow_step_instance ins ON ins.apply_id = ap.apply_id
         <include refid="whereSql"/>
         ORDER BY ins.start_time DESC
     </select>
