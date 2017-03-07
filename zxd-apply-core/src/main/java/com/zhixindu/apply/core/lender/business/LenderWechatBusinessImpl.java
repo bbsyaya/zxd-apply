@@ -116,7 +116,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == bankCardBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
         }
-        // TODO 银行卡做掩码
+        bankCardBO.setBank_card_number(StringUtil.maskBankCard(bankCardBO.getBank_card_number()));
         return bankCardBO;
     }
 
@@ -130,8 +130,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         MobileBO mobileBO = new MobileBO();
         mobileBO.setLender_id(lenderId);
         mobileBO.setMobile(StringUtil.maskMobile(lenderBO.getMobile()));
-        // TODO 手机服务密码解密，掩码
-        mobileBO.setService_password("");
+        mobileBO.setService_password(StringUtil.maskPassword(lenderBO.getService_password()));
         return mobileBO;
     }
 
