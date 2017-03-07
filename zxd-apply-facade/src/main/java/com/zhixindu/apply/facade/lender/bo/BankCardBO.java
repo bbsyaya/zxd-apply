@@ -17,7 +17,7 @@ public class BankCardBO implements Serializable {
 
     private Integer bank_address_code;
 
-    private BankCardVerify bank_verfy;
+    private BankCardVerify bank_card_verify;
 
     public Integer getBank_id() {
         return bank_id;
@@ -59,11 +59,11 @@ public class BankCardBO implements Serializable {
         this.bank_address_code = bank_address_code;
     }
 
-    public BankCardVerify getBank_verfy() {
-        return bank_verfy;
+    public BankCardVerify getBank_card_verify() {
+        return bank_card_verify;
     }
 
-    public void setBank_verfy(BankCardVerify bank_verfy) {
-        this.bank_verfy = bank_verfy;
+    public void setBank_card_verify(BankCardVerify bank_card_verify) {
+        this.bank_card_verify = bank_card_verify;
     }
 }

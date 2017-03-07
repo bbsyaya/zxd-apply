@@ -116,6 +116,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == bankCardBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
         }
+        // TODO 银行卡做掩码
         return bankCardBO;
     }
 
@@ -136,24 +137,35 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public int submitLenderAddress(AddressBO addressBO) {
-        Parameters.requireAllPropertyNotNull(addressBO);
+        Parameters.requireAllPropertyNotNull(addressBO, new Object[]{"lender_id"});
         return lenderService.saveOrUpdateAddress(addressBO);
     }
 
     @Override
     public int submitLenderContact(List<ContactBO> contactBOList) {
-        Parameters.requireAllPropertyNotNull(contactBOList);
+        if(CollectionUtils.isEmpty(contactBOList)) {
+            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
+        }
         return lenderService.saveOrUpdateContact(contactBOList);
     }
 
     @Override
     public int submitLenderBankCard(BankCardBO bankCardBO) {
+        Parameters.requireAllPropertyNotNull(bankCardBO, new Object[]{"lender_id"});
         return lenderService.saveOrUpdateBankCard(bankCardBO);
     }
 
     @Override
     public int submitMobile(MobileBO mobileBO) {
+        Parameters.requireAllPropertyNotNull(mobileBO);
         return lenderService.saveMobileVerify(mobileBO);
+    }
+
+    @Override
+    public int submitCreditSituation(Integer lenderId, String creditSituation) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        Parameters.requireNotNull(creditSituation, "creditSituation不能为空");
+        return lenderService.saveCreditSituation(lenderId, creditSituation);
     }
 
 }

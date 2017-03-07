@@ -85,4 +85,12 @@ public interface DubboApplyLenderWechatBusiness {
      */
     int submitMobile(MobileBO mobileBO);
 
+    /**
+     * 提交信用情况
+     * @param lenderId
+     * @param creditSituation
+     * @return
+     */
+    int submitCreditSituation(Integer lenderId, String creditSituation);
+
 }

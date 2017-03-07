@@ -24,4 +24,6 @@ public interface LenderService {
 
     int saveMobileVerify(MobileBO mobileBO);
 
+    int saveCreditSituation(Integer lenderId, String creditSituation);
+
 }

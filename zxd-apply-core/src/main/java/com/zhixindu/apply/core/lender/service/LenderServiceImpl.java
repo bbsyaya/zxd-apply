@@ -61,11 +61,16 @@ public class LenderServiceImpl implements LenderService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveOrUpdateBankCard(BankCardBO bankCardBO) {
+        int result;
         if(null != bankCardBO.getBank_id()) {
-            return lenderBankCardMapper.updateByPrimaryKey(bankCardBO);
+            result = lenderBankCardMapper.updateByPrimaryKey(bankCardBO);
         } else {
-            return lenderBankCardMapper.insert(bankCardBO);
+            result = lenderBankCardMapper.insert(bankCardBO);
         }
+        if(result > 0) {
+            result = lenderMapper.updateBankCardVerify(bankCardBO.getLender_id(), bankCardBO.getBank_card_verify());
+        }
+        return result;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -74,5 +79,10 @@ public class LenderServiceImpl implements LenderService {
         return lenderMapper.updateMobileVerify(mobileBO);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int saveCreditSituation(Integer lenderId, String creditSituation) {
+        return lenderMapper.updateCreditSituation(lenderId, creditSituation);
+    }
 
 }
