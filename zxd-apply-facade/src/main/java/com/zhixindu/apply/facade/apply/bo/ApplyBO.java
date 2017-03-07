@@ -3,7 +3,7 @@ package com.zhixindu.apply.facade.apply.bo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Apply implements Serializable {
+public class ApplyBO implements Serializable {
 
     private static final long serialVersionUID = 2181984961531019781L;
 

@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.loan.bo;
+package com.zhixindu.apply.facade.apply.bo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

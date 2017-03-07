@@ -1,17 +1,17 @@
 package com.zhixindu.apply.core.apply.dao;
 
-import com.zhixindu.apply.facade.apply.bo.Apply;
+import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 
 public interface ApplyMapper {
     int deleteByPrimaryKey(Integer apply_id);
 
-    int insert(Apply record);
+    int insert(ApplyBO record);
 
-    int insertSelective(Apply record);
+    int insertSelective(ApplyBO record);
 
-    Apply selectByPrimaryKey(Integer apply_id);
+    ApplyBO selectByPrimaryKey(Integer apply_id);
 
-    int updateByPrimaryKeySelective(Apply record);
+    int updateByPrimaryKeySelective(ApplyBO record);
 
-    int updateByPrimaryKey(Apply record);
+    int updateByPrimaryKey(ApplyBO record);
 }
