@@ -5,6 +5,9 @@
  */
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.apply.facade.workflow.enums.StepDefinition;
+import com.zhixindu.apply.facade.workflow.enums.StepState;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,8 +31,19 @@ public class ApplyMgtDetailBO implements Serializable {
     private Integer step_definition_id;
     /**处理状态（0失败、1成功、2中）**/
     private Integer processing_state;
+    /**申请状态描述**/
+    private String apply_status_desc;
     /**申请时间**/
     private Date start_time;
+
+
+    public String getApply_status_desc() {
+        return StepDefinition.resolve(this.step_definition_id).getDesc()+StepState.resolve(this.processing_state).getDesc();
+    }
+
+    public void setApply_status_desc(String apply_status_desc) {
+        this.apply_status_desc = apply_status_desc;
+    }
 
     public String getLender_id() {
         return lender_id;
