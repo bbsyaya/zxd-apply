@@ -5,8 +5,8 @@
         <id column="bank_id" jdbcType="INTEGER" property="bank_id"/>
         <result column="bin" jdbcType="INTEGER" property="bin"/>
         <result column="bin_length" jdbcType="INTEGER" property="bin_length"/>
-        <result column="card_type" jdbcType="INTEGER" property="card_type"/>
-        <result column="card_level" jdbcType="INTEGER" property="card_level"/>
+        <result column="card_type" jdbcType="INTEGER" property="card_type" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="card_level" jdbcType="INTEGER" property="card_level" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
         <result column="card_name" jdbcType="VARCHAR" property="card_name"/>
         <result column="card_full_name" jdbcType="VARCHAR" property="card_full_name"/>
@@ -31,8 +31,9 @@
           card_type, card_level, bank_name,
           card_name, card_full_name)
         values (#{bin,jdbcType=INTEGER}, #{bin_length,jdbcType=INTEGER},
-          #{card_type,jdbcType=INTEGER}, #{card_level,jdbcType=INTEGER}, #{bank_name,jdbcType=VARCHAR},
-          #{card_name,jdbcType=VARCHAR}, #{card_full_name,jdbcType=VARCHAR})
+          #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{bank_name,jdbcType=VARCHAR}, #{card_name,jdbcType=VARCHAR}, #{card_full_name,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.system.bo.BankBO">
@@ -71,10 +72,10 @@
                 #{bin_length,jdbcType=INTEGER},
             </if>
             <if test="card_type != null">
-                #{card_type,jdbcType=INTEGER},
+                #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="card_level != null">
-                #{card_level,jdbcType=INTEGER},
+                #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="bank_name != null">
                 #{bank_name,jdbcType=VARCHAR},
@@ -98,10 +99,10 @@
                 bin_length = #{bin_length,jdbcType=INTEGER},
             </if>
             <if test="card_type != null">
-                card_type = #{card_type,jdbcType=INTEGER},
+                card_type = #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="card_level != null">
-                card_level = #{card_level,jdbcType=INTEGER},
+                card_level = #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="bank_name != null">
                 bank_name = #{bank_name,jdbcType=VARCHAR},
@@ -120,8 +121,8 @@
         update bank
         set bin = #{bin,jdbcType=INTEGER},
           bin_length = #{bin_length,jdbcType=INTEGER},
-          card_type = #{card_type,jdbcType=INTEGER},
-          card_level = #{card_level,jdbcType=INTEGER},
+          card_type = #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          card_level = #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           bank_name = #{bank_name,jdbcType=VARCHAR},
           card_name = #{card_name,jdbcType=VARCHAR},
           card_full_name = #{card_full_name,jdbcType=VARCHAR}

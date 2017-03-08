@@ -9,7 +9,7 @@
         <result column="full_name" jdbcType="VARCHAR" property="full_name"/>
         <result column="pinyin" jdbcType="VARCHAR" property="pinyin"/>
         <result column="py" jdbcType="VARCHAR" property="py"/>
-        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="level" jdbcType="INTEGER" property="level" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="parent_code" jdbcType="INTEGER" property="parent_code"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -33,7 +33,8 @@
           )
         values (#{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
           #{suffix,jdbcType=VARCHAR}, #{full_name,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR},
-          #{py,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{parent_code,jdbcType=INTEGER}
+          #{py,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{parent_code,jdbcType=INTEGER}
           )
     </insert>
 
@@ -88,7 +89,7 @@
                 #{py,jdbcType=VARCHAR},
             </if>
             <if test="level != null">
-                #{level,jdbcType=INTEGER},
+                #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="parent_code != null">
                 #{parent_code,jdbcType=INTEGER},
@@ -118,7 +119,7 @@
                 py = #{py,jdbcType=VARCHAR},
             </if>
             <if test="level != null">
-                level = #{level,jdbcType=INTEGER},
+                level = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="parent_code != null">
                 parent_code = #{parent_code,jdbcType=INTEGER},
@@ -135,7 +136,7 @@
           full_name = #{full_name,jdbcType=VARCHAR},
           pinyin = #{pinyin,jdbcType=VARCHAR},
           py = #{py,jdbcType=VARCHAR},
-          level = #{level,jdbcType=INTEGER},
+          level = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           parent_code = #{parent_code,jdbcType=INTEGER}
         where region_id = #{region_id,jdbcType=INTEGER}
     </update>

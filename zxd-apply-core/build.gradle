@@ -111,7 +111,7 @@ war {
 
 configurations {
     compile.exclude module: 'spring'
-    //compile.exclude group: 'io.netty'
+    compile.exclude group: 'io.netty'
 }
 
 configurations.all {

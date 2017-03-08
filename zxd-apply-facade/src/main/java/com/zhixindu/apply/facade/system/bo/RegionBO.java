@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.system.bo;
 
+import com.zhixindu.apply.facade.system.enums.RegionLevel;
+
 import java.io.Serializable;
 
 public class RegionBO extends RegionBaseBO implements Serializable {
@@ -16,7 +18,7 @@ public class RegionBO extends RegionBaseBO implements Serializable {
     /** 简拼 */
     private String py;
     /** 区划级别（1省，2市，3区/县） */
-    private Integer level;
+    private RegionLevel level;
 
     public Integer getRegion_id() {
         return region_id;
@@ -58,12 +60,11 @@ public class RegionBO extends RegionBaseBO implements Serializable {
         this.py = py == null ? null : py.trim();
     }
 
-    public Integer getLevel() {
+    public RegionLevel getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(RegionLevel level) {
         this.level = level;
     }
-
 }
