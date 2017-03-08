@@ -26,7 +26,7 @@ public interface DubboApplyLenderMgtBusiness {
      * 通过lender_id获取申请基本信息
      * @throws ServiceException
      */
-    LenderMgtInfo getLenderInfo(Integer lender_id) throws ServiceException;
+    LenderMgtInfo findLenderInfo(Integer lender_id) throws ServiceException;
 
 
 }
