@@ -128,6 +128,11 @@
         where bank_id = #{bank_id,jdbcType=INTEGER}
     </update>
     
+    <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.BankBaseBO">
+        select bin,bank_name
+        from bank
+    </select>
+    
     <select id="selectBankNameByBin" parameterType="java.lang.Integer" resultType="java.lang.String">
         select bank_name
         from bank

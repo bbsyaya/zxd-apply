@@ -1,10 +1,12 @@
 package com.zhixindu.apply.core.system.business;
 
-import com.zhixindu.apply.core.system.dao.BankMapper;
-import com.zhixindu.apply.core.system.dao.RegionMapper;
+import com.zhixindu.apply.core.system.cache.BankCacheManager;
+import com.zhixindu.apply.core.system.cache.RegionCacheManager;
 import com.zhixindu.apply.core.system.enums.BinLength;
+import com.zhixindu.apply.core.system.exception.UnSupportedBankException;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
+import com.zhixindu.commons.annotation.Business;
 import org.apache.commons.lang.StringUtils;
 
 import javax.inject.Inject;
@@ -13,38 +15,44 @@ import java.util.List;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
+@Business("systemConfigBusiness")
 public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness {
 
     @Inject
-    private RegionMapper regionMapper;
+    private RegionCacheManager regionCacheManager;
     @Inject
-    private BankMapper bankMapper;
+    private BankCacheManager bankCacheManager;
 
     @Override
     public List<RegionBaseBO> getAllRegion() {
-        return regionMapper.selectAll();
+       return regionCacheManager.getAllRegion();
+    }
+
+    @Override
+    public List<RegionBaseBO> getProvinceList() {
+        return regionCacheManager.getProvinceList();
     }
 
     @Override
     public List<RegionBaseBO> getRegionList(Integer parentCode) {
-        return regionMapper.selectListByParentCode(parentCode);
+        return regionCacheManager.getRegionList(parentCode);
     }
 
     @Override
     public RegionBaseBO getRegion(Integer code) {
-        return regionMapper.selectByCode(code);
+        return regionCacheManager.getRegion(code);
     }
 
     @Override
     public String getBankName(Integer bankCardNumber) {
         for(BinLength binLength : BinLength.values()) {
             Integer bin = Integer.valueOf(bankCardNumber.toString().substring(0, binLength.getValue()));
-            String bankName = bankMapper.selectBankNameByBin(bin);
+            String bankName = bankCacheManager.getBankNameByBin(bin);
             if(StringUtils.isNotBlank(bankName)) {
                 return bankName;
             }
         }
-        return "";
+        throw new UnSupportedBankException();
     }
 
 

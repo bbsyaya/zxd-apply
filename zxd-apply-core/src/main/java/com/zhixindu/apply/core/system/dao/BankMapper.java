@@ -1,7 +1,10 @@
 package com.zhixindu.apply.core.system.dao;
 
 import com.zhixindu.apply.facade.system.bo.BankBO;
+import com.zhixindu.apply.facade.system.bo.BankBaseBO;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BankMapper {
@@ -15,6 +18,8 @@ public interface BankMapper {
     int updateByPrimaryKeySelective(BankBO record);
 
     int updateByPrimaryKey(BankBO record);
+
+    List<BankBaseBO> selectAll();
 
     String selectBankNameByBin(Integer bin);
 }

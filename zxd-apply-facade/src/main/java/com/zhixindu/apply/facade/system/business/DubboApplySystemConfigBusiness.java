@@ -17,6 +17,12 @@ public interface DubboApplySystemConfigBusiness {
     List<RegionBaseBO> getAllRegion();
 
     /**
+     * 获取所有省份列表
+     * @return
+     */
+    List<RegionBaseBO> getProvinceList();
+
+    /**
      * 根据父代码获取行政区划
      * @param parentCode
      * @return
