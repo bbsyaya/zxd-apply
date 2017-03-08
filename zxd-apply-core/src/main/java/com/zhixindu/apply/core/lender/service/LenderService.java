@@ -2,6 +2,7 @@ package com.zhixindu.apply.core.lender.service;
 
 
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
@@ -24,6 +25,6 @@ public interface LenderService {
 
     int saveMobileVerify(MobileVerifyBO mobileVerifyBO);
 
-    int saveCreditSituation(Integer lenderId, String creditSituation);
+    int saveApplyResult(ApplyResultBO applyResultBO);
 
 }

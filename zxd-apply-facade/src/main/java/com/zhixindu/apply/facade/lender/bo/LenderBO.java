@@ -1,5 +1,6 @@
 package com.zhixindu.apply.facade.lender.bo;
 
+import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 
@@ -9,15 +10,18 @@ public class LenderBO extends LenderBaseInfoBO implements Serializable {
 
     private static final long serialVersionUID = -1373173161346766532L;
 
+    /** 借款人ID */
     private Integer lender_id;
-
+    /** 手机服务密码 */
     private String service_password;
-
+    /** 手机号验证 */
     private MobileVerify mobile_verify;
-
+    /** 银行卡验证 */
     private BankCardVerify bank_card_verify;
-
-    private String credit_situation;
+    /** 申请结果 */
+    private ApplyResult apply_result;
+    /** 信用评分 */
+    private Integer credit_score;
 
     public Integer getLender_id() {
         return lender_id;
@@ -51,11 +55,19 @@ public class LenderBO extends LenderBaseInfoBO implements Serializable {
         this.bank_card_verify = bank_card_verify;
     }
 
-    public String getCredit_situation() {
-        return credit_situation;
+    public ApplyResult getApply_result() {
+        return apply_result;
     }
 
-    public void setCredit_situation(String credit_situation) {
-        this.credit_situation = credit_situation == null ? null : credit_situation.trim();
+    public void setApply_result(ApplyResult apply_result) {
+        this.apply_result = apply_result;
+    }
+
+    public Integer getCredit_score() {
+        return credit_score;
+    }
+
+    public void setCredit_score(Integer credit_score) {
+        this.credit_score = credit_score;
     }
 }

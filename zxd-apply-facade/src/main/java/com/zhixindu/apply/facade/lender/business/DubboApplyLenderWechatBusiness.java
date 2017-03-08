@@ -1,10 +1,12 @@
 package com.zhixindu.apply.facade.lender.business;
 
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
-import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
 
@@ -16,11 +18,11 @@ import java.util.List;
 public interface DubboApplyLenderWechatBusiness {
 
     /**
-     * 检查借款人信用情况
+     * 根据客户ID查找借款信息
      * @param customerId
      * @return
      */
-    boolean checkCreditSituation(String customerId);
+    LenderBO findLender(String customerId);
 
     /**
      * 申请借款
@@ -87,11 +89,10 @@ public interface DubboApplyLenderWechatBusiness {
 
     /**
      * 提交信用情况
-     * @param lenderId
-     * @param creditSituation
+     * @param applyResultBO
      * @return
      */
-    boolean submitCreditSituation(Integer lenderId, String creditSituation);
+    boolean submitApplyResult(ApplyResultBO applyResultBO);
 
     /**
      * 查找银行卡号

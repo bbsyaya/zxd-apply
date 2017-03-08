@@ -2,9 +2,9 @@ package com.zhixindu.apply.core.lender.dao;
 
 
 import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,14 +20,12 @@ public interface LenderMapper {
 
     int updateByPrimaryKeySelective(LenderBO record);
 
-    String selectCreditSituation(String customer_id);
-
     LenderBO selectByCustomerId(String customer_id);
 
     int updateMobileVerify(MobileVerifyBO mobileVerifyBO);
 
     int updateBankCardVerify(BankCardVerifyBO bankCardVerifyBO);
 
-    int updateCreditSituation(@Param("lender_id") Integer lender_id, @Param("credit_situation") String credit_situation);
+    int updateApplyResult(ApplyResultBO applyResultBO);
 
 }

@@ -10,12 +10,13 @@
         <result column="id_card" jdbcType="VARCHAR" property="id_card"/>
         <result column="mobile_verify" jdbcType="INTEGER" property="mobile_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
-        <result column="credit_situation" jdbcType="VARCHAR" property="credit_situation"/>
+        <result column="apply_result" jdbcType="INTEGER" property="apply_result" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="credit_score" jdbcType="INTEGER" property="credit_score" />
     </resultMap>
 
     <sql id="Base_Column_List">
       lender_id, customer_id, mobile, service_password, name, id_card, mobile_verify, bank_card_verify,
-      credit_situation
+      apply_result, credit_score
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -31,13 +32,14 @@
         </selectKey>
         insert into lender (customer_id, mobile,
         service_password, name, id_card,
-        mobile_verify, bank_card_verify, credit_situation
-        )
+        mobile_verify, bank_card_verify, apply_result,
+        credit_score)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
         #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
         #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-        #{credit_situation,jdbcType=VARCHAR}
+        #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{credit_score,jdbcType=INTEGER}
         )
     </insert>
 
@@ -68,8 +70,11 @@
             <if test="bank_card_verify != null">
                 bank_card_verify,
             </if>
-            <if test="credit_situation != null">
-                credit_situation,
+            <if test="apply_result != null">
+                apply_result,
+            </if>
+            <if test="credit_score != null">
+                credit_score,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -94,8 +99,11 @@
             <if test="bank_card_verify != null">
                 #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
-            <if test="credit_situation != null">
-                #{credit_situation,jdbcType=VARCHAR},
+            <if test="apply_result != null">
+                #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="credit_score != null">
+                #{credit_score,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -124,8 +132,11 @@
             <if test="bank_card_verify != null">
                 bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
-            <if test="credit_situation != null">
-                credit_situation = #{credit_situation,jdbcType=VARCHAR},
+            <if test="apply_result != null">
+                apply_result = #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="credit_score != null">
+                credit_score = #{credit_score,jdbcType=INTEGER},
             </if>
         </set>
         where lender_id = #{lender_id,jdbcType=INTEGER}
@@ -140,15 +151,10 @@
         id_card = #{id_card,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-        credit_situation = #{credit_situation,jdbcType=VARCHAR}
+        apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_score = #{credit_score,jdbcType=INTEGER}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
-
-    <select id="selectCreditSituationByCustomerId" parameterType="java.lang.String" resultType="java.lang.String">
-        select credit_situation
-        from lender
-        where customer_id = #{customer_id,jdbcType=VARCHAR}
-    </select>
 
     <select id="selectByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -170,9 +176,10 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateCreditSituation">
+    <update id="updateApplyResult" parameterType="com.zhixindu.apply.facade.lender.bo.ApplyResultBO">
         update lender
-        set credit_situation = #{credit_situation,jdbcType=VARCHAR}
+        set apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_score = #{credit_score,jdbcType=VARCHAR}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 

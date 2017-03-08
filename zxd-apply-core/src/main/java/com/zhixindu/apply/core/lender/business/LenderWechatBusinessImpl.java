@@ -7,6 +7,7 @@ import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.service.LenderService;
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
@@ -23,7 +24,6 @@ import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.utils.Parameters;
 import com.zhixindu.commons.utils.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
@@ -47,14 +47,9 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     private LenderService lenderService;
 
     @Override
-    public boolean checkCreditSituation(String customerId) {
+    public  LenderBO findLender(String customerId) {
         Parameters.requireNotNull(customerId, "customerId不能为空");
-        String creditSituation = lenderMapper.selectCreditSituation(customerId);
-        if(StringUtils.isBlank(creditSituation)) {
-            return true;
-        }
-        // TODO 解析信用结果
-        return false;
+        return lenderMapper.selectByCustomerId(customerId);
     }
 
     @Override
@@ -161,10 +156,9 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public boolean submitCreditSituation(Integer lenderId, String creditSituation) {
-        Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        Parameters.requireNotNull(creditSituation, "creditSituation不能为空");
-        return lenderService.saveCreditSituation(lenderId, creditSituation) > 0;
+    public boolean submitApplyResult(ApplyResultBO applyResultBO) {
+        Parameters.requireAllPropertyNotNull(applyResultBO);
+        return lenderService.saveApplyResult(applyResultBO) > 0;
     }
 
     @Override

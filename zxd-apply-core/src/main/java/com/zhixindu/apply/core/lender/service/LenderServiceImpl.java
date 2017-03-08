@@ -5,6 +5,7 @@ import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
@@ -85,8 +86,8 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveCreditSituation(Integer lenderId, String creditSituation) {
-        return lenderMapper.updateCreditSituation(lenderId, creditSituation);
+    public int saveApplyResult(ApplyResultBO applyResultBO) {
+        return lenderMapper.updateApplyResult(applyResultBO);
     }
 
 }
