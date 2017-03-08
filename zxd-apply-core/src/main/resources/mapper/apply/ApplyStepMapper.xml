@@ -124,7 +124,15 @@
         <include refid="Base_Column_List"/>
         from apply_step
         where apply_id = #{apply_id,jdbcType=INTEGER}
+        order by start_time asc
     </select>
 
+    <select id="selectLatestByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List"/>
+        from apply_step
+        where apply_id = #{apply_id,jdbcType=INTEGER} and process_time is null
+        order by start_time desc limit 0,1
+    </select>
 
 </mapper>
