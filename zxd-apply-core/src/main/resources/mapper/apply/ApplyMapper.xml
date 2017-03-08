@@ -295,15 +295,24 @@
             <if test="mobile != null"> AND le.mobile=#{mobile}</if>
             <if test="id_card != null"> AND le.id_card=#{id_card}</if>
             <if test="lender_id != null"> AND le.lender_id=#{lender_id}</if>
-            <if test="apply_status != null "> AND ap.apply_status =
-                #{apply_status,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
+            <if test="apply_status != null "> AND ap.apply_status=#{apply_status,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="apply_start_time != null"> AND ap.apply_time &gt; #{apply_start_time}</if>
             <if test="apply_end_time != null"> AND ap.apply_time &lt; #{apply_end_time}</if>
         </where>
     </sql>
 
-    <select id="selectListForMgtByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
-            resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtBO">
+    <resultMap id="ApplyMgtBOResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyMgtBO">
+        <id column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="id_card" jdbcType="VARCHAR" property="id_card"/>
+        <result column="loan_amount" jdbcType="DECIMAL" property="loan_amount"/>
+        <result column="apply_time" jdbcType="TIMESTAMP" property="apply_time" />
+        <result column="apply_status" jdbcType="INTEGER" property="apply_status" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+    </resultMap>
+
+    <select id="selectListForMgtByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam" resultMap="ApplyMgtBOResultMap">
         select
         ap.apply_id as apply_id,
         le.lender_id as lender_id,

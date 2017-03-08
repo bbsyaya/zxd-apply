@@ -45,14 +45,6 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
      * 申请结束时间
      **/
     private Date apply_end_time;
-    /**
-     * 流程步骤定义
-     */
-    private ProcessStep step_definition;
-    /**
-     * 流程步骤状态
-     */
-    private ProcessState step_state;
 
     public String getMobile() {
         return mobile;
@@ -84,22 +76,6 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
 
     public void setApply_status(ApplyStatus apply_status) {
         this.apply_status = apply_status;
-    }
-
-    public ProcessStep getStep_definition() {
-        return apply_status.getStepDefinition();
-    }
-
-    public void setStep_definition(ProcessStep step_definition) {
-        this.step_definition = step_definition;
-    }
-
-    public ProcessState getStep_state() {
-        return apply_status.getStepState();
-    }
-
-    public void setStep_state(ProcessState step_state) {
-        this.step_state = step_state;
     }
 
     public Date getApply_start_time() {
