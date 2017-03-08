@@ -2,8 +2,10 @@ package com.zhixindu.apply.core.system.business;
 
 import com.zhixindu.apply.core.system.dao.BankMapper;
 import com.zhixindu.apply.core.system.dao.RegionMapper;
+import com.zhixindu.apply.core.system.enums.BinLength;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
+import org.apache.commons.lang.StringUtils;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -35,7 +37,16 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
 
     @Override
     public String getBankName(Integer bankCardNumber) {
-        return null;
+        for(BinLength binLength : BinLength.values()) {
+            Integer bin = Integer.valueOf(bankCardNumber.toString().substring(0, binLength.getValue()));
+            String bankName = bankMapper.selectBankNameByBin(bin);
+            if(StringUtils.isNotBlank(bankName)) {
+                return bankName;
+            }
+        }
+        return "";
     }
+
+
 
 }
