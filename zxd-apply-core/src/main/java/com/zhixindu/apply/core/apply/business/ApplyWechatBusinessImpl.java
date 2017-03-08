@@ -42,13 +42,31 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean submitApplyLoan(ApplyBO applyBO) {
+        Parameters.requireAllPropertyNotNull(applyBO, new Object[]{"apply_id"});
         return applyService.saveApplyLoan(applyBO) > 0;
     }
 
     @Override
     public PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam) {
         Parameters.requireAllPropertyNotNull(pageParam, "分页查询参数不能为空");
-        PageResult<ApplyLoanBO> pageResult = pageRepository.selectPaging(ApplyMapper.class, "selectListByPage", pageParam);
+        PageResult<ApplyBO> applyBOPageResult = pageRepository.selectPaging(ApplyMapper.class, "selectListByPage", pageParam);
+        PageResult<ApplyLoanBO> pageResult = new PageResult<>();
+        BeanUtils.copyProperties(applyBOPageResult, pageResult);
+
+        List<ApplyBO> applyBOList = applyBOPageResult.getRows();
+        List<ApplyLoanBO> applyLoanBOList = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(applyBOList)){
+            applyLoanBOList = applyBOList.stream().map(applyBO -> {
+                ApplyLoanBO applyLoanBO = new ApplyLoanBO();
+                BeanUtils.copyProperties(applyBO, applyLoanBO);
+                applyLoanBO.setApply_time(new DateTime(applyBO.getApply_time()).toString("yyyy-MM-dd"));
+
+                ApplyStepBO applyStepBO = applyStepMapper.selectLatestByApplyId(applyBO.getApply_id());
+                applyLoanBO.setApply_state(applyStepBO.getProcess_step().getDesc() + applyStepBO.getProcess_state().getDesc());
+                return applyLoanBO;
+            }).collect(Collectors.toList());
+        }
+        pageResult.setRows(applyLoanBOList);
         return pageResult;
     }
 

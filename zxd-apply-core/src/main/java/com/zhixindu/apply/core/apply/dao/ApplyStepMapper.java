@@ -17,4 +17,6 @@ public interface ApplyStepMapper {
     int updateByPrimaryKey(ApplyStepBO record);
 
     List<ApplyStepBO> selectListByApplyId(Integer apply_id);
+
+    ApplyStepBO selectLatestByApplyId(Integer apply_id);
 }
