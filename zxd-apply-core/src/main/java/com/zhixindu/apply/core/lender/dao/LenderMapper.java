@@ -1,9 +1,9 @@
 package com.zhixindu.apply.core.lender.dao;
 
 
+import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
-import com.zhixindu.apply.facade.lender.bo.MobileBO;
-import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,9 +24,9 @@ public interface LenderMapper {
 
     LenderBO selectByCustomerId(String customer_id);
 
-    int updateMobileVerify(MobileBO mobileBO);
+    int updateMobileVerify(MobileVerifyBO mobileVerifyBO);
 
-    int updateBankCardVerify(@Param("lender_id") Integer lender_id, @Param("bank_card_verify") BankCardVerify bank_card_verify);
+    int updateBankCardVerify(BankCardVerifyBO bankCardVerifyBO);
 
     int updateCreditSituation(@Param("lender_id") Integer lender_id, @Param("credit_situation") String credit_situation);
 

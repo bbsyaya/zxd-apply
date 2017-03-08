@@ -5,7 +5,7 @@ import com.zhixindu.apply.facade.lender.bo.AddressBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
-import com.zhixindu.apply.facade.lender.bo.MobileBO;
+import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface LenderService {
 
     int saveOrUpdateBankCard(BankCardBO bankCardBO);
 
-    int saveMobileVerify(MobileBO mobileBO);
+    int saveMobileVerify(MobileVerifyBO mobileVerifyBO);
 
     int saveCreditSituation(Integer lenderId, String creditSituation);
 

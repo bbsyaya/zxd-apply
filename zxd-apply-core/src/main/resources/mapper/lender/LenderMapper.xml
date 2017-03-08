@@ -157,14 +157,14 @@
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
-    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.MobileBO">
+    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.MobileVerifyBO">
         update lender
         set service_password = #{service_password,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateBankCardVerify">
+    <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO">
         update lender
         set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}

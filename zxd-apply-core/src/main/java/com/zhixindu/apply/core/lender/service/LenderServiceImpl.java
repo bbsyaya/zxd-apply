@@ -6,9 +6,10 @@ import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.lender.bo.AddressBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
-import com.zhixindu.apply.facade.lender.bo.MobileBO;
+import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,15 +69,18 @@ public class LenderServiceImpl implements LenderService {
             result = lenderBankCardMapper.insert(bankCardBO);
         }
         if(result > 0) {
-            result = lenderMapper.updateBankCardVerify(bankCardBO.getLender_id(), bankCardBO.getBank_card_verify());
+            BankCardVerifyBO bankCardVerifyBO = new BankCardVerifyBO();
+            bankCardVerifyBO.setLender_id(bankCardBO.getLender_id());
+            bankCardVerifyBO.setBank_card_verify(bankCardBO.getBank_card_verify());
+            result = lenderMapper.updateBankCardVerify(bankCardVerifyBO);
         }
         return result;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveMobileVerify(MobileBO mobileBO) {
-        return lenderMapper.updateMobileVerify(mobileBO);
+    public int saveMobileVerify(MobileVerifyBO mobileVerifyBO) {
+        return lenderMapper.updateMobileVerify(mobileVerifyBO);
     }
 
     @Transactional(rollbackFor = Exception.class)

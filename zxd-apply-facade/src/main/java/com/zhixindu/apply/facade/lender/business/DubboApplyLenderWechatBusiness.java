@@ -5,7 +5,7 @@ import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
-import com.zhixindu.apply.facade.lender.bo.MobileBO;
+import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderId
      * @return
      */
-    MobileBO findMobileInfo(int lenderId);
+    MobileVerifyBO findMobileInfo(int lenderId);
 
     /**
      * 提交借款人地址信息
@@ -80,10 +80,10 @@ public interface DubboApplyLenderWechatBusiness {
 
     /**
      * 提交手机号码验证
-     * @param mobileBO
+     * @param mobileVerifyBO
      * @return
      */
-    boolean submitMobile(MobileBO mobileBO);
+    boolean submitMobile(MobileVerifyBO mobileVerifyBO);
 
     /**
      * 提交信用情况

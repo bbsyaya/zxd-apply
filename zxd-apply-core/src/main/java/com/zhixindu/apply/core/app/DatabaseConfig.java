@@ -117,7 +117,7 @@ public class DatabaseConfig {
         paginationInterceptor.setProperties(properties);
         sessionFactory.setPlugins(new Interceptor[]{paginationInterceptor});
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mapper/*/*Mapper.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:/mapper/**/*Mapper.xml"));
         return sessionFactory;
     }
 
