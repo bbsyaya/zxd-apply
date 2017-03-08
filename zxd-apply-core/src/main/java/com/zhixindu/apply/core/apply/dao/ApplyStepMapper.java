@@ -19,4 +19,6 @@ public interface ApplyStepMapper {
     List<ApplyStepBO> selectListByApplyId(Integer apply_id);
 
     ApplyStepBO selectLatestByApplyId(Integer apply_id);
+
+    ApplyStepBO selectProcessTimeByApplyId(Integer apply_id);
 }

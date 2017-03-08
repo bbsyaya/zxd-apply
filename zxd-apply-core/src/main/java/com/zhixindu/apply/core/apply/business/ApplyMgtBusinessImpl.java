@@ -1,11 +1,15 @@
 package com.zhixindu.apply.core.apply.business;
 
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
+import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -17,6 +21,8 @@ import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -26,6 +32,9 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Inject
     private ApplyMapper applyMapper;
+
+    @Inject
+    private ApplyStepMapper applyStepMapper;
 
     @Inject
     private PageRepository pageRepository;
@@ -44,13 +53,30 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Override
     public PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtPageParam pageParam) throws ServiceException {
-        if(pageParam == null){
-            return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
-        }
-        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListForMgtByPage",pageParam);
+        Parameters.requireNotNull(pageParam.getPage(),"分页查询参数page不能为空");
+        Parameters.requireNotNull(pageParam.getCount(),"分页查询参数count不能为空");
+        PageResult<ApplyMgtBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListForMgtByPage",pageParam);
         if(pageResult == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
-        return pageResult;
+        PageResult<ApplyMgtDetailBO> detailBOPageResult = new PageResult<>();
+        BeanUtils.copyProperties(pageResult,detailBOPageResult);
+        List<ApplyMgtBO> applyMgtBOs = pageResult.getRows();
+        List<ApplyMgtDetailBO> applyMgtDetailBOList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(applyMgtBOs)){
+            applyMgtDetailBOList = applyMgtBOs.stream().map(applyMgtBO -> {
+                ApplyMgtDetailBO applyMgtDetailBO = new ApplyMgtDetailBO();
+                BeanUtils.copyProperties(applyMgtBO, applyMgtDetailBO);
+                ApplyStepBO applyStepBO = applyStepMapper.selectProcessTimeByApplyId(applyMgtBO.getApply_id());
+                if (applyStepBO == null) {
+                    applyMgtDetailBO.setProcess_time(null);
+                } else {
+                    applyMgtDetailBO.setProcess_time(applyStepBO.getProcess_time());
+                }
+                return applyMgtDetailBO;
+            }).collect(Collectors.toList());
+        }
+        detailBOPageResult.setRows(applyMgtDetailBOList);
+        return detailBOPageResult;
     }
 }
