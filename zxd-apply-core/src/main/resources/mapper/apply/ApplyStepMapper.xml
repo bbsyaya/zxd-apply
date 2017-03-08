@@ -135,4 +135,12 @@
         order by start_time desc limit 0,1
     </select>
 
+    <select id="selectProcessTimeByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_step
+        where apply_id = #{apply_id,jdbcType=INTEGER} and process_step = 3
+        order by start_time desc limit 0,1
+    </select>
+
 </mapper>
