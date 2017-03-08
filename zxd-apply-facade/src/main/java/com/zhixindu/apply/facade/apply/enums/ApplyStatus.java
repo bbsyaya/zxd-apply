@@ -22,8 +22,9 @@ public enum ApplyStatus implements IEnum<Integer>{
     UNDER_REVIEW(1, "审核中", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.PROCESSING)),
     REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.SUCCESS)),
     REVIEW_FAIL(3, "审核失败", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.FAIL)),
-    LOAN_SUCCESS(4, "放款成功", ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
-    LOAN_FAIL(5, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL));
+    UNDER_LOAN(4, "放款中", ImmutableMap.of(ProcessStep.LOAN, ProcessState.PROCESSING)),
+    LOAN_SUCCESS(5, "放款成功", ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
+    LOAN_FAIL(6, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL));
 
     private int value;
     private String desc;
