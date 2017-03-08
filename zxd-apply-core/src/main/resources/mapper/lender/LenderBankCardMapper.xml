@@ -22,7 +22,7 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="om.zhixindu.apply.facade.lender.bo.BankCardBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -108,7 +108,7 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="om.zhixindu.apply.facade.lender.bo.BankCardBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardBO">
         update lender_bank_card
         set lender_id = #{lender_id,jdbcType=INTEGER},
         bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
