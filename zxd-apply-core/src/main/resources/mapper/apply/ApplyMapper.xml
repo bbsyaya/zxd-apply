@@ -256,7 +256,7 @@
         </where>
     </sql>
 
-    <select id="selectListByPageForMgt" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
+    <select id="selectListForMgtByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
             resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO">
         select
         ap.apply_id as apply_id,
@@ -265,7 +265,7 @@
         le.name as name,
         le.id_card as id_card,
         ins.process_step as process_step,
-        ins.start_time as start_time,
+        ap.apply_time as apply_time,
         ins.process_state as process_state
         from apply ap
         LEFT JOIN lender le ON le.lender_id= ap.lender_id

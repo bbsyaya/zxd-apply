@@ -24,7 +24,7 @@ public interface ApplyMapper {
 
     ApplyBO selectByLenderId(Integer lender_id);
 
-    List<ApplyMgtDetailBO> selectListByPageForMgt(ApplyMgtPageParam applyMgtPageParam);
+    List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 

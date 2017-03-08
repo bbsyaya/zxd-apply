@@ -26,10 +26,10 @@ public class MgtBusinessImplTest {
     }
 */
     public static void main(String [] args){
-        ApplyMgtDetailBO bo = new ApplyMgtDetailBO();
-        bo.setProcess_step(3);
-        bo.setProcess_state(0);
-        System.out.println(bo.getApply_status_desc());
+//        ApplyMgtDetailBO bo = new ApplyMgtDetailBO();
+//        bo.setProcess_step(3);
+//        bo.setProcess_state(0);
+//        System.out.println(bo.getApply_status_desc());
 
 //        System.out.println(StepDefinition1.resolve(1).getDesc());
     }
