@@ -9,4 +9,6 @@ public interface ApplyService {
 
     int saveApplyLoan(ApplyBO applyBO);
 
+    String getLatestApplyStatus(Integer applyId);
+
 }

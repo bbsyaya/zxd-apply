@@ -127,5 +127,11 @@
           card_full_name = #{card_full_name,jdbcType=VARCHAR}
         where bank_id = #{bank_id,jdbcType=INTEGER}
     </update>
-
+    
+    <select id="selectBankNameByBin" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select bank_name
+        from bank
+        where bin = #{bin,jdbcType=INTEGER}
+    </select>
+    
 </mapper>

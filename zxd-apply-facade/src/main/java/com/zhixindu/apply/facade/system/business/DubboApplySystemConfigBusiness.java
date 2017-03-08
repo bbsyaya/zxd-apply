@@ -17,18 +17,18 @@ public interface DubboApplySystemConfigBusiness {
     List<RegionBaseBO> getAllRegion();
 
     /**
-     * 根据行政区划代码获取行政区划
-     * @param code
-     * @return
-     */
-    RegionBaseBO getRegion(Integer code);
-
-    /**
      * 根据父代码获取行政区划
      * @param parentCode
      * @return
      */
     List<RegionBaseBO> getRegionList(Integer parentCode);
+
+    /**
+     * 根据行政区划代码获取行政区划
+     * @param code
+     * @return
+     */
+    RegionBaseBO getRegion(Integer code);
 
     /**
      * 根据银行卡号获取银行名称

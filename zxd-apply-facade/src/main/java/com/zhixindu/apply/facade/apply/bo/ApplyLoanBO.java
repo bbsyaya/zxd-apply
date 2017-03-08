@@ -29,7 +29,7 @@ public class ApplyLoanBO implements Serializable {
     /**
      * 申请状态
      */
-    private String apply_state;
+    private String apply_status;
 
     public Integer getApply_id() {
         return apply_id;
@@ -63,11 +63,11 @@ public class ApplyLoanBO implements Serializable {
         this.account_amount = account_amount;
     }
 
-    public String getApply_state() {
-        return apply_state;
+    public String getApply_status() {
+        return apply_status;
     }
 
-    public void setApply_state(String apply_state) {
-        this.apply_state = apply_state;
+    public void setApply_status(String apply_status) {
+        this.apply_status = apply_status;
     }
 }

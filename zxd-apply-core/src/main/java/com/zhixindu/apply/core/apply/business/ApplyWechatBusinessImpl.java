@@ -60,9 +60,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ApplyLoanBO applyLoanBO = new ApplyLoanBO();
                 BeanUtils.copyProperties(applyBO, applyLoanBO);
                 applyLoanBO.setApply_time(new DateTime(applyBO.getApply_time()).toString("yyyy-MM-dd"));
-
-                ApplyStepBO applyStepBO = applyStepMapper.selectLatestByApplyId(applyBO.getApply_id());
-                applyLoanBO.setApply_state(applyStepBO.getProcess_step().getDesc() + applyStepBO.getProcess_state().getDesc());
+                applyLoanBO.setApply_status(applyService.getLatestApplyStatus(applyBO.getApply_id()));
                 return applyLoanBO;
             }).collect(Collectors.toList());
         }

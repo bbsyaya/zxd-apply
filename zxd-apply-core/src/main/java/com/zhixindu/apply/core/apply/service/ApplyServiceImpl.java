@@ -1,7 +1,9 @@
 package com.zhixindu.apply.core.apply.service;
 
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +17,19 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Inject
     private ApplyMapper applyMapper;
+    @Inject
+    private ApplyStepMapper applyStepMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveApplyLoan(ApplyBO applyBO) {
         return applyMapper.insertSelective(applyBO);
+    }
+
+    @Override
+    public String getLatestApplyStatus(Integer applyId) {
+        ApplyStepBO applyStepBO = applyStepMapper.selectLatestByApplyId(applyId);
+        return applyStepBO.getProcess_step().getDesc() + applyStepBO.getProcess_state().getDesc();
     }
 
 }

@@ -21,7 +21,7 @@ public interface RegionMapper {
 
     List<RegionBaseBO> selectAll();
 
-    RegionBaseBO selectByCode(Integer code);
+    List<RegionBaseBO> selectListByParentCode(Integer parent_code);
 
-    List<RegionBaseBO> selectListByParentCode(Integer parentCode);
+    RegionBaseBO selectByCode(Integer code);
 }

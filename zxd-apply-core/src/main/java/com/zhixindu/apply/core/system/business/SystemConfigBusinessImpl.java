@@ -20,17 +20,17 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
 
     @Override
     public List<RegionBaseBO> getAllRegion() {
-        return null;
-    }
-
-    @Override
-    public RegionBaseBO getRegion(Integer code) {
-        return null;
+        return regionMapper.selectAll();
     }
 
     @Override
     public List<RegionBaseBO> getRegionList(Integer parentCode) {
-        return null;
+        return regionMapper.selectListByParentCode(parentCode);
+    }
+
+    @Override
+    public RegionBaseBO getRegion(Integer code) {
+        return regionMapper.selectByCode(code);
     }
 
     @Override
