@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
-@Business("loanMgtBusiness")
+@Business("applyMgtBusiness")
 public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Inject
@@ -47,7 +47,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         if(pageParam == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }
-        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListByPageForMgt",pageParam);
+        PageResult<ApplyMgtDetailBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListForMgtByPage",pageParam);
         if(pageResult == null){
             return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
         }

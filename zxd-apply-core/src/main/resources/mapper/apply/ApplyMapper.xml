@@ -239,7 +239,7 @@
         select
         <include refid="Base_Column_List" />
         from apply
-        where lender_id = #{lender_id,jdbcType=INTEGER}
+        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
     </select>
 
     <sql id="whereSql">
@@ -256,7 +256,7 @@
         </where>
     </sql>
 
-    <select id="selectListByPageForMgt" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
+    <select id="selectListForMgtByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam"
             resultType="com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO">
         select
         ap.apply_id as apply_id,
@@ -264,12 +264,12 @@
         le.mobile as mobile,
         le.name as name,
         le.id_card as id_card,
-        ins.process_step as process_step,
-        ins.start_time as start_time,
-        ins.process_state as process_state
+        step.process_step as process_step,
+        ap.apply_time as apply_time,
+        step.process_state as process_state
         from apply ap
         LEFT JOIN lender le ON le.lender_id= ap.lender_id
-        LEFT JOIN apply_step ins ON ins.apply_id = ap.apply_id
+        LEFT JOIN apply_step step ON step.apply_id = ap.apply_id
         <include refid="whereSql"/>
         ORDER BY ap.apply_time DESC
     </select>

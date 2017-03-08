@@ -109,7 +109,7 @@ public class DatabaseConfig {
     public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setTypeAliasesPackage("com.zhixindu.apply.facade.lender.bo");
+        sessionFactory.setTypeAliasesPackage("com.zhixindu.apply.facade.*.bo");
         Interceptor paginationInterceptor = new PaginationInterceptor();
         Properties properties = new Properties();
         properties.setProperty("stmtIdRegex", "*.*ByPage");

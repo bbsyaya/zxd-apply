@@ -19,11 +19,11 @@ public class LenderMgtInfo implements Serializable {
     private static final long serialVersionUID = -8507298900725978088L;
 
     /**
-     * 借款ID
+     * 借款人ID
      */
     private Integer lender_id;
     /**
-     * 借款人ID
+     * 客户ID
      */
     private String customer_id;
     /**
