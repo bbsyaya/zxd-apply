@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
-@Business("loanMgtBusiness")
+@Business("applyMgtBusiness")
 public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Inject
