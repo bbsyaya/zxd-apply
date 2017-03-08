@@ -11,10 +11,25 @@ import com.zhixindu.commons.page.PageResult;
  */
 public interface DubboApplyWechatBusiness {
 
+    /**
+     * 提交申请借款
+     * @param applyBO
+     * @return
+     */
     boolean submitApplyLoan(ApplyBO applyBO);
 
+    /**
+     * 查询申请借款记录
+     * @param pageParam
+     * @return
+     */
     PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam);
 
+    /**
+     * 查询申请借款详情
+     * @param applyId
+     * @return
+     */
     ApplyLoanDetailBO findApplyLoanDetail(Integer applyId);
 
 }

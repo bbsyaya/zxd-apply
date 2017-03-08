@@ -1,25 +1,25 @@
 package com.zhixindu.apply.facade.system.bo;
 
+import com.zhixindu.apply.facade.system.enums.CardLevel;
+import com.zhixindu.apply.facade.system.enums.CardType;
+
 import java.io.Serializable;
 
-public class BankBO implements Serializable {
+public class BankBO extends BankBaseBO implements Serializable {
+
+    private static final long serialVersionUID = -8252653732160180148L;
+    /** 银行ID */
     private Integer bank_id;
-
-    private Integer bin;
-
+    /** BIN长度 */
     private Integer bin_length;
-
-    private Integer card_type;
-
-    private Integer card_level;
-
-    private String bank_name;
-
+    /** 银行卡类型（1贷记卡，2借记卡） */
+    private CardType card_type;
+    /** 银行卡级别（1普卡，2金卡，3白金卡） */
+    private CardLevel card_level;
+    /** 银行卡名称 */
     private String card_name;
-
+    /** 银行卡全名 */
     private String card_full_name;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getBank_id() {
         return bank_id;
@@ -27,14 +27,6 @@ public class BankBO implements Serializable {
 
     public void setBank_id(Integer bank_id) {
         this.bank_id = bank_id;
-    }
-
-    public Integer getBin() {
-        return bin;
-    }
-
-    public void setBin(Integer bin) {
-        this.bin = bin;
     }
 
     public Integer getBin_length() {
@@ -45,28 +37,20 @@ public class BankBO implements Serializable {
         this.bin_length = bin_length;
     }
 
-    public Integer getCard_type() {
+    public CardType getCard_type() {
         return card_type;
     }
 
-    public void setCard_type(Integer card_type) {
+    public void setCard_type(CardType card_type) {
         this.card_type = card_type;
     }
 
-    public Integer getCard_level() {
+    public CardLevel getCard_level() {
         return card_level;
     }
 
-    public void setCard_level(Integer card_level) {
+    public void setCard_level(CardLevel card_level) {
         this.card_level = card_level;
-    }
-
-    public String getBank_name() {
-        return bank_name;
-    }
-
-    public void setBank_name(String bank_name) {
-        this.bank_name = bank_name == null ? null : bank_name.trim();
     }
 
     public String getCard_name() {

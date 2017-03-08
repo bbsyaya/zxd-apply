@@ -14,7 +14,7 @@
  2. `com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness` 贷前申请Mgt业务接口
  3. `com.zhixindu.apply.facade.loan.business.DubboApplyLoanWechatBusiness` 贷款申请Wechat业务接口
  4. `com.zhixindu.apply.facade.loan.business.DubboApplyLoanMgtBusiness` 贷款申请Mgt业务接口
- 5. `com.zhixindu.apply.facade.system.business.DubboApplyRegionBusiness` 行政区域业务接口
+ 5. `com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness` 系统配置业务接口
 
 #### 版本历史
 

@@ -15,4 +15,6 @@ public interface BankMapper {
     int updateByPrimaryKeySelective(BankBO record);
 
     int updateByPrimaryKey(BankBO record);
+
+    String selectBankNameByBankCardNumber(Integer bankCardNumber);
 }

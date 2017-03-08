@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -41,6 +43,8 @@ public class ApplyBO implements Serializable {
     private String receipt_card_number;
     /** 申请时间 */
     private Date apply_time;
+    /** 申请状态 */
+    private ApplyStatus apply_status;
 
     public Integer getApply_id() {
         return apply_id;
@@ -176,5 +180,13 @@ public class ApplyBO implements Serializable {
 
     public void setApply_time(Date apply_time) {
         this.apply_time = apply_time;
+    }
+
+    public ApplyStatus getApply_status() {
+        return apply_status;
+    }
+
+    public void setApply_status(ApplyStatus apply_status) {
+        this.apply_status = apply_status;
     }
 }

@@ -2,26 +2,21 @@ package com.zhixindu.apply.facade.system.bo;
 
 import java.io.Serializable;
 
-public class RegionBO implements Serializable {
+public class RegionBO extends RegionBaseBO implements Serializable {
+
+    private static final long serialVersionUID = -1462132026717362545L;
+    /** 行政区划ID */
     private Integer region_id;
-
-    private Integer code;
-
+    /** 行政区名称（不含单位） */
     private String name;
-
+    /** 行政单位 */
     private String suffix;
-
-    private String full_name;
-
+    /** 全拼 */
     private String pinyin;
-
+    /** 简拼 */
     private String py;
-
+    /** 区划级别（1省，2市，3区/县） */
     private Integer level;
-
-    private Integer parent_code;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getRegion_id() {
         return region_id;
@@ -29,14 +24,6 @@ public class RegionBO implements Serializable {
 
     public void setRegion_id(Integer region_id) {
         this.region_id = region_id;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -53,14 +40,6 @@ public class RegionBO implements Serializable {
 
     public void setSuffix(String suffix) {
         this.suffix = suffix == null ? null : suffix.trim();
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name == null ? null : full_name.trim();
     }
 
     public String getPinyin() {
@@ -87,11 +66,4 @@ public class RegionBO implements Serializable {
         this.level = level;
     }
 
-    public Integer getParent_code() {
-        return parent_code;
-    }
-
-    public void setParent_code(Integer parent_code) {
-        this.parent_code = parent_code;
-    }
 }
