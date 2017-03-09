@@ -10,6 +10,7 @@ import com.zhixindu.apply.facade.lender.bo.BankCardBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveLenderBaseInfo(LenderBO lenderBO) {
-        return lenderMapper.insertSelective(lenderBO);
+    public int saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
+        return lenderMapper.insertBaseInfo(lenderBaseInfoBO);
     }
 
     @Transactional(rollbackFor = Exception.class)

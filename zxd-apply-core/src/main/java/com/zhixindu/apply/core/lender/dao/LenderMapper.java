@@ -4,6 +4,7 @@ package com.zhixindu.apply.core.lender.dao;
 import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,8 @@ public interface LenderMapper {
     int insert(LenderBO record);
 
     int insertSelective(LenderBO record);
+
+    int insertBaseInfo(LenderBaseInfoBO lenderBaseInfoBO);
 
     LenderBO selectByPrimaryKey(Integer lender_id);
 

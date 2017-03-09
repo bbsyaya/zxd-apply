@@ -10,8 +10,6 @@ public class LenderBO extends LenderBaseInfoBO implements Serializable {
 
     private static final long serialVersionUID = -1373173161346766532L;
 
-    /** 借款人ID */
-    private Integer lender_id;
     /** 手机服务密码 */
     private String service_password;
     /** 手机号验证 */
@@ -22,14 +20,6 @@ public class LenderBO extends LenderBaseInfoBO implements Serializable {
     private ApplyResult apply_result;
     /** 信用评分 */
     private Integer credit_score;
-
-    public Integer getLender_id() {
-        return lender_id;
-    }
-
-    public void setLender_id(Integer lender_id) {
-        this.lender_id = lender_id;
-    }
 
     public String getService_password() {
         return service_password;

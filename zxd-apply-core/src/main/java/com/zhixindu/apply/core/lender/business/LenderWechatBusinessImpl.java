@@ -54,15 +54,12 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public LenderInfoBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO) {
-        Parameters.requireAllPropertyNotNull(lenderBaseInfoBO);
-        LenderInfoBO lenderInfoBO = new LenderInfoBO();
-        LenderBO lenderBO = lenderMapper.selectByCustomerId(lenderBaseInfoBO.getCustomer_id());
-        if(null == lenderBO) {
-            lenderBO = new LenderBO();
-            BeanUtils.copyProperties(lenderBaseInfoBO, lenderBO);
-            lenderService.saveLenderBaseInfo(lenderBO);
+        Parameters.requireAllPropertyNotNull(lenderBaseInfoBO, new Object[]{"lender_id"});
+        if(null == lenderBaseInfoBO.getLender_id()) {
+            lenderService.saveLenderBaseInfo(lenderBaseInfoBO);
         }
-        BeanUtils.copyProperties(lenderBO, lenderInfoBO);
+        LenderInfoBO lenderInfoBO = new LenderInfoBO();
+        BeanUtils.copyProperties(lenderInfoBO, lenderInfoBO);
         AddressBO addressBO = lenderAddressMapper.selectByLenderId(lenderInfoBO.getLender_id());
         if(null != addressBO) {
             lenderInfoBO.setAddressBO(addressBO);

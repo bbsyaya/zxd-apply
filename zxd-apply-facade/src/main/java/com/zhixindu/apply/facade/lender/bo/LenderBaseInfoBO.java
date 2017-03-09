@@ -6,6 +6,8 @@ public class LenderBaseInfoBO implements Serializable {
 
     private static final long serialVersionUID = 1046135059755108694L;
 
+    /** 借款人ID */
+    private Integer lender_id;
     /** 客户ID */
     private String customer_id;
     /** 手机号 */
@@ -14,6 +16,14 @@ public class LenderBaseInfoBO implements Serializable {
     private String name;
     /** 身份证 */
     private String id_card;
+
+    public Integer getLender_id() {
+        return lender_id;
+    }
+
+    public void setLender_id(Integer lender_id) {
+        this.lender_id = lender_id;
+    }
 
     public String getCustomer_id() {
         return customer_id;

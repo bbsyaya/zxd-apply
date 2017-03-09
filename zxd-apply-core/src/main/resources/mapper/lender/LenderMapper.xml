@@ -108,6 +108,17 @@
         </trim>
     </insert>
 
+    <insert id="insertBaseInfo" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO">
+        <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender (customer_id, mobile, name, id_card)
+        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+        #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
     <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
         update lender
         <set>
