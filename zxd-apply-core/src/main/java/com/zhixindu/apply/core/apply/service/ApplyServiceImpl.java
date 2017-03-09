@@ -37,7 +37,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateApplyStatus(ApplyStatusBO applyStatusBO) {
-        return applyMapper.updateApplyStatusByPrimaryKey(applyStatusBO);
+        return applyMapper.updateStatusByPrimaryKey(applyStatusBO);
     }
 
     @Transactional(rollbackFor = Exception.class)

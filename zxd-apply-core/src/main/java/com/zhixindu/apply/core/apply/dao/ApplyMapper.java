@@ -24,13 +24,13 @@ public interface ApplyMapper {
 
     int updateByPrimaryKey(ApplyBO record);
 
-    List<ApplyBO> selectListByLenderId(Integer lender_id);
+    ApplyBO selectLatestByLenderId(Integer lender_id);
 
     List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 
-    int updateApplyStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
+    int updateStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
 
     int updateCreditByPrimaryKey(ApplyCreditBO applyCreditBO);
 }

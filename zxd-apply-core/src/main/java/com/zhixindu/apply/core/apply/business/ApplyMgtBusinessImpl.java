@@ -11,6 +11,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -57,7 +58,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         Parameters.requireNotNull(pageParam.getCount(),"分页查询参数count不能为空");
         PageResult<ApplyMgtBO> pageResult = pageRepository.selectPaging(ApplyMapper.class,"selectListForMgtByPage",pageParam);
         if(pageResult == null){
-            return new PageResult<ApplyMgtDetailBO>(new ArrayList<ApplyMgtDetailBO>(0), 0);
+            return new PageResult<>(new ArrayList<>(0), 0);
         }
         PageResult<ApplyMgtDetailBO> detailBOPageResult = new PageResult<>();
         BeanUtils.copyProperties(pageResult,detailBOPageResult);
@@ -67,7 +68,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             applyMgtDetailBOList = applyMgtBOs.stream().map(applyMgtBO -> {
                 ApplyMgtDetailBO applyMgtDetailBO = new ApplyMgtDetailBO();
                 BeanUtils.copyProperties(applyMgtBO, applyMgtDetailBO);
-                ApplyStepBO applyStepBO = applyStepMapper.selectProcessTimeByApplyId(applyMgtBO.getApply_id());
+                ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.LOAN.getValue());
                 if (applyStepBO == null) {
                     applyMgtDetailBO.setProcess_time(null);
                 } else {

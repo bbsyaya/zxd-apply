@@ -283,12 +283,12 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectListByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectLatestByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
-        order by apply_time desc
+        order by apply_time desc limit 0,1
     </select>
 
     <sql id="whereSql">
@@ -336,7 +336,7 @@
         order by apply_time desc
     </select>
 
-    <update id="updateApplyStatusByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStatusBO">
+    <update id="updateStatusByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStatusBO">
       update apply
         set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where apply_id = #{apply_id,jdbcType=INTEGER}

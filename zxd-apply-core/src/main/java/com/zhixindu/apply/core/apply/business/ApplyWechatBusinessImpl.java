@@ -13,6 +13,8 @@ import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
+import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -41,6 +43,19 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     private ApplyStepMapper applyStepMapper;
     @Inject
     private PageRepository pageRepository;
+
+    @Override
+    public boolean isRejectApplyExpired(Integer lenderId) {
+        ApplyBO applyBO = applyMapper.selectLatestByLenderId(lenderId);
+        if(null == applyBO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的借款申请信息");
+        }
+        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyBO.getApply_id(), ProcessStep.REVIEW.getValue());
+        if(null != applyStepBO && ProcessState.FAIL.matches(applyStepBO.getProcess_state())) {
+            return DateTime.now().minusMonths(1).isAfter(applyStepBO.getProcess_time().getTime());
+        }
+        return false;
+    }
 
     @Override
     public boolean submitApplyLoan(ApplyBO applyBO) {

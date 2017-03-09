@@ -14,6 +14,14 @@ import com.zhixindu.commons.page.PageResult;
 public interface DubboApplyWechatBusiness {
 
     /**
+     * 是否申请审核不通过失效
+     * 时间为从审核不通过的时间算起一个月
+     * @param lenderId
+     * @return
+     */
+    boolean isRejectApplyExpired(Integer lenderId);
+
+    /**
      * 提交申请借款
      * @param applyBO
      * @return

@@ -1,6 +1,7 @@
 package com.zhixindu.apply.core.apply.dao;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface ApplyStepMapper {
 
     ApplyStepBO selectLatestByApplyId(Integer apply_id);
 
-    ApplyStepBO selectProcessTimeByApplyId(Integer apply_id);
+    ApplyStepBO selectByApplyId(@Param("apply_id") Integer apply_id, @Param("process_step") Integer process_step);
+
 }
