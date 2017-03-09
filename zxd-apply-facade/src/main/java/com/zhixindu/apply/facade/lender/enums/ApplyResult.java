@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by SteveGuo on 2017/3/6.
  */
 public enum ApplyResult implements IEnum<Integer> {
-    UNVERIFIED(0, "被拒绝"), VERIFIED(1, "已通过");
+    REJECT(0, "被拒绝"), APPROVED(1, "已通过");
 
     private int value;
     private String desc;

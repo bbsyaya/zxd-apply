@@ -6,7 +6,7 @@ import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 
 import java.io.Serializable;
 
-public class LenderBO extends LenderBaseInfoBO implements LenerVerify,Serializable {
+public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyResult,Serializable {
 
     private static final long serialVersionUID = -1373173161346766532L;
 
@@ -71,4 +71,8 @@ public class LenderBO extends LenderBaseInfoBO implements LenerVerify,Serializab
         return null == getBank_card_verify() || BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
 
+    @Override
+    public boolean isApplicationApproved() {
+        return ApplyResult.APPROVED.matches(getApply_result());
+    }
 }

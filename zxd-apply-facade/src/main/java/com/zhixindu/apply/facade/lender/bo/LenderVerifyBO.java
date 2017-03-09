@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/6.
  */
-public class LenderVerifyBO implements LenerVerify, Serializable {
+public class LenderVerifyBO implements ILenerVerify, Serializable {
     private static final long serialVersionUID = -1089420756323886726L;
 
     /** 借款人ID */
