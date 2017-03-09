@@ -54,7 +54,7 @@ public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
             throw new ServiceException(ServiceCode.NO_RESULT,"查询的申请信息无结果!!!");
         }
         LenderMgtInfo lenderMgtInfo = new LenderMgtInfo();
-        BeanUtils.copyProperties(lenderMgtInfo,lender);
+        BeanUtils.copyProperties(lender,lenderMgtInfo);
         BankCardBO bankCardBO = lenderBankCardMapper.selectByLenderId(lender.getLender_id());
         if(bankCardBO != null){
             lenderMgtInfo.setBankCardBO(bankCardBO);
