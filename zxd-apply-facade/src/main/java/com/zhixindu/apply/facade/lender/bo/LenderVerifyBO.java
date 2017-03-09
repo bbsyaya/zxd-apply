@@ -1,32 +1,29 @@
 package com.zhixindu.apply.facade.lender.bo;
 
-import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 
 import java.io.Serializable;
 
-public class LenderBO extends LenderBaseInfoBO implements LenerVerify,Serializable {
+/**
+ * Created by SteveGuo on 2017/3/6.
+ */
+public class LenderVerifyBO implements LenerVerify, Serializable {
+    private static final long serialVersionUID = -1089420756323886726L;
 
-    private static final long serialVersionUID = -1373173161346766532L;
-
-    /** 手机服务密码 */
-    private String service_password;
+    /** 借款人ID */
+    private Integer lender_id;
     /** 手机号验证 */
     private MobileVerify mobile_verify;
     /** 银行卡验证 */
     private BankCardVerify bank_card_verify;
-    /** 申请结果 */
-    private ApplyResult apply_result;
-    /** 信用评分 */
-    private Integer credit_score;
 
-    public String getService_password() {
-        return service_password;
+    public Integer getLender_id() {
+        return lender_id;
     }
 
-    public void setService_password(String service_password) {
-        this.service_password = service_password == null ? null : service_password.trim();
+    public void setLender_id(Integer lender_id) {
+        this.lender_id = lender_id;
     }
 
     public MobileVerify getMobile_verify() {
@@ -45,22 +42,6 @@ public class LenderBO extends LenderBaseInfoBO implements LenerVerify,Serializab
         this.bank_card_verify = bank_card_verify;
     }
 
-    public ApplyResult getApply_result() {
-        return apply_result;
-    }
-
-    public void setApply_result(ApplyResult apply_result) {
-        this.apply_result = apply_result;
-    }
-
-    public Integer getCredit_score() {
-        return credit_score;
-    }
-
-    public void setCredit_score(Integer credit_score) {
-        this.credit_score = credit_score;
-    }
-
     @Override
     public boolean isMobileVerify() {
         return MobileVerify.VERIFIED.matches(getMobile_verify());
@@ -70,5 +51,4 @@ public class LenderBO extends LenderBaseInfoBO implements LenerVerify,Serializab
     public boolean isBankCardVerify() {
         return BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
-
 }

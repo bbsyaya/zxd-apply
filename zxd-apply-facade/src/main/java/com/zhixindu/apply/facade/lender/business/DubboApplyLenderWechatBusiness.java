@@ -8,7 +8,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderId
      * @return
      */
-    VerifyInfoBO findLenderVerify(int lenderId);
+    LenderVerifyBO findLenderVerify(int lenderId);
 
     /**
      * 根据借款人ID查找银行卡信息

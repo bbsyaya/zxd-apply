@@ -13,11 +13,9 @@ import com.zhixindu.apply.facade.lender.bo.ContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.VerifyInfoBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
-import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
-import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -88,17 +86,15 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public VerifyInfoBO findLenderVerify(int lenderId) {
+    public LenderVerifyBO findLenderVerify(int lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         LenderBO lenderBO = lenderMapper.selectByPrimaryKey(lenderId);
         if(null == lenderBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
         }
-        VerifyInfoBO verifyInfoBO = new VerifyInfoBO();
-        verifyInfoBO.setLender_id(lenderId);
-        verifyInfoBO.setMobile_verify(MobileVerify.VERIFIED.matches(lenderBO.getMobile_verify()));
-        verifyInfoBO.setBank_card_verify(BankCardVerify.VERIFIED.matches(lenderBO.getBank_card_verify()));
-        return verifyInfoBO;
+        LenderVerifyBO lenderVerifyBO = new LenderVerifyBO();
+        BeanUtils.copyProperties(lenderBO, lenderVerifyBO);
+        return lenderVerifyBO;
     }
 
     @Override
