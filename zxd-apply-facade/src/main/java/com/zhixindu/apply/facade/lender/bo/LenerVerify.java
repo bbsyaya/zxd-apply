@@ -7,6 +7,7 @@ public interface LenerVerify {
 
     /**
      * 手机号是否验证
+     * 当手机验证没有数据的时候返回的是true
      * @return
      */
     default boolean isMobileVerify() {
@@ -15,6 +16,7 @@ public interface LenerVerify {
 
     /**
      * 银行卡是否验证
+     * 当银行卡验证没有数据的时候返回的是true
      * @return
      */
     default boolean isBankCardVerify() {

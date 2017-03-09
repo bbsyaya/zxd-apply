@@ -44,11 +44,11 @@ public class LenderVerifyBO implements LenerVerify, Serializable {
 
     @Override
     public boolean isMobileVerify() {
-        return MobileVerify.VERIFIED.matches(getMobile_verify());
+        return null == getMobile_verify() || MobileVerify.VERIFIED.matches(getMobile_verify());
     }
 
     @Override
     public boolean isBankCardVerify() {
-        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
+        return null == getBank_card_verify() || BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
 }
