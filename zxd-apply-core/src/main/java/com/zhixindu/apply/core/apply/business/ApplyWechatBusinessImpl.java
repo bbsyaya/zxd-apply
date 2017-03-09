@@ -46,15 +46,22 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean isRejectApplyExpired(Integer lenderId) {
-        ApplyBO applyBO = applyMapper.selectLatestByLenderId(lenderId);
-        if(null == applyBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的借款申请信息");
-        }
-        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyBO.getApply_id(), ProcessStep.REVIEW.getValue());
+        Integer applyId = findLatestApplyByLenderId(lenderId).getApply_id();
+        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyId, ProcessStep.REVIEW.getValue());
         if(null != applyStepBO && ProcessState.FAIL.matches(applyStepBO.getProcess_state())) {
             return DateTime.now().minusMonths(1).isAfter(applyStepBO.getProcess_time().getTime());
         }
         return false;
+    }
+
+    @Override
+    public ApplyBO findLatestApplyByLenderId(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        ApplyBO applyBO = applyMapper.selectLatestByLenderId(lenderId);
+        if(null == applyBO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的借款申请信息");
+        }
+        return applyBO;
     }
 
     @Override

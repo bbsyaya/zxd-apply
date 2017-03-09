@@ -22,6 +22,13 @@ public interface DubboApplyWechatBusiness {
     boolean isRejectApplyExpired(Integer lenderId);
 
     /**
+     * 获取最新的申请记录
+     * @param lenderId
+     * @return
+     */
+    ApplyBO findLatestApplyByLenderId(Integer lenderId);
+
+    /**
      * 提交申请借款
      * @param applyBO
      * @return
