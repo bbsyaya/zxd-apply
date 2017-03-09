@@ -5,10 +5,12 @@ import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
+import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import com.zhixindu.commons.annotation.Business;
@@ -93,5 +95,17 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         applyLoanDetailBO.setApplyLoanStepBOList(applyLoanStepBOList);
         return applyLoanDetailBO;
+    }
+
+    @Override
+    public boolean submitApplyStatus(ApplyStatusBO applyStatusBO) {
+        Parameters.requireAllPropertyNotNull(applyStatusBO);
+        return applyService.updateApplyStatus(applyStatusBO) > 0;
+    }
+
+    @Override
+    public boolean submitApplyCredit(ApplyCreditBO applyCreditBO) {
+        Parameters.requireAllPropertyNotNull(applyCreditBO);
+        return applyService.updateApplyCredit(applyCreditBO) > 0;
     }
 }

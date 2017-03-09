@@ -1,10 +1,12 @@
 package com.zhixindu.apply.core.apply.dao;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
+import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,10 +24,13 @@ public interface ApplyMapper {
 
     int updateByPrimaryKey(ApplyBO record);
 
-    ApplyBO selectByLenderId(Integer lender_id);
+    List<ApplyBO> selectListByLenderId(Integer lender_id);
 
     List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 
+    int updateApplyStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
+
+    int updateCreditByPrimaryKey(ApplyCreditBO applyCreditBO);
 }

@@ -283,11 +283,12 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectListByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from apply
-        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        order by apply_time desc
     </select>
 
     <sql id="whereSql">
@@ -335,4 +336,19 @@
         order by apply_time desc
     </select>
 
+    <update id="updateApplyStatusByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStatusBO">
+      update apply
+        set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateCreditByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyCreditBO">
+      update apply
+        set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          credit_code = #{credit_code,jdbcType=VARCHAR},
+          credit_score = #{credit_score,jdbcType=INTEGER},
+          credit_memo = #{credit_memo,jdbcType=VARCHAR}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+    
 </mapper>
