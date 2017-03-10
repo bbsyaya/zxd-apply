@@ -15,6 +15,8 @@ import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
+import com.zhixindu.commons.api.ServiceCode;
+import com.zhixindu.commons.api.ServiceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,7 +92,12 @@ public class LenderServiceImpl implements LenderService {
             if (null != contactBO.getContact_id()) {
                 lenderContactMapper.updateByPrimaryKey(contactBO);
             } else {
-                lenderContactMapper.insert(contactBO);
+                int contactCount = lenderContactMapper.countByLenderId(contactBO.getLender_id());
+                if(contactCount == 1){
+                    lenderContactMapper.insert(contactBO);
+                } else {
+                    throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "contactId不能为空");
+                }
             }
             return contactBO.getContact_id();
         }).collect(Collectors.toList());
