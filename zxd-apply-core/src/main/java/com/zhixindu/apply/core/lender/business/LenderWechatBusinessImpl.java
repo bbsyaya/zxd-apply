@@ -16,6 +16,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
+import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -57,7 +58,8 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
             lenderService.saveLenderBaseInfo(lenderBaseInfoBO);
         }
         LenderInfoBO lenderInfoBO = new LenderInfoBO();
-        BeanUtils.copyProperties(lenderInfoBO, lenderInfoBO);
+        BeanUtils.copyProperties(lenderBaseInfoBO, lenderInfoBO);
+        lenderInfoBO.setLoan_fill_step(LoanFillStep.BASIC_INFO);
         LenderAddressBO lenderAddressBO = lenderAddressMapper.selectByLenderId(lenderInfoBO.getLender_id());
         if(null != lenderAddressBO) {
             lenderInfoBO.setLenderAddressBO(lenderAddressBO);
