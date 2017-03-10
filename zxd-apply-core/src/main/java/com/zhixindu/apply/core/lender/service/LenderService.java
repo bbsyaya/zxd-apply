@@ -17,6 +17,12 @@ public interface LenderService {
 
     boolean isExistLender(String customerId);
 
+    boolean isExistLenderAddress(Integer lenderId);
+
+    boolean isExistLenderContact(Integer lenderId);
+
+    boolean isExistLenderBankCard(Integer lenderId);
+
     Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO);
 
     Integer saveOrUpdateAddress(LenderAddressBO lenderAddressBO);

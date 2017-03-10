@@ -23,6 +23,7 @@ import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.utils.Parameters;
 import com.zhixindu.commons.utils.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
@@ -53,9 +54,14 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public LenderInfoBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO) {
-        Parameters.requireAllPropertyNotNull(lenderBaseInfoBO, new Object[]{"lender_id"});
+        if(StringUtils.isBlank(lenderBaseInfoBO.getCustomer_id())) {
+            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "customerId不能为空");
+        }
         if(!lenderService.isExistLender(lenderBaseInfoBO.getCustomer_id())) {
+            Parameters.requireAllPropertyNotNull(lenderBaseInfoBO, new Object[]{"lender_id"});
             lenderService.saveLenderBaseInfo(lenderBaseInfoBO);
+        } else {
+            Parameters.requireAllPropertyNotNull(lenderBaseInfoBO);
         }
         LenderInfoBO lenderInfoBO = new LenderInfoBO();
         BeanUtils.copyProperties(lenderBaseInfoBO, lenderInfoBO);
@@ -126,7 +132,14 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public Integer submitLenderAddress(LenderAddressBO lenderAddressBO) {
-        Parameters.requireAllPropertyNotNull(lenderAddressBO, new Object[]{"lender_id"});
+        if(null == lenderAddressBO.getLender_id()) {
+            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
+        }
+        if(lenderService.isExistLenderAddress(lenderAddressBO.getLender_id())) {
+            Parameters.requireAllPropertyNotNull(lenderAddressBO);
+        } else {
+            Parameters.requireAllPropertyNotNull(lenderAddressBO, new Object[]{"address_id"});
+        }
         return lenderService.saveOrUpdateAddress(lenderAddressBO);
     }
 
@@ -135,12 +148,30 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(CollectionUtils.isEmpty(lenderContactBOList)) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
         }
+        lenderContactBOList.stream()
+                .forEach(lenderContactBO -> {
+                    if (null == lenderContactBO.getLender_id()) {
+                        throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
+                    }
+                    if (lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
+                        Parameters.requireAllPropertyNotNull(lenderContactBO);
+                    } else {
+                        Parameters.requireAllPropertyNotNull(lenderContactBO, new Object[]{"contact_id"});
+                    }
+                });
         return lenderService.saveOrUpdateContact(lenderContactBOList);
     }
 
     @Override
     public Integer submitLenderBankCard(LenderBankCardBO lenderBankCardBO) {
-        Parameters.requireAllPropertyNotNull(lenderBankCardBO, new Object[]{"lender_id"});
+        if(null == lenderBankCardBO.getLender_id()) {
+            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
+        }
+        if(lenderService.isExistLenderBankCard(lenderBankCardBO.getLender_id())) {
+            Parameters.requireAllPropertyNotNull(lenderBankCardBO);
+        } else {
+            Parameters.requireAllPropertyNotNull(lenderBankCardBO, new Object[]{"bank_id"});
+        }
         return lenderService.saveOrUpdateBankCard(lenderBankCardBO);
     }
 

@@ -43,6 +43,21 @@ public class LenderServiceImpl implements LenderService {
         return lenderMapper.countByCustomerId(customerId) > 0;
     }
 
+    @Override
+    public boolean isExistLenderAddress(Integer lenderId) {
+        return lenderAddressMapper.countByLenderId(lenderId) > 0;
+    }
+
+    @Override
+    public boolean isExistLenderContact(Integer lenderId) {
+        return lenderContactMapper.countByLenderId(lenderId) > 1;
+    }
+
+    @Override
+    public boolean isExistLenderBankCard(Integer lenderId) {
+        return lenderBankCardMapper.countByLenderId(lenderId) > 0;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
