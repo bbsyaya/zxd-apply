@@ -43,12 +43,12 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     @Override
     public ApplyMgtInfo getApplyInfoByLenderId(Integer apply_id) throws ServiceException {
         Parameters.requireNotNull(apply_id,"getApplyInfoByLenderId lender_id illargm_param");
-        ApplyPO applyBO = applyMapper.selectByPrimaryKey(apply_id);
-        if(null == applyBO){
+        ApplyPO applyPO = applyMapper.selectByPrimaryKey(apply_id);
+        if(null == applyPO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
         }
         ApplyMgtInfo applyMgtInfo = new ApplyMgtInfo();
-        BeanUtils.copyProperties(applyMgtInfo,applyBO);
+        BeanUtils.copyProperties(applyMgtInfo,applyPO);
         return applyMgtInfo;
     }
 
