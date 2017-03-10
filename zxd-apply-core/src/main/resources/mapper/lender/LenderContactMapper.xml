@@ -101,6 +101,13 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer">
+        select
+        contact_id
+        from lender_contact
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
     <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">
         select
         count(contact_id)

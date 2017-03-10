@@ -19,5 +19,7 @@ public interface LenderAddressMapper {
 
     LenderAddressBO selectByLenderId(Integer lender_id);
 
+    Integer selectPrimaryKeyByLenderId(Integer lender_id);
+
     int countByLenderId(Integer lender_id);
 }

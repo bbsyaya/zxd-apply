@@ -136,7 +136,14 @@
         select
         <include refid="Base_Column_List"/>
         from lender_address
-        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        address_id
+        from lender_address
+        where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
     <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">

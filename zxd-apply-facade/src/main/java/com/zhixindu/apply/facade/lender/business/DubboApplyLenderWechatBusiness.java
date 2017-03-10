@@ -101,4 +101,32 @@ public interface DubboApplyLenderWechatBusiness {
      */
     String findBankCardNumber(Integer lenderId);
 
+    /**
+     * 通过客户ID获取借款人ID
+     * @param customerId
+     * @return
+     */
+    Integer findLenderId(String customerId);
+
+    /**
+     * 通过借款人ID获取地址ID
+     * @param lenderId
+     * @return
+     */
+    Integer findAddressId(Integer lenderId);
+
+    /**
+     * 通过借款人ID获取联系人ID列表
+     * @param lenderId
+     * @return
+     */
+    List<Integer> findContactIdList(Integer lenderId);
+
+    /**
+     * 通过借款人ID获取银行卡ID
+     * @param lenderId
+     * @return
+     */
+    Integer findBankCardId(Integer lenderId);
+
 }

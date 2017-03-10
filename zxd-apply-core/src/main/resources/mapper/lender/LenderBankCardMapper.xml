@@ -127,6 +127,13 @@
         order by bank_id desc limit 0,1
     </select>
 
+    <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        bank_card_id
+        from lender_bank_card
+        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+    </select>
+
     <select id="selectBankCardNumber" parameterType="java.lang.Integer" resultType="java.lang.String">
         select
         bank_card_number

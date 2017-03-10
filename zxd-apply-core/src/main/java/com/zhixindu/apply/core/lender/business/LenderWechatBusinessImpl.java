@@ -192,4 +192,24 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         return lenderBankCardMapper.selectBankCardNumber(lenderId);
     }
 
+    @Override
+    public Integer findLenderId(String customerId) {
+        return lenderMapper.selectPrimaryKeyByCustomerId(customerId);
+    }
+
+    @Override
+    public Integer findAddressId(Integer lenderId) {
+        return lenderAddressMapper.selectPrimaryKeyByLenderId(lenderId);
+    }
+
+    @Override
+    public List<Integer> findContactIdList(Integer lenderId) {
+        return lenderContactMapper.selectPrimaryKeyByLenderId(lenderId);
+    }
+
+    @Override
+    public Integer findBankCardId(Integer lenderId) {
+        return lenderBankCardMapper.selectPrimaryKeyByLenderId(lenderId);
+    }
+
 }

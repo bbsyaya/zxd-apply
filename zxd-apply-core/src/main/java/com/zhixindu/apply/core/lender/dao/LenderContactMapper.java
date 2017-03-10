@@ -21,6 +21,8 @@ public interface LenderContactMapper {
 
     List<LenderContactBO> selectByLenderId(Integer lender_id);
 
+    List<Integer> selectPrimaryKeyByLenderId(Integer lender_id);
+
     int countByLenderId(Integer lender_id);
 
 }
