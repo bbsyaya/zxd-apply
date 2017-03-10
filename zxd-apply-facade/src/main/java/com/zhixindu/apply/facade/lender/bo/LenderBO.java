@@ -4,6 +4,7 @@ import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 import com.zhixindu.apply.facade.lender.enums.FillStep;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -96,5 +97,10 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
     @Override
     public boolean isApplicationApproved() {
         return ApplyResult.APPROVED.matches(getApply_result());
+    }
+
+    @Override
+    public boolean isRejectApplyExpired() {
+        return null != getReject_time() && DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
     }
 }
