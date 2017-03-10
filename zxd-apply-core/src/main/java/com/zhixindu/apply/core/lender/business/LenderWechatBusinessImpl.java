@@ -59,7 +59,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         }
         LenderInfoBO lenderInfoBO = new LenderInfoBO();
         BeanUtils.copyProperties(lenderBaseInfoBO, lenderInfoBO);
-        lenderInfoBO.setLoan_fill_step(LoanFillStep.BASIC_INFO);
+        lenderInfoBO.setLoan_fill_step(LoanFillStep.BASIC_INFO.getValue());
         LenderAddressBO lenderAddressBO = lenderAddressMapper.selectByLenderId(lenderInfoBO.getLender_id());
         if(null != lenderAddressBO) {
             lenderInfoBO.setLenderAddressBO(lenderAddressBO);
