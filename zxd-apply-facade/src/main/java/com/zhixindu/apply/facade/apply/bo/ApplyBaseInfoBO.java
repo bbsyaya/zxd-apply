@@ -20,7 +20,7 @@ public class ApplyBaseInfoBO implements Serializable {
     /** 联系人ID列表 */
     private String contact_id_list;
     /** 银行卡ID列表 */
-    private String bank_card_id_list;
+    private Integer bank_card_id;
     /** 申请编号 */
     private String apply_no;
     /** 借款金额 */
@@ -84,12 +84,12 @@ public class ApplyBaseInfoBO implements Serializable {
         this.contact_id_list = contact_id_list;
     }
 
-    public String getBank_card_id_list() {
-        return bank_card_id_list;
+    public Integer getBank_card_id() {
+        return bank_card_id;
     }
 
-    public void setBank_card_id_list(String bank_card_id_list) {
-        this.bank_card_id_list = bank_card_id_list;
+    public void setBank_card_id(Integer bank_card_id) {
+        this.bank_card_id = bank_card_id;
     }
 
     public String getApply_no() {

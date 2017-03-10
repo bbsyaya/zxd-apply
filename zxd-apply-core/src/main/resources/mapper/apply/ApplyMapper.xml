@@ -7,7 +7,7 @@
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
         <result column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="contact_id_list" jdbcType="VARCHAR" property="contact_id_list"/>
-        <result column="bank_card_id_list" jdbcType="VARCHAR" property="bank_card_id_list"/>
+        <result column="bank_card_id" jdbcType="INTEGER" property="bank_card_id" />
         <result column="apply_no" jdbcType="VARCHAR" property="apply_no"/>
         <result column="loan_amount" jdbcType="DECIMAL" property="loan_amount"/>
         <result column="loan_term" jdbcType="INTEGER" property="loan_term"/>
@@ -30,7 +30,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id_list,
+        apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id,
         apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
         total_fee, repayment_amount, account_amount, receipt_card_number, open_id, latitude,
         longitude, precision, apply_time, apply_status, credit_code, credit_score, credit_memo
@@ -48,7 +48,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into apply (lender_id, customer_id,
-          address_id, contact_id_list, bank_card_id_list,
+          address_id, contact_id_list, bank_card_id,
           apply_no, loan_amount, loan_term,
           interest_rate, loan_interest, platform_manage_fee,
           total_fee, repayment_amount, account_amount,
@@ -56,7 +56,7 @@
           longitude, precision, apply_time, apply_status,
           credit_code, credit_score, credit_memo)
         values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR},
-          #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR}, #{bank_card_id_list,jdbcType=VARCHAR},
+          #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR},  #{bank_card_id,jdbcType=INTEGER},
           #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
           #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
           #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
@@ -84,8 +84,8 @@
             <if test="contact_id_list != null">
                 contact_id_list,
             </if>
-            <if test="bank_card_id_list != null">
-                bank_card_id_list,
+            <if test="bank_card_id != null">
+                bank_card_id,
             </if>
             <if test="apply_no != null">
                 apply_no,
@@ -158,8 +158,8 @@
             <if test="contact_id_list != null">
                 #{contact_id_list,jdbcType=VARCHAR},
             </if>
-            <if test="bank_card_id_list != null">
-                #{bank_card_id_list,jdbcType=VARCHAR},
+            <if test="bank_card_id != null">
+                 #{bank_card_id,jdbcType=INTEGER},
             </if>
             <if test="apply_no != null">
                 #{apply_no,jdbcType=VARCHAR},
@@ -236,8 +236,8 @@
             <if test="contact_id_list != null">
                 contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
             </if>
-            <if test="bank_card_id_list != null">
-                bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
+            <if test="bank_card_id != null">
+                bank_card_id =  #{bank_card_id,jdbcType=INTEGER},
             </if>
             <if test="apply_no != null">
                 apply_no = #{apply_no,jdbcType=VARCHAR},
@@ -306,7 +306,7 @@
           customer_id = #{customer_id,jdbcType=VARCHAR},
           address_id = #{address_id,jdbcType=INTEGER},
           contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
-          bank_card_id_list = #{bank_card_id_list,jdbcType=VARCHAR},
+          bank_card_id = #{bank_card_id,jdbcType=INTEGER},
           apply_no = #{apply_no,jdbcType=VARCHAR},
           loan_amount = #{loan_amount,jdbcType=DECIMAL},
           loan_term = #{loan_term,jdbcType=INTEGER},
