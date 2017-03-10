@@ -36,49 +36,49 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderId
      * @return
      */
-    List<LenderContactBO> findLenderContact(int lenderId);
+    List<LenderContactBO> findLenderContact(Integer lenderId);
 
     /**
      * 根据借款人ID查找借款验证信息
      * @param lenderId
      * @return
      */
-    LenderVerifyBO findLenderVerify(int lenderId);
+    LenderVerifyBO findLenderVerify(Integer lenderId);
 
     /**
      * 根据借款人ID查找银行卡信息
      * @param lenderId
      * @return
      */
-    LenderBankCardBO findLenderBankCard(int lenderId);
+    LenderBankCardBO findLenderBankCard(Integer lenderId);
 
     /**
      * 根据借款人ID查找手机信息
      * @param lenderId
      * @return
      */
-    MobileVerifyBO findLenderMobileVerify(int lenderId);
+    MobileVerifyBO findLenderMobileVerify(Integer lenderId);
 
     /**
      * 提交借款人地址信息
      * @param lenderAddressBO
      * @return
      */
-    boolean submitLenderAddress(LenderAddressBO lenderAddressBO);
+    Integer submitLenderAddress(LenderAddressBO lenderAddressBO);
 
     /**
      * 提交借款人联系人信息
      * @param lenderContactBOList
      * @return
      */
-    boolean submitLenderContact(List<LenderContactBO> lenderContactBOList);
+    List<Integer> submitLenderContact(List<LenderContactBO> lenderContactBOList);
 
     /**
      * 提交借款人银行卡信息
      * @param lenderBankCardBO
      * @return
      */
-    boolean submitLenderBankCard(LenderBankCardBO lenderBankCardBO);
+    Integer submitLenderBankCard(LenderBankCardBO lenderBankCardBO);
 
     /**
      * 提交手机号码验证

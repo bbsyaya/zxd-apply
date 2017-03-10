@@ -123,14 +123,16 @@
         select
         <include refid="Base_Column_List"/>
         from lender_bank_card
-        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        order by bank_id desc limit 0,1
     </select>
 
     <select id="selectBankCardNumber" parameterType="java.lang.Integer" resultType="java.lang.String">
         select
         bank_card_number
         from lender_bank_card
-        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        order by bank_id desc limit 0,1
     </select>
 
     <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">

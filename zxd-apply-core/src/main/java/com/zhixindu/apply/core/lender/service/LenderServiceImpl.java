@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by SteveGuo on 2017/3/6.
@@ -44,70 +45,62 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
+    public Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
         LenderBaseInfoPO lenderBaseInfoPO = new LenderBaseInfoPO();
         BeanUtils.copyProperties(lenderBaseInfoBO, lenderBaseInfoPO);
         lenderBaseInfoPO.setFill_step(FillStep.BASIC_INFO);
-        int rows = lenderMapper.insertBaseInfo(lenderBaseInfoPO);
+        lenderMapper.insertBaseInfo(lenderBaseInfoPO);
         lenderBaseInfoBO.setLender_id(lenderBaseInfoPO.getLender_id());
-        return rows;
+        return lenderBaseInfoPO.getLender_id();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateAddress(LenderAddressBO lenderAddressBO) {
-        int rows;
+    public Integer saveOrUpdateAddress(LenderAddressBO lenderAddressBO) {
         if(null != lenderAddressBO.getAddress_id()) {
-            rows = lenderAddressMapper.updateByPrimaryKey(lenderAddressBO);
+            lenderAddressMapper.updateByPrimaryKey(lenderAddressBO);
         } else {
-            rows = lenderAddressMapper.insert(lenderAddressBO);
+            lenderAddressMapper.insert(lenderAddressBO);
         }
-        if(rows > 0) {
-            FillStepBO fillStepBO = new FillStepBO(lenderAddressBO.getLender_id(), FillStep.CONTACT_INFO);
-            rows += lenderMapper.updateFillStep(fillStepBO);
-        }
-        return rows;
+        FillStepBO fillStepBO = new FillStepBO(lenderAddressBO.getLender_id(), FillStep.CONTACT_INFO);
+        lenderMapper.updateFillStep(fillStepBO);
+        return lenderAddressBO.getAddress_id();
 
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateContact(List<LenderContactBO> lenderContactBOList) {
-        int rows;
-        rows = lenderContactBOList.stream().mapToInt(contactBO -> {
-            if(null != contactBO.getContact_id()) {
-                return lenderContactMapper.updateByPrimaryKey(contactBO);
+    public List<Integer> saveOrUpdateContact(List<LenderContactBO> lenderContactBOList) {
+        List<Integer> contactIdList = lenderContactBOList.stream().map(contactBO -> {
+            if (null != contactBO.getContact_id()) {
+                lenderContactMapper.updateByPrimaryKey(contactBO);
             } else {
-                return lenderContactMapper.insert(contactBO);
+                lenderContactMapper.insert(contactBO);
             }
-        }).reduce(Integer::sum).orElse(0);
-        if(rows > 0) {
-            Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().get();
-            FillStepBO fillStepBO = new FillStepBO(lenderId, FillStep.CERTIFICATION_INFO);
-            rows += lenderMapper.updateFillStep(fillStepBO);
-        }
-        return rows;
+            return contactBO.getContact_id();
+        }).collect(Collectors.toList());
+        Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().get();
+        FillStepBO fillStepBO = new FillStepBO(lenderId, FillStep.CERTIFICATION_INFO);
+        lenderMapper.updateFillStep(fillStepBO);
+        return contactIdList;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO) {
-        int rows;
+    public Integer saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO) {
         if(null != lenderBankCardBO.getBank_id()) {
-            rows = lenderBankCardMapper.updateByPrimaryKey(lenderBankCardBO);
+            lenderBankCardMapper.updateByPrimaryKey(lenderBankCardBO);
         } else {
-            rows = lenderBankCardMapper.insert(lenderBankCardBO);
+            lenderBankCardMapper.insert(lenderBankCardBO);
         }
-        if(rows > 0) {
-            BankCardVerifyBO bankCardVerifyBO = new BankCardVerifyBO();
-            bankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
-            bankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
-            rows += lenderMapper.updateBankCardVerify(bankCardVerifyBO);
+        BankCardVerifyBO bankCardVerifyBO = new BankCardVerifyBO();
+        bankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
+        bankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
+        lenderMapper.updateBankCardVerify(bankCardVerifyBO);
 
-            FillStepBO fillStepBO = new FillStepBO(lenderBankCardBO.getLender_id(), FillStep.SUBMIT);
-            rows += lenderMapper.updateFillStep(fillStepBO);
-        }
-        return rows;
+        FillStepBO fillStepBO = new FillStepBO(lenderBankCardBO.getLender_id(), FillStep.SUBMIT);
+        lenderMapper.updateFillStep(fillStepBO);
+        return lenderBankCardBO.getBank_id();
     }
 
     @Transactional(rollbackFor = Exception.class)

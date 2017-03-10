@@ -17,13 +17,13 @@ public interface LenderService {
 
     boolean isExistLender(String customerId);
 
-    int saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO);
+    Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO);
 
-    int saveOrUpdateAddress(LenderAddressBO lenderAddressBO);
+    Integer saveOrUpdateAddress(LenderAddressBO lenderAddressBO);
 
-    int saveOrUpdateContact(List<LenderContactBO> lenderContactBOList);
+    List<Integer> saveOrUpdateContact(List<LenderContactBO> lenderContactBOList);
 
-    int saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO);
+    Integer saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO);
 
     int saveMobileVerify(MobileVerifyBO mobileVerifyBO);
 
