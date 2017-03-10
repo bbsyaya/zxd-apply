@@ -18,7 +18,7 @@ public class ApplyLoanDetailBO extends ApplyLoanBO implements Serializable {
     /**
      * 借款期限
      */
-    private int loan_term;
+    private Integer loan_term;
     /**
      * 到期还款
      */
@@ -45,11 +45,11 @@ public class ApplyLoanDetailBO extends ApplyLoanBO implements Serializable {
         this.apply_no = apply_no;
     }
 
-    public int getLoan_term() {
+    public Integer getLoan_term() {
         return loan_term;
     }
 
-    public void setLoan_term(int loan_term) {
+    public void setLoan_term(Integer loan_term) {
         this.loan_term = loan_term;
     }
 

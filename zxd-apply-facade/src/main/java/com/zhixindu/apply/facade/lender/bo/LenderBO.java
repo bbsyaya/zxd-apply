@@ -2,9 +2,11 @@ package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.apply.facade.lender.enums.FillStep;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyResult,Serializable {
 
@@ -16,6 +18,10 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
     private MobileVerify mobile_verify;
     /** 银行卡验证 */
     private BankCardVerify bank_card_verify;
+    /** 拒绝时间 */
+    private Date reject_time;
+    /** 填写步骤 */
+    private FillStep fill_step;
     /** 申请结果 */
     private ApplyResult apply_result;
     /** 信用评分 */
@@ -51,6 +57,22 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     public void setApply_result(ApplyResult apply_result) {
         this.apply_result = apply_result;
+    }
+
+    public Date getReject_time() {
+        return reject_time;
+    }
+
+    public void setReject_time(Date reject_time) {
+        this.reject_time = reject_time;
+    }
+
+    public FillStep getFill_step() {
+        return fill_step;
+    }
+
+    public void setFill_step(FillStep fill_step) {
+        this.fill_step = fill_step;
     }
 
     public Integer getCredit_score() {

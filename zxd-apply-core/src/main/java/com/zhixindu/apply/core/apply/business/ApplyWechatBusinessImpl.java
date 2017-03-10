@@ -4,7 +4,8 @@ import com.google.common.collect.Lists;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.service.ApplyService;
-import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
@@ -47,11 +48,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public boolean isRejectApplyExpired(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        ApplyBO applyBO = applyMapper.selectLatestByLenderId(lenderId);
-        if(null == applyBO) {
+        ApplyPO applyPO = applyMapper.selectLatestByLenderId(lenderId);
+        if(null == applyPO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的借款申请信息");
         }
-        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyBO.getApply_id(), ProcessStep.REVIEW.getValue());
+        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyPO.getApply_id(), ProcessStep.REVIEW.getValue());
         if(null != applyStepBO && ProcessState.FAIL.matches(applyStepBO.getProcess_state())) {
             return DateTime.now().minusMonths(1).isAfter(applyStepBO.getProcess_time().getTime());
         }
@@ -59,28 +60,28 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyBO findLatestApplyByLenderId(Integer lenderId) {
+    public ApplyBaseInfoBO findLatestApplyByLenderId(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return applyMapper.selectLatestByLenderId(lenderId);
     }
 
     @Override
-    public boolean submitApplyLoan(ApplyBO applyBO) {
-        Parameters.requireAllPropertyNotNull(applyBO, new Object[]{"apply_id"});
-        return applyService.saveApplyLoan(applyBO) > 0;
+    public boolean submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
+        Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
+        return applyService.saveApplyLoan(applyBaseInfoBO) > 0;
     }
 
     @Override
     public PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam) {
         Parameters.requireAllPropertyNotNull(pageParam, "分页查询参数不能为空");
-        PageResult<ApplyBO> applyBOPageResult = pageRepository.selectPaging(ApplyMapper.class, "selectListByPage", pageParam);
+        PageResult<ApplyPO> applyBOPageResult = pageRepository.selectPaging(ApplyMapper.class, "selectListByPage", pageParam);
         PageResult<ApplyLoanBO> pageResult = new PageResult<>();
         BeanUtils.copyProperties(applyBOPageResult, pageResult);
 
-        List<ApplyBO> applyBOList = applyBOPageResult.getRows();
+        List<ApplyPO> applyPOList = applyBOPageResult.getRows();
         List<ApplyLoanBO> applyLoanBOList = Lists.newArrayList();
-        if(CollectionUtils.isNotEmpty(applyBOList)){
-            applyLoanBOList = applyBOList.stream().map(applyBO -> {
+        if(CollectionUtils.isNotEmpty(applyPOList)){
+            applyLoanBOList = applyPOList.stream().map(applyBO -> {
                 ApplyLoanBO applyLoanBO = new ApplyLoanBO();
                 BeanUtils.copyProperties(applyBO, applyLoanBO);
                 applyLoanBO.setApply_time(new DateTime(applyBO.getApply_time()).toString("yyyy-MM-dd"));
@@ -96,11 +97,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public ApplyLoanDetailBO findApplyLoanDetail(Integer applyId) {
         Parameters.requireNotNull(applyId, "applyId不能为空");
         ApplyLoanDetailBO applyLoanDetailBO = new ApplyLoanDetailBO();
-        ApplyBO applyBO = applyMapper.selectByPrimaryKey(applyId);
-        if(null == applyBO) {
+        ApplyPO applyPO = applyMapper.selectByPrimaryKey(applyId);
+        if(null == applyPO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
         }
-        BeanUtils.copyProperties(applyBO, applyLoanDetailBO);
+        BeanUtils.copyProperties(applyPO, applyLoanDetailBO);
 
         List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
         List<ApplyLoanStepBO> applyLoanStepBOList = Lists.newArrayListWithCapacity(0);

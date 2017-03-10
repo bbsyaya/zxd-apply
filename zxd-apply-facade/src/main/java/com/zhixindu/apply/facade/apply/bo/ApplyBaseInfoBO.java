@@ -1,14 +1,14 @@
 package com.zhixindu.apply.facade.apply.bo;
 
-import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
-public class ApplyBO implements Serializable {
+/**
+ * Created by SteveGuo on 2017/3/10.
+ */
+public class ApplyBaseInfoBO implements Serializable {
+    private static final long serialVersionUID = -8520843938618323270L;
 
-    private static final long serialVersionUID = 2181984961531019781L;
     /** 申请借款ID */
     private Integer apply_id;
     /** 借款人ID */
@@ -27,12 +27,6 @@ public class ApplyBO implements Serializable {
     private BigDecimal loan_amount;
     /** 借款期限 */
     private Integer loan_term;
-    /** 日利率 */
-    private Integer interest_rate;
-    /** 借款利息 */
-    private BigDecimal loan_interest;
-    /** 平台管理费 */
-    private BigDecimal platform_manage_fee;
     /** 总费用 */
     private BigDecimal total_fee;
     /** 到期还款 */
@@ -41,16 +35,14 @@ public class ApplyBO implements Serializable {
     private BigDecimal account_amount;
     /** 收款卡号 */
     private String receipt_card_number;
-    /** 申请时间 */
-    private Date apply_time;
-    /** 申请状态 */
-    private ApplyStatus apply_status;
-    /** 信用代码 */
-    private String credit_code;
-    /** 信用评分 */
-    private Integer credit_score;
-    /** 信用备忘录 */
-    private String credit_memo;
+    /** 设备ID */
+    private String open_id;
+    /** 地理位置纬度 */
+    private BigDecimal latitude;
+    /** 地理位置经度 */
+    private BigDecimal longitude;
+    /** 地理位置精度 */
+    private BigDecimal precision;
 
     public Integer getApply_id() {
         return apply_id;
@@ -73,7 +65,7 @@ public class ApplyBO implements Serializable {
     }
 
     public void setCustomer_id(String customer_id) {
-        this.customer_id = customer_id == null ? null : customer_id.trim();
+        this.customer_id = customer_id;
     }
 
     public Integer getAddress_id() {
@@ -89,7 +81,7 @@ public class ApplyBO implements Serializable {
     }
 
     public void setContact_id_list(String contact_id_list) {
-        this.contact_id_list = contact_id_list == null ? null : contact_id_list.trim();
+        this.contact_id_list = contact_id_list;
     }
 
     public String getBank_card_id_list() {
@@ -97,7 +89,7 @@ public class ApplyBO implements Serializable {
     }
 
     public void setBank_card_id_list(String bank_card_id_list) {
-        this.bank_card_id_list = bank_card_id_list == null ? null : bank_card_id_list.trim();
+        this.bank_card_id_list = bank_card_id_list;
     }
 
     public String getApply_no() {
@@ -105,7 +97,7 @@ public class ApplyBO implements Serializable {
     }
 
     public void setApply_no(String apply_no) {
-        this.apply_no = apply_no == null ? null : apply_no.trim();
+        this.apply_no = apply_no;
     }
 
     public BigDecimal getLoan_amount() {
@@ -122,30 +114,6 @@ public class ApplyBO implements Serializable {
 
     public void setLoan_term(Integer loan_term) {
         this.loan_term = loan_term;
-    }
-
-    public Integer getInterest_rate() {
-        return interest_rate;
-    }
-
-    public void setInterest_rate(Integer interest_rate) {
-        this.interest_rate = interest_rate;
-    }
-
-    public BigDecimal getLoan_interest() {
-        return loan_interest;
-    }
-
-    public void setLoan_interest(BigDecimal loan_interest) {
-        this.loan_interest = loan_interest;
-    }
-
-    public BigDecimal getPlatform_manage_fee() {
-        return platform_manage_fee;
-    }
-
-    public void setPlatform_manage_fee(BigDecimal platform_manage_fee) {
-        this.platform_manage_fee = platform_manage_fee;
     }
 
     public BigDecimal getTotal_fee() {
@@ -177,46 +145,39 @@ public class ApplyBO implements Serializable {
     }
 
     public void setReceipt_card_number(String receipt_card_number) {
-        this.receipt_card_number = receipt_card_number == null ? null : receipt_card_number.trim();
+        this.receipt_card_number = receipt_card_number;
     }
 
-    public Date getApply_time() {
-        return apply_time;
+    public String getOpen_id() {
+        return open_id;
     }
 
-    public void setApply_time(Date apply_time) {
-        this.apply_time = apply_time;
+    public void setOpen_id(String open_id) {
+        this.open_id = open_id;
     }
 
-    public ApplyStatus getApply_status() {
-        return apply_status;
+    public BigDecimal getLatitude() {
+        return latitude;
     }
 
-    public void setApply_status(ApplyStatus apply_status) {
-        this.apply_status = apply_status;
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
     }
 
-    public String getCredit_code() {
-        return credit_code;
+    public BigDecimal getLongitude() {
+        return longitude;
     }
 
-    public void setCredit_code(String credit_code) {
-        this.credit_code = credit_code;
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
     }
 
-    public Integer getCredit_score() {
-        return credit_score;
+    public BigDecimal getPrecision() {
+        return precision;
     }
 
-    public void setCredit_score(Integer credit_score) {
-        this.credit_score = credit_score;
+    public void setPrecision(BigDecimal precision) {
+        this.precision = precision;
     }
 
-    public String getCredit_memo() {
-        return credit_memo;
-    }
-
-    public void setCredit_memo(String credit_memo) {
-        this.credit_memo = credit_memo;
-    }
 }

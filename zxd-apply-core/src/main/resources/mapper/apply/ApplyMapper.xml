@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyPO">
         <id column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
@@ -18,6 +18,10 @@
         <result column="repayment_amount" jdbcType="DECIMAL" property="repayment_amount"/>
         <result column="account_amount" jdbcType="DECIMAL" property="account_amount"/>
         <result column="receipt_card_number" jdbcType="VARCHAR" property="receipt_card_number"/>
+        <result column="open_id" jdbcType="VARCHAR" property="open_id" />
+        <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+        <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+        <result column="precision" jdbcType="DECIMAL" property="precision" />
         <result column="apply_time" jdbcType="TIMESTAMP" property="apply_time" />
         <result column="apply_status" jdbcType="INTEGER" property="apply_status" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="credit_code" jdbcType="VARCHAR" property="credit_code" />
@@ -28,8 +32,8 @@
     <sql id="Base_Column_List">
         apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id_list,
         apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
-        total_fee, repayment_amount, account_amount, receipt_card_number, apply_time, apply_status,
-        credit_code, credit_score, credit_memo
+        total_fee, repayment_amount, account_amount, receipt_card_number, open_id, latitude,
+        longitude, precision, apply_time, apply_status, credit_code, credit_score, credit_memo
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -39,7 +43,7 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
         <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -48,19 +52,21 @@
           apply_no, loan_amount, loan_term,
           interest_rate, loan_interest, platform_manage_fee,
           total_fee, repayment_amount, account_amount,
-          receipt_card_number, apply_time, apply_status,
+          receipt_card_number, open_id, latitude,
+          longitude, precision, apply_time, apply_status,
           credit_code, credit_score, credit_memo)
         values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR},
           #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR}, #{bank_card_id_list,jdbcType=VARCHAR},
           #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
           #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
           #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
-          #{receipt_card_number,jdbcType=VARCHAR}, #{apply_time,jdbcType=TIMESTAMP},
+          #{receipt_card_number,jdbcType=VARCHAR}, #{apply_time,jdbcType=TIMESTAMP},#{open_id,jdbcType=VARCHAR},
+          #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, #{precision,jdbcType=DECIMAL},
           #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-        #{credit_code,jdbcType=VARCHAR}, #{credit_score,jdbcType=INTEGER}, #{credit_memo,jdbcType=VARCHAR})
+          #{credit_code,jdbcType=VARCHAR}, #{credit_score,jdbcType=INTEGER}, #{credit_memo,jdbcType=VARCHAR})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
         <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -110,6 +116,18 @@
             </if>
             <if test="receipt_card_number != null">
                 receipt_card_number,
+            </if>
+            <if test="open_id != null">
+                open_id,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="precision != null">
+                precision,
             </if>
             <if test="apply_time != null">
                 apply_time,
@@ -173,6 +191,18 @@
             <if test="receipt_card_number != null">
                 #{receipt_card_number,jdbcType=VARCHAR},
             </if>
+            <if test="open_id != null">
+                #{open_id,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="precision != null">
+                #{precision,jdbcType=DECIMAL},
+            </if>
             <if test="apply_time != null">
                 #{apply_time,jdbcType=TIMESTAMP},
             </if>
@@ -191,7 +221,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
         update apply
         <set>
             <if test="lender_id != null">
@@ -239,6 +269,18 @@
             <if test="receipt_card_number != null">
                 receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
             </if>
+            <if test="open_id != null">
+                open_id = #{open_id,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="precision != null">
+                precision = #{precision,jdbcType=DECIMAL},
+            </if>
             <if test="apply_time != null">
                 apply_time = #{apply_time,jdbcType=TIMESTAMP},
             </if>
@@ -258,7 +300,7 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
         update apply
         set lender_id = #{lender_id,jdbcType=INTEGER},
           customer_id = #{customer_id,jdbcType=VARCHAR},
@@ -275,6 +317,10 @@
           repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
           account_amount = #{account_amount,jdbcType=DECIMAL},
           receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
+          open_id = #{open_id,jdbcType=VARCHAR},
+          latitude = #{latitude,jdbcType=DECIMAL},
+          longitude = #{longitude,jdbcType=DECIMAL},
+          precision = #{precision,jdbcType=DECIMAL},
           apply_time = #{apply_time,jdbcType=TIMESTAMP},
           apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           credit_code = #{credit_code,jdbcType=VARCHAR},

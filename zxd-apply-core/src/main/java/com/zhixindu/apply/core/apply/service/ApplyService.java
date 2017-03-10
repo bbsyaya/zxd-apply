@@ -1,6 +1,6 @@
 package com.zhixindu.apply.core.apply.service;
 
-import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 
@@ -9,7 +9,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
  */
 public interface ApplyService {
 
-    int saveApplyLoan(ApplyBO applyBO);
+    int saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
     String getLatestApplyStatus(Integer applyId);
 
