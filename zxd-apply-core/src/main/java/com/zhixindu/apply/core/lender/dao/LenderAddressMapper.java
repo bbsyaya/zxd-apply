@@ -1,23 +1,23 @@
 package com.zhixindu.apply.core.lender.dao;
 
 
-import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LenderAddressMapper {
 
-    int insert(AddressBO record);
+    int insert(LenderAddressBO record);
 
-    int insertSelective(AddressBO record);
+    int insertSelective(LenderAddressBO record);
 
-    AddressBO selectByPrimaryKey(Integer address_id);
+    LenderAddressBO selectByPrimaryKey(Integer address_id);
 
-    int updateByPrimaryKey(AddressBO record);
+    int updateByPrimaryKey(LenderAddressBO record);
 
-    int updateByPrimaryKeySelective(AddressBO record);
+    int updateByPrimaryKeySelective(LenderAddressBO record);
 
-    AddressBO selectByLenderId(Integer lender_id);
+    LenderAddressBO selectByLenderId(Integer lender_id);
 
     int countByLenderId(Integer lender_id);
 }

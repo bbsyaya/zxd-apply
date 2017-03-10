@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.lender.dao.LenderAddressMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.AddressBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.LenderAddressBO">
         <id column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="home_address_code" jdbcType="INTEGER" property="home_address_code"/>
@@ -24,7 +24,7 @@
         where address_id = #{address_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.LenderAddressBO">
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -38,7 +38,7 @@
           #{company_address_code,jdbcType=INTEGER}, #{company_address,jdbcType=VARCHAR})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderAddressBO">
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -92,7 +92,7 @@
     </insert>
 
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderAddressBO">
         update lender_address
         <set>
             <if test="lender_id != null">
@@ -120,7 +120,7 @@
         where address_id = #{address_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.AddressBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.LenderAddressBO">
         update lender_address
         set lender_id = #{lender_id,jdbcType=INTEGER},
           home_address_code = #{home_address_code,jdbcType=INTEGER},

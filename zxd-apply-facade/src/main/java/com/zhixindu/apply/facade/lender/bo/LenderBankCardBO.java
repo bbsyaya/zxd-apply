@@ -4,7 +4,7 @@ import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 
 import java.io.Serializable;
 
-public class BankCardBO implements Serializable {
+public class LenderBankCardBO implements Serializable {
     private static final long serialVersionUID = -4569790136583162019L;
 
     private Integer bank_id;

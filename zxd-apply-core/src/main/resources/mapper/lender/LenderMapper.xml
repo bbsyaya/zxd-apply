@@ -196,6 +196,13 @@
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
+    <select id="countByCustomerId" parameterType="java.lang.String" resultType="int">
+        select
+        count(lender_id)
+        from lender
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+    </select>
+
     <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.MobileVerifyBO">
         update lender
         set service_password = #{service_password,jdbcType=VARCHAR},

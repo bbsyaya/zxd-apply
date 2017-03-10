@@ -49,15 +49,15 @@ public class LenderMgtInfo implements Serializable {
     /**
      * 地址
      */
-    private AddressBO addressBO;
+    private LenderAddressBO lenderAddressBO;
     /**
      * 联系人
      */
-    private List<ContactBO> contactBOs;
+    private List<LenderContactBO> lenderContactBOS;
     /**
      * 银行卡
      */
-    private BankCardBO bankCardBO;
+    private LenderBankCardBO lenderBankCardBO;
 
     public Integer getLender_id() {
         return lender_id;
@@ -115,27 +115,27 @@ public class LenderMgtInfo implements Serializable {
         this.bank_card_verify = bank_card_verify;
     }
 
-    public AddressBO getAddressBO() {
-        return addressBO;
+    public LenderAddressBO getLenderAddressBO() {
+        return lenderAddressBO;
     }
 
-    public void setAddressBO(AddressBO addressBO) {
-        this.addressBO = addressBO;
+    public void setLenderAddressBO(LenderAddressBO lenderAddressBO) {
+        this.lenderAddressBO = lenderAddressBO;
     }
 
-    public List<ContactBO> getContactBOs() {
-        return contactBOs;
+    public List<LenderContactBO> getLenderContactBOS() {
+        return lenderContactBOS;
     }
 
-    public void setContactBOs(List<ContactBO> contactBOs) {
-        this.contactBOs = contactBOs;
+    public void setLenderContactBOS(List<LenderContactBO> lenderContactBOS) {
+        this.lenderContactBOS = lenderContactBOS;
     }
 
-    public BankCardBO getBankCardBO() {
-        return bankCardBO;
+    public LenderBankCardBO getLenderBankCardBO() {
+        return lenderBankCardBO;
     }
 
-    public void setBankCardBO(BankCardBO bankCardBO) {
-        this.bankCardBO = bankCardBO;
+    public void setLenderBankCardBO(LenderBankCardBO lenderBankCardBO) {
+        this.lenderBankCardBO = lenderBankCardBO;
     }
 }

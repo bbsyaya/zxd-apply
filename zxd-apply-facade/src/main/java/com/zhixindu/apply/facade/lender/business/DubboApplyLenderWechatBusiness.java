@@ -1,9 +1,9 @@
 package com.zhixindu.apply.facade.lender.business;
 
-import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.BankCardBO;
-import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
@@ -36,7 +36,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderId
      * @return
      */
-    List<ContactBO> findLenderContact(int lenderId);
+    List<LenderContactBO> findLenderContact(int lenderId);
 
     /**
      * 根据借款人ID查找借款验证信息
@@ -50,42 +50,42 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderId
      * @return
      */
-    BankCardBO findBankCard(int lenderId);
+    LenderBankCardBO findLenderBankCard(int lenderId);
 
     /**
      * 根据借款人ID查找手机信息
      * @param lenderId
      * @return
      */
-    MobileVerifyBO findMobileInfo(int lenderId);
+    MobileVerifyBO findLenderMobileVerify(int lenderId);
 
     /**
      * 提交借款人地址信息
-     * @param addressBO
+     * @param lenderAddressBO
      * @return
      */
-    boolean submitLenderAddress(AddressBO addressBO);
+    boolean submitLenderAddress(LenderAddressBO lenderAddressBO);
 
     /**
      * 提交借款人联系人信息
-     * @param contactBOList
+     * @param lenderContactBOList
      * @return
      */
-    boolean submitLenderContact(List<ContactBO> contactBOList);
+    boolean submitLenderContact(List<LenderContactBO> lenderContactBOList);
 
     /**
      * 提交借款人银行卡信息
-     * @param bankCardBO
+     * @param lenderBankCardBO
      * @return
      */
-    boolean submitLenderBankCard(BankCardBO bankCardBO);
+    boolean submitLenderBankCard(LenderBankCardBO lenderBankCardBO);
 
     /**
      * 提交手机号码验证
      * @param mobileVerifyBO
      * @return
      */
-    boolean submitMobile(MobileVerifyBO mobileVerifyBO);
+    boolean submitLenderMobileVerify(MobileVerifyBO mobileVerifyBO);
 
     /**
      * 提交信用情况

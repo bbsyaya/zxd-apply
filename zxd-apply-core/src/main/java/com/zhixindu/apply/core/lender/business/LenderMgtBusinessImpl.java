@@ -5,9 +5,9 @@ import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
-import com.zhixindu.apply.facade.lender.bo.AddressBO;
-import com.zhixindu.apply.facade.lender.bo.BankCardBO;
-import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtInfo;
@@ -55,18 +55,18 @@ public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
         }
         LenderMgtInfo lenderMgtInfo = new LenderMgtInfo();
         BeanUtils.copyProperties(lender,lenderMgtInfo);
-        BankCardBO bankCardBO = lenderBankCardMapper.selectByLenderId(lender.getLender_id());
-        if(bankCardBO != null){
-            lenderMgtInfo.setBankCardBO(bankCardBO);
+        LenderBankCardBO lenderBankCardBO = lenderBankCardMapper.selectByLenderId(lender.getLender_id());
+        if(lenderBankCardBO != null){
+            lenderMgtInfo.setLenderBankCardBO(lenderBankCardBO);
         }
 
-        List<ContactBO> contactBOList = lenderContactMapper.selectByLenderId(lender.getLender_id());
-        if(CollectionUtils.isNotEmpty(contactBOList)){
-            lenderMgtInfo.setContactBOs(contactBOList);
+        List<LenderContactBO> lenderContactBOList = lenderContactMapper.selectByLenderId(lender.getLender_id());
+        if(CollectionUtils.isNotEmpty(lenderContactBOList)){
+            lenderMgtInfo.setLenderContactBOS(lenderContactBOList);
         }
-        AddressBO addressBO = lenderAddressMapper.selectByLenderId(lender.getLender_id());
-        if(addressBO != null){
-            lenderMgtInfo.setAddressBO(addressBO);
+        LenderAddressBO lenderAddressBO = lenderAddressMapper.selectByLenderId(lender.getLender_id());
+        if(lenderAddressBO != null){
+            lenderMgtInfo.setLenderAddressBO(lenderAddressBO);
         }
         return lenderMgtInfo;
     }

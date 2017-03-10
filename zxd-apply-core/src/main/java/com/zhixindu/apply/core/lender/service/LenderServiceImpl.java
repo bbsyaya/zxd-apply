@@ -5,11 +5,11 @@ import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
-import com.zhixindu.apply.facade.lender.bo.AddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.BankCardBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
 import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.FillStepBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
@@ -37,6 +37,11 @@ public class LenderServiceImpl implements LenderService {
     @Inject
     private LenderBankCardMapper lenderBankCardMapper;
 
+    @Override
+    public boolean isExistLender(String customerId) {
+        return lenderMapper.countByCustomerId(customerId) > 0;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
@@ -50,15 +55,15 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateAddress(AddressBO addressBO) {
+    public int saveOrUpdateAddress(LenderAddressBO lenderAddressBO) {
         int rows;
-        if(null != addressBO.getAddress_id()) {
-            rows = lenderAddressMapper.updateByPrimaryKey(addressBO);
+        if(null != lenderAddressBO.getAddress_id()) {
+            rows = lenderAddressMapper.updateByPrimaryKey(lenderAddressBO);
         } else {
-            rows = lenderAddressMapper.insert(addressBO);
+            rows = lenderAddressMapper.insert(lenderAddressBO);
         }
         if(rows > 0) {
-            FillStepBO fillStepBO = new FillStepBO(addressBO.getLender_id(), FillStep.CONTACT_INFO);
+            FillStepBO fillStepBO = new FillStepBO(lenderAddressBO.getLender_id(), FillStep.CONTACT_INFO);
             rows += lenderMapper.updateFillStep(fillStepBO);
         }
         return rows;
@@ -67,9 +72,9 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateContact(List<ContactBO> contactBOList) {
+    public int saveOrUpdateContact(List<LenderContactBO> lenderContactBOList) {
         int rows;
-        rows = contactBOList.stream().mapToInt(contactBO -> {
+        rows = lenderContactBOList.stream().mapToInt(contactBO -> {
             if(null != contactBO.getContact_id()) {
                 return lenderContactMapper.updateByPrimaryKey(contactBO);
             } else {
@@ -77,7 +82,7 @@ public class LenderServiceImpl implements LenderService {
             }
         }).reduce(Integer::sum).orElse(0);
         if(rows > 0) {
-            Integer lenderId = contactBOList.stream().map(ContactBO::getLender_id).distinct().findAny().get();
+            Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().get();
             FillStepBO fillStepBO = new FillStepBO(lenderId, FillStep.CERTIFICATION_INFO);
             rows += lenderMapper.updateFillStep(fillStepBO);
         }
@@ -86,20 +91,20 @@ public class LenderServiceImpl implements LenderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveOrUpdateBankCard(BankCardBO bankCardBO) {
+    public int saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO) {
         int rows;
-        if(null != bankCardBO.getBank_id()) {
-            rows = lenderBankCardMapper.updateByPrimaryKey(bankCardBO);
+        if(null != lenderBankCardBO.getBank_id()) {
+            rows = lenderBankCardMapper.updateByPrimaryKey(lenderBankCardBO);
         } else {
-            rows = lenderBankCardMapper.insert(bankCardBO);
+            rows = lenderBankCardMapper.insert(lenderBankCardBO);
         }
         if(rows > 0) {
             BankCardVerifyBO bankCardVerifyBO = new BankCardVerifyBO();
-            bankCardVerifyBO.setLender_id(bankCardBO.getLender_id());
-            bankCardVerifyBO.setBank_card_verify(bankCardBO.getBank_card_verify());
+            bankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
+            bankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
             rows += lenderMapper.updateBankCardVerify(bankCardVerifyBO);
 
-            FillStepBO fillStepBO = new FillStepBO(bankCardBO.getLender_id(), FillStep.SUBMIT);
+            FillStepBO fillStepBO = new FillStepBO(lenderBankCardBO.getLender_id(), FillStep.SUBMIT);
             rows += lenderMapper.updateFillStep(fillStepBO);
         }
         return rows;

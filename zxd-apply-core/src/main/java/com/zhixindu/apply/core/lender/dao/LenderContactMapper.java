@@ -1,7 +1,7 @@
 package com.zhixindu.apply.core.lender.dao;
 
 
-import com.zhixindu.apply.facade.lender.bo.ContactBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,17 +9,17 @@ import java.util.List;
 @Repository
 public interface LenderContactMapper {
 
-    int insert(ContactBO record);
+    int insert(LenderContactBO record);
 
-    int insertSelective(ContactBO record);
+    int insertSelective(LenderContactBO record);
 
-    ContactBO selectByPrimaryKey(Integer contact_id);
+    LenderContactBO selectByPrimaryKey(Integer contact_id);
 
-    int updateByPrimaryKey(ContactBO record);
+    int updateByPrimaryKey(LenderContactBO record);
 
-    int updateByPrimaryKeySelective(ContactBO record);
+    int updateByPrimaryKeySelective(LenderContactBO record);
 
-    List<ContactBO> selectByLenderId(Integer lender_id);
+    List<LenderContactBO> selectByLenderId(Integer lender_id);
 
     int countByLenderId(Integer lender_id);
 

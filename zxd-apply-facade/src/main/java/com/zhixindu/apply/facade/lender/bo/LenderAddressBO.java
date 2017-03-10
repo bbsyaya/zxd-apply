@@ -4,7 +4,7 @@ import com.zhixindu.apply.facade.lender.enums.WorkState;
 
 import java.io.Serializable;
 
-public class AddressBO implements Serializable {
+public class LenderAddressBO implements Serializable {
 
     private static final long serialVersionUID = 2319732869984633192L;
 

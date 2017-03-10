@@ -4,7 +4,7 @@ import com.zhixindu.apply.facade.lender.enums.ContactRelationship;
 
 import java.io.Serializable;
 
-public class ContactBO implements Serializable {
+public class LenderContactBO implements Serializable {
     private static final long serialVersionUID = -2075646585551667198L;
 
     private Integer contact_id;

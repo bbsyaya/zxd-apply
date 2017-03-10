@@ -26,6 +26,8 @@ public interface LenderMapper {
 
     LenderBO selectByCustomerId(String customer_id);
 
+    int countByCustomerId(String customer_id);
+
     int updateMobileVerify(MobileVerifyBO mobileVerifyBO);
 
     int updateBankCardVerify(BankCardVerifyBO bankCardVerifyBO);
