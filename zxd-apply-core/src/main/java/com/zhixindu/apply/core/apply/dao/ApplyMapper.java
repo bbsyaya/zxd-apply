@@ -1,6 +1,6 @@
 package com.zhixindu.apply.core.apply.dao;
 
-import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
@@ -14,17 +14,17 @@ import java.util.List;
 @Repository
 public interface ApplyMapper {
 
-    int insert(ApplyBO record);
+    int insert(ApplyPO record);
 
-    int insertSelective(ApplyBO record);
+    int insertSelective(ApplyPO record);
 
-    ApplyBO selectByPrimaryKey(Integer apply_id);
+    ApplyPO selectByPrimaryKey(Integer apply_id);
 
-    int updateByPrimaryKeySelective(ApplyBO record);
+    int updateByPrimaryKeySelective(ApplyPO record);
 
-    int updateByPrimaryKey(ApplyBO record);
+    int updateByPrimaryKey(ApplyPO record);
 
-    ApplyBO selectLatestByLenderId(Integer lender_id);
+    ApplyPO selectLatestByLenderId(Integer lender_id);
 
     List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 

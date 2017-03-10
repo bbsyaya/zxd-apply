@@ -4,7 +4,7 @@ package com.zhixindu.apply.core.apply.business;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
-import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
@@ -43,7 +43,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     @Override
     public ApplyMgtInfo getApplyInfoByLenderId(Integer apply_id) throws ServiceException {
         Parameters.requireNotNull(apply_id,"getApplyInfoByLenderId lender_id illargm_param");
-        ApplyBO applyBO = applyMapper.selectByPrimaryKey(apply_id);
+        ApplyPO applyBO = applyMapper.selectByPrimaryKey(apply_id);
         if(null == applyBO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
         }
