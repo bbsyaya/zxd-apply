@@ -7,7 +7,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
-import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 
 import java.util.List;
@@ -18,86 +18,86 @@ import java.util.List;
 public interface DubboApplyLenderWechatBusiness {
 
     /**
-     * 根据客户ID查找借款信息
+     * 根据客户ID查找借款人信息
      * @param customerId
-     * @return
+     * @return 借款人信息
      */
     LenderBO findLender(String customerId);
 
     /**
      * 申请借款
      * @param lenderBaseInfoBO
-     * @return
+     * @return 借款人和借款人地址信息
      */
     LenderInfoBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO);
 
     /**
      * 根据lenderId查找借款人联系人信息
      * @param lenderId
-     * @return
+     * @return 借款人联系人列表
      */
     List<LenderContactBO> findLenderContact(Integer lenderId);
 
     /**
-     * 根据借款人ID查找借款验证信息
+     * 根据借款人ID查找借款人验证信息
      * @param lenderId
-     * @return
+     * @return 借款人验证信息
      */
     LenderVerifyBO findLenderVerify(Integer lenderId);
 
     /**
      * 根据借款人ID查找银行卡信息
      * @param lenderId
-     * @return
+     * @return 借款人银行卡信息
      */
     LenderBankCardBO findLenderBankCard(Integer lenderId);
 
     /**
-     * 根据借款人ID查找手机信息
+     * 根据借款人ID查找手机验证信息
      * @param lenderId
-     * @return
+     * @return 借款人手机验证信息
      */
-    MobileVerifyBO findLenderMobileVerify(Integer lenderId);
+    LenderMobileVerifyBO findLenderMobileVerify(Integer lenderId);
 
     /**
      * 提交借款人地址信息
      * @param lenderAddressBO
-     * @return
+     * @return 地址ID
      */
     Integer submitLenderAddress(LenderAddressBO lenderAddressBO);
 
     /**
      * 提交借款人联系人信息
      * @param lenderContactBOList
-     * @return
+     * @return  联系人ID列表
      */
     List<Integer> submitLenderContact(List<LenderContactBO> lenderContactBOList);
 
     /**
      * 提交借款人银行卡信息
      * @param lenderBankCardBO
-     * @return
+     * @return 银行卡ID
      */
     Integer submitLenderBankCard(LenderBankCardBO lenderBankCardBO);
 
     /**
      * 提交手机号码验证
-     * @param mobileVerifyBO
-     * @return
+     * @param lenderMobileVerifyBO
+     * @return 是否成功
      */
-    boolean submitLenderMobileVerify(MobileVerifyBO mobileVerifyBO);
+    boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
 
     /**
      * 提交信用情况
      * @param applyResultBO
-     * @return
+     * @return 是否成功
      */
     boolean submitApplyResult(ApplyResultBO applyResultBO);
 
     /**
      * 查找银行卡号
      * @param lenderId
-     * @return
+     * @return 银行卡号
      */
     String findBankCardNumber(Integer lenderId);
 

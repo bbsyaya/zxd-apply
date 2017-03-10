@@ -14,7 +14,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
@@ -109,17 +109,17 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public MobileVerifyBO findLenderMobileVerify(Integer lenderId) {
+    public LenderMobileVerifyBO findLenderMobileVerify(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         LenderBO lenderBO = lenderMapper.selectByPrimaryKey(lenderId);
         if(null == lenderBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
         }
-        MobileVerifyBO mobileVerifyBO = new MobileVerifyBO();
-        mobileVerifyBO.setLender_id(lenderId);
-        mobileVerifyBO.setMobile(StringUtil.maskMobile(lenderBO.getMobile()));
-        mobileVerifyBO.setService_password(StringUtil.maskPassword(lenderBO.getService_password()));
-        return mobileVerifyBO;
+        LenderMobileVerifyBO lenderMobileVerifyBO = new LenderMobileVerifyBO();
+        lenderMobileVerifyBO.setLender_id(lenderId);
+        lenderMobileVerifyBO.setMobile(StringUtil.maskMobile(lenderBO.getMobile()));
+        lenderMobileVerifyBO.setService_password(StringUtil.maskPassword(lenderBO.getService_password()));
+        return lenderMobileVerifyBO;
     }
 
     @Override
@@ -143,9 +143,9 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public boolean submitLenderMobileVerify(MobileVerifyBO mobileVerifyBO) {
-        Parameters.requireAllPropertyNotNull(mobileVerifyBO);
-        return lenderService.saveMobileVerify(mobileVerifyBO) > 0;
+    public boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO) {
+        Parameters.requireAllPropertyNotNull(lenderMobileVerifyBO);
+        return lenderService.saveMobileVerify(lenderMobileVerifyBO) > 0;
     }
 
     @Override

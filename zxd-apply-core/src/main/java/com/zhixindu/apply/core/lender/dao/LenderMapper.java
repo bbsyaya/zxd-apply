@@ -2,11 +2,11 @@ package com.zhixindu.apply.core.lender.dao;
 
 
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.FillStepBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
-import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -28,11 +28,11 @@ public interface LenderMapper {
 
     int countByCustomerId(String customer_id);
 
-    int updateMobileVerify(MobileVerifyBO mobileVerifyBO);
+    int updateMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
 
-    int updateBankCardVerify(BankCardVerifyBO bankCardVerifyBO);
+    int updateBankCardVerify(LenderBankCardVerifyBO lenderBankCardVerifyBO);
 
-    int updateFillStep(FillStepBO fillStepBO);
+    int updateLoanFillStep(LoanFillStepBO loanFillStepBO);
 
     int updateApplyResult(ApplyResultBO applyResultBO);
 

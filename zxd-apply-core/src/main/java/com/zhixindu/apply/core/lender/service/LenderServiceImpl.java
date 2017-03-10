@@ -8,13 +8,13 @@ import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
-import com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
-import com.zhixindu.apply.facade.lender.bo.FillStepBO;
+import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
-import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
-import com.zhixindu.apply.facade.lender.enums.FillStep;
+import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,7 @@ public class LenderServiceImpl implements LenderService {
     public Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
         LenderBaseInfoPO lenderBaseInfoPO = new LenderBaseInfoPO();
         BeanUtils.copyProperties(lenderBaseInfoBO, lenderBaseInfoPO);
-        lenderBaseInfoPO.setFill_step(FillStep.BASIC_INFO);
+        lenderBaseInfoPO.setFill_step(LoanFillStep.BASIC_INFO);
         lenderMapper.insertBaseInfo(lenderBaseInfoPO);
         lenderBaseInfoBO.setLender_id(lenderBaseInfoPO.getLender_id());
         return lenderBaseInfoPO.getLender_id();
@@ -62,8 +62,8 @@ public class LenderServiceImpl implements LenderService {
         } else {
             lenderAddressMapper.insert(lenderAddressBO);
         }
-        FillStepBO fillStepBO = new FillStepBO(lenderAddressBO.getLender_id(), FillStep.CONTACT_INFO);
-        lenderMapper.updateFillStep(fillStepBO);
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderAddressBO.getLender_id(), LoanFillStep.CONTACT_INFO);
+        lenderMapper.updateLoanFillStep(loanFillStepBO);
         return lenderAddressBO.getAddress_id();
 
     }
@@ -80,8 +80,8 @@ public class LenderServiceImpl implements LenderService {
             return contactBO.getContact_id();
         }).collect(Collectors.toList());
         Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().get();
-        FillStepBO fillStepBO = new FillStepBO(lenderId, FillStep.CERTIFICATION_INFO);
-        lenderMapper.updateFillStep(fillStepBO);
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderId, LoanFillStep.CERTIFICATION_INFO);
+        lenderMapper.updateLoanFillStep(loanFillStepBO);
         return contactIdList;
     }
 
@@ -93,23 +93,23 @@ public class LenderServiceImpl implements LenderService {
         } else {
             lenderBankCardMapper.insert(lenderBankCardBO);
         }
-        BankCardVerifyBO bankCardVerifyBO = new BankCardVerifyBO();
-        bankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
-        bankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
-        lenderMapper.updateBankCardVerify(bankCardVerifyBO);
+        LenderBankCardVerifyBO lenderBankCardVerifyBO = new LenderBankCardVerifyBO();
+        lenderBankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
+        lenderBankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
+        lenderMapper.updateBankCardVerify(lenderBankCardVerifyBO);
 
-        FillStepBO fillStepBO = new FillStepBO(lenderBankCardBO.getLender_id(), FillStep.SUBMIT);
-        lenderMapper.updateFillStep(fillStepBO);
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderBankCardBO.getLender_id(), LoanFillStep.SUBMIT);
+        lenderMapper.updateLoanFillStep(loanFillStepBO);
         return lenderBankCardBO.getBank_id();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveMobileVerify(MobileVerifyBO mobileVerifyBO) {
-        int rows = lenderMapper.updateMobileVerify(mobileVerifyBO);
+    public int saveMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO) {
+        int rows = lenderMapper.updateMobileVerify(lenderMobileVerifyBO);
         if(rows > 0) {
-            FillStepBO fillStepBO = new FillStepBO(mobileVerifyBO.getLender_id(), FillStep.SUBMIT);
-            rows += lenderMapper.updateFillStep(fillStepBO);
+            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderMobileVerifyBO.getLender_id(), LoanFillStep.SUBMIT);
+            rows += lenderMapper.updateLoanFillStep(loanFillStepBO);
         }
         return rows;
     }

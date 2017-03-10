@@ -9,8 +9,8 @@ import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-import com.zhixindu.apply.facade.lender.bo.FillStepBO;
-import com.zhixindu.apply.facade.lender.enums.FillStep;
+import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,18 +33,17 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
+    public Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         ApplyPO applyPO = new ApplyPO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyPO);
         applyPO.setApply_time(new Date());
         applyPO.setApply_status(ApplyStatus.UNDER_REVIEW);
-        int rows = applyMapper.insertSelective(applyPO);
-        if(rows > 0) {
-            FillStepBO fillStepBO = new FillStepBO(applyPO.getLender_id(), FillStep.COMPLETE);
-            rows += lenderMapper.updateFillStep(fillStepBO);
-        }
+        applyMapper.insertSelective(applyPO);
+
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
+        lenderMapper.updateLoanFillStep(loanFillStepBO);
         applyBaseInfoBO.setApply_id(applyPO.getApply_id());
-        return rows;
+        return applyPO.getApply_id();
     }
 
     @Override

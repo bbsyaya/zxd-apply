@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/8.
  */
-public class BankCardVerifyBO implements Serializable {
+public class LenderBankCardVerifyBO implements Serializable {
     private static final long serialVersionUID = -8829720976239552424L;
 
     /** 借款人ID */

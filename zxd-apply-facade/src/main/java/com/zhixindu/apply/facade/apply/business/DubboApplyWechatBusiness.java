@@ -17,28 +17,28 @@ public interface DubboApplyWechatBusiness {
      * 是否申请审核不通过失效
      * 时间为从审核不通过的时间算起一个月
      * @param lenderId
-     * @return
+     * @return 是否失效
      */
     boolean isRejectApplyExpired(Integer lenderId);
 
     /**
      * 获取最新的申请记录
      * @param lenderId
-     * @return
+     * @return 申请借款基本信息
      */
     ApplyBaseInfoBO findLatestApplyByLenderId(Integer lenderId);
 
     /**
      * 提交申请借款
      * @param applyBaseInfoBO
-     * @return
+     * @return 申请ID
      */
-    boolean submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
+    Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
     /**
      * 查询申请借款记录
      * @param pageParam
-     * @return
+     * @return 申请借款分页结果
      */
     PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam);
 
@@ -52,14 +52,14 @@ public interface DubboApplyWechatBusiness {
     /**
      * 提交申请状态
      * @param applyStatusBO
-     * @return
+     * @return 是否成功
      */
     boolean submitApplyStatus(ApplyStatusBO applyStatusBO);
 
     /**
      * 提交申请信用
      * @param applyCreditBO
-     * @return
+     * @return 是否成功
      */
     boolean submitApplyCredit(ApplyCreditBO applyCreditBO);
 

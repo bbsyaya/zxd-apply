@@ -8,14 +8,14 @@ import java.util.Map;
 /**
  * Created by SteveGuo on 2017/3/10.
  */
-public enum FillStep implements IEnum<Integer> {
+public enum LoanFillStep implements IEnum<Integer> {
     BASIC_INFO(1, "基本信息"), CONTACT_INFO(2, "联系人信息"), CERTIFICATION_INFO(3, "认证信息"),
     SUBMIT(4, "提交申请"), COMPLETE(5, "完成申请");
 
     private int value;
     private String desc;
 
-    FillStep(int value, String desc) {
+    LoanFillStep(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -46,14 +46,14 @@ public enum FillStep implements IEnum<Integer> {
         return matches(valueBean.getValue());
     }
 
-    private static Map<Integer, FillStep> mappings = new HashMap<>();
+    private static Map<Integer, LoanFillStep> mappings = new HashMap<>();
     static {
-        for (FillStep fillStep : FillStep.values()) {
-            mappings.put(fillStep.getValue(), fillStep);
+        for (LoanFillStep loanFillStep : LoanFillStep.values()) {
+            mappings.put(loanFillStep.getValue(), loanFillStep);
         }
     }
 
-    public static FillStep resolve(int fillStep) {
+    public static LoanFillStep resolve(int fillStep) {
         return mappings.get(fillStep);
     }
 }

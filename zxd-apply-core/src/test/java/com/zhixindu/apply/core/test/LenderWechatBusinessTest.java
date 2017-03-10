@@ -4,8 +4,8 @@ import com.zhixindu.apply.core.app.WebAppConfig;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
 import com.zhixindu.apply.core.lender.service.LenderService;
-import com.zhixindu.apply.facade.lender.bo.MobileVerifyBO;
-import com.zhixindu.apply.facade.lender.enums.FillStep;
+import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
+import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +30,11 @@ public class LenderWechatBusinessTest {
 
     @Test
     public void testUpdateMobileVerify(){
-        MobileVerifyBO mobileVerifyBO = new MobileVerifyBO();
-        mobileVerifyBO.setLender_id(1);
-        mobileVerifyBO.setMobile("17091918167");
-        mobileVerifyBO.setMobile_verify(MobileVerify.VERIFIED);
-        System.out.println(lenderMapper.updateMobileVerify(mobileVerifyBO));
+        LenderMobileVerifyBO lenderMobileVerifyBO = new LenderMobileVerifyBO();
+        lenderMobileVerifyBO.setLender_id(1);
+        lenderMobileVerifyBO.setMobile("17091918167");
+        lenderMobileVerifyBO.setMobile_verify(MobileVerify.VERIFIED);
+        System.out.println(lenderMapper.updateMobileVerify(lenderMobileVerifyBO));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class LenderWechatBusinessTest {
         lenderBaseInfoPO.setMobile("18766223455");
         lenderBaseInfoPO.setId_card("3565778765431");
         lenderBaseInfoPO.setName("abc2");
-        lenderBaseInfoPO.setFill_step(FillStep.BASIC_INFO);
+        lenderBaseInfoPO.setFill_step(LoanFillStep.BASIC_INFO);
         System.out.println(lenderService.saveLenderBaseInfo(lenderBaseInfoPO));
         System.out.println(lenderBaseInfoPO.getLender_id());
     }

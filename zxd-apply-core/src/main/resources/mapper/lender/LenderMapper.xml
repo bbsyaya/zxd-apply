@@ -12,13 +12,13 @@
         <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="apply_result" jdbcType="INTEGER" property="apply_result" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="reject_time" jdbcType="TIMESTAMP" property="reject_time" />
-        <result column="fill_step" jdbcType="INTEGER" property="fill_step" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="loan_fill_step" jdbcType="INTEGER" property="loan_fill_step" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="credit_score" jdbcType="INTEGER" property="credit_score" />
     </resultMap>
 
     <sql id="Base_Column_List">
       lender_id, customer_id, mobile, service_password, name, id_card, mobile_verify, bank_card_verify,
-      apply_result, reject_time, fill_step, credit_score
+      apply_result, reject_time, loan_fill_step, credit_score
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -33,14 +33,14 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into lender (customer_id, mobile, service_password, name, id_card,
-        mobile_verify, bank_card_verify, apply_result, reject_time, fill_step, credit_score)
+        mobile_verify, bank_card_verify, apply_result, reject_time, loan_fill_step, credit_score)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
         #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
         #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{reject_time,jdbcType=TIMESTAMP},
-        #{fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{credit_score,jdbcType=INTEGER}
         )
     </insert>
@@ -78,8 +78,8 @@
             <if test="reject_time != null">
                 reject_time,
             </if>
-            <if test="fill_step != null">
-                fill_step,
+            <if test="loan_fill_step != null">
+                loan_fill_step,
             </if>
             <if test="credit_score != null">
                 credit_score,
@@ -113,8 +113,8 @@
             <if test="reject_time != null">
                 #{reject_time,jdbcType=TIMESTAMP},
             </if>
-            <if test="fill_step != null">
-                #{fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            <if test="loan_fill_step != null">
+                #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="credit_score != null">
                 #{credit_score,jdbcType=INTEGER},
@@ -126,10 +126,10 @@
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, name, id_card, fill_step)
+        insert into lender (customer_id, mobile, name, id_card, loan_fill_step)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
         #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
-        #{fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         )
     </insert>
 
@@ -163,8 +163,8 @@
             <if test="reject_time != null">
                 reject_time = #{reject_time,jdbcType=TIMESTAMP},
             </if>
-            <if test="fill_step != null">
-                fill_step = #{fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            <if test="loan_fill_step != null">
+                loan_fill_step = #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="credit_score != null">
                 credit_score = #{credit_score,jdbcType=INTEGER},
@@ -184,7 +184,7 @@
         bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         reject_time = #{reject_time,jdbcType=TIMESTAMP},
-        fill_step = #{fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         credit_score = #{credit_score,jdbcType=INTEGER}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
@@ -203,22 +203,22 @@
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
-    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.MobileVerifyBO">
+    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO">
         update lender
         set service_password = #{service_password,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.lender.bo.BankCardVerifyBO">
+    <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO">
         update lender
         set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateFillStep" parameterType="com.zhixindu.apply.facade.lender.bo.FillStepBO">
+    <update id="updateLoanFillStep" parameterType="com.zhixindu.apply.facade.lender.bo.LoanFillStepBO">
         update lender
-        set fill_step = #{fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        set loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
@@ -228,7 +228,7 @@
         <if test="null != reject_time">
             reject_time = #{reject_time,jdbcType=TIMESTAMP},
         </if>
-        fill_step = #{fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         credit_score = #{credit_score,jdbcType=VARCHAR}
         where lender_id = #{lender_id,jdbcType=INTEGER}

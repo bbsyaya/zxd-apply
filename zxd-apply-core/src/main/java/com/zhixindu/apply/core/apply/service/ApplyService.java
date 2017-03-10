@@ -9,7 +9,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
  */
 public interface ApplyService {
 
-    int saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
+    Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
     String getLatestApplyStatus(Integer applyId);
 

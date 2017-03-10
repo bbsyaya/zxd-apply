@@ -66,9 +66,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public boolean submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
+    public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
-        return applyService.saveApplyLoan(applyBaseInfoBO) > 0;
+        return applyService.saveApplyLoan(applyBaseInfoBO);
     }
 
     @Override

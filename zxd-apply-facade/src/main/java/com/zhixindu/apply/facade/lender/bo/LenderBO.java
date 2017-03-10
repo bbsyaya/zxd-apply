@@ -2,7 +2,7 @@ package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
-import com.zhixindu.apply.facade.lender.enums.FillStep;
+import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 import org.joda.time.DateTime;
 
@@ -22,7 +22,7 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
     /** 拒绝时间 */
     private Date reject_time;
     /** 填写步骤 */
-    private FillStep fill_step;
+    private LoanFillStep loan_fill_step;
     /** 申请结果 */
     private ApplyResult apply_result;
     /** 信用评分 */
@@ -68,12 +68,12 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
         this.reject_time = reject_time;
     }
 
-    public FillStep getFill_step() {
-        return fill_step;
+    public LoanFillStep getLoan_fill_step() {
+        return loan_fill_step;
     }
 
-    public void setFill_step(FillStep fill_step) {
-        this.fill_step = fill_step;
+    public void setLoan_fill_step(LoanFillStep loan_fill_step) {
+        this.loan_fill_step = loan_fill_step;
     }
 
     public Integer getCredit_score() {
