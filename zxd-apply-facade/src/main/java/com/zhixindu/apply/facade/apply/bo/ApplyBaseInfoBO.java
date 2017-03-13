@@ -19,7 +19,7 @@ public class ApplyBaseInfoBO implements Serializable {
     private Integer address_id;
     /** 联系人ID列表 */
     private String contact_id_list;
-    /** 银行卡ID列表 */
+    /** 银行卡ID */
     private Integer bank_card_id;
     /** 申请编号 */
     private String apply_no;
