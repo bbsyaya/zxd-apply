@@ -1,11 +1,10 @@
 package com.zhixindu.apply.facade.lender.business;
 
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
-import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
-import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
@@ -93,13 +92,6 @@ public interface DubboApplyLenderWechatBusiness {
      * @return 是否成功
      */
     boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
-
-    /**
-     * 提交信用情况
-     * @param applyResultBO
-     * @return 是否成功
-     */
-    boolean submitApplyResult(ApplyResultBO applyResultBO);
 
     /**
      * 查找银行卡号

@@ -2,10 +2,9 @@ package com.zhixindu.apply.core.lender.service;
 
 
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
-import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
-import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 
 import java.util.List;
@@ -32,7 +31,5 @@ public interface LenderService {
     Integer saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO);
 
     int saveMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
-
-    int saveApplyResult(ApplyResultBO applyResultBO);
 
 }
