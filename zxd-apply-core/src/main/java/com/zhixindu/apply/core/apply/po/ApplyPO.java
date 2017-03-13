@@ -10,8 +10,7 @@ import java.util.Date;
 public class ApplyPO extends ApplyBaseInfoBO implements Serializable {
 
     private static final long serialVersionUID = 2181984961531019781L;
-    /** 申请借款ID */
-    private Integer apply_id;
+
     /** 日利率 */
     private Integer interest_rate;
     /** 借款利息 */
@@ -28,14 +27,6 @@ public class ApplyPO extends ApplyBaseInfoBO implements Serializable {
     private Integer credit_score;
     /** 信用备忘录 */
     private String credit_memo;
-
-    public Integer getApply_id() {
-        return apply_id;
-    }
-
-    public void setApply_id(Integer apply_id) {
-        this.apply_id = apply_id;
-    }
 
     public Integer getInterest_rate() {
         return interest_rate;

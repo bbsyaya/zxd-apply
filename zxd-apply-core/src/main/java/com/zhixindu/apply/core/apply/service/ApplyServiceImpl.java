@@ -42,6 +42,7 @@ public class ApplyServiceImpl implements ApplyService {
 
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
         lenderMapper.updateLoanFillStep(loanFillStepBO);
+        applyBaseInfoBO.setApply_id(applyPO.getApply_id());
         return applyPO.getApply_id();
     }
 
