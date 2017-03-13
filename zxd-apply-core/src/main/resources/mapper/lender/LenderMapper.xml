@@ -235,7 +235,6 @@
         <if test="null != reject_time">
             reject_time = #{reject_time,jdbcType=TIMESTAMP},
         </if>
-        loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         credit_score = #{credit_score,jdbcType=VARCHAR}
         where lender_id = #{lender_id,jdbcType=INTEGER}

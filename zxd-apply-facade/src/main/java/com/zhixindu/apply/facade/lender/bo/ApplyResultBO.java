@@ -1,7 +1,6 @@
 package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
-import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,8 +15,6 @@ public class ApplyResultBO implements Serializable {
     private Integer lender_id;
     /** 拒绝时间 */
     private Date reject_time;
-    /** 填写步骤 */
-    private LoanFillStep loan_fill_step;
     /** 申请结果 */
     private ApplyResult apply_result;
     /** 信用评分 */
@@ -37,14 +34,6 @@ public class ApplyResultBO implements Serializable {
 
     public void setReject_time(Date reject_time) {
         this.reject_time = reject_time;
-    }
-
-    public LoanFillStep getLoan_fill_step() {
-        return loan_fill_step;
-    }
-
-    public void setLoan_fill_step(LoanFillStep loan_fill_step) {
-        this.loan_fill_step = loan_fill_step;
     }
 
     public ApplyResult getApply_result() {
