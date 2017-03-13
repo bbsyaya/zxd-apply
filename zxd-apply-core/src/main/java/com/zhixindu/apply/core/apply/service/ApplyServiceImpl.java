@@ -66,11 +66,12 @@ public class ApplyServiceImpl implements ApplyService {
     public int updateApplyCredit(ApplyCreditBO applyCreditBO) {
         int rows = applyMapper.updateCreditByPrimaryKey(applyCreditBO);
         ApplyResultBO applyResultBO = new ApplyResultBO();
-        applyResultBO.setLender_id(1);
+        applyResultBO.setLender_id(applyMapper.selectLenderIdByPrimaryKey(applyCreditBO.getApply_id()));
         applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
         ApplyResult applyResult = ApplyResultStatusMapping.getApplyResult(applyCreditBO.getApply_status());
         applyResultBO.setApply_result(applyResult);
-        if(ApplyResult.REJECT.matches(applyResult)) {
+        // 审核失败才会更新审核拒绝时间
+        if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
             applyResultBO.setReject_time(new Date());
         }
         rows += lenderMapper.updateApplyResult(applyResultBO);

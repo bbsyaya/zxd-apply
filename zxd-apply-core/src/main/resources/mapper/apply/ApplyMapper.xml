@@ -378,6 +378,13 @@
 
     <select id="selectListByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyPageParam" resultMap="BaseResultMap">
         select
+        lender_id
+        from apply
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectLenderIdByPrimaryKey" parameterType="java.lang.Integer">
+        select
         <include refid="Base_Column_List" />
         from apply
         order by apply_time desc

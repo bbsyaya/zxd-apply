@@ -30,6 +30,8 @@ public interface ApplyMapper {
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 
+    Integer selectLenderIdByPrimaryKey(Integer apply_id);
+
     int updateStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
 
     int updateCreditByPrimaryKey(ApplyCreditBO applyCreditBO);
