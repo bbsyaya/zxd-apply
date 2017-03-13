@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 public class ApplyBaseInfoBO implements Serializable {
     private static final long serialVersionUID = -8520843938618323270L;
 
-    /** 申请借款ID */
-    private Integer apply_id;
     /** 借款人ID */
     private Integer lender_id;
     /** 客户ID */
@@ -43,14 +41,6 @@ public class ApplyBaseInfoBO implements Serializable {
     private BigDecimal longitude;
     /** 地理位置精度 */
     private BigDecimal precision;
-
-    public Integer getApply_id() {
-        return apply_id;
-    }
-
-    public void setApply_id(Integer apply_id) {
-        this.apply_id = apply_id;
-    }
 
     public Integer getLender_id() {
         return lender_id;
