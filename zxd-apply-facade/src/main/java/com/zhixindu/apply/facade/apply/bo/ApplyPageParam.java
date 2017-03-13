@@ -15,6 +15,14 @@ public class ApplyPageParam implements Serializable,PageParam {
     /**每页大小**/
     private int count = 10;
 
+    public ApplyPageParam() {
+    }
+
+    public ApplyPageParam(int page, int count) {
+        this.page = page;
+        this.count = count;
+    }
+
     @Override
     public int getPage() {
         return page;
