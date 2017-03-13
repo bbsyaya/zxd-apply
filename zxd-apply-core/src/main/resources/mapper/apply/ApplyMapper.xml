@@ -33,7 +33,7 @@
         apply_id, lender_id, customer_id, address_id, contact_id_list, bank_card_id,
         apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
         total_fee, repayment_amount, account_amount, receipt_card_number, open_id, latitude,
-        longitude, precision, apply_time, apply_status, credit_code, credit_score, credit_memo
+        longitude,`precision`, apply_time, apply_status, credit_code, credit_score, credit_memo
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

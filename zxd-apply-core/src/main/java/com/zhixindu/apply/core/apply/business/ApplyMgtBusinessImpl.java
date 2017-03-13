@@ -41,7 +41,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public ApplyMgtInfo getApplyInfoByLenderId(Integer apply_id) throws ServiceException {
+    public ApplyMgtInfo findApplyInfoByLenderId(Integer apply_id) throws ServiceException {
         Parameters.requireNotNull(apply_id,"getApplyInfoByLenderId lender_id illargm_param");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(apply_id);
         if(null == applyPO){

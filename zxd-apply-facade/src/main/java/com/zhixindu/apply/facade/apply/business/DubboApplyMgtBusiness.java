@@ -15,7 +15,7 @@ public interface DubboApplyMgtBusiness {
      * 获取申请借款信息
      */
 
-    ApplyMgtInfo getApplyInfoByLenderId(Integer lender_id) throws ServiceException;
+    ApplyMgtInfo findApplyInfoByLenderId(Integer lender_id) throws ServiceException;
 
     /**
      * 获取申请借款列表

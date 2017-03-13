@@ -35,10 +35,16 @@ public class ApplyBusinessImplTest {
     @Test
     public void testSelectApplysByPage(){
         ApplyMgtPageParam pageParam = new ApplyMgtPageParam();
-        pageParam.setPage(0);
-        pageParam.setCount(10);
-        //pageParam.setApply_status(ApplyStatus.UNDER_REVIEW);
-        System.out.println(JsonUtil.toJsonString(pageParam));
-        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.selectApplysByPage(pageParam)));
+//        pageParam.setPage(0);
+//        pageParam.setCount(10);
+//        //pageParam.setApply_status(ApplyStatus.UNDER_REVIEW);
+//        System.out.println(JsonUtil.toJsonString(pageParam));
+//        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.selectApplysByPage(pageParam)));
+    }
+
+    @Test
+    public void testFindApplyInfoByLenderId(){
+
+        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.findApplyInfoByLenderId(1)));
     }
 }
