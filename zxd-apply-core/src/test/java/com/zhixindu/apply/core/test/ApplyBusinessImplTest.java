@@ -7,6 +7,7 @@ package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.WebAppConfig;
 import com.zhixindu.apply.core.apply.business.ApplyMgtBusinessImpl;
+import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.commons.utils.JsonUtil;
@@ -44,7 +45,8 @@ public class ApplyBusinessImplTest {
 
     @Test
     public void testFindApplyInfoByLenderId(){
+        ApplyMgtInfo info = applyMgtBusiness.findApplyInfoByLenderId(1);
+        System.out.println(JsonUtil.toJsonString(info));
 
-        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.findApplyInfoByLenderId(1)));
     }
 }
