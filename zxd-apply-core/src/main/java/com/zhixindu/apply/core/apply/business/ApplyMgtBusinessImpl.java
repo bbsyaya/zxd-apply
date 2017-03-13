@@ -48,7 +48,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
         }
         ApplyMgtInfo applyMgtInfo = new ApplyMgtInfo();
-        BeanUtils.copyProperties(applyMgtInfo,applyPO);
+        BeanUtils.copyProperties(applyPO,applyMgtInfo);
         return applyMgtInfo;
     }
 
