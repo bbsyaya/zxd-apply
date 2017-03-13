@@ -10,7 +10,8 @@ import java.io.Serializable;
 public class ApplyCreditBO implements Serializable{
 
     private static final long serialVersionUID = -6877810588246495772L;
-
+    /** 申请借款ID */
+    private Integer apply_id;
     /** 申请状态 */
     private ApplyStatus apply_status;
     /** 信用代码 */
@@ -19,6 +20,14 @@ public class ApplyCreditBO implements Serializable{
     private Integer credit_score;
     /** 信用备忘录 */
     private String credit_memo;
+
+    public Integer getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(Integer apply_id) {
+        this.apply_id = apply_id;
+    }
 
     public ApplyStatus getApply_status() {
         return apply_status;
