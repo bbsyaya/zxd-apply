@@ -12,13 +12,13 @@ public class LenderBaseInfoPO extends LenderBaseInfoBO implements Serializable {
     private static final long serialVersionUID = -8597801638856657035L;
 
     /** 填写步骤 */
-    private LoanFillStep fill_step;
+    private LoanFillStep loan_fill_step;
 
-    public LoanFillStep getFill_step() {
-        return fill_step;
+    public LoanFillStep getLoan_fill_step() {
+        return loan_fill_step;
     }
 
-    public void setFill_step(LoanFillStep fill_step) {
-        this.fill_step = fill_step;
+    public void setLoan_fill_step(LoanFillStep loan_fill_step) {
+        this.loan_fill_step = loan_fill_step;
     }
 }

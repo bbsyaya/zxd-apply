@@ -44,6 +44,17 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     }
 
     @Override
+    public String getRegionFullName(Integer code) {
+        StringBuilder builder = new StringBuilder(16);
+        RegionBaseBO regionBaseBO = regionCacheManager.getRegion(code);
+        if(null != regionBaseBO.getParent_code()) {
+            builder.append(getRegionFullName(regionBaseBO.getParent_code()));
+        }
+        builder.append(regionBaseBO.getFull_name());
+        return builder.toString();
+    }
+
+    @Override
     public String getBankName(Integer bankCardNumber) {
         for(BinLength binLength : BinLength.values()) {
             Integer bin = Integer.valueOf(bankCardNumber.toString().substring(0, binLength.getValue()));

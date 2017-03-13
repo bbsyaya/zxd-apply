@@ -37,6 +37,16 @@ public interface DubboApplySystemConfigBusiness {
     RegionBaseBO getRegion(Integer code);
 
     /**
+     * 获取行政区域拼接的全称
+     * e.g: 320281 -> 江苏省无锡市江阴市
+     *      3202 -> 江苏省无锡市
+     *      32 -> 江苏省
+     * @param code
+     * @return
+     */
+    String getRegionFullName(Integer code);
+
+    /**
      * 根据银行卡号获取银行名称
      * @param bankCardNumber
      * @return

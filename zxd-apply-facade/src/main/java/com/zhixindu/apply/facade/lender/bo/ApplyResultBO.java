@@ -17,7 +17,7 @@ public class ApplyResultBO implements Serializable {
     /** 拒绝时间 */
     private Date reject_time;
     /** 填写步骤 */
-    private LoanFillStep fill_step;
+    private LoanFillStep loan_fill_step;
     /** 申请结果 */
     private ApplyResult apply_result;
     /** 信用评分 */
@@ -39,12 +39,12 @@ public class ApplyResultBO implements Serializable {
         this.reject_time = reject_time;
     }
 
-    public LoanFillStep getFill_step() {
-        return fill_step;
+    public LoanFillStep getLoan_fill_step() {
+        return loan_fill_step;
     }
 
-    public void setFill_step(LoanFillStep fill_step) {
-        this.fill_step = fill_step;
+    public void setLoan_fill_step(LoanFillStep loan_fill_step) {
+        this.loan_fill_step = loan_fill_step;
     }
 
     public ApplyResult getApply_result() {

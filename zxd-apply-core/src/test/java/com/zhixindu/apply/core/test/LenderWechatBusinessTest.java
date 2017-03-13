@@ -34,7 +34,7 @@ public class LenderWechatBusinessTest {
         lenderMobileVerifyBO.setLender_id(1);
         lenderMobileVerifyBO.setMobile("17091918167");
         lenderMobileVerifyBO.setMobile_verify(MobileVerify.VERIFIED);
-        System.out.println(lenderMapper.updateMobileVerify(lenderMobileVerifyBO));
+        //System.out.println(lenderMapper.updateMobileVerify(lenderMobileVerifyBO));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class LenderWechatBusinessTest {
         lenderBaseInfoPO.setMobile("18766223455");
         lenderBaseInfoPO.setId_card("3565778765431");
         lenderBaseInfoPO.setName("abc2");
-        lenderBaseInfoPO.setFill_step(LoanFillStep.BASIC_INFO);
+        lenderBaseInfoPO.setLoan_fill_step(LoanFillStep.BASIC_INFO);
         System.out.println(lenderService.saveLenderBaseInfo(lenderBaseInfoPO));
         System.out.println(lenderBaseInfoPO.getLender_id());
     }

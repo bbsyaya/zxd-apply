@@ -65,7 +65,7 @@ public class LenderServiceImpl implements LenderService {
     public Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO) {
         LenderBaseInfoPO lenderBaseInfoPO = new LenderBaseInfoPO();
         BeanUtils.copyProperties(lenderBaseInfoBO, lenderBaseInfoPO);
-        lenderBaseInfoPO.setFill_step(LoanFillStep.BASIC_INFO);
+        lenderBaseInfoPO.setLoan_fill_step(LoanFillStep.BASIC_INFO);
         lenderMapper.insertBaseInfo(lenderBaseInfoPO);
         lenderBaseInfoBO.setLender_id(lenderBaseInfoPO.getLender_id());
         return lenderBaseInfoPO.getLender_id();
