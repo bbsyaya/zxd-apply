@@ -5,6 +5,9 @@
  */
 package com.zhixindu.apply.facade.lender.bo;
 
+import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.apply.facade.lender.enums.MobileVerify;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -41,11 +44,11 @@ public class LenderMgtInfo implements Serializable {
     /**
      * 手机号认证信息（0未验证，1已验证）
      */
-    private Integer mobile_verify;
+    private MobileVerify mobile_verify;
     /**
      * 银行卡认证信息（0未验证，1已验证）
      */
-    private Integer bank_card_verify;
+    private BankCardVerify bank_card_verify;
     /**
      * 地址
      */
@@ -99,22 +102,6 @@ public class LenderMgtInfo implements Serializable {
         this.id_card = id_card;
     }
 
-    public Integer getMobile_verify() {
-        return mobile_verify;
-    }
-
-    public void setMobile_verify(Integer mobile_verify) {
-        this.mobile_verify = mobile_verify;
-    }
-
-    public Integer getBank_card_verify() {
-        return bank_card_verify;
-    }
-
-    public void setBank_card_verify(Integer bank_card_verify) {
-        this.bank_card_verify = bank_card_verify;
-    }
-
     public LenderAddressBO getLenderAddressBO() {
         return lenderAddressBO;
     }
@@ -129,6 +116,22 @@ public class LenderMgtInfo implements Serializable {
 
     public void setLenderContactBOS(List<LenderContactBO> lenderContactBOS) {
         this.lenderContactBOS = lenderContactBOS;
+    }
+
+    public MobileVerify getMobile_verify() {
+        return mobile_verify;
+    }
+
+    public void setMobile_verify(MobileVerify mobile_verify) {
+        this.mobile_verify = mobile_verify;
+    }
+
+    public BankCardVerify getBank_card_verify() {
+        return bank_card_verify;
+    }
+
+    public void setBank_card_verify(BankCardVerify bank_card_verify) {
+        this.bank_card_verify = bank_card_verify;
     }
 
     public LenderBankCardBO getLenderBankCardBO() {
