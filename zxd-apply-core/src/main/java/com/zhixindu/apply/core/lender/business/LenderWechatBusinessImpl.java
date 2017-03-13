@@ -74,6 +74,12 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         return lenderInfoBO;
     }
 
+    @Override
+    public LenderAddressBO findLenderAddress(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        return lenderAddressMapper.selectByLenderId(lenderId);
+    }
+
     /**
      * 对关键信息最掩码
      * @param lenderInfo

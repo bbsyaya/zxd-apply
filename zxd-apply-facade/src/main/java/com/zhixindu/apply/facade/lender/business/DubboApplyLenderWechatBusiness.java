@@ -32,6 +32,13 @@ public interface DubboApplyLenderWechatBusiness {
     LenderInfoBO applyLoan(LenderBaseInfoBO lenderBaseInfoBO);
 
     /**
+     * 根据LenderId查找借款人地址信息
+     * @param lenderId
+     * @return 借款人地址信息
+     */
+    LenderAddressBO findLenderAddress(Integer lenderId);
+
+    /**
      * 根据lenderId查找借款人联系人信息
      * @param lenderId
      * @return 借款人联系人列表
