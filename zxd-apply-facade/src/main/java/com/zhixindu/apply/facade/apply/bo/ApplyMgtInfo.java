@@ -22,6 +22,8 @@ public class ApplyMgtInfo implements Serializable {
     private Integer lender_id;
     /**申请金额 **/
     private BigDecimal loan_amount;
+    /**到账金额**/
+    private BigDecimal account_amount;
     /**申请期限 **/
     private int loan_term;
     /**日利率**/
@@ -88,6 +90,15 @@ public class ApplyMgtInfo implements Serializable {
     public void setPlatform_manage_fee(BigDecimal platform_manage_fee) {
         this.platform_manage_fee = platform_manage_fee;
     }
+
+;    public BigDecimal getAccount_amount() {
+        return account_amount;
+    }
+
+    public void setAccount_amount(BigDecimal account_amount) {
+        this.account_amount = account_amount;
+    }
+
 
     public BigDecimal getRepayment_amount() {
         return repayment_amount;

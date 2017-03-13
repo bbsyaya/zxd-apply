@@ -7,7 +7,6 @@ package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.WebAppConfig;
 import com.zhixindu.apply.core.lender.business.LenderMgtBusinessImpl;
-import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.commons.utils.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,14 +28,12 @@ import javax.inject.Inject;
 public class LenderMgtBusinessImplTest {
 
     @Inject
-    private LenderAddressMapper lenderAddressMapper;
-
-    @Inject
     private LenderMgtBusinessImpl lenderMgtBusiness;
 
 
     @Test
     public void getLenderTest(){
+        System.out.println("afsdfasfd");
         System.out.println(JsonUtil.toJsonString(lenderMgtBusiness.findLenderInfo(1)));
     }
 
