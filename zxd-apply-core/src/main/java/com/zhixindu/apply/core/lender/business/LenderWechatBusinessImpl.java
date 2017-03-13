@@ -188,12 +188,6 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
-    public boolean submitApplyResult(ApplyResultBO applyResultBO) {
-        Parameters.requireAllPropertyNotNull(applyResultBO);
-        return lenderService.saveApplyResult(applyResultBO) > 0;
-    }
-
-    @Override
     public String findBankCardNumber(Integer lenderId) {
         return lenderBankCardMapper.selectBankCardNumber(lenderId);
     }

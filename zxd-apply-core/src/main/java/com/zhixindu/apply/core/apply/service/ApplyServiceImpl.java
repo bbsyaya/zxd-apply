@@ -2,14 +2,17 @@ package com.zhixindu.apply.core.apply.service;
 
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
-import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
+import com.zhixindu.apply.facade.apply.enums.ApplyResultStatusMapping;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
+import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -61,7 +64,17 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateApplyCredit(ApplyCreditBO applyCreditBO) {
-        return applyMapper.updateCreditByPrimaryKey(applyCreditBO);
+        int rows = applyMapper.updateCreditByPrimaryKey(applyCreditBO);
+        ApplyResultBO applyResultBO = new ApplyResultBO();
+        applyResultBO.setLender_id(1);
+        applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
+        ApplyResult applyResult = ApplyResultStatusMapping.getApplyResult(applyCreditBO.getApply_status());
+        applyResultBO.setApply_result(applyResult);
+        if(ApplyResult.REJECT.matches(applyResult)) {
+            applyResultBO.setReject_time(new Date());
+        }
+        rows += lenderMapper.updateApplyResult(applyResultBO);
+        return rows;
     }
 
 }

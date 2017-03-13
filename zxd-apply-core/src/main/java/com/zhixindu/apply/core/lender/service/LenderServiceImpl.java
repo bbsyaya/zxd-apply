@@ -6,14 +6,12 @@ import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
-import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO;
-import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
-import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
-import com.zhixindu.apply.facade.lender.enums.ApplyResult;
+import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -134,15 +132,6 @@ public class LenderServiceImpl implements LenderService {
             rows += lenderMapper.updateLoanFillStep(loanFillStepBO);
         }
         return rows;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public int saveApplyResult(ApplyResultBO applyResultBO) {
-        if(ApplyResult.APPROVED.matches(applyResultBO.getApply_result())) {
-            applyResultBO.setReject_time(null);
-        }
-        return lenderMapper.updateApplyResult(applyResultBO);
     }
 
 }
