@@ -52,7 +52,7 @@ public class LenderMgtInfo implements Serializable {
     /**
      * 地址
      */
-    private LenderAddressBO lenderAddressBO;
+    private LenderAddressMgtBO lenderAddressMgtBO;
     /**
      * 联系人
      */
@@ -102,12 +102,12 @@ public class LenderMgtInfo implements Serializable {
         this.id_card = id_card;
     }
 
-    public LenderAddressBO getLenderAddressBO() {
-        return lenderAddressBO;
+    public LenderAddressMgtBO getLenderAddressMgtBO() {
+        return lenderAddressMgtBO;
     }
 
-    public void setLenderAddressBO(LenderAddressBO lenderAddressBO) {
-        this.lenderAddressBO = lenderAddressBO;
+    public void setLenderAddressMgtBO(LenderAddressMgtBO lenderAddressMgtBO) {
+        this.lenderAddressMgtBO = lenderAddressMgtBO;
     }
 
     public List<LenderContactBO> getLenderContactBOS() {

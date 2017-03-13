@@ -5,7 +5,10 @@ import com.zhixindu.apply.core.lender.dao.LenderAddressMapper;
 import com.zhixindu.apply.core.lender.dao.LenderBankCardMapper;
 import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
+import com.zhixindu.apply.core.system.business.SystemConfigBusinessImpl;
+import com.zhixindu.apply.core.system.dao.RegionMapper;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderAddressMgtBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
 import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
@@ -13,6 +16,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtInfo;
 import com.zhixindu.apply.facade.lender.bo.LenderMgtQueryParm;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness;
+import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -41,6 +45,9 @@ public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
     @Inject
     private LenderAddressMapper lenderAddressMapper;
 
+    @Inject
+    private SystemConfigBusinessImpl systemConfigBusiness;
+
     @Override
     public PageResult<LenderInfoBO> findLenderInfoByPage(LenderMgtQueryParm param) throws ServiceException {
         return null;
@@ -66,7 +73,17 @@ public class LenderMgtBusinessImpl implements DubboApplyLenderMgtBusiness {
         }
         LenderAddressBO lenderAddressBO = lenderAddressMapper.selectByLenderId(lender.getLender_id());
         if(lenderAddressBO != null){
-            lenderMgtInfo.setLenderAddressBO(lenderAddressBO);
+            LenderAddressMgtBO lenderAddressMgtBO = new LenderAddressMgtBO();
+            BeanUtils.copyProperties(lenderAddressBO,lenderAddressMgtBO);
+            if(null != lenderAddressBO.getHome_address_code()){
+                String homeAddressInfo = systemConfigBusiness.getRegionFullName(lenderAddressBO.getHome_address_code());
+                lenderAddressMgtBO.setHome_address_info(homeAddressInfo);
+            }
+            if(null != lenderAddressBO.getCompany_address_code()) {
+                String companyAddressInfo = systemConfigBusiness.getRegionFullName(lenderAddressBO.getCompany_address_code());
+                lenderAddressMgtBO.setCompany_address_info(companyAddressInfo);
+            }
+            lenderMgtInfo.setLenderAddressMgtBO(lenderAddressMgtBO);
         }
         return lenderMgtInfo;
     }
