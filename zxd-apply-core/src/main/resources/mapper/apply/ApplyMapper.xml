@@ -329,11 +329,12 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectLatestByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectLatestReviewByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
+        and apply_status in (1,2)
         order by apply_time desc limit 0,1
     </select>
 

@@ -3,8 +3,8 @@ package com.zhixindu.apply.core.apply.business;
 import com.google.common.collect.Lists;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
-import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
@@ -14,8 +14,6 @@ import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
-import com.zhixindu.apply.facade.apply.enums.ProcessState;
-import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -46,23 +44,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public boolean isRejectApplyExpired(Integer lenderId) {
-        Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        ApplyPO applyPO = applyMapper.selectLatestByLenderId(lenderId);
-        if(null == applyPO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的借款申请信息");
-        }
-        ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyPO.getApply_id(), ProcessStep.REVIEW.getValue());
-        if(null != applyStepBO && ProcessState.FAIL.matches(applyStepBO.getProcess_state())) {
-            return DateTime.now().minusMonths(1).isAfter(applyStepBO.getProcess_time().getTime());
-        }
-        return false;
-    }
-
-    @Override
     public ApplyBaseInfoBO findLatestApplyByLenderId(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        return applyMapper.selectLatestByLenderId(lenderId);
+        return applyMapper.selectLatestReviewByLenderId(lenderId);
     }
 
     @Override

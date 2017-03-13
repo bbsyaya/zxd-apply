@@ -24,7 +24,7 @@ public interface ApplyMapper {
 
     int updateByPrimaryKey(ApplyPO record);
 
-    ApplyPO selectLatestByLenderId(Integer lender_id);
+    ApplyPO selectLatestReviewByLenderId(Integer lender_id);
 
     List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 
