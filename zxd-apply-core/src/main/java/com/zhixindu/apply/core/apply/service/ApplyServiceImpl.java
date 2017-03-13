@@ -6,10 +6,13 @@ import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.enums.ApplyResultStatusMapping;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
+import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
@@ -46,6 +49,23 @@ public class ApplyServiceImpl implements ApplyService {
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
         lenderMapper.updateLoanFillStep(loanFillStepBO);
         applyBaseInfoBO.setApply_id(applyPO.getApply_id());
+
+        ApplyStepBO applyStepBO = new ApplyStepBO();
+        applyStepBO.setApply_id(applyPO.getApply_id());
+        Date now = new Date();
+        applyStepBO.setStart_time(now);
+        applyStepBO.setEnd_time(now);
+        applyStepBO.setProcess_step(ProcessStep.SUBMIT_APPLICATION);
+        applyStepBO.setProcess_time(now);
+        applyStepBO.setProcess_state(ProcessState.SUCCESS);
+        applyStepMapper.insertSelective(applyStepBO);
+
+        ApplyStartStepBO applyStartStepBO = new ApplyStartStepBO();
+        applyStartStepBO.setApply_id(applyPO.getApply_id());
+        applyStartStepBO.setStart_time(now);
+        applyStartStepBO.setProcess_step(ProcessStep.REVIEW);
+        applyStartStepBO.setProcess_state(ProcessState.PROCESSING);
+        applyStepMapper.startStep(applyStartStepBO);
         return applyPO.getApply_id();
     }
 

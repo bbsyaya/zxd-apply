@@ -119,6 +119,25 @@
         where step_id = #{step_id,jdbcType=INTEGER}
     </update>
 
+    <insert id="startStep" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO">
+        <selectKey keyProperty="step_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_step (apply_id, start_time, process_step, process_state)
+        values (#{apply_id,jdbcType=INTEGER}, #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP},
+        #{process_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{process_state,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler})
+    </insert>
+
+    <update id="completeStep" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO">
+        update apply_step
+        set end_time = #{end_time,jdbcType=TIMESTAMP},
+        process_time = #{process_time,jdbcType=TIMESTAMP},
+        process_state = #{process_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where process_step = #{process_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        and apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+
     <select id="selectListByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
