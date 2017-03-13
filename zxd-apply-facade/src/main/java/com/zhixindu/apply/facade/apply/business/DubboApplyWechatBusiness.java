@@ -14,11 +14,11 @@ import com.zhixindu.commons.page.PageResult;
 public interface DubboApplyWechatBusiness {
 
     /**
-     * 获取最新的申请记录，状态处于审核中、审核通过、放款中
+     * 获取最新的申请记录，状态处于审核中、审核通过
      * @param lenderId
      * @return 申请借款基本信息
      */
-    ApplyBaseInfoBO findLatestApplyByLenderId(Integer lenderId);
+    ApplyBaseInfoBO findLatestReviewApply(Integer lenderId);
 
     /**
      * 提交申请借款

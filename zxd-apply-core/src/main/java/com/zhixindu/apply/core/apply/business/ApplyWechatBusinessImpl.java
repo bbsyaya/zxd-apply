@@ -44,7 +44,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public ApplyBaseInfoBO findLatestApplyByLenderId(Integer lenderId) {
+    public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return applyMapper.selectLatestReviewByLenderId(lenderId);
     }
