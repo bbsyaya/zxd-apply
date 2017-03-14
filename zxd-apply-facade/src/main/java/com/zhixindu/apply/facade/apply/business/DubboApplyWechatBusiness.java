@@ -42,11 +42,11 @@ public interface DubboApplyWechatBusiness {
     ApplyLoanDetailBO findApplyLoanDetail(Integer applyId);
 
     /**
-     * 提交申请状态
+     * 提交放款状态
      * @param applyStatusBO
      * @return 是否成功
      */
-    boolean submitApplyStatus(ApplyStatusBO applyStatusBO);
+    boolean submitLoanStatus(ApplyStatusBO applyStatusBO);
 
     /**
      * 提交申请信用

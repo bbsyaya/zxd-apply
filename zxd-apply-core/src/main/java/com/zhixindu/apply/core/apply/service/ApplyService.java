@@ -13,7 +13,7 @@ public interface ApplyService {
 
     String getLatestApplyStatus(Integer applyId);
 
-    int updateApplyStatus(ApplyStatusBO applyStatusBO);
+    int updateLoanStatus(ApplyStatusBO applyStatusBO);
 
     int updateApplyCredit(ApplyCreditBO applyCreditBO);
 
