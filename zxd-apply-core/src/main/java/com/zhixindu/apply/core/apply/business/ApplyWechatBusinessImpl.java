@@ -1,6 +1,7 @@
 package com.zhixindu.apply.core.apply.business;
 
 import com.google.common.collect.Lists;
+import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
@@ -10,6 +11,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
@@ -41,12 +43,22 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Inject
     private ApplyStepMapper applyStepMapper;
     @Inject
+    private ApplyLocationMapper applyLocationMapper;
+    @Inject
     private PageRepository pageRepository;
 
     @Override
     public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        return applyMapper.selectLatestReviewByLenderId(lenderId);
+        ApplyBaseInfoBO applyBaseInfoBO = applyMapper.selectLatestReviewByLenderId(lenderId);
+        if(null != applyBaseInfoBO) {
+            ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyBaseInfoBO.getApply_id());
+            applyBaseInfoBO.setOpen_id(applyLocationBO.getOpen_id());
+            applyBaseInfoBO.setLatitude(applyLocationBO.getLatitude());
+            applyBaseInfoBO.setLongitude(applyLocationBO.getLongitude());
+            applyBaseInfoBO.setPrecision(applyLocationBO.getPrecision());
+        }
+        return applyBaseInfoBO;
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.zhixindu.apply.core.apply.service;
 
+import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
@@ -35,6 +37,8 @@ public class ApplyServiceImpl implements ApplyService {
     @Inject
     private ApplyStepMapper applyStepMapper;
     @Inject
+    private ApplyLocationMapper applyLocationMapper;
+    @Inject
     private LenderMapper lenderMapper;
 
     @Transactional(rollbackFor = Exception.class)
@@ -46,9 +50,10 @@ public class ApplyServiceImpl implements ApplyService {
         applyPO.setApply_status(ApplyStatus.UNDER_REVIEW);
         applyMapper.insertSelective(applyPO);
 
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
-        lenderMapper.updateLoanFillStep(loanFillStepBO);
-        applyBaseInfoBO.setApply_id(applyPO.getApply_id());
+        ApplyLocationBO applyLocationBO = new ApplyLocationBO();
+        BeanUtils.copyProperties(applyBaseInfoBO, applyLocationBO);
+        applyLocationBO.setApply_id(applyPO.getApply_id());
+        applyLocationMapper.insert(applyLocationBO);
 
         ApplyStepBO applyStepBO = new ApplyStepBO();
         applyStepBO.setApply_id(applyPO.getApply_id());
@@ -66,6 +71,10 @@ public class ApplyServiceImpl implements ApplyService {
         applyStartStepBO.setProcess_step(ProcessStep.REVIEW);
         applyStartStepBO.setProcess_state(ProcessState.PROCESSING);
         applyStepMapper.startStep(applyStartStepBO);
+
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
+        lenderMapper.updateLoanFillStep(loanFillStepBO);
+        applyBaseInfoBO.setApply_id(applyPO.getApply_id());
         return applyPO.getApply_id();
     }
 
