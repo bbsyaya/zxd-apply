@@ -42,6 +42,13 @@ public interface DubboApplyWechatBusiness {
     ApplyLoanDetailBO findApplyLoanDetail(Integer applyId);
 
     /**
+     * 获取申请基本信息
+     * @param applyId
+     * @return
+     */
+    ApplyBaseInfoBO findApply(Integer applyId);
+
+    /**
      * 提交放款状态
      * @param applyStatusBO
      * @return 是否成功

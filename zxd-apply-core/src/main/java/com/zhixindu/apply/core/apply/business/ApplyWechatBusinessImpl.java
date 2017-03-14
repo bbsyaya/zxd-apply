@@ -117,6 +117,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
+    public ApplyBaseInfoBO findApply(Integer applyId) {
+        return applyMapper.selectByPrimaryKey(applyId);
+    }
+
+    @Override
     public boolean submitLoanStatus(ApplyStatusBO applyStatusBO) {
         Parameters.requireAllPropertyNotNull(applyStatusBO);
         return applyService.updateLoanStatus(applyStatusBO) > 0;
