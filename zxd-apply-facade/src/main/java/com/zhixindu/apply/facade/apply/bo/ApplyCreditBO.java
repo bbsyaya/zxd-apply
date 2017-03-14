@@ -3,6 +3,7 @@ package com.zhixindu.apply.facade.apply.bo;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by SteveGuo on 2017/3/9.
@@ -14,6 +15,8 @@ public class ApplyCreditBO implements Serializable{
     private Integer apply_id;
     /** 申请状态 */
     private ApplyStatus apply_status;
+    /** 审核时间 */
+    private Date review_time;
     /** 信用代码 */
     private String credit_code;
     /** 信用评分 */
@@ -35,6 +38,14 @@ public class ApplyCreditBO implements Serializable{
 
     public void setApply_status(ApplyStatus apply_status) {
         this.apply_status = apply_status;
+    }
+
+    public Date getReview_time() {
+        return review_time;
+    }
+
+    public void setReview_time(Date review_time) {
+        this.review_time = review_time;
     }
 
     public String getCredit_code() {
