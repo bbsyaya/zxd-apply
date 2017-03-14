@@ -6,6 +6,7 @@
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
         <result column="service_password" jdbcType="VARCHAR" property="service_password"/>
+        <result column="operator_token" jdbcType="VARCHAR" property="operator_token" />
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="id_card" jdbcType="VARCHAR" property="id_card"/>
         <result column="mobile_verify" jdbcType="INTEGER" property="mobile_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
@@ -17,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      lender_id, customer_id, mobile, service_password, name, id_card, mobile_verify, bank_card_verify,
+      lender_id, customer_id, mobile, service_password, operator_token, name, id_card, mobile_verify, bank_card_verify,
       apply_result, reject_time, loan_fill_step, credit_score
     </sql>
 
@@ -32,10 +33,10 @@
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, service_password, name, id_card,
+        insert into lender (customer_id, mobile, service_password, operator_token, name, id_card,
         mobile_verify, bank_card_verify, apply_result, reject_time, loan_fill_step, credit_score)
-        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
-        #{service_password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
+        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{service_password,jdbcType=VARCHAR},
+        #{operator_token,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
         #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -59,6 +60,9 @@
             </if>
             <if test="service_password != null">
                 service_password,
+            </if>
+            <if test="operator_token != null">
+                operator_token,
             </if>
             <if test="name != null">
                 name,
@@ -94,6 +98,9 @@
             </if>
             <if test="service_password != null">
                 #{service_password,jdbcType=VARCHAR},
+            </if>
+            <if test="operator_token != null">
+                #{operator_token,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
@@ -145,6 +152,9 @@
             <if test="service_password != null">
                 service_password = #{service_password,jdbcType=VARCHAR},
             </if>
+            <if test="operator_token != null">
+                operator_token = #{operator_token,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
@@ -178,6 +188,7 @@
         set customer_id = #{customer_id,jdbcType=VARCHAR},
         mobile = #{mobile,jdbcType=VARCHAR},
         service_password = #{service_password,jdbcType=VARCHAR},
+        operator_token = #{operator_token,jdbcType=VARCHAR},
         name = #{name,jdbcType=VARCHAR},
         id_card = #{id_card,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -213,6 +224,7 @@
     <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO">
         update lender
         set service_password = #{service_password,jdbcType=VARCHAR},
+        operator_token = #{operator_token,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
