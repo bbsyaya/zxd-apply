@@ -6,6 +6,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
@@ -87,7 +88,21 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateLoanStatus(ApplyStatusBO applyStatusBO) {
-        return applyMapper.updateStatusByPrimaryKey(applyStatusBO);
+        int rows = applyMapper.updateStatusByPrimaryKey(applyStatusBO);
+
+        ApplyCompleteStepBO completeStepBO = new ApplyCompleteStepBO();
+        completeStepBO.setApply_id(applyStatusBO.getApply_id());
+        Date now = new Date();
+        completeStepBO.setEnd_time(now);
+        completeStepBO.setProcess_step(ProcessStep.LOAN);
+        completeStepBO.setProcess_time(applyStatusBO.getLoan_time());
+        if(ApplyStatus.REVIEW_FAIL.matches(applyStatusBO.getApply_status())) {
+            completeStepBO.setProcess_state(ProcessState.FAIL);
+        }else {
+            completeStepBO.setProcess_state(ProcessState.SUCCESS);
+        }
+        rows += applyStepMapper.completeStep(completeStepBO);
+        return rows;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -106,6 +121,25 @@ public class ApplyServiceImpl implements ApplyService {
         }
         rows += lenderMapper.updateApplyResult(applyResultBO);
 
+        ApplyCompleteStepBO completeStepBO = new ApplyCompleteStepBO();
+        completeStepBO.setApply_id(applyCreditBO.getApply_id());
+        Date now = new Date();
+        completeStepBO.setEnd_time(now);
+        completeStepBO.setProcess_step(ProcessStep.REVIEW);
+        completeStepBO.setProcess_time(applyCreditBO.getReview_time());
+        if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
+            completeStepBO.setProcess_state(ProcessState.FAIL);
+        }else {
+            completeStepBO.setProcess_state(ProcessState.SUCCESS);
+        }
+        rows += applyStepMapper.completeStep(completeStepBO);
+
+        ApplyStartStepBO startStepBO = new ApplyStartStepBO();
+        startStepBO.setApply_id(applyCreditBO.getApply_id());
+        startStepBO.setStart_time(now);
+        startStepBO.setProcess_step(ProcessStep.LOAN);
+        startStepBO.setProcess_state(ProcessState.PROCESSING);
+        rows += applyStepMapper.startStep(startStepBO);
 
         return rows;
     }
