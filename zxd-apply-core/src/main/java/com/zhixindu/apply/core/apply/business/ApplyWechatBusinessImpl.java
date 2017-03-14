@@ -6,6 +6,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.service.ApplyService;
+import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
@@ -53,7 +54,6 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         ApplyBaseInfoBO applyBaseInfoBO = applyMapper.selectLatestReviewByLenderId(lenderId);
         if(null != applyBaseInfoBO) {
             ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyBaseInfoBO.getApply_id());
-            applyBaseInfoBO.setOpen_id(applyLocationBO.getOpen_id());
             applyBaseInfoBO.setLatitude(applyLocationBO.getLatitude());
             applyBaseInfoBO.setLongitude(applyLocationBO.getLongitude());
             applyBaseInfoBO.setPrecision(applyLocationBO.getPrecision());
@@ -117,8 +117,17 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyBaseInfoBO findApply(Integer applyId) {
-        return applyMapper.selectByPrimaryKey(applyId);
+    public ApplyBO findApply(Integer applyId) {
+        ApplyPO applyPO = applyMapper.selectByPrimaryKey(applyId);
+        if(null != applyPO) {
+            ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyPO.getApply_id());
+            applyPO.setLatitude(applyLocationBO.getLatitude());
+            applyPO.setLongitude(applyLocationBO.getLongitude());
+            applyPO.setPrecision(applyLocationBO.getPrecision());
+        }
+        ApplyBO applyBO = new ApplyBO();
+        BeanUtils.copyProperties(applyPO, applyBO);
+        return applyBO;
     }
 
     @Override

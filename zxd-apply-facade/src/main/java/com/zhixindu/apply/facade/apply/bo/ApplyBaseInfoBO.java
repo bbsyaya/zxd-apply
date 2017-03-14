@@ -14,6 +14,8 @@ public class ApplyBaseInfoBO implements Serializable {
     private Integer lender_id;
     /** 客户ID */
     private String customer_id;
+    /** 微信ID */
+    private String open_id;
     /** 地址ID */
     private Integer address_id;
     /** 联系人ID列表 */
@@ -34,8 +36,6 @@ public class ApplyBaseInfoBO implements Serializable {
     private BigDecimal account_amount;
     /** 收款卡号 */
     private String receipt_card_number;
-    /** 设备ID */
-    private String open_id;
     /** 地理位置纬度 */
     private BigDecimal latitude;
     /** 地理位置经度 */
