@@ -288,7 +288,7 @@
         <include refid="Base_Column_List" />
         from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
-        and apply_status in (1,2)
+        and apply_status in (1,2,4)
         order by apply_time desc limit 0,1
     </select>
 
