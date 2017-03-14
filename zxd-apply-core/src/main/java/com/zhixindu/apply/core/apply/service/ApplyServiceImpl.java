@@ -94,6 +94,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public int updateApplyCredit(ApplyCreditBO applyCreditBO) {
         int rows = applyMapper.updateCreditByPrimaryKey(applyCreditBO);
+
         ApplyResultBO applyResultBO = new ApplyResultBO();
         applyResultBO.setLender_id(applyMapper.selectLenderIdByPrimaryKey(applyCreditBO.getApply_id()));
         applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
@@ -104,6 +105,8 @@ public class ApplyServiceImpl implements ApplyService {
             applyResultBO.setReject_time(new Date());
         }
         rows += lenderMapper.updateApplyResult(applyResultBO);
+
+
         return rows;
     }
 
