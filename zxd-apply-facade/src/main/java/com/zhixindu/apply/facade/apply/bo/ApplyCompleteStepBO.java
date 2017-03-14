@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +18,8 @@ public class ApplyCompleteStepBO implements Serializable {
     private Date end_time;
     /** 处理时间 */
     private Date process_time;
+    /** 处理步骤（1提交申请、2审核、3放款） */
+    private ProcessStep process_step;
     /** 处理状态（0失败、1成功、2中） */
     private ProcessState process_state;
 
@@ -42,6 +45,14 @@ public class ApplyCompleteStepBO implements Serializable {
 
     public void setProcess_time(Date process_time) {
         this.process_time = process_time;
+    }
+
+    public ProcessStep getProcess_step() {
+        return process_step;
+    }
+
+    public void setProcess_step(ProcessStep process_step) {
+        this.process_step = process_step;
     }
 
     public ProcessState getProcess_state() {
