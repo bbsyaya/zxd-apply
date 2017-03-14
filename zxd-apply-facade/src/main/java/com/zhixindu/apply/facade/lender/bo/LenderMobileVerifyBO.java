@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/6.
  */
-public class LenderMobileVerifyBO implements Serializable{
+public class LenderMobileVerifyBO implements IMobileVerify, Serializable{
 
     private static final long serialVersionUID = 7938297459259413833L;
 
@@ -50,5 +50,10 @@ public class LenderMobileVerifyBO implements Serializable{
 
     public void setMobile_verify(MobileVerify mobile_verify) {
         this.mobile_verify = mobile_verify;
+    }
+
+    @Override
+    public boolean isMobileVerify() {
+        return null == getMobile_verify() || MobileVerify.VERIFIED.matches(getMobile_verify());
     }
 }

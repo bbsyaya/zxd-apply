@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/8.
  */
-public class LenderBankCardVerifyBO implements Serializable {
+public class LenderBankCardVerifyBO implements IBankCardVerify, Serializable {
     private static final long serialVersionUID = -8829720976239552424L;
 
     /** 借款人ID */
@@ -30,4 +30,10 @@ public class LenderBankCardVerifyBO implements Serializable {
     public void setBank_card_verify(BankCardVerify bank_card_verify) {
         this.bank_card_verify = bank_card_verify;
     }
+
+    @Override
+    public boolean isBankCardVerify() {
+        return null == getBank_card_verify() || BankCardVerify.VERIFIED.matches(getBank_card_verify());
+    }
+
 }

@@ -17,6 +17,8 @@ public class LenderContactBO implements Serializable {
 
     private String contact_mobile;
 
+    private Integer relationship_value;
+
     public Integer getContact_id() {
         return contact_id;
     }
@@ -34,7 +36,7 @@ public class LenderContactBO implements Serializable {
     }
 
     public ContactRelationship getContact_relationship() {
-        return contact_relationship;
+        return contact_relationship == null ? ContactRelationship.resolve(relationship_value) : contact_relationship;
     }
 
     public void setContact_relationship(ContactRelationship contact_relationship) {
@@ -55,5 +57,13 @@ public class LenderContactBO implements Serializable {
 
     public void setContact_mobile(String contact_mobile) {
         this.contact_mobile = contact_mobile == null ? null : contact_mobile.trim();
+    }
+
+    public Integer getRelationship_value() {
+        return relationship_value == null ? contact_relationship.getValue() : relationship_value;
+    }
+
+    public void setRelationship_value(Integer relationship_value) {
+        this.relationship_value = relationship_value;
     }
 }

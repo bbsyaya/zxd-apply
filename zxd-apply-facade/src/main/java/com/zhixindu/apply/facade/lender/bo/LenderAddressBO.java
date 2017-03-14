@@ -24,6 +24,8 @@ public class LenderAddressBO implements Serializable {
 
     private String company_address;
 
+    private Integer work_state_value;
+
     public Integer getAddress_id() {
         return address_id;
     }
@@ -57,7 +59,7 @@ public class LenderAddressBO implements Serializable {
     }
 
     public WorkState getWork_state() {
-        return work_state;
+        return work_state == null ? WorkState.resolve(work_state_value) : work_state;
     }
 
     public void setWork_state(WorkState work_state) {
@@ -86,5 +88,13 @@ public class LenderAddressBO implements Serializable {
 
     public void setCompany_address(String company_address) {
         this.company_address = company_address == null ? null : company_address.trim();
+    }
+
+    public Integer getWork_state_value() {
+        return work_state_value == null ? work_state.getValue() : work_state_value;
+    }
+
+    public void setWork_state_value(Integer work_state_value) {
+        this.work_state_value = work_state_value;
     }
 }
