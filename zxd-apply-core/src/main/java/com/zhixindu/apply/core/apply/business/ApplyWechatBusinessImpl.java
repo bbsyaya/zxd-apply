@@ -17,6 +17,8 @@ import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
+import com.zhixindu.apply.facade.apply.enums.ProcessState;
+import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -104,8 +106,16 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         if(CollectionUtils.isNotEmpty(applyStepBOList)) {
             applyLoanStepBOList = applyStepBOList.stream().map(instanceBO -> {
                 ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
-                applyWorkflowBO.setProcess_result(instanceBO.getProcess_step().getDesc() + instanceBO.getProcess_state().getDesc());
-                if (null != instanceBO.getProcess_time()) {
+                ProcessStep processStep = instanceBO.getProcess_step();
+                ProcessState processState = instanceBO.getProcess_state();
+                applyWorkflowBO.setProcess_result(processStep.getDesc() + processState.getDesc());
+                if(ProcessState.PROCESSING.matches(processState)) {
+                    if(ProcessStep.REVIEW.matches(processStep)) {
+                        applyWorkflowBO.setProcess_time("审核时间最多5分钟");
+                    }else if(ProcessStep.LOAN.matches(processStep)) {
+                        applyWorkflowBO.setProcess_time("工作日最快2小时");
+                    }
+                } else {
                     applyWorkflowBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString
                             ("yyyy-MM-dd HH:mm:ss"));
                 }
