@@ -57,13 +57,13 @@ public class ApplyLenderWechatBusinessTest {
         lenderContactBO.setLender_id(20);
         lenderContactBO.setContact_name("张三");
         lenderContactBO.setContact_mobile("13122931234");
-        lenderContactBO.setRelationship_value(2);
+        lenderContactBO.setContact_relationship_value(2);
 
         LenderContactBO lenderContactBO2 = new LenderContactBO();
         lenderContactBO2.setLender_id(20);
         lenderContactBO2.setContact_name("张三三");
         lenderContactBO2.setContact_mobile("13122931235");
-        lenderContactBO2.setRelationship_value(3);
+        lenderContactBO2.setContact_relationship_value(3);
         List<Integer> contact = lenderWechatBusiness.submitLenderContact(Arrays.asList(lenderContactBO, lenderContactBO2));
         contact.forEach(System.out::println);
     }
