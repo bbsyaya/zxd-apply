@@ -55,9 +55,9 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     }
 
     @Override
-    public String getBankName(Integer bankCardNumber) {
+    public String getBankName(String bankCardNumber) {
         for(BinLength binLength : BinLength.values()) {
-            Integer bin = Integer.valueOf(bankCardNumber.toString().substring(0, binLength.getValue()));
+            Integer bin = Integer.valueOf(bankCardNumber.substring(0, binLength.getValue()));
             String bankName = bankCacheManager.getBankNameByBin(bin);
             if(StringUtils.isNotBlank(bankName)) {
                 return bankName;

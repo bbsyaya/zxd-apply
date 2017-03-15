@@ -51,7 +51,7 @@ public interface DubboApplySystemConfigBusiness {
      * @param bankCardNumber
      * @return
      */
-    String getBankName(Integer bankCardNumber);
+    String getBankName(String bankCardNumber);
 
 
 }
