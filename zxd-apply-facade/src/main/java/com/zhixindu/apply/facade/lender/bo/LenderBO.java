@@ -15,6 +15,8 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     /** 手机服务密码 */
     private String service_password;
+    /** 运营商token */
+    private String operator_token;
     /** 手机号验证 */
     private MobileVerify mobile_verify;
     /** 银行卡验证 */
@@ -34,6 +36,14 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     public void setService_password(String service_password) {
         this.service_password = service_password == null ? null : service_password.trim();
+    }
+
+    public String getOperator_token() {
+        return operator_token;
+    }
+
+    public void setOperator_token(String operator_token) {
+        this.operator_token = operator_token;
     }
 
     public MobileVerify getMobile_verify() {
@@ -95,13 +105,13 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
     }
 
     @Override
-    public boolean isApplicationApproved() {
-        return ApplyResult.APPROVE.matches(getApply_result());
+    public boolean isApplyApproved() {
+        return null == getApply_result() || ApplyResult.APPROVE.matches(getApply_result());
     }
 
     @Override
-    public boolean isRejectApplyExpired() {
-        return null != getReject_time() && DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
+    public boolean isRejectExpired() {
+        return null == getReject_time() || DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
     }
 
 }

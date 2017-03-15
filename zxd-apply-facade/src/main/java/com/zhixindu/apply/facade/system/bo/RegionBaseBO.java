@@ -13,6 +13,8 @@ public class RegionBaseBO implements Serializable {
     private Integer code;
     /** 全名 */
     private String full_name;
+    /** 区划级别（1省，2市，3区/县） */
+    private Integer region_level;
     /** 上一级代码 */
     private Integer parent_code;
 

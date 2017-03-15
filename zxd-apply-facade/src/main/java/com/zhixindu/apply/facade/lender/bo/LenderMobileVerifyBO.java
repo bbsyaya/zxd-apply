@@ -17,6 +17,8 @@ public class LenderMobileVerifyBO implements IMobileVerify, Serializable{
     private String mobile;
     /** 服务密码 */
     private String service_password;
+    /** 运营商token */
+    private String operator_token;
     /** 手机号验证 */
     private MobileVerify mobile_verify;
 
@@ -42,6 +44,14 @@ public class LenderMobileVerifyBO implements IMobileVerify, Serializable{
 
     public void setService_password(String service_password) {
         this.service_password = service_password;
+    }
+
+    public String getOperator_token() {
+        return operator_token;
+    }
+
+    public void setOperator_token(String operator_token) {
+        this.operator_token = operator_token;
     }
 
     public MobileVerify getMobile_verify() {

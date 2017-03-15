@@ -142,27 +142,27 @@
     </update>
 
     <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
-        select code,full_name,parent_code
+        select code, full_name, `level` as region_level, parent_code
         from region
     </select>
 
     <select id="selectProvinceList" parameterType="java.lang.Integer"
             resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
-        select code,full_name,parent_code
+        select code, full_name, `level` as region_level, parent_code
         from region
         where level = 1
     </select>
 
     <select id="selectListByParentCode" parameterType="java.lang.Integer"
             resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
-        select code,full_name,parent_code
+        select code, full_name, `level` as region_level, parent_code
         from region
         where parent_code = #{parent_code,jdbcType=INTEGER}
     </select>
 
     <select id="selectByCode" parameterType="java.lang.Integer"
             resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
-        select code,full_name,parent_code
+        select code, full_name, `level` as region_level, parent_code
         from region
         where code = #{parent_code,jdbcType=INTEGER}
     </select>

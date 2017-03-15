@@ -9,7 +9,7 @@ public interface IApplyResult {
      * 贷款申请是否通过
      * @return
      */
-    default boolean isApplicationApproved(){
+    default boolean isApplyApproved(){
         return false;
     }
 
@@ -17,7 +17,7 @@ public interface IApplyResult {
      * 拒绝申请是否超过一个月
      * @return
      */
-    default boolean isRejectApplyExpired(){
+    default boolean isRejectExpired(){
         return false;
     }
 

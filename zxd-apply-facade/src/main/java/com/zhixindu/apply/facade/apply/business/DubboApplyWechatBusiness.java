@@ -1,5 +1,6 @@
 package com.zhixindu.apply.facade.apply.business;
 
+import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
@@ -40,6 +41,13 @@ public interface DubboApplyWechatBusiness {
      * @return
      */
     ApplyLoanDetailBO findApplyLoanDetail(Integer applyId);
+
+    /**
+     * 获取申请基本信息
+     * @param applyId
+     * @return
+     */
+    ApplyBO findApply(Integer applyId);
 
     /**
      * 提交放款状态
