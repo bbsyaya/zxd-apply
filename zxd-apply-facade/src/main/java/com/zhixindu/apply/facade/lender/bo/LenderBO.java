@@ -106,7 +106,7 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     @Override
     public boolean isApplicationApproved() {
-        return ApplyResult.APPROVE.matches(getApply_result());
+        return null != getApply_result() && ApplyResult.APPROVE.matches(getApply_result());
     }
 
     @Override
