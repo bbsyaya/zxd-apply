@@ -108,7 +108,7 @@ public class LenderServiceImpl implements LenderService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveOrUpdateBankCard(LenderBankCardBO lenderBankCardBO) {
-        if(null != lenderBankCardBO.getBank_id()) {
+        if(null != lenderBankCardBO.getBank_card_id()) {
             lenderBankCardMapper.updateByPrimaryKey(lenderBankCardBO);
         } else {
             lenderBankCardMapper.insert(lenderBankCardBO);
@@ -120,7 +120,7 @@ public class LenderServiceImpl implements LenderService {
 
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderBankCardBO.getLender_id(), LoanFillStep.SUBMIT);
         lenderMapper.updateLoanFillStep(loanFillStepBO);
-        return lenderBankCardBO.getBank_id();
+        return lenderBankCardBO.getBank_card_id();
     }
 
     @Transactional(rollbackFor = Exception.class)

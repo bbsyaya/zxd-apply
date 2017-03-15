@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class LenderBankCardBO implements Serializable {
     private static final long serialVersionUID = -4569790136583162019L;
 
-    private Integer bank_id;
+    private Integer bank_card_id;
 
     private Integer lender_id;
 
@@ -21,12 +21,12 @@ public class LenderBankCardBO implements Serializable {
 
     private BankCardVerify bank_card_verify;
 
-    public Integer getBank_id() {
-        return bank_id;
+    public Integer getBank_card_id() {
+        return bank_card_id;
     }
 
-    public void setBank_id(Integer bank_id) {
-        this.bank_id = bank_id;
+    public void setBank_card_id(Integer bank_card_id) {
+        this.bank_card_id = bank_card_id;
     }
 
     public Integer getLender_id() {

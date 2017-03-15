@@ -175,7 +175,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(lenderService.isExistLenderBankCard(lenderBankCardBO.getLender_id())) {
             Parameters.requireAllPropertyNotNull(lenderBankCardBO);
         } else {
-            Parameters.requireAllPropertyNotNull(lenderBankCardBO, new Object[]{"bank_id"});
+            Parameters.requireAllPropertyNotNull(lenderBankCardBO, new Object[]{"bank_card_id"});
         }
         return lenderService.saveOrUpdateBankCard(lenderBankCardBO);
     }
