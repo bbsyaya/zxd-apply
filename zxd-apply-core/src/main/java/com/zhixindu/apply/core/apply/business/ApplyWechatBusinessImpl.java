@@ -53,14 +53,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        ApplyBaseInfoBO applyBaseInfoBO = applyMapper.selectLatestReviewByLenderId(lenderId);
-        if(null != applyBaseInfoBO) {
-            ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyBaseInfoBO.getApply_id());
-            applyBaseInfoBO.setLatitude(applyLocationBO.getLatitude());
-            applyBaseInfoBO.setLongitude(applyLocationBO.getLongitude());
-            applyBaseInfoBO.setPrecision(applyLocationBO.getPrecision());
-        }
-        return applyBaseInfoBO;
+        return applyMapper.selectLatestReviewByLenderId(lenderId);
     }
 
     @Override
