@@ -106,12 +106,12 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     @Override
     public boolean isApplyApproved() {
-        return null != getApply_result() && ApplyResult.APPROVE.matches(getApply_result());
+        return null == getApply_result() || ApplyResult.APPROVE.matches(getApply_result());
     }
 
     @Override
     public boolean isRejectExpired() {
-        return null != getReject_time() && DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
+        return null == getReject_time() || DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
     }
 
 }
