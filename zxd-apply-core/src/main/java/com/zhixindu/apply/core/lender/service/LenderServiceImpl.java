@@ -91,7 +91,7 @@ public class LenderServiceImpl implements LenderService {
                 lenderContactMapper.updateByPrimaryKey(contactBO);
             } else {
                 int contactCount = lenderContactMapper.countByLenderId(contactBO.getLender_id());
-                if(contactCount == 1){
+                if(contactCount < 2){
                     lenderContactMapper.insert(contactBO);
                 } else {
                     throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "contactId不能为空");
@@ -99,7 +99,7 @@ public class LenderServiceImpl implements LenderService {
             }
             return contactBO.getContact_id();
         }).collect(Collectors.toList());
-        Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().get();
+        Integer lenderId = lenderContactBOList.stream().map(LenderContactBO::getLender_id).distinct().findAny().orElse(null);
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderId, LoanFillStep.CERTIFICATION_INFO);
         lenderMapper.updateLoanFillStep(loanFillStepBO);
         return contactIdList;
