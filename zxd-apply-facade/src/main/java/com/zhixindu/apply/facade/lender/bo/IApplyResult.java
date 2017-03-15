@@ -9,7 +9,7 @@ public interface IApplyResult {
      * 贷款申请是否通过
      * @return
      */
-    default boolean isApplyApprove(){
+    default boolean isApplyApproved(){
         return false;
     }
 
