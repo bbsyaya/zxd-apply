@@ -17,7 +17,7 @@ public interface IApplyResult {
      * 拒绝申请是否超过一个月
      * @return
      */
-    default boolean isRejectApplyExpired(){
+    default boolean isRejectExpired(){
         return false;
     }
 
