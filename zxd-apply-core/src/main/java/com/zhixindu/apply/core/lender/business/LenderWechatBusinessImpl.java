@@ -154,17 +154,16 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(CollectionUtils.isEmpty(lenderContactBOList)) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
         }
-        lenderContactBOList.stream()
-                .forEach(lenderContactBO -> {
-                    if (null == lenderContactBO.getLender_id()) {
-                        throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
-                    }
-                    if (lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
-                        Parameters.requireAllPropertyNotNull(lenderContactBO);
-                    } else {
-                        Parameters.requireAllPropertyNotNull(lenderContactBO, new Object[]{"contact_id"});
-                    }
-                });
+        lenderContactBOList.forEach(lenderContactBO -> {
+            if (null == lenderContactBO.getLender_id()) {
+                throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
+            }
+            if (lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
+                Parameters.requireAllPropertyNotNull(lenderContactBO);
+            } else {
+                Parameters.requireAllPropertyNotNull(lenderContactBO, new Object[]{"contact_id"});
+            }
+        });
         return lenderService.saveOrUpdateContact(lenderContactBOList);
     }
 
