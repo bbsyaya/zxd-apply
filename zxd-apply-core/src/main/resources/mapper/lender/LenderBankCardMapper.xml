@@ -139,7 +139,7 @@
         bank_card_number
         from lender_bank_card
         where lender_id = #{lender_id,jdbcType=INTEGER}
-        order by bank_id desc limit 0,1
+        order by bank_card_id desc limit 0,1
     </select>
 
     <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">
