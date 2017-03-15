@@ -7,16 +7,16 @@ import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.service.LenderService;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
-import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
-import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBankCardBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
+import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
-import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
+import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
+import com.zhixindu.apply.facade.lender.enums.WorkState;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -141,11 +141,19 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == lenderAddressBO.getLender_id()) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
         }
+        Object[] ignoreProperties = new Object[]{};
         if(lenderService.isExistLenderAddress(lenderAddressBO.getLender_id())) {
-            Parameters.requireAllPropertyNotNull(lenderAddressBO);
+            if(!WorkState.EMPLOYEE.matches(lenderAddressBO.getWork_state())) {
+                ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
+            }
         } else {
-            Parameters.requireAllPropertyNotNull(lenderAddressBO, new Object[]{"address_id"});
+            if(!WorkState.EMPLOYEE.matches(lenderAddressBO.getWork_state())) {
+                ignoreProperties = new Object[]{"address_id", "company_name", "company_address_code", "company_address"};
+            } else {
+                ignoreProperties = new Object[]{"address_id"};
+            }
         }
+        Parameters.requireAllPropertyNotNull(lenderAddressBO, ignoreProperties);
         return lenderService.saveOrUpdateAddress(lenderAddressBO);
     }
 
@@ -158,11 +166,11 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
             if (null == lenderContactBO.getLender_id()) {
                 throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
             }
-            if (lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
-                Parameters.requireAllPropertyNotNull(lenderContactBO);
-            } else {
-                Parameters.requireAllPropertyNotNull(lenderContactBO, new Object[]{"contact_id"});
+            Object[] ignoreProperties = new Object[]{};
+            if (!lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
+                ignoreProperties = new Object[]{"contact_id"};
             }
+            Parameters.requireAllPropertyNotNull(lenderContactBO, ignoreProperties);
         });
         return lenderService.saveOrUpdateContact(lenderContactBOList);
     }
@@ -172,11 +180,11 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == lenderBankCardBO.getLender_id()) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
         }
-        if(lenderService.isExistLenderBankCard(lenderBankCardBO.getLender_id())) {
-            Parameters.requireAllPropertyNotNull(lenderBankCardBO);
-        } else {
-            Parameters.requireAllPropertyNotNull(lenderBankCardBO, new Object[]{"bank_card_id"});
+        Object[] ignoreProperties = new Object[]{};
+        if(!lenderService.isExistLenderBankCard(lenderBankCardBO.getLender_id())) {
+            ignoreProperties = new Object[]{"bank_card_id"};
         }
+        Parameters.requireAllPropertyNotNull(lenderBankCardBO, ignoreProperties);
         return lenderService.saveOrUpdateBankCard(lenderBankCardBO);
     }
 
