@@ -13,6 +13,9 @@ public class LenderBankCardBO implements Serializable {
 
     private String bank_card_number;
 
+    /** 银行ID */
+    private Integer bank_id;
+
     private String bank_name;
 
     private Integer bank_address_code;
@@ -43,6 +46,14 @@ public class LenderBankCardBO implements Serializable {
 
     public void setBank_card_number(String bank_card_number) {
         this.bank_card_number = bank_card_number == null ? null : bank_card_number.trim();
+    }
+
+    public Integer getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(Integer bank_id) {
+        this.bank_id = bank_id;
     }
 
     public String getBank_name() {

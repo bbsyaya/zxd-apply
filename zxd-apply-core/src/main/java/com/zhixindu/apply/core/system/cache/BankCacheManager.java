@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
@@ -43,11 +44,11 @@ public class BankCacheManager {
      * @param bin
      * @return
      */
-    public String getBankNameByBin(Integer bin){
+    public Optional<BankBaseBO> getBank(Integer bin){
         if(CACHE.containsKey(bin)) {
-            return CACHE.get(bin).getBank_name();
+            return Optional.of(CACHE.get(bin));
         }
-        return "";
+        return Optional.empty();
     }
 
     @PreDestroy

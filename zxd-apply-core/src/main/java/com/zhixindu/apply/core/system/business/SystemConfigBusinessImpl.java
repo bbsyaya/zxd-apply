@@ -5,13 +5,14 @@ import com.zhixindu.apply.core.system.cache.RegionCacheManager;
 import com.zhixindu.apply.core.system.enums.BinLength;
 import com.zhixindu.apply.core.system.exception.UnSupportedBankException;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
+import com.zhixindu.apply.facade.system.bo.BankBaseBO;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
 import com.zhixindu.commons.annotation.Business;
-import org.apache.commons.lang.StringUtils;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -52,17 +53,15 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     }
 
     @Override
-    public String getBankName(String bankCardNumber) {
+    public BankBaseBO getBank(String bankCardNumber) {
         for(BinLength binLength : BinLength.values()) {
             Integer bin = Integer.valueOf(bankCardNumber.substring(0, binLength.getValue()));
-            String bankName = bankCacheManager.getBankNameByBin(bin);
-            if(StringUtils.isNotBlank(bankName)) {
-                return bankName;
+            Optional<BankBaseBO> optional = bankCacheManager.getBank(bin);
+            if(optional.isPresent()) {
+                return optional.get();
             }
         }
         throw new UnSupportedBankException();
     }
-
-
 
 }

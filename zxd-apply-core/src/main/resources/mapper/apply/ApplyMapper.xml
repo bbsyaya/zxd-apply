@@ -6,6 +6,7 @@
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
         <result column="open_id" jdbcType="VARCHAR" property="open_id"/>
+        <result column="product_id" jdbcType="VARCHAR" property="product_id" />
         <result column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="contact_id_list" jdbcType="VARCHAR" property="contact_id_list"/>
         <result column="bank_card_id" jdbcType="INTEGER" property="bank_card_id" />
@@ -27,7 +28,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        apply_id, lender_id, customer_id, open_id, address_id, contact_id_list, bank_card_id,
+        apply_id, lender_id, customer_id, open_id, product_id, address_id, contact_id_list, bank_card_id,
         apply_no, loan_amount, loan_term, interest_rate, loan_interest, platform_manage_fee,
         total_fee, repayment_amount, account_amount, receipt_card_number, apply_time,
         apply_status, credit_code, credit_score, credit_memo
@@ -44,21 +45,22 @@
         <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply (lender_id, customer_id, open_id,
-          address_id, contact_id_list, bank_card_id,
-          apply_no, loan_amount, loan_term,
-          interest_rate, loan_interest, platform_manage_fee,
-          total_fee, repayment_amount, account_amount,
-          receipt_card_number, apply_time, apply_status,
-          credit_code, credit_score, credit_memo)
+        insert into apply (lender_id, customer_id, open_id, product_id,
+        address_id, contact_id_list, bank_card_id,
+        apply_no, loan_amount, loan_term,
+        interest_rate, loan_interest, platform_manage_fee,
+        total_fee, repayment_amount, account_amount,
+        receipt_card_number, apply_time, apply_status,
+        credit_code, credit_score, credit_memo)
         values (#{lender_id,jdbcType=INTEGER}, #{customer_id,jdbcType=VARCHAR}, #{open_id,jdbcType=VARCHAR},
-          #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR},  #{bank_card_id,jdbcType=INTEGER},
-          #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
-          #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
-          #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
-          #{receipt_card_number,jdbcType=VARCHAR}, #{apply_time,jdbcType=TIMESTAMP},
-          #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-          #{credit_code,jdbcType=VARCHAR}, #{credit_score,jdbcType=INTEGER}, #{credit_memo,jdbcType=VARCHAR})
+        #{product_id,jdbcType=VARCHAR},
+        #{address_id,jdbcType=INTEGER}, #{contact_id_list,jdbcType=VARCHAR},  #{bank_card_id,jdbcType=INTEGER},
+        #{apply_no,jdbcType=VARCHAR}, #{loan_amount,jdbcType=DECIMAL}, #{loan_term,jdbcType=INTEGER},
+        #{interest_rate,jdbcType=INTEGER}, #{loan_interest,jdbcType=DECIMAL}, #{platform_manage_fee,jdbcType=DECIMAL},
+        #{total_fee,jdbcType=DECIMAL}, #{repayment_amount,jdbcType=DECIMAL}, #{account_amount,jdbcType=DECIMAL},
+        #{receipt_card_number,jdbcType=VARCHAR}, #{apply_time,jdbcType=TIMESTAMP},
+        #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{credit_code,jdbcType=VARCHAR}, #{credit_score,jdbcType=INTEGER}, #{credit_memo,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
@@ -75,6 +77,9 @@
             </if>
             <if test="open_id != null">
                 open_id,
+            </if>
+            <if test="product_id != null">
+                product_id,
             </if>
             <if test="address_id != null">
                 address_id,
@@ -141,6 +146,9 @@
             <if test="open_id != null">
                 #{open_id,jdbcType=VARCHAR},
             </if>
+            <if test="product_id != null">
+                #{product_id,jdbcType=VARCHAR},
+            </if>
             <if test="address_id != null">
                 #{address_id,jdbcType=INTEGER},
             </if>
@@ -148,7 +156,7 @@
                 #{contact_id_list,jdbcType=VARCHAR},
             </if>
             <if test="bank_card_id != null">
-                 #{bank_card_id,jdbcType=INTEGER},
+                #{bank_card_id,jdbcType=INTEGER},
             </if>
             <if test="apply_no != null">
                 #{apply_no,jdbcType=VARCHAR},
@@ -209,6 +217,9 @@
             </if>
             <if test="open_id != null">
                 open_id = #{open_id,jdbcType=VARCHAR},
+            </if>
+            <if test="product_id != null">
+                product_id = #{product_id,jdbcType=VARCHAR},
             </if>
             <if test="address_id != null">
                 address_id = #{address_id,jdbcType=INTEGER},
@@ -271,26 +282,27 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyPO">
         update apply
         set lender_id = #{lender_id,jdbcType=INTEGER},
-          customer_id = #{customer_id,jdbcType=VARCHAR},
-          open_id = #{open_id,jdbcType=VARCHAR},
-          address_id = #{address_id,jdbcType=INTEGER},
-          contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
-          bank_card_id = #{bank_card_id,jdbcType=INTEGER},
-          apply_no = #{apply_no,jdbcType=VARCHAR},
-          loan_amount = #{loan_amount,jdbcType=DECIMAL},
-          loan_term = #{loan_term,jdbcType=INTEGER},
-          interest_rate = #{interest_rate,jdbcType=INTEGER},
-          loan_interest = #{loan_interest,jdbcType=DECIMAL},
-          platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
-          total_fee = #{total_fee,jdbcType=DECIMAL},
-          repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
-          account_amount = #{account_amount,jdbcType=DECIMAL},
-          receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
-          apply_time = #{apply_time,jdbcType=TIMESTAMP},
-          apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-          credit_code = #{credit_code,jdbcType=VARCHAR},
-          credit_score = #{credit_score,jdbcType=INTEGER},
-          credit_memo = #{credit_memo,jdbcType=VARCHAR}
+        customer_id = #{customer_id,jdbcType=VARCHAR},
+        open_id = #{open_id,jdbcType=VARCHAR},
+        product_id = #{product_id,jdbcType=VARCHAR},
+        address_id = #{address_id,jdbcType=INTEGER},
+        contact_id_list = #{contact_id_list,jdbcType=VARCHAR},
+        bank_card_id = #{bank_card_id,jdbcType=INTEGER},
+        apply_no = #{apply_no,jdbcType=VARCHAR},
+        loan_amount = #{loan_amount,jdbcType=DECIMAL},
+        loan_term = #{loan_term,jdbcType=INTEGER},
+        interest_rate = #{interest_rate,jdbcType=INTEGER},
+        loan_interest = #{loan_interest,jdbcType=DECIMAL},
+        platform_manage_fee = #{platform_manage_fee,jdbcType=DECIMAL},
+        total_fee = #{total_fee,jdbcType=DECIMAL},
+        repayment_amount = #{repayment_amount,jdbcType=DECIMAL},
+        account_amount = #{account_amount,jdbcType=DECIMAL},
+        receipt_card_number = #{receipt_card_number,jdbcType=VARCHAR},
+        apply_time = #{apply_time,jdbcType=TIMESTAMP},
+        apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_code = #{credit_code,jdbcType=VARCHAR},
+        credit_score = #{credit_score,jdbcType=INTEGER},
+        credit_memo = #{credit_memo,jdbcType=VARCHAR}
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
@@ -353,7 +365,6 @@
         select
         lender_id
         from apply
-        where apply_id = #{apply_id}
         order by apply_time desc
     </select>
 
@@ -362,7 +373,7 @@
         set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
-    
+
     <update id="updateCreditByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyCreditBO">
       update apply
         set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -371,5 +382,5 @@
           credit_memo = #{credit_memo,jdbcType=VARCHAR}
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
-    
+
 </mapper>

@@ -47,6 +47,11 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     private LenderService lenderService;
 
     @Override
+    public LenderBO findLender(Integer lenderId) {
+        return lenderMapper.selectByPrimaryKey(lenderId);
+    }
+
+    @Override
     public  LenderBO findLender(String customerId) {
         Parameters.requireNotNull(customerId, "customerId不能为空");
         return lenderMapper.selectByCustomerId(customerId);

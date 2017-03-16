@@ -5,6 +5,7 @@
         <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
         <result column="lender_id" jdbcType="INTEGER" property="lender_id"/>
         <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
+        <result column="bank_id" jdbcType="INTEGER" property="bank_id" />
         <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
         <result column="bank_address_code" jdbcType="INTEGER" property="bank_address_code"/>
         <result column="reserved_mobile" jdbcType="VARCHAR" property="reserved_mobile" />
@@ -12,7 +13,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      bank_card_id, lender_id, bank_card_number, bank_name, bank_address_code, reserved_mobile, bank_card_verify
+      bank_card_id, lender_id, bank_card_number, bank_id, bank_name, bank_address_code, reserved_mobile,
+      bank_card_verify
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -27,9 +29,9 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into lender_bank_card (lender_id, bank_card_number,
-        bank_name, bank_address_code, reserved_mobile, bank_card_verify
+        bank_id, bank_name, bank_address_code, reserved_mobile, bank_card_verify
         )
-        values (#{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
+        values (#{lender_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR}, #{bank_id,jdbcType=INTEGER},
         #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER}, #{reserved_mobile,jdbcType=VARCHAR},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         )
@@ -46,6 +48,9 @@
             </if>
             <if test="bank_card_number != null">
                 bank_card_number,
+            </if>
+            <if test="bank_id != null">
+                bank_id,
             </if>
             <if test="bank_name != null">
                 bank_name,
@@ -66,6 +71,9 @@
             </if>
             <if test="bank_card_number != null">
                 #{bank_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_id != null">
+                #{bank_id,jdbcType=INTEGER},
             </if>
             <if test="bank_name != null">
                 #{bank_name,jdbcType=VARCHAR},
@@ -92,6 +100,9 @@
             <if test="bank_card_number != null">
                 bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
             </if>
+            <if test="bank_id != null">
+                bank_id = #{bank_id,jdbcType=INTEGER},
+            </if>
             <if test="bank_name != null">
                 bank_name = #{bank_name,jdbcType=VARCHAR},
             </if>
@@ -112,6 +123,7 @@
         update lender_bank_card
         set lender_id = #{lender_id,jdbcType=INTEGER},
         bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+        bank_id = #{bank_id,jdbcType=INTEGER},
         bank_name = #{bank_name,jdbcType=VARCHAR},
         bank_address_code = #{bank_address_code,jdbcType=INTEGER},
         reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},

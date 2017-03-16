@@ -8,8 +8,6 @@ import java.io.Serializable;
 public class BankBO extends BankBaseBO implements Serializable {
 
     private static final long serialVersionUID = -8252653732160180148L;
-    /** 银行ID */
-    private Integer bank_id;
     /** BIN长度 */
     private Integer bin_length;
     /** 银行卡类型（1贷记卡，2借记卡） */
@@ -20,14 +18,6 @@ public class BankBO extends BankBaseBO implements Serializable {
     private String card_name;
     /** 银行卡全名 */
     private String card_full_name;
-
-    public Integer getBank_id() {
-        return bank_id;
-    }
-
-    public void setBank_id(Integer bank_id) {
-        this.bank_id = bank_id;
-    }
 
     public Integer getBin_length() {
         return bin_length;

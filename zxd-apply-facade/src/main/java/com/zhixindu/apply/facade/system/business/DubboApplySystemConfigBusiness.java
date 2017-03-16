@@ -1,5 +1,6 @@
 package com.zhixindu.apply.facade.system.business;
 
+import com.zhixindu.apply.facade.system.bo.BankBaseBO;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 
 import java.util.List;
@@ -47,11 +48,11 @@ public interface DubboApplySystemConfigBusiness {
     String getRegionFullName(Integer code);
 
     /**
-     * 根据银行卡号获取银行名称
+     * 根据银行卡号获取银行信息
      * @param bankCardNumber
      * @return
      */
-    String getBankName(String bankCardNumber);
+    BankBaseBO getBank(String bankCardNumber);
 
 
 }

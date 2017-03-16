@@ -8,11 +8,20 @@ import java.io.Serializable;
 public class BankBaseBO implements Serializable {
 
     private static final long serialVersionUID = 6951825101275435014L;
-
+    /** 银行ID */
+    private Integer bank_id;
     /** 发卡行识别码（银行卡bin号） */
     private Integer bin;
     /** 银行名称 */
     private String bank_name;
+
+    public Integer getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(Integer bank_id) {
+        this.bank_id = bank_id;
+    }
 
     public Integer getBin() {
         return bin;

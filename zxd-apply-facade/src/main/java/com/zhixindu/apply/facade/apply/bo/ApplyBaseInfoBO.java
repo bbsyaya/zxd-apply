@@ -16,6 +16,8 @@ public class ApplyBaseInfoBO implements Serializable {
     private String customer_id;
     /** 微信ID */
     private String open_id;
+    /** 产品ID */
+    private String product_id;
     /** 地址ID */
     private Integer address_id;
     /** 联系人ID列表 */
@@ -65,6 +67,14 @@ public class ApplyBaseInfoBO implements Serializable {
 
     public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public Integer getAddress_id() {
