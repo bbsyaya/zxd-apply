@@ -20,6 +20,8 @@ import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
+import com.zhixindu.commons.api.ServiceCode;
+import com.zhixindu.commons.api.ServiceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +84,9 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public String getLatestApplyStatus(Integer applyId) {
         ApplyStepBO applyStepBO = applyStepMapper.selectLatestByApplyId(applyId);
+        if(null != applyStepBO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有申请步骤数据");
+        }
         return applyStepBO.getProcess_step().getDesc() + applyStepBO.getProcess_state().getDesc();
     }
 
