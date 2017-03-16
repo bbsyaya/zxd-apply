@@ -345,7 +345,7 @@
         select
         lender_id
         from apply
-        where apply_id = #{apply_id,jdbcType=INTEGER}
+        ORDER BY ap.apply_time DESC
     </select>
 
     <select id="selectLenderIdByPrimaryKey" parameterType="java.lang.Integer">
