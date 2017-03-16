@@ -31,6 +31,14 @@ public class ApplyPageParam implements Serializable,PageParam {
         this.count = count;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public int getPage() {
         return page;
