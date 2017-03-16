@@ -345,7 +345,7 @@
         select
         <include refid="Base_Column_List"/>
         from apply
-        where customer_id = #{customer_id,jdbcType=VARCHAR}
+        where customer_id = #{customerId,jdbcType=VARCHAR}
         ORDER BY apply_time DESC
     </select>
 

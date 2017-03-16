@@ -41,8 +41,8 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public ApplyMgtInfo findApplyInfoByLenderId(Integer apply_id) throws ServiceException {
-        Parameters.requireNotNull(apply_id,"getApplyInfoByLenderId lender_id illargm_param");
+    public ApplyMgtInfo findApplyInfoByApplyId(Integer apply_id) throws ServiceException {
+        Parameters.requireNotNull(apply_id,"getApplyInfoByLenderId apply_id illargm_param");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(apply_id);
         if(null == applyPO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
