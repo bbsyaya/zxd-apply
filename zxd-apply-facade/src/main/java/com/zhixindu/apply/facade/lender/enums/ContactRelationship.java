@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.lender.enums;
 
-import com.zhixindu.commons.bean.IEnum;
+
+import com.zhixindu.commons.api.IEnum;
 
 import java.util.HashMap;
 import java.util.Map;

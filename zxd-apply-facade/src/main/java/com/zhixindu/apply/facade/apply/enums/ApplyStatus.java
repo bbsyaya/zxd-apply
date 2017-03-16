@@ -6,7 +6,7 @@
 package com.zhixindu.apply.facade.apply.enums;
 
 import com.google.common.collect.ImmutableMap;
-import com.zhixindu.commons.bean.IEnum;
+import com.zhixindu.commons.api.IEnum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2017/3/7
  * @description
  */
-public enum ApplyStatus implements IEnum<Integer>{
+public enum ApplyStatus implements IEnum<Integer> {
 
     UNDER_REVIEW(1, "审核中", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.PROCESSING)),
     REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.SUCCESS)),
