@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.apply.facade.apply.enums.TermUnit;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -30,6 +32,10 @@ public class ApplyBaseInfoBO implements Serializable {
     private BigDecimal loan_amount;
     /** 借款期限 */
     private Integer loan_term;
+    /** 期限单位 */
+    private TermUnit term_unit;
+    /** 期限单位值 */
+    private Integer term_unit_value;
     /** 总费用 */
     private BigDecimal total_fee;
     /** 到期还款 */
@@ -123,6 +129,22 @@ public class ApplyBaseInfoBO implements Serializable {
 
     public void setLoan_term(Integer loan_term) {
         this.loan_term = loan_term;
+    }
+
+    public TermUnit getTerm_unit() {
+        return term_unit == null ? TermUnit.resolve(term_unit_value) : term_unit;
+    }
+
+    public void setTerm_unit(TermUnit term_unit) {
+        this.term_unit = term_unit;
+    }
+
+    public Integer getTerm_unit_value() {
+        return term_unit_value == null && null != term_unit ? term_unit.getValue() : term_unit_value;
+    }
+
+    public void setTerm_unit_value(Integer term_unit_value) {
+        this.term_unit_value = term_unit_value;
     }
 
     public BigDecimal getTotal_fee() {
