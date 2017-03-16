@@ -345,6 +345,7 @@
         select
         lender_id
         from apply
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
         ORDER BY apply_time DESC
     </select>
 
