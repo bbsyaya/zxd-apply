@@ -50,6 +50,7 @@ public class ApplyServiceImpl implements ApplyService {
         applyPO.setApply_time(new Date());
         applyPO.setApply_status(ApplyStatus.UNDER_REVIEW);
         applyMapper.insertSelective(applyPO);
+        applyBaseInfoBO.setApply_id(applyPO.getApply_id());
 
         ApplyLocationBO applyLocationBO = new ApplyLocationBO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyLocationBO);
@@ -75,7 +76,6 @@ public class ApplyServiceImpl implements ApplyService {
 
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
         lenderMapper.updateLoanFillStep(loanFillStepBO);
-        applyBaseInfoBO.setApply_id(applyPO.getApply_id());
         return applyPO.getApply_id();
     }
 
