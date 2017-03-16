@@ -345,7 +345,7 @@
         select
         lender_id
         from apply
-        ORDER BY ap.apply_time DESC
+        ORDER BY apply_time DESC
     </select>
 
     <select id="selectLenderIdByPrimaryKey" parameterType="java.lang.Integer">
