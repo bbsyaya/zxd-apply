@@ -80,15 +80,6 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         return lenderAddressMapper.selectByLenderId(lenderId);
     }
 
-    /**
-     * 对关键信息最掩码
-     * @param lenderInfo
-     */
-    private void wrap(LenderInfoBO lenderInfo){
-        lenderInfo.setMobile(StringUtil.maskMobile(lenderInfo.getMobile()));
-
-    }
-
     @Override
     public List<LenderContactBO> findLenderContact(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
