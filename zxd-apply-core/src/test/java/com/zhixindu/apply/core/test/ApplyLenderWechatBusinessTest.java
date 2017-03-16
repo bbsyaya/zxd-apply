@@ -59,17 +59,20 @@ public class ApplyLenderWechatBusinessTest {
     @Test
     public void submitLenderContactTest() {
         LenderContactBO lenderContactBO = new LenderContactBO();
+        lenderContactBO.setContact_id(1);
         lenderContactBO.setLender_id(20);
         lenderContactBO.setContact_name("张三");
         lenderContactBO.setContact_mobile("13122931234");
         lenderContactBO.setContact_relationship_value(2);
 
         LenderContactBO lenderContactBO2 = new LenderContactBO();
+        lenderContactBO2.setContact_id(2);
         lenderContactBO2.setLender_id(20);
         lenderContactBO2.setContact_name("张三三");
         lenderContactBO2.setContact_mobile("13122931235");
         lenderContactBO2.setContact_relationship_value(3);
-        List<Integer> contact = lenderWechatBusiness.submitLenderContact(Arrays.asList(lenderContactBO, lenderContactBO2));
+        List<LenderContactBO> contactBOList = Arrays.asList(lenderContactBO, lenderContactBO2);
+        List<Integer> contact = lenderWechatBusiness.submitLenderContact(contactBOList);
         contact.forEach(System.out::println);
     }
 

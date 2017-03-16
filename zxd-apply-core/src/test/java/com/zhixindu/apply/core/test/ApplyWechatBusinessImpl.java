@@ -38,7 +38,9 @@ public class ApplyWechatBusinessImpl {
 
     @Test
     public void findApplyLoanListTest() {
-        PageResult<ApplyLoanBO> applyLoanList = applyWechatBusiness.findApplyLoanList(new ApplyPageParam(0, 10));
+        ApplyPageParam applyPageParam = new ApplyPageParam(0, 10);
+        applyPageParam.setCustomerId("201701161148455852996386");
+        PageResult<ApplyLoanBO> applyLoanList = applyWechatBusiness.findApplyLoanList(applyPageParam);
         LOGGER.info(JsonUtil.toJsonString(applyLoanList));
     }
 
