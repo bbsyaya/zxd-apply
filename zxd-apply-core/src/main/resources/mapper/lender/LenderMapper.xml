@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      lender_id, customer_id, mobile, service_password, operator_token, name, id_card, mobile_verify, bank_card_verify,
+      lender_id, customer_id, mobile, service_password, operator_token, `name`, id_card, mobile_verify, bank_card_verify,
       apply_result, reject_time, loan_fill_step, credit_score
     </sql>
 
@@ -33,7 +33,7 @@
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, service_password, operator_token, name, id_card,
+        insert into lender (customer_id, mobile, service_password, operator_token, `name`, id_card,
         mobile_verify, bank_card_verify, apply_result, reject_time, loan_fill_step, credit_score)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{service_password,jdbcType=VARCHAR},
         #{operator_token,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
@@ -65,7 +65,7 @@
                 operator_token,
             </if>
             <if test="name != null">
-                name,
+                `name`,
             </if>
             <if test="id_card != null">
                 id_card,
@@ -133,7 +133,7 @@
         <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, name, id_card, loan_fill_step)
+        insert into lender (customer_id, mobile, `name`, id_card, loan_fill_step)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
         #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
         #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
@@ -156,7 +156,7 @@
                 operator_token = #{operator_token,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                `name` = #{name,jdbcType=VARCHAR},
             </if>
             <if test="id_card != null">
                 id_card = #{id_card,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
         mobile = #{mobile,jdbcType=VARCHAR},
         service_password = #{service_password,jdbcType=VARCHAR},
         operator_token = #{operator_token,jdbcType=VARCHAR},
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
         id_card = #{id_card,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},

@@ -13,7 +13,7 @@
         <result column="parent_code" jdbcType="INTEGER" property="parent_code"/>
     </resultMap>
     <sql id="Base_Column_List">
-        region_id, code, name, suffix, full_name, pinyin, py, level, parent_code
+        region_id, code, `name`, suffix, full_name, pinyin, py, `level`, parent_code
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -27,9 +27,9 @@
         <selectKey keyProperty="region_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into region (code, name,
+        insert into region (code, `name`,
           suffix, full_name, pinyin,
-          py, level, parent_code
+          py, `level`, parent_code
           )
         values (#{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
           #{suffix,jdbcType=VARCHAR}, #{full_name,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR},
@@ -48,7 +48,7 @@
                 code,
             </if>
             <if test="name != null">
-                name,
+                `name`,
             </if>
             <if test="suffix != null">
                 suffix,
@@ -63,7 +63,7 @@
                 py,
             </if>
             <if test="level != null">
-                level,
+                `level`,
             </if>
             <if test="parent_code != null">
                 parent_code,
@@ -104,7 +104,7 @@
                 code = #{code,jdbcType=INTEGER},
             </if>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                `name` = #{name,jdbcType=VARCHAR},
             </if>
             <if test="suffix != null">
                 suffix = #{suffix,jdbcType=VARCHAR},
@@ -119,7 +119,7 @@
                 py = #{py,jdbcType=VARCHAR},
             </if>
             <if test="level != null">
-                level = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+                `level` = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="parent_code != null">
                 parent_code = #{parent_code,jdbcType=INTEGER},
@@ -131,12 +131,12 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.system.bo.RegionBO">
         update region
         set code = #{code,jdbcType=INTEGER},
-          name = #{name,jdbcType=VARCHAR},
+          `name` = #{name,jdbcType=VARCHAR},
           suffix = #{suffix,jdbcType=VARCHAR},
           full_name = #{full_name,jdbcType=VARCHAR},
           pinyin = #{pinyin,jdbcType=VARCHAR},
           py = #{py,jdbcType=VARCHAR},
-          level = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          `level` = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           parent_code = #{parent_code,jdbcType=INTEGER}
         where region_id = #{region_id,jdbcType=INTEGER}
     </update>
