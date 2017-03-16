@@ -60,7 +60,7 @@ public class LenderContactBO implements Serializable {
     }
 
     public Integer getContact_relationship_value() {
-        return contact_relationship_value == null ? contact_relationship.getValue() : contact_relationship_value;
+        return contact_relationship_value == null && null != contact_relationship ? contact_relationship.getValue() : contact_relationship_value;
     }
 
     public void setContact_relationship_value(Integer contact_relationship_value) {

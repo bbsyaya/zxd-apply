@@ -91,7 +91,7 @@ public class LenderAddressBO implements Serializable {
     }
 
     public Integer getWork_state_value() {
-        return work_state_value == null ? work_state.getValue() : work_state_value;
+        return work_state_value == null && work_state != null ? work_state.getValue() : work_state_value;
     }
 
     public void setWork_state_value(Integer work_state_value) {
