@@ -93,7 +93,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
         }
         BeanUtils.copyProperties(applyPO, applyLoanDetailBO);
-        applyLoanDetailBO.setApply_time(new DateTime(applyPO.getApply_time()).toString("yyyy-MM-dd"));
+        applyLoanDetailBO.setApply_time(new DateTime(applyPO.getApply_time()).toString("yyyy-MM-dd HH:mm:ss"));
         applyLoanDetailBO.setApply_status(applyService.getLatestApplyStatus(applyPO.getApply_id()));
 
         List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
