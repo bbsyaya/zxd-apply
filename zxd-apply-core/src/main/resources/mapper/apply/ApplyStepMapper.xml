@@ -124,7 +124,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into apply_step (apply_id, start_time, process_step, process_state)
-        values (#{apply_id,jdbcType=INTEGER}, #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP},
+        values (#{apply_id,jdbcType=INTEGER}, #{start_time,jdbcType=TIMESTAMP},
         #{process_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
         #{process_state,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler})
     </insert>
