@@ -1,6 +1,7 @@
 package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.WebAppConfig;
+import com.zhixindu.apply.core.lender.dao.LenderContactMapper;
 import com.zhixindu.apply.core.lender.dao.LenderMapper;
 import com.zhixindu.apply.core.lender.po.LenderBaseInfoPO;
 import com.zhixindu.apply.core.lender.service.LenderService;
@@ -27,6 +28,8 @@ public class LenderWechatBusinessTest {
     private LenderMapper lenderMapper;
     @Inject
     private LenderService lenderService;
+    @Inject
+    private LenderContactMapper lenderContactMapper;
 
     @Test
     public void testUpdateMobileVerify(){
@@ -54,5 +57,9 @@ public class LenderWechatBusinessTest {
         System.out.println(lenderBaseInfoPO.getLender_id());
     }
 
+    @Test
+    public void testSelectPrimaryKeyByLenderId(){
+        System.out.println(lenderContactMapper.selectPrimaryKeyByLenderId(30));
+    }
 
 }

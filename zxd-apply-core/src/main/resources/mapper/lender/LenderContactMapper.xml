@@ -101,7 +101,7 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer">
+    <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         contact_id
         from lender_contact
