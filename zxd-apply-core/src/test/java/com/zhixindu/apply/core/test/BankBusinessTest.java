@@ -23,7 +23,6 @@ public class BankBusinessTest {
 
     @Test
     public void testSelectBankNameByBin(){
-        System.out.println(bankMapper.selectBankNameByBin(356390));
     }
 
 }

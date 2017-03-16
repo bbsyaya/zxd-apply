@@ -21,5 +21,4 @@ public interface BankMapper {
 
     List<BankBaseBO> selectAll();
 
-    String selectBankNameByBin(Integer bin);
 }
