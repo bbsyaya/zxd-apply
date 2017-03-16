@@ -52,7 +52,7 @@ public enum BankCardVerify implements IEnum<Integer> {
         }
     }
 
-    public static BankCardVerify resolve(int bankCardVerify) {
+    public static BankCardVerify resolve(Integer bankCardVerify) {
         return mappings.get(bankCardVerify);
     }
 }

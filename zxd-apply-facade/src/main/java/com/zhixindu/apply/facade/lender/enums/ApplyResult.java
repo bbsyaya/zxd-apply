@@ -52,7 +52,7 @@ public enum ApplyResult implements IEnum<Integer> {
         }
     }
 
-    public static ApplyResult resolve(int applyResult) {
+    public static ApplyResult resolve(Integer applyResult) {
         return mappings.get(applyResult);
     }
 }

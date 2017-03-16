@@ -53,7 +53,7 @@ public enum LoanFillStep implements IEnum<Integer> {
         }
     }
 
-    public static LoanFillStep resolve(int fillStep) {
-        return mappings.get(fillStep);
+    public static LoanFillStep resolve(Integer loanFillStep) {
+        return mappings.get(loanFillStep);
     }
 }

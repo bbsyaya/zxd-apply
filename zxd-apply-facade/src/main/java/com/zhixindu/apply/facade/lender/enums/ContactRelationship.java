@@ -53,7 +53,7 @@ public enum ContactRelationship implements IEnum<Integer> {
         }
     }
 
-    public static ContactRelationship resolve(int contactRelationship) {
+    public static ContactRelationship resolve(Integer contactRelationship) {
         return mappings.get(contactRelationship);
     }
 

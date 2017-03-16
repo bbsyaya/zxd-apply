@@ -52,7 +52,7 @@ public enum CardLevel implements IEnum<Integer> {
         }
     }
 
-    public static CardLevel resolve(int cardLevel) {
+    public static CardLevel resolve(Integer cardLevel) {
         return mappings.get(cardLevel);
     }
 }

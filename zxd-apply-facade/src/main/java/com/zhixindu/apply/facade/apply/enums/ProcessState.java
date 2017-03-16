@@ -52,7 +52,7 @@ public enum ProcessState implements IEnum<Integer> {
         }
     }
 
-    public static ProcessState resolve(int processState) {
+    public static ProcessState resolve(Integer processState) {
         return mappings.get(processState);
     }
 }

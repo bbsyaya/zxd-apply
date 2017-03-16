@@ -52,7 +52,8 @@ public enum ProcessStep implements IEnum<Integer> {
         }
     }
 
-    public static ProcessStep resolve(int processStep) {
+    public static ProcessStep resolve(Integer processStep) {
         return mappings.get(processStep);
     }
+
 }

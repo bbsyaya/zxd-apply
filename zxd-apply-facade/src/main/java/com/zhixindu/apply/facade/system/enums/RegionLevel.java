@@ -52,7 +52,7 @@ public enum RegionLevel implements IEnum<Integer> {
         }
     }
 
-    public static RegionLevel resolve(int cardLevel) {
+    public static RegionLevel resolve(Integer cardLevel) {
         return mappings.get(cardLevel);
     }
 }

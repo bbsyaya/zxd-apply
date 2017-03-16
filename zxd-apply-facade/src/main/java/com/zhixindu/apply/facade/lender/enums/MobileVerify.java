@@ -52,7 +52,7 @@ public enum MobileVerify implements IEnum<Integer> {
         }
     }
 
-    public static MobileVerify resolve(int mobileVerify) {
+    public static MobileVerify resolve(Integer mobileVerify) {
         return mappings.get(mobileVerify);
     }
 }

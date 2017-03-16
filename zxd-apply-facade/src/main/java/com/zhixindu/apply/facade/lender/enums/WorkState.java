@@ -52,7 +52,7 @@ public enum WorkState implements IEnum<Integer> {
         }
     }
 
-    public static WorkState resolve(int workState) {
+    public static WorkState resolve(Integer workState) {
         return mappings.get(workState);
     }
 }

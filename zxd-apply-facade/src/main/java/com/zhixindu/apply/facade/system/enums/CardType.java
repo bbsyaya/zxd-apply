@@ -52,7 +52,7 @@ public enum CardType implements IEnum<Integer> {
         }
     }
 
-    public static CardType resolve(int cardType) {
+    public static CardType resolve(Integer cardType) {
         return mappings.get(cardType);
     }
 }

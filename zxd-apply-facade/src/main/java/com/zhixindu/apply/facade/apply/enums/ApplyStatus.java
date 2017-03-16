@@ -70,7 +70,7 @@ public enum ApplyStatus implements IEnum<Integer>{
         }
     }
 
-    public static ApplyStatus resolve(int applyStatus) {
+    public static ApplyStatus resolve(Integer applyStatus) {
         return mappings.get(applyStatus);
     }
 
