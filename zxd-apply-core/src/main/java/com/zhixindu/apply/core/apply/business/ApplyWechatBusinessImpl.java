@@ -76,7 +76,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ApplyLoanBO applyLoanBO = new ApplyLoanBO();
                 BeanUtils.copyProperties(applyBO, applyLoanBO);
                 applyLoanBO.setApply_time(new DateTime(applyBO.getApply_time()).toString("yyyy-MM-dd"));
-                applyLoanBO.setApply_status(applyService.getLatestApplyStatus(applyBO.getApply_id()));
+                applyLoanBO.setApply_status(applyBO.getApply_status().getDesc());
                 return applyLoanBO;
             }).collect(Collectors.toList());
         }
@@ -94,7 +94,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         BeanUtils.copyProperties(applyPO, applyLoanDetailBO);
         applyLoanDetailBO.setApply_time(new DateTime(applyPO.getApply_time()).toString("yyyy-MM-dd HH:mm:ss"));
-        applyLoanDetailBO.setApply_status(applyService.getLatestApplyStatus(applyPO.getApply_id()));
+        applyLoanDetailBO.setApply_status(applyPO.getApply_status().getDesc());
 
         List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
         List<ApplyLoanStepBO> applyLoanStepBOList = Lists.newArrayListWithCapacity(0);

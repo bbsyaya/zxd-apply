@@ -11,8 +11,6 @@ public interface ApplyService {
 
     Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
-    String getLatestApplyStatus(Integer applyId);
-
     int updateLoanStatus(ApplyStatusBO applyStatusBO);
 
     int updateApplyCredit(ApplyCreditBO applyCreditBO);

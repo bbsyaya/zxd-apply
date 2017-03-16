@@ -81,15 +81,6 @@ public class ApplyServiceImpl implements ApplyService {
         return applyPO.getApply_id();
     }
 
-    @Override
-    public String getLatestApplyStatus(Integer applyId) {
-        ApplyStepBO applyStepBO = applyStepMapper.selectLatestByApplyId(applyId);
-        if(null != applyStepBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有申请步骤数据");
-        }
-        return applyStepBO.getProcess_step().getDesc() + applyStepBO.getProcess_state().getDesc();
-    }
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateLoanStatus(ApplyStatusBO applyStatusBO) {
