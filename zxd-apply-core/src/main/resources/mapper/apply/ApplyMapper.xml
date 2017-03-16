@@ -343,7 +343,7 @@
 
     <select id="selectListByPage" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyPageParam" resultMap="BaseResultMap">
         select
-        lender_id
+        <include refid="Base_Column_List"/>
         from apply
         where customer_id = #{customer_id,jdbcType=VARCHAR}
         ORDER BY apply_time DESC
