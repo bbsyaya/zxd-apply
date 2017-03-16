@@ -9,6 +9,8 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
  */
 public interface ApplyService {
 
+    boolean hasUncompleteApply(Integer lenderId);
+
     Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
     int updateLoanStatus(ApplyStatusBO applyStatusBO);

@@ -380,6 +380,14 @@
         order by apply_time desc
     </select>
 
+    <select id="countUncompleteApply" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(apply_id)
+        from apply
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        and apply_status in(1,2,3,4,5)
+    </select>
+
     <update id="updateStatusByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStatusBO">
       update apply
         set apply_status = #{apply_status,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}

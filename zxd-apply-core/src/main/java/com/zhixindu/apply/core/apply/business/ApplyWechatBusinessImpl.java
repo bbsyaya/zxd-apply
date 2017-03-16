@@ -59,6 +59,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
+        if(applyService.hasUncompleteApply(applyBaseInfoBO.getLender_id())) {
+            throw new ServiceException(ServiceCode.ILLEGAL_REQUEST, "有未完成的贷款申请");
+        }
         return applyService.saveApplyLoan(applyBaseInfoBO);
     }
 

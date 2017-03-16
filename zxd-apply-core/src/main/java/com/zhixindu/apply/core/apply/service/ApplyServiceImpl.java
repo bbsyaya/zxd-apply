@@ -20,8 +20,6 @@ import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
-import com.zhixindu.commons.api.ServiceCode;
-import com.zhixindu.commons.api.ServiceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +41,11 @@ public class ApplyServiceImpl implements ApplyService {
     private ApplyLocationMapper applyLocationMapper;
     @Inject
     private LenderMapper lenderMapper;
+
+    @Override
+    public boolean hasUncompleteApply(Integer lenderId) {
+        return applyMapper.countUncompleteApply(lenderId) > 0;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
