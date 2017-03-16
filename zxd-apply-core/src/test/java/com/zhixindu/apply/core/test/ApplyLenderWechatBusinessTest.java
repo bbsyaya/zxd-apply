@@ -7,6 +7,8 @@ package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.app.WebAppConfig;
+import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
+import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
 import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
@@ -18,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +37,8 @@ public class ApplyLenderWechatBusinessTest {
 
     @Inject
     private DubboApplyLenderWechatBusiness lenderWechatBusiness;
+    @Inject
+    private ApplyLocationMapper applyLocationMapper;
 
     @Test
     public void submitLenderAddressTest() {
@@ -66,6 +71,17 @@ public class ApplyLenderWechatBusinessTest {
         lenderContactBO2.setContact_relationship_value(3);
         List<Integer> contact = lenderWechatBusiness.submitLenderContact(Arrays.asList(lenderContactBO, lenderContactBO2));
         contact.forEach(System.out::println);
+    }
+
+    @Test
+    public void testInsertApplyLocation(){
+        ApplyLocationBO applyLocationBO = new ApplyLocationBO();
+        applyLocationBO.setApply_id(1);
+        applyLocationBO.setOpen_id("ozf1Kv_5BoOgKcRuDD2HtWV31bUU");
+        applyLocationBO.setLatitude(new BigDecimal(32.12));
+        applyLocationBO.setLongitude(new BigDecimal("114.23"));
+        applyLocationBO.setPrecision(new BigDecimal(0.6));
+        applyLocationMapper.insert(applyLocationBO);
     }
 
 }

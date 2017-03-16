@@ -10,7 +10,7 @@
         <result column="precision" jdbcType="DECIMAL" property="precision"/>
     </resultMap>
     <sql id="Base_Column_List">
-      location_id, apply_id, open_id, latitude, longitude, precision
+      location_id, apply_id, open_id, latitude, longitude, `precision`
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -25,7 +25,7 @@
             select LAST_INSERT_ID()
         </selectKey>
         insert into apply_location (apply_id, open_id,
-          latitude, longitude, precision
+          latitude, longitude, `precision`
           )
         values (#{apply_id,jdbcType=INTEGER}, #{open_id,jdbcType=VARCHAR},
           #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, #{precision,jdbcType=DECIMAL}
@@ -51,7 +51,7 @@
                 longitude,
             </if>
             <if test="precision != null">
-                precision,
+                `precision`,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,7 +89,7 @@
                 longitude = #{longitude,jdbcType=DECIMAL},
             </if>
             <if test="precision != null">
-                precision = #{precision,jdbcType=DECIMAL},
+                `precision` = #{precision,jdbcType=DECIMAL},
             </if>
         </set>
         where location_id = #{location_id,jdbcType=INTEGER}
@@ -101,7 +101,7 @@
           open_id = #{open_id,jdbcType=VARCHAR},
           latitude = #{latitude,jdbcType=DECIMAL},
           longitude = #{longitude,jdbcType=DECIMAL},
-          precision = #{precision,jdbcType=DECIMAL}
+          `precision` = #{precision,jdbcType=DECIMAL}
         where location_id = #{location_id,jdbcType=INTEGER}
     </update>
 
