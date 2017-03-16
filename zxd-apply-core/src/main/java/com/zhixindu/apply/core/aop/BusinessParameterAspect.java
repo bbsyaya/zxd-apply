@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 YuWei. All rights reserved.
+ * Copyright (C) 2017 YuWei. All rights reserved.
  * You can get our information at http://www.zhixindu.com
  * Anyone can't use this file without our permission.
  */
