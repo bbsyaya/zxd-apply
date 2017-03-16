@@ -4,6 +4,7 @@ import com.zhixindu.apply.core.system.cache.BankCacheManager;
 import com.zhixindu.apply.core.system.cache.RegionCacheManager;
 import com.zhixindu.apply.core.system.enums.BinLength;
 import com.zhixindu.apply.core.system.exception.UnSupportedBankException;
+import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
 import com.zhixindu.commons.annotation.Business;
@@ -22,6 +23,8 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     private RegionCacheManager regionCacheManager;
     @Inject
     private BankCacheManager bankCacheManager;
+    @Inject
+    private SystemConfigService systemConfigService;
 
     @Override
     public List<RegionBaseBO> getAllRegion() {
@@ -45,13 +48,7 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
 
     @Override
     public String getRegionFullName(Integer code) {
-        StringBuilder builder = new StringBuilder(16);
-        RegionBaseBO regionBaseBO = regionCacheManager.getRegion(code);
-        if(null != regionBaseBO.getParent_code()) {
-            builder.append(getRegionFullName(regionBaseBO.getParent_code()));
-        }
-        builder.append(regionBaseBO.getFull_name());
-        return builder.toString();
+        return systemConfigService.getRegionFullName(code);
     }
 
     @Override
