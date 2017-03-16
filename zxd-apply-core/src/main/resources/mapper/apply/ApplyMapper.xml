@@ -349,9 +349,9 @@
         ORDER BY apply_time DESC
     </select>
 
-    <select id="selectLenderIdByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectLenderIdByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
-        <include refid="Base_Column_List" />
+        lender_id
         from apply
         order by apply_time desc
     </select>
