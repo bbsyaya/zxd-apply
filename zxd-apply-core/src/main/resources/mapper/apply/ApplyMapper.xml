@@ -353,6 +353,7 @@
         select
         lender_id
         from apply
+        where apply_id = #{apply_id}
         order by apply_time desc
     </select>
 
