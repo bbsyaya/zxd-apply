@@ -119,7 +119,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
                 ProcessStep processStep = instanceBO.getProcess_step();
                 ProcessState processState = instanceBO.getProcess_state();
-                if(ProcessStep.SUBMIT_APPLICATION.matches(processStep)) {
+                if(ProcessStep.SUBMIT.matches(processStep)) {
                     applyWorkflowBO.setProcess_result(processStep.getDesc());
                 } else {
                     applyWorkflowBO.setProcess_result(processStep.getDesc() + processState.getDesc());

@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by SteveGuo on 2017/3/7.
  */
 public enum ProcessStep implements IEnum<Integer> {
-    SUBMIT_APPLICATION(1, "提交申请"), REVIEW(2, "审核"), LOAN(3, "放款");
+    SUBMIT(1, "提交申请"), REVIEW(2, "审核"), LOAN(3, "放款");
 
     private int value;
     private String desc;

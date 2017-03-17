@@ -62,7 +62,7 @@ public class ApplyServiceImpl implements ApplyService {
         Date now = new Date();
         applyStepBO.setStart_time(now);
         applyStepBO.setEnd_time(now);
-        applyStepBO.setProcess_step(ProcessStep.SUBMIT_APPLICATION);
+        applyStepBO.setProcess_step(ProcessStep.SUBMIT);
         applyStepBO.setProcess_time(now);
         applyStepBO.setProcess_state(ProcessState.SUCCESS);
         applyStepMapper.insertSelective(applyStepBO);
