@@ -52,9 +52,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     private PageRepository pageRepository;
 
     @Override
-    public boolean isAfterAMonthFromLastApply(Integer lenderId) {
+    public boolean isBeforeAMonthFromLastApply(Integer lenderId) {
         Date lastApplyTime = applyMapper.selectLastApplyTime(lenderId);
-        return null != lastApplyTime && DateTime.now().minusMonths(1).isAfter(lastApplyTime.getTime());
+        return null != lastApplyTime && DateTime.now().minusMonths(1).isBefore(lastApplyTime.getTime());
     }
 
     @Override

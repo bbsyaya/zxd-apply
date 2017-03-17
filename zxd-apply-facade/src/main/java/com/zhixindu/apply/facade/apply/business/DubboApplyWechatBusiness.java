@@ -15,11 +15,11 @@ import com.zhixindu.commons.page.PageResult;
 public interface DubboApplyWechatBusiness {
 
     /**
-     * 距离上次申请是否超过一个月
+     * 距离上次申请是否在一个月内
      * @param lenderId
      * @return
      */
-    boolean isAfterAMonthFromLastApply(Integer lenderId);
+    boolean isBeforeAMonthFromLastApply(Integer lenderId);
 
     /**
      * 是否有未结清的贷款申请
