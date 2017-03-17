@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/6.
  */
-public class LenderVerifyBO implements ILenerVerify, Serializable {
+public class LenderVerifyBO implements ILenderVerify, Serializable {
     private static final long serialVersionUID = -1089420756323886726L;
 
     /** 借款人ID */
@@ -43,12 +43,18 @@ public class LenderVerifyBO implements ILenerVerify, Serializable {
     }
 
     @Override
-    public boolean isMobileVerify() {
+    public boolean hasNotVerifiedItem() {
+        return (null != getMobile_verify() && !isMobileVerified())
+                || (null != getBank_card_verify() && !isBankCardVerified());
+    }
+
+    @Override
+    public boolean isMobileVerified() {
         return MobileVerify.VERIFIED.matches(getMobile_verify());
     }
 
     @Override
-    public boolean isBankCardVerify() {
+    public boolean isBankCardVerified() {
         return BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
 }

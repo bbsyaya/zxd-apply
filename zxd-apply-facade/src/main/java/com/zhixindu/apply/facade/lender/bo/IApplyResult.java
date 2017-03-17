@@ -6,19 +6,11 @@ package com.zhixindu.apply.facade.lender.bo;
 public interface IApplyResult {
 
     /**
-     * 贷款申请是否通过
+     * 是否低信用
+     * 审核不通过是否在一个月内
+     * 没有数据返回false
      * @return
      */
-    default boolean isApplyApproved(){
-        return false;
-    }
-
-    /**
-     * 拒绝申请是否超过一个月
-     * @return
-     */
-    default boolean isRejectExpired(){
-        return false;
-    }
+    boolean isLowCredit();
 
 }

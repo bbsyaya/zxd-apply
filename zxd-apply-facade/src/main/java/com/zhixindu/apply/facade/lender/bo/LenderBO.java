@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 import java.util.Date;
 
-public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyResult,Serializable {
+public class LenderBO extends LenderBaseInfoBO implements ILenderVerify,IApplyResult,Serializable {
 
     private static final long serialVersionUID = -1373173161346766532L;
 
@@ -95,23 +95,16 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
     }
 
     @Override
-    public boolean isMobileVerify() {
-        return MobileVerify.VERIFIED.matches(getMobile_verify());
+    public boolean isLowCredit() {
+        return  null != getApply_result() && null != getReject_time()
+                && ApplyResult.REJECT.matches(getApply_result())
+                && DateTime.now().minusMonths(1).isBefore(getReject_time().getTime());
     }
 
     @Override
-    public boolean isBankCardVerify() {
-        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
-    }
-
-    @Override
-    public boolean isApplyApproved() {
-        return null == getApply_result() || ApplyResult.APPROVE.matches(getApply_result());
-    }
-
-    @Override
-    public boolean isRejectExpired() {
-        return null == getReject_time() || DateTime.now().minusMonths(1).isAfter(getReject_time().getTime());
+    public boolean hasNotVerifiedItem() {
+        return (null != getMobile_verify() && !isMobileVerified())
+                || (null != getBank_card_verify() && !isBankCardVerified());
     }
 
 }

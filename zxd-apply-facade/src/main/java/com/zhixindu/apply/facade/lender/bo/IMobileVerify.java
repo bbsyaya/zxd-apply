@@ -7,11 +7,9 @@ public interface IMobileVerify {
 
     /**
      * 手机号是否验证
-     * 当手机验证没有数据的时候返回的是true
+     * 当手机验证没有数据的时候返回的是false
      * @return
      */
-    default boolean isMobileVerify() {
-        return false;
-    }
+    boolean isMobileVerified();
 
 }
