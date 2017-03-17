@@ -127,7 +127,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         }
         LenderMobileVerifyBO lenderMobileVerifyBO = new LenderMobileVerifyBO();
         lenderMobileVerifyBO.setLender_id(lenderId);
-        lenderMobileVerifyBO.setMobile(StringUtil.maskMobile(lenderBO.getMobile()));
+        lenderMobileVerifyBO.setMobile(lenderBO.getMobile());
         lenderMobileVerifyBO.setService_password(StringUtil.maskPassword(lenderBO.getService_password()));
         return lenderMobileVerifyBO;
     }
