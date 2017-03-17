@@ -377,7 +377,8 @@
         select
         lender_id
         from apply
-        order by apply_time desc
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+        order by apply_time desc limit 0,1
     </select>
 
     <select id="countNotSettledApply" parameterType="java.lang.Integer" resultType="int">
