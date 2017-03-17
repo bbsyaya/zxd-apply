@@ -114,7 +114,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(null == lenderBankCardBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
         }
-        lenderBankCardBO.setBank_card_number(StringUtil.maskBankCard(lenderBankCardBO.getBank_card_number()));
+        lenderBankCardBO.setBank_card_number(lenderBankCardBO.getBank_card_number());
         return lenderBankCardBO;
     }
 
