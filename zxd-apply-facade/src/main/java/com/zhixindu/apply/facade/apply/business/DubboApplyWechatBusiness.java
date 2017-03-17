@@ -15,6 +15,20 @@ import com.zhixindu.commons.page.PageResult;
 public interface DubboApplyWechatBusiness {
 
     /**
+     * 距离上次申请是否超过一个月
+     * @param lenderId
+     * @return
+     */
+    boolean isAfterAMonthFromLastApply(Integer lenderId);
+
+    /**
+     * 是否有未结清的贷款申请
+     * @param lenderId
+     * @return
+     */
+    boolean hasNotSettledApply(Integer lenderId);
+
+    /**
      * 获取最新的申请记录，状态处于审核中、审核通过
      * @param lenderId
      * @return 申请借款基本信息
@@ -62,5 +76,12 @@ public interface DubboApplyWechatBusiness {
      * @return 是否成功
      */
     boolean submitApplyCredit(ApplyCreditBO applyCreditBO);
+
+    /**
+     * 提交还款状态
+     * @param applyId
+     * @return
+     */
+    boolean submitRepaymentStatus(Integer applyId);
 
 }

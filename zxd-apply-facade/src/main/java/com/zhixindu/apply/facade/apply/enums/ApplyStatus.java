@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Yulei
+ * @author SteveGuo
  * @version 1.0
  * @date 2017/3/7
  * @description
@@ -24,7 +24,8 @@ public enum ApplyStatus implements IEnum<Integer> {
     REVIEW_FAIL(3, "审核失败", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.FAIL)),
     UNDER_LOAN(4, "放款中", ImmutableMap.of(ProcessStep.LOAN, ProcessState.PROCESSING)),
     LOAN_SUCCESS(5, "放款成功", ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
-    LOAN_FAIL(6, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL));
+    LOAN_FAIL(6, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL)),
+    REPAYMENT_SETTLED(7, "已结清", null);
 
     private int value;
     private String desc;

@@ -30,6 +30,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,18 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     private PageRepository pageRepository;
 
     @Override
+    public boolean isAfterAMonthFromLastApply(Integer lenderId) {
+        Date lastApplyTime = applyMapper.selectLastApplyTime(lenderId);
+        return null != lastApplyTime && DateTime.now().minusMonths(1).isAfter(lastApplyTime.getTime());
+    }
+
+    @Override
+    public boolean hasNotSettledApply(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        return applyMapper.countNotSettledApply(lenderId) > 0;
+    }
+
+    @Override
     public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return applyMapper.selectLatestReviewByLenderId(lenderId);
@@ -59,8 +72,8 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
-        if(applyService.hasUncompleteApply(applyBaseInfoBO.getLender_id())) {
-            throw new ServiceException(ServiceCode.ILLEGAL_REQUEST, "有未完成的贷款申请");
+        if(hasNotSettledApply(applyBaseInfoBO.getLender_id())) {
+            throw new ServiceException(ServiceCode.ILLEGAL_REQUEST, "有未结清的贷款申请");
         }
         return applyService.saveApplyLoan(applyBaseInfoBO);
     }
@@ -152,5 +165,10 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public boolean submitApplyCredit(ApplyCreditBO applyCreditBO) {
         Parameters.requireAllPropertyNotNull(applyCreditBO);
         return applyService.updateApplyCredit(applyCreditBO) > 0;
+    }
+
+    @Override
+    public boolean submitRepaymentStatus(Integer applyId) {
+        return applyService.updateRepaymentStatus(applyId) > 0;
     }
 }

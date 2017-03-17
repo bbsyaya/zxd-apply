@@ -9,6 +9,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -30,7 +31,9 @@ public interface ApplyMapper {
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 
-    int countUncompleteApply(Integer lender_id);
+    int countNotSettledApply(Integer lender_id);
+
+    Date selectLastApplyTime(Integer lender_id);
 
     Integer selectLenderIdByPrimaryKey(Integer apply_id);
 

@@ -380,12 +380,20 @@
         order by apply_time desc
     </select>
 
-    <select id="countUncompleteApply" parameterType="java.lang.Integer" resultType="int">
+    <select id="countNotSettledApply" parameterType="java.lang.Integer" resultType="int">
         select
         count(apply_id)
         from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
         and apply_status in(1,2,3,4,5)
+    </select>
+
+    <select id="selectLastApplyTime" parameterType="java.lang.Integer" resultType="java.util.Date">
+        select
+        apply_time
+        from apply
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        order by apply_time desc limit 0,1
     </select>
 
     <update id="updateStatusByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStatusBO">

@@ -9,12 +9,32 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
  */
 public interface ApplyService {
 
-    boolean hasUncompleteApply(Integer lenderId);
-
+    /**
+     * 保存申请贷款
+     * @param applyBaseInfoBO
+     * @return
+     */
     Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
+    /**
+     * 更新借款状态
+     * @param applyStatusBO
+     * @return
+     */
     int updateLoanStatus(ApplyStatusBO applyStatusBO);
 
+    /**
+     * 更新申请信用结果
+     * @param applyCreditBO
+     * @return
+     */
     int updateApplyCredit(ApplyCreditBO applyCreditBO);
+
+    /**
+     * 更新还款状态
+     * @param applyId
+     * @return
+     */
+    int updateRepaymentStatus(Integer applyId);
 
 }

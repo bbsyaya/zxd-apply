@@ -42,11 +42,6 @@ public class ApplyServiceImpl implements ApplyService {
     @Inject
     private LenderMapper lenderMapper;
 
-    @Override
-    public boolean hasUncompleteApply(Integer lenderId) {
-        return applyMapper.countUncompleteApply(lenderId) > 0;
-    }
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
@@ -141,6 +136,14 @@ public class ApplyServiceImpl implements ApplyService {
         rows += applyStepMapper.startStep(startStepBO);
 
         return rows;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int updateRepaymentStatus(Integer applyId) {
+        ApplyStatusBO applyStatusBO = new ApplyStatusBO();
+        applyStatusBO.setApply_status(ApplyStatus.REPAYMENT_SETTLED);
+        return applyMapper.updateStatusByPrimaryKey(applyStatusBO);
     }
 
 }

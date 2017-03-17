@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 /**
  * Created by SteveGuo on 2017/3/14.
  */
-public class ApplyBO extends ApplyBaseInfoBO implements Serializable {
+public class ApplyBO extends ApplyBaseInfoBO implements IApplyStatus, Serializable {
 
     private static final long serialVersionUID = -5304479998639396571L;
 
@@ -61,5 +62,10 @@ public class ApplyBO extends ApplyBaseInfoBO implements Serializable {
 
     public void setCredit_memo(String credit_memo) {
         this.credit_memo = credit_memo;
+    }
+
+    @Override
+    public boolean isAfterAMonth() {
+        return null != getApply_time() && DateTime.now().minusMonths(1).isAfter(getApply_time().getTime());
     }
 }
