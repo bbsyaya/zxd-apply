@@ -96,12 +96,12 @@ public class LenderBO extends LenderBaseInfoBO implements ILenerVerify,IApplyRes
 
     @Override
     public boolean isMobileVerify() {
-        return null == getMobile_verify() || MobileVerify.VERIFIED.matches(getMobile_verify());
+        return MobileVerify.VERIFIED.matches(getMobile_verify());
     }
 
     @Override
     public boolean isBankCardVerify() {
-        return null == getBank_card_verify() || BankCardVerify.VERIFIED.matches(getBank_card_verify());
+        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
 
     @Override

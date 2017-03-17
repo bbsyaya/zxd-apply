@@ -33,7 +33,7 @@ public class LenderBankCardVerifyBO implements IBankCardVerify, Serializable {
 
     @Override
     public boolean isBankCardVerify() {
-        return null == getBank_card_verify() || BankCardVerify.VERIFIED.matches(getBank_card_verify());
+        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
     }
 
 }

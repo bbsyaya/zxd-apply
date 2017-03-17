@@ -64,6 +64,6 @@ public class LenderMobileVerifyBO implements IMobileVerify, Serializable{
 
     @Override
     public boolean isMobileVerify() {
-        return null == getMobile_verify() || MobileVerify.VERIFIED.matches(getMobile_verify());
+        return MobileVerify.VERIFIED.matches(getMobile_verify());
     }
 }
