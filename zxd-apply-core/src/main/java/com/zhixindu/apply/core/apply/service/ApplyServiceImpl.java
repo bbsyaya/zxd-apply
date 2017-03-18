@@ -127,14 +127,15 @@ public class ApplyServiceImpl implements ApplyService {
             completeStepBO.setProcess_state(ProcessState.SUCCESS);
         }
         rows += applyStepMapper.completeStep(completeStepBO);
-
-        ApplyStartStepBO startStepBO = new ApplyStartStepBO();
-        startStepBO.setApply_id(applyCreditBO.getApply_id());
-        startStepBO.setStart_time(now);
-        startStepBO.setProcess_step(ProcessStep.LOAN);
-        startStepBO.setProcess_state(ProcessState.PROCESSING);
-        rows += applyStepMapper.startStep(startStepBO);
-
+        // 审核成功才有下一步
+        if(ApplyStatus.REVIEW_SUCCESS.matches(applyCreditBO.getApply_status())) {
+            ApplyStartStepBO startStepBO = new ApplyStartStepBO();
+            startStepBO.setApply_id(applyCreditBO.getApply_id());
+            startStepBO.setStart_time(now);
+            startStepBO.setProcess_step(ProcessStep.LOAN);
+            startStepBO.setProcess_state(ProcessState.PROCESSING);
+            rows += applyStepMapper.startStep(startStepBO);
+        }
         return rows;
     }
 
