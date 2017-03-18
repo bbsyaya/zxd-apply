@@ -136,14 +136,14 @@
         select
         <include refid="Base_Column_List"/>
         from lender_address
-        where lender_id = #{lender_id,jdbcType=INTEGER}
+        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
     </select>
 
     <select id="selectPrimaryKeyByLenderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         address_id
         from lender_address
-        where lender_id = #{lender_id,jdbcType=INTEGER}
+        where lender_id = #{lender_id,jdbcType=INTEGER} limit 0,1
     </select>
 
     <select id="countByLenderId" parameterType="java.lang.Integer" resultType="int">
