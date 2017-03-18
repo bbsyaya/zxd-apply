@@ -5,11 +5,13 @@
  */
 package com.zhixindu.apply.core.test;
 
+import com.alibaba.fastjson.JSON;
 import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.app.WebAppConfig;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.lender.bo.LenderAddressBO;
+import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness;
 import com.zhixindu.apply.facade.lender.enums.WorkState;
@@ -87,4 +89,10 @@ public class ApplyLenderWechatBusinessTest {
         applyLocationMapper.insert(applyLocationBO);
     }
 
+    @Test
+    public void testFindLender(){
+        LenderBO lender = lenderWechatBusiness.findLender("201611221147978485279251");
+        System.out.println(JSON.toJSONString(lender));
+        System.out.println("lender.hasNotVerifiedItem():" + lender.hasNotVerifiedItem());
+    }
 }
