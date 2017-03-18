@@ -62,4 +62,8 @@ public class LenderWechatBusinessTest {
         System.out.println(lenderContactMapper.selectPrimaryKeyByLenderId(30));
     }
 
+    @Test
+    public void testResetMobileVerify(){
+        System.out.println(lenderMapper.resetMobileVerify(83, "18765434567"));
+    }
 }

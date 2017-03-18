@@ -191,6 +191,13 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     }
 
     @Override
+    public boolean resetLenderMobileVerify(Integer lenderId, String mobile) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
+        Parameters.requireNotNull(mobile, "mobile不能为空");
+        return lenderService.resetMobileVerify(lenderId, mobile) > 0;
+    }
+
+    @Override
     public String findBankCardNumber(Integer lenderId) {
         return lenderBankCardMapper.selectBankCardNumber(lenderId);
     }

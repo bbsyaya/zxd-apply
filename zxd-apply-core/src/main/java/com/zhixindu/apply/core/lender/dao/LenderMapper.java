@@ -7,6 +7,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderBO;
 import com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -35,6 +36,8 @@ public interface LenderMapper {
     Integer selectBankCardVerifyByPrimaryKey(Integer lender_id);
 
     int updateMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
+
+    int resetMobileVerify(@Param("lender_id") Integer lender_id, @Param("mobile") String mobile);
 
     int updateBankCardVerify(LenderBankCardVerifyBO lenderBankCardVerifyBO);
 

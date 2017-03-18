@@ -36,4 +36,6 @@ public interface LenderService {
 
     int saveMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
 
+    int resetMobileVerify(Integer lenderId, String mobile);
+
 }

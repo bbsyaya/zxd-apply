@@ -146,4 +146,10 @@ public class LenderServiceImpl implements LenderService {
         return rows;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int resetMobileVerify(Integer lenderId, String mobile) {
+        return lenderMapper.resetMobileVerify(lenderId, mobile);
+    }
+
 }

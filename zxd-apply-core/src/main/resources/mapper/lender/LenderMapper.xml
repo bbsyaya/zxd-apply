@@ -243,6 +243,15 @@
         where lender_id = #{lender_id,jdbcType=INTEGER}
     </update>
 
+    <update id="resetMobileVerify">
+        update lender
+        set mobile = #{mobile,jdbcType=VARCHAR},
+        service_password = null,
+        operator_token = null,
+        mobile_verify = null
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
     <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO">
         update lender
         set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
