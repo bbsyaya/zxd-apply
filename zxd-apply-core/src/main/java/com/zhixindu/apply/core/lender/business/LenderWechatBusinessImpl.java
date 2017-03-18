@@ -158,10 +158,11 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         }
         lenderContactBOList.forEach(lenderContactBO -> {
             Parameters.requireNotNull(lenderContactBO.getLender_id(), "lenderId不能为空");
+            Object[] ignoreProperties = new Object[]{};
             if (!lenderService.existLenderBankCard(lenderContactBO.getLender_id())) {
-                Parameters.requireNotNull(lenderContactBO.getContact_id(), "contact_id不能为空");
+                ignoreProperties = new Object[]{"contact_id"};
             }
-            Parameters.requireAllPropertyNotNull(lenderContactBO);
+            Parameters.requireAllPropertyNotNull(lenderContactBO, ignoreProperties);
         });
         return lenderService.saveOrUpdateContact(lenderContactBOList);
     }
@@ -169,9 +170,11 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
     @Override
     public Integer submitLenderBankCard(LenderBankCardBO lenderBankCardBO) {
         Parameters.requireNotNull(lenderBankCardBO.getLender_id(), "lenderId不能为空");
+        Object[] ignoreProperties = new Object[]{};
         if(!lenderService.existLenderBankCard(lenderBankCardBO.getLender_id())) {
-            Parameters.requireNotNull(lenderBankCardBO.getBank_card_id(), "bank_card_id不能为空");
+            ignoreProperties = new Object[]{"bank_card_id"};
         }
+        Parameters.requireAllPropertyNotNull(lenderBankCardBO, ignoreProperties);
         return lenderService.saveOrUpdateBankCard(lenderBankCardBO);
     }
 
