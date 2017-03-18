@@ -62,7 +62,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
         if(StringUtils.isBlank(lenderBaseInfoBO.getCustomer_id())) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "customerId不能为空");
         }
-        if(!lenderService.isExistLender(lenderBaseInfoBO.getCustomer_id())) {
+        if(!lenderService.existLender(lenderBaseInfoBO.getCustomer_id())) {
             Parameters.requireAllPropertyNotNull(lenderBaseInfoBO, new Object[]{"lender_id"});
             lenderService.saveLenderBaseInfo(lenderBaseInfoBO);
         } else {
@@ -138,7 +138,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
         }
         Object[] ignoreProperties = new Object[]{};
-        if(lenderService.isExistLenderAddress(lenderAddressBO.getLender_id())) {
+        if(lenderService.existLenderAddress(lenderAddressBO.getLender_id())) {
             if(!WorkState.EMPLOYEE.matches(lenderAddressBO.getWork_state())) {
                 ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
             }
@@ -163,7 +163,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
                 throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
             }
             Object[] ignoreProperties = new Object[]{};
-            if (!lenderService.isExistLenderBankCard(lenderContactBO.getLender_id())) {
+            if (!lenderService.existLenderBankCard(lenderContactBO.getLender_id())) {
                 ignoreProperties = new Object[]{"contact_id"};
             }
             Parameters.requireAllPropertyNotNull(lenderContactBO, ignoreProperties);
@@ -177,7 +177,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
         }
         Object[] ignoreProperties = new Object[]{};
-        if(!lenderService.isExistLenderBankCard(lenderBankCardBO.getLender_id())) {
+        if(!lenderService.existLenderBankCard(lenderBankCardBO.getLender_id())) {
             ignoreProperties = new Object[]{"bank_card_id"};
         }
         Parameters.requireAllPropertyNotNull(lenderBankCardBO, ignoreProperties);

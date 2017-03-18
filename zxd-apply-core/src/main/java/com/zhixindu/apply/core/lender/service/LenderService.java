@@ -14,13 +14,17 @@ import java.util.List;
  */
 public interface LenderService {
 
-    boolean isExistLender(String customerId);
+    boolean existLender(String customerId);
 
-    boolean isExistLenderAddress(Integer lenderId);
+    boolean existLenderAddress(Integer lenderId);
 
-    boolean isExistLenderContact(Integer lenderId);
+    boolean existLenderContact(Integer lenderId);
 
-    boolean isExistLenderBankCard(Integer lenderId);
+    boolean existLenderBankCard(Integer lenderId);
+
+    boolean hasMobileVerified(Integer lenderId);
+
+    boolean hasBankCardVerified(Integer lenderId);
 
     Integer saveLenderBaseInfo(LenderBaseInfoBO lenderBaseInfoBO);
 

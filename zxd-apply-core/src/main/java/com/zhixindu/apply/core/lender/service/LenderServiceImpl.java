@@ -39,23 +39,33 @@ public class LenderServiceImpl implements LenderService {
     private LenderBankCardMapper lenderBankCardMapper;
 
     @Override
-    public boolean isExistLender(String customerId) {
+    public boolean existLender(String customerId) {
         return lenderMapper.countByCustomerId(customerId) > 0;
     }
 
     @Override
-    public boolean isExistLenderAddress(Integer lenderId) {
+    public boolean existLenderAddress(Integer lenderId) {
         return lenderAddressMapper.countByLenderId(lenderId) > 0;
     }
 
     @Override
-    public boolean isExistLenderContact(Integer lenderId) {
+    public boolean existLenderContact(Integer lenderId) {
         return lenderContactMapper.countByLenderId(lenderId) > 1;
     }
 
     @Override
-    public boolean isExistLenderBankCard(Integer lenderId) {
+    public boolean existLenderBankCard(Integer lenderId) {
         return lenderBankCardMapper.countByLenderId(lenderId) > 0;
+    }
+
+    @Override
+    public boolean hasMobileVerified(Integer lenderId) {
+        return null != lenderMapper.selectMobileVerifyByPrimaryKey(lenderId);
+    }
+
+    @Override
+    public boolean hasBankCardVerified(Integer lenderId) {
+        return null != lenderMapper.selectBankCardVerifyByPrimaryKey(lenderId);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -114,21 +124,23 @@ public class LenderServiceImpl implements LenderService {
             lenderBankCardMapper.insert(lenderBankCardBO);
         }
         LenderBankCardVerifyBO lenderBankCardVerifyBO = new LenderBankCardVerifyBO();
-        lenderBankCardVerifyBO.setLender_id(lenderBankCardBO.getLender_id());
+        Integer lenderId = lenderBankCardBO.getLender_id();
+        lenderBankCardVerifyBO.setLender_id(lenderId);
         lenderBankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
         lenderMapper.updateBankCardVerify(lenderBankCardVerifyBO);
-
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderBankCardBO.getLender_id(), LoanFillStep.SUBMIT);
-        lenderMapper.updateLoanFillStep(loanFillStepBO);
+        if(hasMobileVerified(lenderId)) {
+            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderBankCardBO.getLender_id(), LoanFillStep.SUBMIT);
+            lenderMapper.updateLoanFillStep(loanFillStepBO);
+        }
         return lenderBankCardBO.getBank_card_id();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int saveMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO) {
-        int rows = lenderMapper.updateMobileVerify(lenderMobileVerifyBO);
-        if(rows > 0) {
-            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderMobileVerifyBO.getLender_id(), LoanFillStep.SUBMIT);
+    public int saveMobileVerify(LenderMobileVerifyBO mobileVerifyBO) {
+        int rows = lenderMapper.updateMobileVerify(mobileVerifyBO);
+        if(rows > 0 && hasBankCardVerified(mobileVerifyBO.getLender_id())) {
+            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(mobileVerifyBO.getLender_id(), LoanFillStep.SUBMIT);
             rows += lenderMapper.updateLoanFillStep(loanFillStepBO);
         }
         return rows;

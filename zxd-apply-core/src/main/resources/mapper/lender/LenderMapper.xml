@@ -221,6 +221,20 @@
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectMobileVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        mobile_verify
+        from lender
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectBankCardVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        bank_card_verify
+        from lender
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
     <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO">
         update lender
         set service_password = #{service_password,jdbcType=VARCHAR},
