@@ -17,9 +17,9 @@ import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
+import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
-import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -166,8 +166,8 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public boolean submitApplyCredit(ApplyCreditBO applyCreditBO) {
         Object[] ignoreProperties = new Object[]{};
-        if(ApplyResult.REJECT.matches(applyCreditBO.getApply_status())) {
-            ignoreProperties = new Object[]{"credit_score", "credit_memo"};
+        if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
+            ignoreProperties = new Object[]{"credit_score"};
         }
         Parameters.requireAllPropertyNotNull(applyCreditBO, ignoreProperties);
         return applyService.updateApplyCredit(applyCreditBO) > 0;
