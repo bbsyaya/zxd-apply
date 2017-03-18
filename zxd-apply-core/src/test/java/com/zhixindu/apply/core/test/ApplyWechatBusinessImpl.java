@@ -8,6 +8,7 @@ package com.zhixindu.apply.core.test;
 import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.app.WebAppConfig;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import com.zhixindu.commons.page.PageResult;
@@ -46,7 +47,8 @@ public class ApplyWechatBusinessImpl {
 
     @Test
     public void findApplyLoanDetailTest() {
-
+        ApplyLoanDetailBO applyLoanDetail = applyWechatBusiness.findApplyLoanDetail(4);
+        LOGGER.info(JsonUtil.toJsonString(applyLoanDetail));
     }
 
 }
