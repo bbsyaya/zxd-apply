@@ -2,27 +2,28 @@ package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 import com.zhixindu.commons.api.utils.MaskUtil;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class LenderBankCardBO implements Serializable {
     private static final long serialVersionUID = -4569790136583162019L;
-
+    /** 银行卡ID */
     private Integer bank_card_id;
-
+    /** 借款人ID */
     private Integer lender_id;
-
+    @NotBlank(message = "银行卡编号不能为空")
     private String bank_card_number;
-
-    /** 银行ID */
+    @NotNull(message = "银行ID不能为空")
     private Integer bank_id;
-
+    @NotBlank(message = "开户行不能为空")
     private String bank_name;
-
+    @NotNull(message = "开户行地址行政区划代码不能为空")
     private Integer bank_address_code;
-
+    @NotBlank(message = "预留手机号不能为空")
     private String reserved_mobile;
-
+    @NotNull(message = "银行卡验证不能为空")
     private BankCardVerify bank_card_verify;
 
     public Integer getBank_card_id() {

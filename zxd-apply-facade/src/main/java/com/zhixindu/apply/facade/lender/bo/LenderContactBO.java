@@ -1,22 +1,24 @@
 package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.ContactRelationship;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class LenderContactBO implements Serializable {
     private static final long serialVersionUID = -2075646585551667198L;
-
+    /** 联系人ID */
     private Integer contact_id;
-
+    /** 借款人ID */
     private Integer lender_id;
-
+    /** 联系人关系 */
     private ContactRelationship contact_relationship;
-
+    @NotBlank(message = "联系人姓名不能为空")
     private String contact_name;
-
+    @NotBlank(message = "联系人手机不能为空")
     private String contact_mobile;
-
+    @NotNull(message = "contact_relationship_value不能为空")
     private Integer contact_relationship_value;
 
     public Integer getContact_id() {
@@ -35,6 +37,7 @@ public class LenderContactBO implements Serializable {
         this.lender_id = lender_id;
     }
 
+    @NotNull(message = "联系人关系不能为空")
     public ContactRelationship getContact_relationship() {
         return contact_relationship == null ? ContactRelationship.resolve(contact_relationship_value) : contact_relationship;
     }

@@ -2,28 +2,29 @@ package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.WorkState;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class LenderAddressBO implements Serializable {
 
     private static final long serialVersionUID = 2319732869984633192L;
-
+    /** 地址ID */
     private Integer address_id;
-
+    /** 借款人ID */
     private Integer lender_id;
-
+    @NotNull(message = "居住地址行政区划代码不能为空")
     private Integer home_address_code;
-
+    @NotNull(message = "居住详细地址不能为空")
     private String home_address;
-
+    /** 工作状态 */
     private WorkState work_state;
-
+    /** 公司名称 */
     private String company_name;
-
+    /** 公司地址行政区划代码 */
     private Integer company_address_code;
-
+    /** 公司详细地址 */
     private String company_address;
-
+    @NotNull(message = "work_state_value不能为空")
     private Integer work_state_value;
 
     public Integer getAddress_id() {
@@ -57,7 +58,7 @@ public class LenderAddressBO implements Serializable {
     public void setHome_address(String home_address) {
         this.home_address = home_address == null ? null : home_address.trim();
     }
-
+    @NotNull(message = "work_state不能为空")
     public WorkState getWork_state() {
         return work_state == null ? WorkState.resolve(work_state_value) : work_state;
     }

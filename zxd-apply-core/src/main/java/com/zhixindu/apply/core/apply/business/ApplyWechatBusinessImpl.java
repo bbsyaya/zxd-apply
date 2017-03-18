@@ -144,6 +144,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public ApplyBO findApply(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(applyId);
         if(null != applyPO) {
             ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyPO.getApply_id());

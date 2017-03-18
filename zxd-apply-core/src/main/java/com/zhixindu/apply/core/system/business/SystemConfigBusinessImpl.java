@@ -9,6 +9,7 @@ import com.zhixindu.apply.facade.system.bo.BankBaseBO;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
 import com.zhixindu.commons.annotation.Business;
+import com.zhixindu.commons.utils.Parameters;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -39,21 +40,25 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
 
     @Override
     public List<RegionBaseBO> getRegionList(Integer parentCode) {
+        Parameters.requireNotNull(parentCode, "parentCode不能为空");
         return regionCacheManager.getRegionList(parentCode);
     }
 
     @Override
     public RegionBaseBO getRegion(Integer code) {
+        Parameters.requireNotNull(code, "code不能为空");
         return regionCacheManager.getRegion(code);
     }
 
     @Override
     public String getRegionFullName(Integer code) {
+        Parameters.requireNotNull(code, "code不能为空");
         return systemConfigService.getRegionFullName(code);
     }
 
     @Override
     public BankBaseBO getBank(String bankCardNumber) {
+        Parameters.requireNotNull(bankCardNumber, "bankCardNumber不能为空");
         for(BinLength binLength : BinLength.values()) {
             Integer bin = Integer.valueOf(bankCardNumber.substring(0, binLength.getValue()));
             Optional<BankBaseBO> optional = bankCacheManager.getBank(bin);

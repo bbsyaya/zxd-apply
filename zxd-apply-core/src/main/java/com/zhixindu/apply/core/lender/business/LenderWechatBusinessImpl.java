@@ -134,9 +134,7 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public Integer submitLenderAddress(LenderAddressBO lenderAddressBO) {
-        if(null == lenderAddressBO.getLender_id()) {
-            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
-        }
+        Parameters.requireNotNull(lenderAddressBO.getLender_id(), "lenderId不能为空");
         Object[] ignoreProperties = new Object[]{};
         if(lenderService.existLenderAddress(lenderAddressBO.getLender_id())) {
             if(!WorkState.EMPLOYEE.matches(lenderAddressBO.getWork_state())) {
@@ -159,28 +157,21 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
         }
         lenderContactBOList.forEach(lenderContactBO -> {
-            if (null == lenderContactBO.getLender_id()) {
-                throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
-            }
-            Object[] ignoreProperties = new Object[]{};
+            Parameters.requireNotNull(lenderContactBO.getLender_id(), "lenderId不能为空");
             if (!lenderService.existLenderBankCard(lenderContactBO.getLender_id())) {
-                ignoreProperties = new Object[]{"contact_id"};
+                Parameters.requireNotNull(lenderContactBO.getContact_id(), "contact_id不能为空");
             }
-            Parameters.requireAllPropertyNotNull(lenderContactBO, ignoreProperties);
+            Parameters.requireAllPropertyNotNull(lenderContactBO);
         });
         return lenderService.saveOrUpdateContact(lenderContactBOList);
     }
 
     @Override
     public Integer submitLenderBankCard(LenderBankCardBO lenderBankCardBO) {
-        if(null == lenderBankCardBO.getLender_id()) {
-            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "lenderId不能为空");
-        }
-        Object[] ignoreProperties = new Object[]{};
+        Parameters.requireNotNull(lenderBankCardBO.getLender_id(), "lenderId不能为空");
         if(!lenderService.existLenderBankCard(lenderBankCardBO.getLender_id())) {
-            ignoreProperties = new Object[]{"bank_card_id"};
+            Parameters.requireNotNull(lenderBankCardBO.getBank_card_id(), "bank_card_id不能为空");
         }
-        Parameters.requireAllPropertyNotNull(lenderBankCardBO, ignoreProperties);
         return lenderService.saveOrUpdateBankCard(lenderBankCardBO);
     }
 
@@ -199,26 +190,31 @@ public class LenderWechatBusinessImpl implements DubboApplyLenderWechatBusiness 
 
     @Override
     public String findBankCardNumber(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return lenderBankCardMapper.selectBankCardNumber(lenderId);
     }
 
     @Override
     public Integer findLenderId(String customerId) {
+        Parameters.requireNotNull(customerId, "customerId不能为空");
         return lenderMapper.selectPrimaryKeyByCustomerId(customerId);
     }
 
     @Override
     public Integer findAddressId(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return lenderAddressMapper.selectPrimaryKeyByLenderId(lenderId);
     }
 
     @Override
     public List<Integer> findContactIdList(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return lenderContactMapper.selectPrimaryKeyByLenderId(lenderId);
     }
 
     @Override
     public Integer findBankCardId(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return lenderBankCardMapper.selectPrimaryKeyByLenderId(lenderId);
     }
 
