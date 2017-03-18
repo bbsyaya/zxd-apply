@@ -143,6 +143,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public int updateRepaymentStatus(Integer applyId) {
         ApplyStatusBO applyStatusBO = new ApplyStatusBO();
+        applyStatusBO.setApply_id(applyId);
         applyStatusBO.setApply_status(ApplyStatus.REPAYMENT_SETTLED);
         return applyMapper.updateStatusByPrimaryKey(applyStatusBO);
     }
