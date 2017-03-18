@@ -54,6 +54,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean isBeforeAMonthFromLastApply(Integer lenderId) {
+        Parameters.requireNotNull(lenderId, "lenderId不能为空");
         Date lastApplyTime = applyMapper.selectLastApplyTime(lenderId);
         return null != lastApplyTime && DateTime.now().minusMonths(1).isBefore(lastApplyTime.getTime());
     }
@@ -175,6 +176,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean submitRepaymentStatus(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
         return applyService.updateRepaymentStatus(applyId) > 0;
     }
 }
