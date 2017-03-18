@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.lender.bo;
 
+import com.zhixindu.commons.api.utils.MaskUtil;
+
 import java.io.Serializable;
 
 public class LenderBaseInfoBO implements Serializable {
@@ -55,6 +57,14 @@ public class LenderBaseInfoBO implements Serializable {
 
     public void setId_card(String id_card) {
         this.id_card = id_card == null ? null : id_card.trim();
+    }
+
+    public String getMaskMobile(){
+        return MaskUtil.maskMobile(getMobile());
+    }
+
+    public String getMaskIdCard(){
+        return MaskUtil.maskIdNo(getId_card());
     }
 
 }

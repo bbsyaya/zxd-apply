@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.zhixindu.commons:zxd-api:1.2.18.RELEASE',
+    compile 'com.zhixindu.commons:zxd-api:1.2.19.RELEASE',
             'org.projectlombok:lombok:1.16.8',
             'com.google.guava:guava:20.0',
             'joda-time:joda-time:2.9.2'

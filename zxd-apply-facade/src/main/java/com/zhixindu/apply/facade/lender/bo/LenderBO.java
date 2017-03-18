@@ -107,4 +107,13 @@ public class LenderBO extends LenderBaseInfoBO implements ILenderVerify,IApplyRe
                 || (null != getBank_card_verify() && !isBankCardVerified());
     }
 
+    @Override
+    public boolean isMobileVerified() {
+        return MobileVerify.VERIFIED.matches(getMobile_verify());
+    }
+
+    @Override
+    public boolean isBankCardVerified() {
+        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
+    }
 }

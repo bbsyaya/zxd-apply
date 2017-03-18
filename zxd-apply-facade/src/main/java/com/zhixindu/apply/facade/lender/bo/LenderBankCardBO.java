@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
+import com.zhixindu.commons.api.utils.MaskUtil;
 
 import java.io.Serializable;
 
@@ -86,5 +87,9 @@ public class LenderBankCardBO implements Serializable {
 
     public void setBank_card_verify(BankCardVerify bank_card_verify) {
         this.bank_card_verify = bank_card_verify;
+    }
+
+    public String getMaskBankCardNumber() {
+        return MaskUtil.maskBankCard(getBank_card_number());
     }
 }

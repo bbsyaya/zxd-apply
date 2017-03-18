@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.lender.bo;
 
 import com.zhixindu.apply.facade.lender.enums.MobileVerify;
+import com.zhixindu.commons.api.utils.MaskUtil;
 
 import java.io.Serializable;
 
@@ -65,5 +66,9 @@ public class LenderMobileVerifyBO implements IMobileVerify, Serializable{
     @Override
     public boolean isMobileVerified() {
         return MobileVerify.VERIFIED.matches(getMobile_verify());
+    }
+
+    public String getMaskMobile(){
+        return MaskUtil.maskMobile(getMobile());
     }
 }
