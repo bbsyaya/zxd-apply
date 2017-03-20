@@ -123,9 +123,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ProcessState processState = instanceBO.getProcess_state();
                 if (ProcessStep.SUBMIT.matches(processStep)) {
                     applyWorkflowBO.setProcess_result(processStep.getDesc());
-                } else if (ProcessStep.REPAYMENT.matches(processStep)){
-                    applyWorkflowBO.setProcess_result("待" + processStep.getDesc());
-                }else {
+                } else if(ProcessStep.REPAYMENT.matches(processStep)) {
+                    if(ProcessState.SUCCESS.matches(processState)) {
+                        applyWorkflowBO.setProcess_result("已结清");
+                    }
+                } else {
                     applyWorkflowBO.setProcess_result(processStep.getDesc() + processState.getDesc());
                 }
                 if(ProcessState.PROCESSING.matches(processState)) {
@@ -134,6 +136,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                     }else if(ProcessStep.LOAN.matches(processStep)) {
                         applyWorkflowBO.setProcess_time("工作日最快2小时");
                     }else if(ProcessStep.REPAYMENT.matches(processStep)) {
+                        applyWorkflowBO.setProcess_result("待还款");
                         applyWorkflowBO.setProcess_time("");
                     }
                 } else {
