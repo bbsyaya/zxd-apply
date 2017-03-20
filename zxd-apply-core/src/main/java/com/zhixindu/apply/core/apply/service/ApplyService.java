@@ -17,18 +17,18 @@ public interface ApplyService {
     Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
 
     /**
-     * 更新借款状态
-     * @param applyStatusBO
-     * @return
-     */
-    int updateLoanStatus(ApplyStatusBO applyStatusBO);
-
-    /**
      * 更新申请信用结果
      * @param applyCreditBO
      * @return
      */
     int updateApplyCredit(ApplyCreditBO applyCreditBO);
+
+    /**
+     * 更新借款状态
+     * @param applyStatusBO
+     * @return
+     */
+    int updateLoanStatus(ApplyStatusBO applyStatusBO);
 
     /**
      * 更新还款状态

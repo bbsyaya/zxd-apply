@@ -16,8 +16,8 @@ public class ApplyStatusBO implements Serializable {
     private Integer apply_id;
     /** 申请状态 */
     private ApplyStatus apply_status;
-    /** 放款时间 */
-    private Date loan_time;
+    /** 处理时间 */
+    private Date process_time;
 
     public Integer getApply_id() {
         return apply_id;
@@ -35,11 +35,11 @@ public class ApplyStatusBO implements Serializable {
         this.apply_status = apply_status;
     }
 
-    public Date getLoan_time() {
-        return loan_time;
+    public Date getProcess_time() {
+        return process_time;
     }
 
-    public void setLoan_time(Date loan_time) {
-        this.loan_time = loan_time;
+    public void setProcess_time(Date process_time) {
+        this.process_time = process_time;
     }
 }

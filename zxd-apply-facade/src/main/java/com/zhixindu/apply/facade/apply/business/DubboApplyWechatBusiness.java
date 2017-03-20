@@ -64,18 +64,18 @@ public interface DubboApplyWechatBusiness {
     ApplyBO findApply(Integer applyId);
 
     /**
-     * 提交放款状态
-     * @param applyStatusBO
-     * @return 是否成功
-     */
-    boolean submitLoanStatus(ApplyStatusBO applyStatusBO);
-
-    /**
      * 提交申请信用
      * @param applyCreditBO
      * @return 是否成功
      */
     boolean submitApplyCredit(ApplyCreditBO applyCreditBO);
+
+    /**
+     * 提交放款状态
+     * @param applyStatusBO
+     * @return 是否成功
+     */
+    boolean submitLoanStatus(ApplyStatusBO applyStatusBO);
 
     /**
      * 提交还款状态

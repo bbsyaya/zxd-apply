@@ -1,6 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.TermUnit;
+import com.zhixindu.commons.api.utils.MaskUtil;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -199,6 +200,10 @@ public class ApplyBaseInfoBO implements Serializable {
 
     public void setPrecision(BigDecimal precision) {
         this.precision = precision;
+    }
+
+    public String getMaskReiptCardNumber(){
+        return MaskUtil.maskBankCard(getReceipt_card_number());
     }
 
 }

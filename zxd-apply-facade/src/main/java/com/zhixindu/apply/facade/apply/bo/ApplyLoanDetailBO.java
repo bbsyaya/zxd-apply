@@ -1,5 +1,7 @@
 package com.zhixindu.apply.facade.apply.bo;
 
+import com.zhixindu.commons.api.utils.MaskUtil;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -83,5 +85,9 @@ public class ApplyLoanDetailBO extends ApplyLoanBO implements Serializable {
 
     public void setApplyLoanStepBOList(List<ApplyLoanStepBO> applyLoanStepBOList) {
         this.applyLoanStepBOList = applyLoanStepBOList;
+    }
+
+    public String getMaskReiptCardNumber(){
+        return MaskUtil.maskBankCard(getReceipt_card_number());
     }
 }

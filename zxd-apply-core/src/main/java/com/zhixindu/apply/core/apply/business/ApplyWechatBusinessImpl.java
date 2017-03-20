@@ -159,12 +159,6 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public boolean submitLoanStatus(ApplyStatusBO applyStatusBO) {
-        Parameters.requireAllPropertyNotNull(applyStatusBO);
-        return applyService.updateLoanStatus(applyStatusBO) > 0;
-    }
-
-    @Override
     public boolean submitApplyCredit(ApplyCreditBO applyCreditBO) {
         Object[] ignoreProperties = new Object[]{};
         if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
@@ -172,6 +166,12 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         Parameters.requireAllPropertyNotNull(applyCreditBO, ignoreProperties);
         return applyService.updateApplyCredit(applyCreditBO) > 0;
+    }
+
+    @Override
+    public boolean submitLoanStatus(ApplyStatusBO applyStatusBO) {
+        Parameters.requireAllPropertyNotNull(applyStatusBO);
+        return applyService.updateLoanStatus(applyStatusBO) > 0;
     }
 
     @Override

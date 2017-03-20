@@ -6,6 +6,7 @@
 package com.zhixindu.apply.facade.apply.enums;
 
 import com.google.common.collect.ImmutableMap;
+import com.zhixindu.apply.facade.lender.enums.ApplyResult;
 import com.zhixindu.commons.api.IEnum;
 
 import java.util.HashMap;
@@ -19,21 +20,23 @@ import java.util.Map;
  */
 public enum ApplyStatus implements IEnum<Integer> {
 
-    UNDER_REVIEW(1, "审核中", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.PROCESSING)),
-    REVIEW_SUCCESS(2, "审核成功", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.SUCCESS)),
-    REVIEW_FAIL(3, "审核失败", ImmutableMap.of(ProcessStep.REVIEW, ProcessState.FAIL)),
-    UNDER_LOAN(4, "放款中", ImmutableMap.of(ProcessStep.LOAN, ProcessState.PROCESSING)),
-    LOAN_SUCCESS(5, "放款成功", ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
-    LOAN_FAIL(6, "放款失败", ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL)),
-    REPAYMENT_SETTLED(7, "已结清", null);
+    UNDER_REVIEW(1, "审核中", null, ImmutableMap.of(ProcessStep.REVIEW, ProcessState.PROCESSING)),
+    REVIEW_SUCCESS(2, "审核成功", ApplyResult.APPROVE, ImmutableMap.of(ProcessStep.REVIEW, ProcessState.SUCCESS)),
+    REVIEW_FAIL(3, "审核失败", ApplyResult.REJECT, ImmutableMap.of(ProcessStep.REVIEW, ProcessState.FAIL)),
+    UNDER_LOAN(4, "放款中", null, ImmutableMap.of(ProcessStep.LOAN, ProcessState.PROCESSING)),
+    LOAN_SUCCESS(5, "放款成功", ApplyResult.APPROVE, ImmutableMap.of(ProcessStep.LOAN, ProcessState.SUCCESS)),
+    LOAN_FAIL(6, "放款失败", ApplyResult.REJECT, ImmutableMap.of(ProcessStep.LOAN, ProcessState.FAIL)),
+    REPAYMENT_SETTLED(7, "已结清", ApplyResult.APPROVE, ImmutableMap.of(ProcessStep.REPAYMENT, ProcessState.SUCCESS));
 
     private int value;
     private String desc;
+    private ApplyResult applyResult;
     private Map<ProcessStep, ProcessState> definitionStateMapping;
 
-    ApplyStatus(int value, String desc, Map<ProcessStep, ProcessState> definitionStateMapping) {
+    ApplyStatus(int value, String desc, ApplyResult applyResult, Map<ProcessStep, ProcessState> definitionStateMapping) {
         this.value = value;
         this.desc = desc;
+        this.applyResult = applyResult;
         this.definitionStateMapping = definitionStateMapping;
     }
 
@@ -75,11 +78,27 @@ public enum ApplyStatus implements IEnum<Integer> {
         return mappings.get(applyStatus);
     }
 
-    public ProcessStep getStepDefinition(){
+    public ApplyResult getApplyResult() {
+        return applyResult;
+    }
+
+    public ProcessStep getProcessStep(){
         return definitionStateMapping.keySet().iterator().next();
     }
 
-    public ProcessState getStepState(){
+    public ProcessState getProcessState(){
         return definitionStateMapping.values().iterator().next();
+    }
+
+    public static ApplyResult getApplyResult(ApplyStatus applyStatus) {
+        return resolve(applyStatus.getValue()).getApplyResult();
+    }
+
+    public static ProcessStep getProcessStep(ApplyStatus applyStatus){
+        return resolve(applyStatus.getValue()).getProcessStep();
+    }
+
+    public static ProcessState getProcessState(ApplyStatus applyStatus){
+        return resolve(applyStatus.getValue()).getProcessState();
     }
 }
