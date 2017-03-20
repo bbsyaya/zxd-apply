@@ -176,7 +176,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO) {
-        Parameters.requireAllPropertyNotNull(applyStatusBO);
+        Parameters.requireAllPropertyNotNull(applyStatusBO, new Object[]{"apply_status"});
         return applyService.updateRepaymentStatus(applyStatusBO) > 0;
     }
 }
