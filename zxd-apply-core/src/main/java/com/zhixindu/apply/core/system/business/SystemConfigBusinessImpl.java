@@ -74,13 +74,14 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     }
 
     @Override
-    public String getAttributionCity(Integer regionCode) {
-        Parameters.requireNotNull(regionCode, "regionCode不能为空");
+    public String getAttributionCity(String idCardNumber) {
+        Parameters.requireNotNull(idCardNumber, "idCardNumber不能为空");
+        Integer regionCode = Integer.valueOf(idCardNumber.substring(0, 6));
         Optional<IdCardAttributionBO> optional = idCardAttributionCacheManager.getIdCardAttribution(regionCode);
         if(optional.isPresent()) {
             return optional.get().getCity_name();
         }
-        return getRegionFullName(Integer.valueOf(regionCode.toString().substring(0, 4)));
+        return getRegionFullName(Integer.valueOf(idCardNumber.substring(0, 4)));
     }
 
 }

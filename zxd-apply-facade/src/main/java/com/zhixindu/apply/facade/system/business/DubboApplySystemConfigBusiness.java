@@ -55,10 +55,10 @@ public interface DubboApplySystemConfigBusiness {
     BankBaseBO getBank(String bankCardNumber);
 
     /**
-     * 根据行政区划代码获取归属地城市
-     * @param regionCode
+     * 根据行身份证号码获取归属地城市
+     * @param idCardNumber
      * @return
      */
-    String getAttributionCity(Integer regionCode);
+    String getAttributionCity(String idCardNumber);
 
 }

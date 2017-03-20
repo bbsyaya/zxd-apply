@@ -93,7 +93,7 @@
         where attribution_id = #{attribution_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+    <select id="selectAll" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
         from id_card_attribution
     </select>
