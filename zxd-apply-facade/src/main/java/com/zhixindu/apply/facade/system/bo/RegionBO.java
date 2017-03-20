@@ -9,8 +9,6 @@ public class RegionBO extends RegionBaseBO implements Serializable {
     private static final long serialVersionUID = -1462132026717362545L;
     /** 行政区划ID */
     private Integer region_id;
-    /** 行政区名称（不含单位） */
-    private String name;
     /** 行政单位 */
     private String suffix;
     /** 全拼 */
@@ -26,14 +24,6 @@ public class RegionBO extends RegionBaseBO implements Serializable {
 
     public void setRegion_id(Integer region_id) {
         this.region_id = region_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
     }
 
     public String getSuffix() {

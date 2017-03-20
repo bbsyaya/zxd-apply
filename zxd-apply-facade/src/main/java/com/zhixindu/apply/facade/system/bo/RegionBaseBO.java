@@ -11,6 +11,8 @@ public class RegionBaseBO implements Serializable {
 
     /** 区划代码 */
     private Integer code;
+    /** 行政区名称（不含单位） */
+    private String name;
     /** 全名 */
     private String full_name;
     /** 区划级别（1省，2市，3区/县） */
@@ -26,12 +28,28 @@ public class RegionBaseBO implements Serializable {
         this.code = code;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getFull_name() {
         return full_name;
     }
 
     public void setFull_name(String full_name) {
         this.full_name = full_name;
+    }
+
+    public Integer getRegion_level() {
+        return region_level;
+    }
+
+    public void setRegion_level(Integer region_level) {
+        this.region_level = region_level;
     }
 
     public Integer getParent_code() {
