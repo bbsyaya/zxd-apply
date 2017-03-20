@@ -79,9 +79,9 @@ public interface DubboApplyWechatBusiness {
 
     /**
      * 提交还款状态
-     * @param applyId
+     * @param applyStatusBO
      * @return
      */
-    boolean submitRepaymentStatus(Integer applyId);
+    boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO);
 
 }

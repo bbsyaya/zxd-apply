@@ -32,9 +32,9 @@ public interface ApplyService {
 
     /**
      * 更新还款状态
-     * @param applyId
+     * @param applyStatusBO
      * @return
      */
-    int updateRepaymentStatus(Integer applyId);
+    int updateRepaymentStatus(ApplyStatusBO applyStatusBO);
 
 }

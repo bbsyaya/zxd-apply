@@ -103,14 +103,12 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int updateRepaymentStatus(Integer applyId) {
-        ApplyStatusBO applyStatusBO = new ApplyStatusBO();
-        applyStatusBO.setApply_id(applyId);
+    public int updateRepaymentStatus(ApplyStatusBO applyStatusBO) {
         applyStatusBO.setApply_status(ApplyStatus.REPAYMENT_SETTLED);
         int rows = applyMapper.updateStatusByPrimaryKey(applyStatusBO);
 
         ProcessState processState = ApplyStatus.getProcessState(applyStatusBO.getApply_status());
-        applyStepService.completeStep(applyId, ProcessStep.REPAYMENT, applyStatusBO.getProcess_time(), processState);
+        applyStepService.completeStep(applyStatusBO.getApply_id(), ProcessStep.REPAYMENT, applyStatusBO.getProcess_time(), processState);
         return rows;
     }
 
