@@ -121,9 +121,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
                 ProcessStep processStep = instanceBO.getProcess_step();
                 ProcessState processState = instanceBO.getProcess_state();
-                if(ProcessStep.SUBMIT.matches(processStep)) {
+                if (ProcessStep.SUBMIT.matches(processStep)) {
                     applyWorkflowBO.setProcess_result(processStep.getDesc());
-                } else {
+                } else if (ProcessStep.REPAYMENT.matches(processStep)){
+                    applyWorkflowBO.setProcess_result("待" + processStep.getDesc());
+                }else {
                     applyWorkflowBO.setProcess_result(processStep.getDesc() + processState.getDesc());
                 }
                 if(ProcessState.PROCESSING.matches(processState)) {
@@ -131,6 +133,8 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                         applyWorkflowBO.setProcess_time("审核时间最多5分钟");
                     }else if(ProcessStep.LOAN.matches(processStep)) {
                         applyWorkflowBO.setProcess_time("工作日最快2小时");
+                    }else if(ProcessStep.REPAYMENT.matches(processStep)) {
+                        applyWorkflowBO.setProcess_time("");
                     }
                 } else {
                     applyWorkflowBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString
