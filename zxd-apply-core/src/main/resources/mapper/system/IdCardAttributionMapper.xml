@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhixindu.apply.core.system.dao.IdCardAttributionBOMapper">
+<mapper namespace="com.zhixindu.apply.core.system.dao.IdCardAttributionMapper">
     <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
         <id column="attribution_id" jdbcType="INTEGER" property="attribution_id"/>
         <result column="region_code" jdbcType="INTEGER" property="region_code"/>
