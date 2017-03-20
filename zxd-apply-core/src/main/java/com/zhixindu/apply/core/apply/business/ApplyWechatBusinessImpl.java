@@ -121,27 +121,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
                 ProcessStep processStep = instanceBO.getProcess_step();
                 ProcessState processState = instanceBO.getProcess_state();
-                if (ProcessStep.SUBMIT.matches(processStep)) {
-                    applyWorkflowBO.setProcess_result(processStep.getDesc());
-                } else if(ProcessStep.REPAYMENT.matches(processStep)) {
-                    if(ProcessState.SUCCESS.matches(processState)) {
-                        applyWorkflowBO.setProcess_result("已结清");
-                    }
-                } else {
-                    applyWorkflowBO.setProcess_result(processStep.getDesc() + processState.getDesc());
-                }
+                applyWorkflowBO.setProcess_result(ApplyStatus.resolve(processStep, processState).getDesc());
                 if(ProcessState.PROCESSING.matches(processState)) {
-                    if(ProcessStep.REVIEW.matches(processStep)) {
-                        applyWorkflowBO.setProcess_time("审核时间最多5分钟");
-                    }else if(ProcessStep.LOAN.matches(processStep)) {
-                        applyWorkflowBO.setProcess_time("工作日最快2小时");
-                    }else if(ProcessStep.REPAYMENT.matches(processStep)) {
-                        applyWorkflowBO.setProcess_result("待还款");
-                        applyWorkflowBO.setProcess_time("");
-                    }
+                    applyWorkflowBO.setProcess_time(processStep.getProcessDesc());
                 } else {
-                    applyWorkflowBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString
-                            ("yyyy-MM-dd HH:mm:ss"));
+                    applyWorkflowBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString("yyyy-MM-dd HH:mm:ss"));
                 }
                 return applyWorkflowBO;
             }).collect(Collectors.toList());

@@ -10,14 +10,17 @@ import java.util.Map;
  * Created by SteveGuo on 2017/3/7.
  */
 public enum ProcessStep implements IEnum<Integer> {
-    SUBMIT(1, "提交申请"), REVIEW(2, "审核"), LOAN(3, "放款"), REPAYMENT(4, "还款");
+    SUBMIT(1, "提交申请", ""), REVIEW(2, "审核", "审核时间最多5分钟"),
+    LOAN(3, "放款", "工作日最快2小时"), REPAYMENT(4, "还款", "");
 
     private int value;
     private String desc;
+    private String processDesc;
 
-    ProcessStep(int value, String desc) {
+    ProcessStep(int value, String desc, String processDesc) {
         this.value = value;
         this.desc = desc;
+        this.processDesc = processDesc;
     }
 
     @Override
@@ -28,6 +31,10 @@ public enum ProcessStep implements IEnum<Integer> {
     @Override
     public String getDesc() {
         return desc;
+    }
+
+    public String getProcessDesc() {
+        return processDesc;
     }
 
     @Override

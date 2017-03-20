@@ -386,7 +386,7 @@
         count(apply_id)
         from apply
         where lender_id = #{lender_id,jdbcType=INTEGER}
-        and apply_status in(1,2,4,5)
+        and apply_status in(1,2,4,5,7)
     </select>
 
     <select id="selectLastApplyTime" parameterType="java.lang.Integer" resultType="java.util.Date">

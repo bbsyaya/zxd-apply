@@ -70,14 +70,14 @@ public class ApplyServiceImpl implements ApplyService {
         Integer applyId = applyCreditBO.getApply_id();
         applyResultBO.setLender_id(applyMapper.selectLenderIdByPrimaryKey(applyId));
         applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
-        applyResultBO.setApply_result(ApplyStatus.getApplyResult(applyCreditBO.getApply_status()));
+        applyResultBO.setApply_result(applyCreditBO.getApply_status().getApplyResult());
         // 审核失败才会更新审核拒绝时间
         if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
             applyResultBO.setReject_time(new Date());
         }
         rows += lenderMapper.updateApplyResult(applyResultBO);
 
-        ProcessState processState = ApplyStatus.getProcessState(applyCreditBO.getApply_status());
+        ProcessState processState = applyCreditBO.getApply_status().getProcessState();
         applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
         // 审核成功才有下一步放款
         if(ApplyStatus.REVIEW_SUCCESS.matches(applyCreditBO.getApply_status())) {
@@ -92,7 +92,7 @@ public class ApplyServiceImpl implements ApplyService {
         int rows = applyMapper.updateStatusByPrimaryKey(applyStatusBO);
 
         Integer applyId = applyStatusBO.getApply_id();
-        ProcessState processState = ApplyStatus.getProcessState(applyStatusBO.getApply_status());
+        ProcessState processState = applyStatusBO.getApply_status().getProcessState();
         applyStepService.completeStep(applyId, ProcessStep.LOAN, applyStatusBO.getProcess_time(), processState);
         // 放款成功才有下一步结清
         if(ApplyStatus.LOAN_SUCCESS.matches(applyStatusBO.getApply_status())) {
@@ -107,7 +107,7 @@ public class ApplyServiceImpl implements ApplyService {
         applyStatusBO.setApply_status(ApplyStatus.REPAYMENT_SETTLED);
         int rows = applyMapper.updateStatusByPrimaryKey(applyStatusBO);
 
-        ProcessState processState = ApplyStatus.getProcessState(applyStatusBO.getApply_status());
+        ProcessState processState = applyStatusBO.getApply_status().getProcessState();
         applyStepService.completeStep(applyStatusBO.getApply_id(), ProcessStep.REPAYMENT, applyStatusBO.getProcess_time(), processState);
         return rows;
     }
