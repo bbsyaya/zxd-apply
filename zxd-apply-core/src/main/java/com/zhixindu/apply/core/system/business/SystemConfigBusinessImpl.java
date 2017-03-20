@@ -1,11 +1,13 @@
 package com.zhixindu.apply.core.system.business;
 
 import com.zhixindu.apply.core.system.cache.BankCacheManager;
+import com.zhixindu.apply.core.system.cache.IdCardAttributionCacheManager;
 import com.zhixindu.apply.core.system.cache.RegionCacheManager;
 import com.zhixindu.apply.core.system.enums.BinLength;
 import com.zhixindu.apply.core.system.exception.UnSupportedBankException;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.system.bo.BankBaseBO;
+import com.zhixindu.apply.facade.system.bo.IdCardAttributionBO;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
 import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
 import com.zhixindu.commons.annotation.Business;
@@ -25,6 +27,8 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
     private RegionCacheManager regionCacheManager;
     @Inject
     private BankCacheManager bankCacheManager;
+    @Inject
+    private IdCardAttributionCacheManager idCardAttributionCacheManager;
     @Inject
     private SystemConfigService systemConfigService;
 
@@ -67,6 +71,16 @@ public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness 
             }
         }
         throw new UnSupportedBankException();
+    }
+
+    @Override
+    public String getAttributionCity(Integer regionCode) {
+        Parameters.requireNotNull(regionCode, "regionCode不能为空");
+        Optional<IdCardAttributionBO> optional = idCardAttributionCacheManager.getIdCardAttribution(regionCode);
+        if(optional.isPresent()) {
+            return optional.get().getCity_name();
+        }
+        return getRegionFullName(Integer.valueOf(regionCode.toString().substring(0, 4)));
     }
 
 }
