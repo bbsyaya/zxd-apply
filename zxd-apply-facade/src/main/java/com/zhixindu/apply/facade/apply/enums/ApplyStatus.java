@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public enum ApplyStatus implements IEnum<Integer> {
 
+    SUBMIT_SUCCESS(0, "提交申请", ApplyResult.APPROVE, ProcessStep.SUBMIT, ProcessState.SUCCESS),
     UNDER_REVIEW(1, "审核中", null, ProcessStep.REVIEW, ProcessState.PROCESSING),
     REVIEW_SUCCESS(2, "审核成功", ApplyResult.APPROVE, ProcessStep.REVIEW, ProcessState.SUCCESS),
     REVIEW_FAIL(3, "审核失败", ApplyResult.REJECT, ProcessStep.REVIEW, ProcessState.FAIL),
@@ -100,6 +101,10 @@ public enum ApplyStatus implements IEnum<Integer> {
 
     public ProcessState getProcessState(){
         return processState;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(ApplyStatus.resolve(ProcessStep.REPAYMENT, ProcessState.PROCESSING).getDesc());
     }
 
 }
