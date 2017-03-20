@@ -95,7 +95,7 @@
 
     <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
         select <include refid="Base_Column_List"/>
-        from region
+        from id_card_attribution
     </select>
 
 </mapper>
