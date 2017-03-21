@@ -8,6 +8,7 @@ import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LenderVerifyBO;
+import com.zhixindu.commons.api.ServiceException;
 
 import java.util.List;
 
@@ -98,7 +99,7 @@ public interface DubboApplyLenderWechatBusiness {
      * @param lenderMobileVerifyBO
      * @return 是否成功
      */
-    boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
+    boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO) throws ServiceException;
 
     /**
      * 重置手机号码验证
@@ -106,41 +107,41 @@ public interface DubboApplyLenderWechatBusiness {
      * @param mobile
      * @return
      */
-    boolean resetLenderMobileVerify(Integer lenderId, String mobile);
+    boolean resetLenderMobileVerify(Integer lenderId, String mobile) throws ServiceException;
 
     /**
      * 查找银行卡号
      * @param lenderId
      * @return 银行卡号
      */
-    String findBankCardNumber(Integer lenderId);
+    String findBankCardNumber(Integer lenderId) throws ServiceException;
 
     /**
      * 通过客户ID获取借款人ID
      * @param customerId
      * @return
      */
-    Integer findLenderId(String customerId);
+    Integer findLenderId(String customerId) throws ServiceException;
 
     /**
      * 通过借款人ID获取地址ID
      * @param lenderId
      * @return
      */
-    Integer findAddressId(Integer lenderId);
+    Integer findAddressId(Integer lenderId) throws ServiceException;
 
     /**
      * 通过借款人ID获取联系人ID列表
      * @param lenderId
      * @return
      */
-    List<Integer> findContactIdList(Integer lenderId);
+    List<Integer> findContactIdList(Integer lenderId) throws ServiceException;
 
     /**
      * 通过借款人ID获取银行卡ID
      * @param lenderId
      * @return
      */
-    Integer findBankCardId(Integer lenderId);
+    Integer findBankCardId(Integer lenderId) throws ServiceException;
 
 }

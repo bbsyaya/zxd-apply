@@ -7,6 +7,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
+import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
 
 /**
@@ -19,69 +20,69 @@ public interface DubboApplyWechatBusiness {
      * @param lenderId
      * @return
      */
-    boolean isBeforeAMonthFromLastApply(Integer lenderId);
+    boolean isBeforeAMonthFromLastApply(Integer lenderId) throws ServiceException;
 
     /**
      * 是否有未结清的贷款申请
      * @param lenderId
      * @return
      */
-    boolean hasNotSettledApply(Integer lenderId);
+    boolean hasNotSettledApply(Integer lenderId) throws ServiceException;
 
     /**
      * 获取最新的申请记录，状态处于审核中、审核通过
      * @param lenderId
      * @return 申请借款基本信息
      */
-    ApplyBaseInfoBO findLatestReviewApply(Integer lenderId);
+    ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) throws ServiceException;
 
     /**
      * 提交申请借款
      * @param applyBaseInfoBO
      * @return 申请ID
      */
-    Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO);
+    Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) throws ServiceException;
 
     /**
      * 查询申请借款记录
      * @param pageParam
      * @return 申请借款分页结果
      */
-    PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam);
+    PageResult<ApplyLoanBO> findApplyLoanList(ApplyPageParam pageParam) throws ServiceException;
 
     /**
      * 查询申请借款详情
      * @param applyId
      * @return
      */
-    ApplyLoanDetailBO findApplyLoanDetail(Integer applyId);
+    ApplyLoanDetailBO findApplyLoanDetail(Integer applyId) throws ServiceException;
 
     /**
      * 获取申请基本信息
      * @param applyId
      * @return
      */
-    ApplyBO findApply(Integer applyId);
+    ApplyBO findApply(Integer applyId) throws ServiceException;
 
     /**
      * 提交申请信用
      * @param applyCreditBO
      * @return 是否成功
      */
-    boolean submitApplyCredit(ApplyCreditBO applyCreditBO);
+    boolean submitApplyCredit(ApplyCreditBO applyCreditBO) throws ServiceException;
 
     /**
      * 提交放款状态
      * @param applyStatusBO
      * @return 是否成功
      */
-    boolean submitLoanStatus(ApplyStatusBO applyStatusBO);
+    boolean submitLoanStatus(ApplyStatusBO applyStatusBO) throws ServiceException;
 
     /**
      * 提交还款状态
      * @param applyStatusBO
      * @return
      */
-    boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO);
+    boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO) throws ServiceException;
 
 }
