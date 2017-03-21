@@ -101,7 +101,7 @@ public interface DubboApplyLenderWechatBusiness {
     boolean submitLenderMobileVerify(LenderMobileVerifyBO lenderMobileVerifyBO);
 
     /**
-     * 充值手机号码验证
+     * 重置手机号码验证
      * @param lenderId
      * @param mobile
      * @return
