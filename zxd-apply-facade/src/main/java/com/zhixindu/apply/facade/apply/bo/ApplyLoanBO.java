@@ -30,6 +30,8 @@ public class ApplyLoanBO implements Serializable {
      * 申请状态
      */
     private String apply_status;
+    /** 申请状态值 */
+    private Integer apply_status_value;
 
     public Integer getApply_id() {
         return apply_id;
@@ -69,5 +71,13 @@ public class ApplyLoanBO implements Serializable {
 
     public void setApply_status(String apply_status) {
         this.apply_status = apply_status;
+    }
+
+    public Integer getApply_status_value() {
+        return apply_status_value;
+    }
+
+    public void setApply_status_value(Integer apply_status_value) {
+        this.apply_status_value = apply_status_value;
     }
 }
