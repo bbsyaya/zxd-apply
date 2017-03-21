@@ -12,7 +12,9 @@ import com.zhixindu.apply.facade.lender.bo.LenderBaseInfoBO;
 import com.zhixindu.apply.facade.lender.bo.LenderContactBO;
 import com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO;
 import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.lender.enums.BankCardVerify;
 import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
+import com.zhixindu.apply.facade.lender.enums.MobileVerify;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
 import org.springframework.beans.BeanUtils;
@@ -60,12 +62,14 @@ public class LenderServiceImpl implements LenderService {
 
     @Override
     public boolean hasMobileVerified(Integer lenderId) {
-        return null != lenderMapper.selectMobileVerifyByPrimaryKey(lenderId);
+        Integer mobileVerify = lenderMapper.selectMobileVerifyByPrimaryKey(lenderId);
+        return null != mobileVerify && MobileVerify.VERIFIED.matches(mobileVerify);
     }
 
     @Override
     public boolean hasBankCardVerified(Integer lenderId) {
-        return null != lenderMapper.selectBankCardVerifyByPrimaryKey(lenderId);
+        Integer bankCardVerify = lenderMapper.selectBankCardVerifyByPrimaryKey(lenderId);
+        return null != bankCardVerify && BankCardVerify.VERIFIED.matches(bankCardVerify);
     }
 
     @Transactional(rollbackFor = Exception.class)
