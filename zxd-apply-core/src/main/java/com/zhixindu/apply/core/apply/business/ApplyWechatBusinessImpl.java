@@ -6,6 +6,8 @@ import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.service.ApplyService;
+import com.zhixindu.apply.core.constant.ApplyErrorCode;
+import com.zhixindu.apply.core.lender.service.LenderService;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
@@ -44,6 +46,8 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Inject
     private ApplyService applyService;
     @Inject
+    private LenderService lenderService;
+    @Inject
     private ApplyMapper applyMapper;
     @Inject
     private ApplyStepMapper applyStepMapper;
@@ -74,8 +78,18 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
-        if(hasNotSettledApply(applyBaseInfoBO.getLender_id())) {
-            throw new ServiceException(ServiceCode.ILLEGAL_REQUEST, "有未结清的贷款申请");
+        Integer lenderId = applyBaseInfoBO.getLender_id();
+        if(!lenderService.hasMobileVerified(lenderId)) {
+            throw new ServiceException(ApplyErrorCode.MOBILE_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
+                    .MOBILE_NOT_VERIFIED.getDesc());
+        }
+        if(!lenderService.hasBankCardVerified(lenderId)) {
+            throw new ServiceException(ApplyErrorCode.BANK_CARD_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
+                    .BANK_CARD_NOT_VERIFIED.getDesc());
+        }
+        if(hasNotSettledApply(lenderId)) {
+            throw new ServiceException(ApplyErrorCode.HAS_NOT_SETTLED_APPLY.getErrorCode(), ApplyErrorCode
+                    .HAS_NOT_SETTLED_APPLY.getDesc());
         }
         return applyService.saveApplyLoan(applyBaseInfoBO);
     }
