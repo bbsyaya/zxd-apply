@@ -35,8 +35,8 @@ dependencies {
             'org.springframework:spring-oxm:4.2.5.RELEASE',
             'org.springframework:spring-test:4.2.5.RELEASE',
             /* zxd */
-            'com.zhixindu.commons:zxd-api:1.2.18.RELEASE',
-            'com.zhixindu.commons:zxd-commons-core:1.2.21-SNAPSHOT',
+            'com.zhixindu.commons:zxd-api:1.2.19.RELEASE',
+            'com.zhixindu.commons:zxd-commons-core:1.2.21.RELEASE',
             /* Log */
             'org.slf4j:slf4j-api:1.7.19',
             'org.slf4j:jcl-over-slf4j:1.7.19',
