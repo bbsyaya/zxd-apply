@@ -1,5 +1,5 @@
 group 'com.zhixindu.apply'
-version '1.0-SNAPSHOT'
+version '1.0.0.RELEASE'
 
 
 apply plugin: 'java'
@@ -16,8 +16,13 @@ repositories {
 }
 
 dependencies {
-    compile 'com.zhixindu.commons:zxd-api:1.2.10.RELEASE',
-            'org.projectlombok:lombok:1.16.8'
+    compile 'com.zhixindu.commons:zxd-api:1.2.19.RELEASE',
+            'org.projectlombok:lombok:1.16.8',
+            'com.google.guava:guava:20.0',
+            'joda-time:joda-time:2.9.2',
+            /* validate */
+            'javax.validation:validation-api:1.1.0.Final',
+            'org.hibernate:hibernate-validator:5.2.0.Final'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -37,7 +42,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             configuration = configurations.deployerJars
-            repository(url: "http://99.48.18.230:8081/repository/zxd-snapshots/") {
+            repository(url: "http://99.48.18.230:8081/repository/zxd-releases/") {
                 authentication(userName: "develop", password: "develop")
             }
             pom.version = version

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.lender.dao.LenderMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        <id column="lender_id" jdbcType="INTEGER" property="lender_id"/>
+        <result column="customer_id" jdbcType="VARCHAR" property="customer_id"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="service_password" jdbcType="VARCHAR" property="service_password"/>
+        <result column="operator_token" jdbcType="VARCHAR" property="operator_token" />
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="id_card" jdbcType="VARCHAR" property="id_card"/>
+        <result column="mobile_verify" jdbcType="INTEGER" property="mobile_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="apply_result" jdbcType="INTEGER" property="apply_result" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="reject_time" jdbcType="TIMESTAMP" property="reject_time" />
+        <result column="loan_fill_step" jdbcType="INTEGER" property="loan_fill_step" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="credit_score" jdbcType="INTEGER" property="credit_score" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      lender_id, customer_id, mobile, service_password, operator_token, `name`, id_card, mobile_verify, bank_card_verify,
+      apply_result, reject_time, loan_fill_step, credit_score
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lender
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender (customer_id, mobile, service_password, operator_token, `name`, id_card,
+        mobile_verify, bank_card_verify, apply_result, reject_time, loan_fill_step, credit_score)
+        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{service_password,jdbcType=VARCHAR},
+        #{operator_token,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
+        #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{reject_time,jdbcType=TIMESTAMP},
+        #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{credit_score,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customer_id != null">
+                customer_id,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="service_password != null">
+                service_password,
+            </if>
+            <if test="operator_token != null">
+                operator_token,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="id_card != null">
+                id_card,
+            </if>
+            <if test="mobile_verify != null">
+                mobile_verify,
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify,
+            </if>
+            <if test="apply_result != null">
+                apply_result,
+            </if>
+            <if test="reject_time != null">
+                reject_time,
+            </if>
+            <if test="loan_fill_step != null">
+                loan_fill_step,
+            </if>
+            <if test="credit_score != null">
+                credit_score,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customer_id != null">
+                #{customer_id,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="service_password != null">
+                #{service_password,jdbcType=VARCHAR},
+            </if>
+            <if test="operator_token != null">
+                #{operator_token,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="id_card != null">
+                #{id_card,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile_verify != null">
+                #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="bank_card_verify != null">
+                #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="apply_result != null">
+                #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="reject_time != null">
+                #{reject_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loan_fill_step != null">
+                #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="credit_score != null">
+                #{credit_score,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBaseInfo" parameterType="com.zhixindu.apply.core.lender.po.LenderBaseInfoPO">
+        <selectKey keyProperty="lender_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into lender (customer_id, mobile, `name`, id_card, loan_fill_step)
+        values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
+        #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        update lender
+        <set>
+            <if test="customer_id != null">
+                customer_id = #{customer_id,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="service_password != null">
+                service_password = #{service_password,jdbcType=VARCHAR},
+            </if>
+            <if test="operator_token != null">
+                operator_token = #{operator_token,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="id_card != null">
+                id_card = #{id_card,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile_verify != null">
+                mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="apply_result != null">
+                apply_result = #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="reject_time != null">
+                reject_time = #{reject_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loan_fill_step != null">
+                loan_fill_step = #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="credit_score != null">
+                credit_score = #{credit_score,jdbcType=INTEGER},
+            </if>
+        </set>
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBO">
+        update lender
+        set customer_id = #{customer_id,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=VARCHAR},
+        service_password = #{service_password,jdbcType=VARCHAR},
+        operator_token = #{operator_token,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
+        id_card = #{id_card,jdbcType=VARCHAR},
+        mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        reject_time = #{reject_time,jdbcType=TIMESTAMP},
+        loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_score = #{credit_score,jdbcType=INTEGER}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lender
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectPrimaryKeyByCustomerId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        lender_id
+        from lender
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countByCustomerId" parameterType="java.lang.String" resultType="int">
+        select
+        count(lender_id)
+        from lender
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectMobileVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        mobile_verify
+        from lender
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectBankCardVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        bank_card_verify
+        from lender
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderMobileVerifyBO">
+        update lender
+        set service_password = #{service_password,jdbcType=VARCHAR},
+        operator_token = #{operator_token,jdbcType=VARCHAR},
+        mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="resetMobileVerify">
+        update lender
+        set mobile = #{mobile,jdbcType=VARCHAR},
+        service_password = null,
+        operator_token = null,
+        mobile_verify = null
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.lender.bo.LenderBankCardVerifyBO">
+        update lender
+        set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateLoanFillStep" parameterType="com.zhixindu.apply.facade.lender.bo.LoanFillStepBO">
+        update lender
+        set loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateApplyResult" parameterType="com.zhixindu.apply.facade.lender.bo.ApplyResultBO">
+        update lender
+        set
+        <if test="null != reject_time">
+            reject_time = #{reject_time,jdbcType=TIMESTAMP},
+        </if>
+        apply_result = #{apply_result,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        credit_score = #{credit_score,jdbcType=VARCHAR}
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

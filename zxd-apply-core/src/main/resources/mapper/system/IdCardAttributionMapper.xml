@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.system.dao.IdCardAttributionMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+        <id column="attribution_id" jdbcType="INTEGER" property="attribution_id"/>
+        <result column="region_code" jdbcType="INTEGER" property="region_code"/>
+        <result column="region_name" jdbcType="VARCHAR" property="region_name"/>
+        <result column="city_code" jdbcType="INTEGER" property="city_code"/>
+        <result column="city_name" jdbcType="VARCHAR" property="city_name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        attribution_id, region_code, region_name, city_code, city_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from id_card_attribution
+        where attribution_id = #{attribution_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+        <selectKey keyProperty="attribution_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into id_card_attribution (region_code, region_name,
+          city_code, city_name)
+        values (#{region_code,jdbcType=INTEGER}, #{region_name,jdbcType=VARCHAR},
+          #{city_code,jdbcType=INTEGER}, #{city_name,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+        <selectKey keyProperty="attribution_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into id_card_attribution
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="region_code != null">
+                region_code,
+            </if>
+            <if test="region_name != null">
+                region_name,
+            </if>
+            <if test="city_code != null">
+                city_code,
+            </if>
+            <if test="city_name != null">
+                city_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="region_code != null">
+                #{region_code,jdbcType=INTEGER},
+            </if>
+            <if test="region_name != null">
+                #{region_name,jdbcType=VARCHAR},
+            </if>
+            <if test="city_code != null">
+                #{city_code,jdbcType=INTEGER},
+            </if>
+            <if test="city_name != null">
+                #{city_name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+        update id_card_attribution
+        <set>
+            <if test="region_code != null">
+                region_code = #{region_code,jdbcType=INTEGER},
+            </if>
+            <if test="region_name != null">
+                region_name = #{region_name,jdbcType=VARCHAR},
+            </if>
+            <if test="city_code != null">
+                city_code = #{city_code,jdbcType=INTEGER},
+            </if>
+            <if test="city_name != null">
+                city_name = #{city_name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where attribution_id = #{attribution_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.system.bo.IdCardAttributionBO">
+        update id_card_attribution
+        set region_code = #{region_code,jdbcType=INTEGER},
+          region_name = #{region_name,jdbcType=VARCHAR},
+          city_code = #{city_code,jdbcType=INTEGER},
+          city_name = #{city_name,jdbcType=VARCHAR}
+        where attribution_id = #{attribution_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from id_card_attribution
+    </select>
+
+</mapper>

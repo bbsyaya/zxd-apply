@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.system.dao.RegionMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.system.bo.RegionBO">
+        <id column="region_id" jdbcType="INTEGER" property="region_id"/>
+        <result column="code" jdbcType="INTEGER" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="suffix" jdbcType="VARCHAR" property="suffix"/>
+        <result column="full_name" jdbcType="VARCHAR" property="full_name"/>
+        <result column="pinyin" jdbcType="VARCHAR" property="pinyin"/>
+        <result column="py" jdbcType="VARCHAR" property="py"/>
+        <result column="level" jdbcType="INTEGER" property="level" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="parent_code" jdbcType="INTEGER" property="parent_code"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        region_id, code, `name`, suffix, full_name, pinyin, py, `level`, parent_code
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from region
+        where region_id = #{region_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.system.bo.RegionBO">
+        <selectKey keyProperty="region_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into region (code, `name`,
+          suffix, full_name, pinyin,
+          py, `level`, parent_code
+          )
+        values (#{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+          #{suffix,jdbcType=VARCHAR}, #{full_name,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR},
+          #{py,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{parent_code,jdbcType=INTEGER}
+          )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.system.bo.RegionBO">
+        <selectKey keyProperty="region_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into region
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="suffix != null">
+                suffix,
+            </if>
+            <if test="full_name != null">
+                full_name,
+            </if>
+            <if test="pinyin != null">
+                pinyin,
+            </if>
+            <if test="py != null">
+                py,
+            </if>
+            <if test="level != null">
+                `level`,
+            </if>
+            <if test="parent_code != null">
+                parent_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="suffix != null">
+                #{suffix,jdbcType=VARCHAR},
+            </if>
+            <if test="full_name != null">
+                #{full_name,jdbcType=VARCHAR},
+            </if>
+            <if test="pinyin != null">
+                #{pinyin,jdbcType=VARCHAR},
+            </if>
+            <if test="py != null">
+                #{py,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="parent_code != null">
+                #{parent_code,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.system.bo.RegionBO">
+        update region
+        <set>
+            <if test="code != null">
+                code = #{code,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="suffix != null">
+                suffix = #{suffix,jdbcType=VARCHAR},
+            </if>
+            <if test="full_name != null">
+                full_name = #{full_name,jdbcType=VARCHAR},
+            </if>
+            <if test="pinyin != null">
+                pinyin = #{pinyin,jdbcType=VARCHAR},
+            </if>
+            <if test="py != null">
+                py = #{py,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                `level` = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="parent_code != null">
+                parent_code = #{parent_code,jdbcType=INTEGER},
+            </if>
+        </set>
+        where region_id = #{region_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.system.bo.RegionBO">
+        update region
+        set code = #{code,jdbcType=INTEGER},
+          `name` = #{name,jdbcType=VARCHAR},
+          suffix = #{suffix,jdbcType=VARCHAR},
+          full_name = #{full_name,jdbcType=VARCHAR},
+          pinyin = #{pinyin,jdbcType=VARCHAR},
+          py = #{py,jdbcType=VARCHAR},
+          `level` = #{level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          parent_code = #{parent_code,jdbcType=INTEGER}
+        where region_id = #{region_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
+        select code, `name`, full_name, `level` as region_level, parent_code
+        from region
+    </select>
+
+    <select id="selectProvinceList" parameterType="java.lang.Integer"
+            resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
+        select code, `name`, full_name, `level` as region_level, parent_code
+        from region
+        where level = 1
+    </select>
+
+    <select id="selectListByParentCode" parameterType="java.lang.Integer"
+            resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
+        select code, `name`, full_name, `level` as region_level, parent_code
+        from region
+        where parent_code = #{parent_code,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByCode" parameterType="java.lang.Integer"
+            resultType="com.zhixindu.apply.facade.system.bo.RegionBaseBO">
+        select code, `name`, full_name, `level` as region_level, parent_code
+        from region
+        where code = #{parent_code,jdbcType=INTEGER}
+    </select>
+
+</mapper>

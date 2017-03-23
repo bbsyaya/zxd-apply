@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.system.dao.BankMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.system.bo.BankBO">
+        <id column="bank_id" jdbcType="INTEGER" property="bank_id"/>
+        <result column="bin" jdbcType="INTEGER" property="bin"/>
+        <result column="bin_length" jdbcType="INTEGER" property="bin_length"/>
+        <result column="card_type" jdbcType="INTEGER" property="card_type" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="card_level" jdbcType="INTEGER" property="card_level" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
+        <result column="card_name" jdbcType="VARCHAR" property="card_name"/>
+        <result column="card_full_name" jdbcType="VARCHAR" property="card_full_name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bank_id, bin, bin_length, card_type, card_level, bank_name, card_name, card_full_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bank
+        where bank_id = #{bank_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.system.bo.BankBO">
+        <selectKey keyProperty="bank_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into bank (bin, bin_length,
+          card_type, card_level, bank_name,
+          card_name, card_full_name)
+        values (#{bin,jdbcType=INTEGER}, #{bin_length,jdbcType=INTEGER},
+          #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{bank_name,jdbcType=VARCHAR}, #{card_name,jdbcType=VARCHAR}, #{card_full_name,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.system.bo.BankBO">
+        <selectKey keyProperty="bank_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into bank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bin != null">
+                bin,
+            </if>
+            <if test="bin_length != null">
+                bin_length,
+            </if>
+            <if test="card_type != null">
+                card_type,
+            </if>
+            <if test="card_level != null">
+                card_level,
+            </if>
+            <if test="bank_name != null">
+                bank_name,
+            </if>
+            <if test="card_name != null">
+                card_name,
+            </if>
+            <if test="card_full_name != null">
+                card_full_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bin != null">
+                #{bin,jdbcType=INTEGER},
+            </if>
+            <if test="bin_length != null">
+                #{bin_length,jdbcType=INTEGER},
+            </if>
+            <if test="card_type != null">
+                #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="card_level != null">
+                #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="bank_name != null">
+                #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="card_name != null">
+                #{card_name,jdbcType=VARCHAR},
+            </if>
+            <if test="card_full_name != null">
+                #{card_full_name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.system.bo.BankBO">
+        update bank
+        <set>
+            <if test="bin != null">
+                bin = #{bin,jdbcType=INTEGER},
+            </if>
+            <if test="bin_length != null">
+                bin_length = #{bin_length,jdbcType=INTEGER},
+            </if>
+            <if test="card_type != null">
+                card_type = #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="card_level != null">
+                card_level = #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="bank_name != null">
+                bank_name = #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="card_name != null">
+                card_name = #{card_name,jdbcType=VARCHAR},
+            </if>
+            <if test="card_full_name != null">
+                card_full_name = #{card_full_name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where bank_id = #{bank_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.system.bo.BankBO">
+        update bank
+        set bin = #{bin,jdbcType=INTEGER},
+          bin_length = #{bin_length,jdbcType=INTEGER},
+          card_type = #{card_type,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          card_level = #{card_level,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          bank_name = #{bank_name,jdbcType=VARCHAR},
+          card_name = #{card_name,jdbcType=VARCHAR},
+          card_full_name = #{card_full_name,jdbcType=VARCHAR}
+        where bank_id = #{bank_id,jdbcType=INTEGER}
+    </update>
+    
+    <select id="selectAll" resultType="com.zhixindu.apply.facade.system.bo.BankBaseBO">
+        select bank_id, bin, bank_name
+        from bank
+    </select>
+    
+</mapper>
