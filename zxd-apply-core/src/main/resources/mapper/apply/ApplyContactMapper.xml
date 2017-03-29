@@ -8,10 +8,11 @@
         <result column="contact_relationship" jdbcType="INTEGER" property="contact_relationship" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="contact_name" jdbcType="VARCHAR" property="contact_name"/>
         <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
-      contact_id, apply_id, applicant_id, contact_relationship, contact_name, contact_mobile
+      contact_id, apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -25,11 +26,10 @@
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_contact (apply_id, applicant_id, contact_relationship,
-          contact_name, contact_mobile)
+        insert into apply_contact (apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time)
         values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
           #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-          #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR})
+          #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
      </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
@@ -53,6 +53,9 @@
             <if test="contact_mobile != null">
                 contact_mobile,
             </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="apply_id != null">
@@ -69,6 +72,9 @@
             </if>
             <if test="contact_mobile != null">
                 #{contact_mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -91,6 +97,9 @@
             <if test="contact_mobile != null">
                 contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
             </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
@@ -101,15 +110,22 @@
             applicant_id = #{applicant_id,jdbcType=INTEGER},
             contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             contact_name = #{contact_name,jdbcType=VARCHAR},
-            contact_mobile = #{contact_mobile,jdbcType=VARCHAR}
+            contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+            create_time = #{create_time,jdbcType=TIMESTAMP}
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectLatestByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from apply_contact
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = (
+          select apply_id from apply_contact
+          where applicant_id = #{applicant_id,jdbcType=INTEGER}
+          group by apply_id, create_time
+          order by create_time desc
+          limit 0,1
+        )
     </select>
 
     <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">

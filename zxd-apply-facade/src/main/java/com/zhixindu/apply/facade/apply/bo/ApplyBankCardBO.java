@@ -38,6 +38,14 @@ public class ApplyBankCardBO implements Serializable {
         this.bank_card_id = bank_card_id;
     }
 
+    public Integer getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(Integer apply_id) {
+        this.apply_id = apply_id;
+    }
+
     public Integer getApplicant_id() {
         return applicant_id;
     }

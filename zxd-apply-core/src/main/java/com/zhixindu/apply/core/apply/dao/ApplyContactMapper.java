@@ -19,7 +19,7 @@ public interface ApplyContactMapper {
 
     int updateByPrimaryKeySelective(ApplyContactBO record);
 
-    List<ApplyContactBO> selectByApplicantId(Integer applicant_id);
+    List<ApplyContactBO> selectLatestByApplicantId(Integer applicant_id);
 
     List<Integer> selectPrimaryKeyByApplicantId(Integer applicant_id);
 

@@ -17,11 +17,11 @@ public interface ApplyBankCardMapper {
 
     int updateByPrimaryKeySelective(ApplyBankCardBO record);
 
-    ApplyBankCardBO selectByApplicantId(Integer applicant_id);
+    ApplyBankCardBO selectLatestByApplicantId(Integer applicant_id);
 
     Integer selectPrimaryKeyByApplicantId(Integer applicant_id);
 
-    String selectBankCardNumber(Integer applicant_id);
+    String selectBankCardNumber(Integer apply_id);
 
     int countByApplicantId(Integer applicant_id);
 }

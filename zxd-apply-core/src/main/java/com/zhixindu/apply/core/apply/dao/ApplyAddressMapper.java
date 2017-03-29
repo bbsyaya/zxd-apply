@@ -17,7 +17,7 @@ public interface ApplyAddressMapper {
 
     int updateByPrimaryKeySelective(ApplyAddressBO record);
 
-    ApplyAddressBO selectByApplicantId(Integer applicant_id);
+    ApplyAddressBO selectLatestByApplicantId(Integer applicant_id);
 
     Integer selectPrimaryKeyByApplicantId(Integer applicant_id);
 

@@ -11,11 +11,12 @@
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
         <result column="company_address_code" jdbcType="INTEGER" property="company_address_code"/>
         <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
       address_id, apply_id, applicant_id, home_address_code, home_address, work_state, company_name,
-      company_address_code, company_address
+      company_address_code, company_address, create_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -29,14 +30,13 @@
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_address (apply_id, applicant_id, home_address_code,
-          home_address, work_state, company_name,
-          company_address_code, company_address)
+        insert into apply_address (apply_id, applicant_id, home_address_code, home_address, work_state,
+          company_name, company_address_code, company_address, create_time)
         values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
           #{home_address_code,jdbcType=INTEGER}, #{home_address,jdbcType=VARCHAR},
           #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-          #{company_name,jdbcType=VARCHAR},
-          #{company_address_code,jdbcType=INTEGER}, #{company_address,jdbcType=VARCHAR})
+          #{company_name,jdbcType=VARCHAR}, #{company_address_code,jdbcType=INTEGER},
+          #{company_address,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
     </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
@@ -69,6 +69,9 @@
             <if test="company_address != null">
                 company_address,
             </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="apply_id != null">
@@ -95,9 +98,11 @@
             <if test="company_address != null">
                 #{company_address,jdbcType=VARCHAR},
             </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
-
 
     <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
         update apply_address
@@ -126,6 +131,9 @@
             <if test="company_address != null">
                 company_address = #{company_address,jdbcType=VARCHAR},
             </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where address_id = #{address_id,jdbcType=INTEGER}
     </update>
@@ -139,22 +147,27 @@
             work_state = #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             company_name = #{company_name,jdbcType=VARCHAR},
             company_address_code = #{company_address_code,jdbcType=INTEGER},
-            company_address = #{company_address,jdbcType=VARCHAR}
+            company_address = #{company_address,jdbcType=VARCHAR},
+            create_time = #{create_time,jdbcType=TIMESTAMP}
         where address_id = #{address_id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectLatestByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from apply_address
-        where applicant_id = #{applicant_id,jdbcType=INTEGER} limit 0,1
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
     </select>
 
     <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         address_id
         from apply_address
-        where applicant_id = #{applicant_id,jdbcType=INTEGER} limit 0,1
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
     </select>
 
     <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">

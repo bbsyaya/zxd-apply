@@ -31,6 +31,14 @@ public class ApplyContactBO implements Serializable {
         this.contact_id = contact_id;
     }
 
+    public Integer getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(Integer apply_id) {
+        this.apply_id = apply_id;
+    }
+
     public Integer getApplicant_id() {
         return applicant_id;
     }

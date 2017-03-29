@@ -89,15 +89,15 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyAddressBO findApplyAddress(Integer applicantId) {
+    public ApplyAddressBO findLatestApplyAddress(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        return applyAddressMapper.selectByApplicantId(applicantId);
+        return applyAddressMapper.selectLatestByApplicantId(applicantId);
     }
 
     @Override
-    public List<ApplyContactBO> findApplyContact(Integer applicantId) {
+    public List<ApplyContactBO> findLatestApplyContact(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplicantId(applicantId);
+        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectLatestByApplicantId(applicantId);
         if(CollectionUtils.isEmpty(applyContactBOList)){
             return Lists.newArrayListWithCapacity(0);
         }
@@ -105,9 +105,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyBankCardBO findApplyBankCard(Integer applicantId) {
+    public ApplyBankCardBO findLatestApplyBankCard(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplicantId(applicantId);
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectLatestByApplicantId(applicantId);
         if(null == applyBankCardBO) {
             throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
         }
@@ -159,6 +159,30 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);
         return applicantService.saveOrUpdateBankCard(applyBankCardBO);
+    }
+
+    @Override
+    public String findBankCardNumber(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applicantId不能为空");
+        return applyBankCardMapper.selectBankCardNumber(applyId);
+    }
+
+    @Override
+    public Integer findAddressId(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyAddressMapper.selectPrimaryKeyByApplicantId(applicantId);
+    }
+
+    @Override
+    public List<Integer> findContactIdList(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyContactMapper.selectPrimaryKeyByApplicantId(applicantId);
+    }
+
+    @Override
+    public Integer findBankCardId(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyBankCardMapper.selectPrimaryKeyByApplicantId(applicantId);
     }
 
     @Override

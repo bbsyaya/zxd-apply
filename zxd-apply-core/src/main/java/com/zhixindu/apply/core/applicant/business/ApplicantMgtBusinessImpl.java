@@ -56,16 +56,16 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
         }
         ApplicantMgtInfo applicantMgtInfo = new ApplicantMgtInfo();
         BeanUtils.copyProperties(applicantBO, applicantMgtInfo);
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplicantId(applicantBO.getApplicant_id());
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
         if(applyBankCardBO != null){
             applicantMgtInfo.setApplyBankCardBO(applyBankCardBO);
         }
 
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplicantId(applicantBO.getApplicant_id());
+        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
         if(CollectionUtils.isNotEmpty(applyContactBOList)){
             applicantMgtInfo.setApplyContactBOS(applyContactBOList);
         }
-        ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplicantId(applicantBO.getApplicant_id());
+        ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
         if(applyAddressBO != null){
             ApplyAddressMgtBO applyAddressMgtBO = new ApplyAddressMgtBO();
             BeanUtils.copyProperties(applyAddressBO,applyAddressMgtBO);

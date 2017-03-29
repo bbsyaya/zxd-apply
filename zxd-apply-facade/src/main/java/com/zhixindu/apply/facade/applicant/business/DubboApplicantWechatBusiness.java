@@ -2,12 +2,9 @@ package com.zhixindu.apply.facade.applicant.business;
 
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
-import com.zhixindu.apply.facade.applicant.bo.ApplicantInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
 import com.zhixindu.commons.api.ServiceException;
-
-import java.util.List;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -29,11 +26,11 @@ public interface DubboApplicantWechatBusiness {
     ApplicantBO findApplicant(String customerId);
 
     /**
-     * 申请借款
+     * 保存申请人信息
      * @param applicantBaseInfoBO
-     * @return 申请人和申请人地址信息
+     * @return 申请人ID
      */
-    ApplicantInfoBO applyLoan(ApplicantBaseInfoBO applicantBaseInfoBO);
+    Integer submitApplicant(ApplicantBaseInfoBO applicantBaseInfoBO);
 
     /**
      * 根据申请人ID查找申请人验证信息
@@ -65,38 +62,10 @@ public interface DubboApplicantWechatBusiness {
     boolean resetApplicantMobileVerify(Integer applicantId, String mobile) throws ServiceException;
 
     /**
-     * 查找银行卡号
-     * @param applicantId
-     * @return 银行卡号
-     */
-    String findBankCardNumber(Integer applicantId) throws ServiceException;
-
-    /**
      * 通过客户ID获取申请人ID
      * @param customerId
      * @return
      */
     Integer findApplicantId(String customerId) throws ServiceException;
-
-    /**
-     * 通过申请人ID获取地址ID
-     * @param applicantId
-     * @return
-     */
-    Integer findAddressId(Integer applicantId) throws ServiceException;
-
-    /**
-     * 通过申请人ID获取联系人ID列表
-     * @param applicantId
-     * @return
-     */
-    List<Integer> findContactIdList(Integer applicantId) throws ServiceException;
-
-    /**
-     * 通过申请人ID获取银行卡ID
-     * @param applicantId
-     * @return
-     */
-    Integer findBankCardId(Integer applicantId) throws ServiceException;
 
 }

@@ -8,9 +8,10 @@
         <result column="latitude" jdbcType="DECIMAL" property="latitude"/>
         <result column="longitude" jdbcType="DECIMAL" property="longitude"/>
         <result column="precision" jdbcType="DECIMAL" property="precision"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
     </resultMap>
     <sql id="Base_Column_List">
-      location_id, apply_id, open_id, latitude, longitude, `precision`
+      location_id, apply_id, open_id, latitude, longitude, `precision`, create_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -24,11 +25,10 @@
         <selectKey keyProperty="location_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_location (apply_id, open_id,
-          latitude, longitude, `precision`
-          )
+        insert into apply_location (apply_id, open_id, latitude, longitude, `precision`, create_time )
         values (#{apply_id,jdbcType=INTEGER}, #{open_id,jdbcType=VARCHAR},
-          #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, #{precision,jdbcType=DECIMAL}
+          #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, #{precision,jdbcType=DECIMAL},
+          #{create_time,jdbcType=TIMESTAMP}
           )
     </insert>
 
@@ -53,6 +53,9 @@
             <if test="precision != null">
                 `precision`,
             </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="apply_id != null">
@@ -69,6 +72,9 @@
             </if>
             <if test="precision != null">
                 #{precision,jdbcType=DECIMAL},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -91,6 +97,9 @@
             <if test="precision != null">
                 `precision` = #{precision,jdbcType=DECIMAL},
             </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where location_id = #{location_id,jdbcType=INTEGER}
     </update>
@@ -101,7 +110,8 @@
           open_id = #{open_id,jdbcType=VARCHAR},
           latitude = #{latitude,jdbcType=DECIMAL},
           longitude = #{longitude,jdbcType=DECIMAL},
-          `precision` = #{precision,jdbcType=DECIMAL}
+          `precision` = #{precision,jdbcType=DECIMAL},
+          create_time = #{create_time,jdbcType=TIMESTAMP}
         where location_id = #{location_id,jdbcType=INTEGER}
     </update>
 
