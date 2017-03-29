@@ -1,15 +1,22 @@
 package com.zhixindu.apply.core.apply.business;
 
 import com.google.common.collect.Lists;
+import com.zhixindu.apply.core.applicant.service.ApplicantService;
+import com.zhixindu.apply.core.apply.dao.ApplyAddressMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
-import com.zhixindu.apply.core.lender.service.LenderService;
+import com.zhixindu.apply.facade.applicant.enums.WorkState;
+import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
@@ -46,7 +53,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Inject
     private ApplyService applyService;
     @Inject
-    private LenderService lenderService;
+    private ApplicantService applicantService;
     @Inject
     private ApplyMapper applyMapper;
     @Inject
@@ -54,40 +61,119 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Inject
     private ApplyLocationMapper applyLocationMapper;
     @Inject
+    private ApplyAddressMapper applyAddressMapper;
+    @Inject
+    private ApplyContactMapper applyContactMapper;
+    @Inject
+    private ApplyBankCardMapper applyBankCardMapper;
+    @Inject
     private PageRepository pageRepository;
 
     @Override
-    public boolean isBeforeAMonthFromLastApply(Integer lenderId) {
-        Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        Date lastApplyTime = applyMapper.selectLastApplyTime(lenderId);
+    public boolean isBeforeAMonthFromLastApply(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        Date lastApplyTime = applyMapper.selectLastApplyTime(applicantId);
         return null != lastApplyTime && DateTime.now().minusMonths(1).isBefore(lastApplyTime.getTime());
     }
 
     @Override
-    public boolean hasNotSettledApply(Integer lenderId) {
-        Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        return applyMapper.countNotSettledApply(lenderId) > 0;
+    public boolean hasNotSettledApply(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyMapper.countNotSettledApply(applicantId) > 0;
     }
 
     @Override
-    public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
-        Parameters.requireNotNull(lenderId, "lenderId不能为空");
-        return applyMapper.selectLatestReviewByLenderId(lenderId);
+    public ApplyBaseInfoBO findLatestReviewApply(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyMapper.selectLatestReviewByApplicantId(applicantId);
+    }
+
+    @Override
+    public ApplyAddressBO findApplyAddress(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyAddressMapper.selectByApplicantId(applicantId);
+    }
+
+    @Override
+    public List<ApplyContactBO> findApplyContact(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplicantId(applicantId);
+        if(CollectionUtils.isEmpty(applyContactBOList)){
+            return Lists.newArrayListWithCapacity(0);
+        }
+        return applyContactBOList;
+    }
+
+    @Override
+    public ApplyBankCardBO findApplyBankCard(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplicantId(applicantId);
+        if(null == applyBankCardBO) {
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
+        }
+        applyBankCardBO.setBank_card_number(applyBankCardBO.getBank_card_number());
+        return applyBankCardBO;
+    }
+
+    @Override
+    public Integer submitApplyAddress(ApplyAddressBO applyAddressBO) {
+        Parameters.requireNotNull(applyAddressBO.getApplicant_id(), "applicantId不能为空");
+        Object[] ignoreProperties = new Object[]{};
+        if(applicantService.existApplicantAddress(applyAddressBO.getApplicant_id())) {
+            if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
+                ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
+            }
+        } else {
+            if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
+                ignoreProperties = new Object[]{"address_id", "company_name", "company_address_code", "company_address"};
+            } else {
+                ignoreProperties = new Object[]{"address_id"};
+            }
+        }
+        Parameters.requireAllPropertyNotNull(applyAddressBO, ignoreProperties);
+        return applicantService.saveOrUpdateAddress(applyAddressBO);
+    }
+
+    @Override
+    public List<Integer> submitApplyContact(List<ApplyContactBO> applyContactBOList) {
+        if(CollectionUtils.isEmpty(applyContactBOList)) {
+            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
+        }
+        applyContactBOList.forEach(applicantContactBO -> {
+            Parameters.requireNotNull(applicantContactBO.getApplicant_id(), "applicantId不能为空");
+            Object[] ignoreProperties = new Object[]{};
+            if (!applicantService.existApplicantBankCard(applicantContactBO.getApplicant_id())) {
+                ignoreProperties = new Object[]{"contact_id"};
+            }
+            Parameters.requireAllPropertyNotNull(applicantContactBO, ignoreProperties);
+        });
+        return applicantService.saveOrUpdateContact(applyContactBOList);
+    }
+
+    @Override
+    public Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO) {
+        Parameters.requireNotNull(applyBankCardBO.getApplicant_id(), "applicantId不能为空");
+        Object[] ignoreProperties = new Object[]{};
+        if(!applicantService.existApplicantBankCard(applyBankCardBO.getApplicant_id())) {
+            ignoreProperties = new Object[]{"bank_card_id"};
+        }
+        Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);
+        return applicantService.saveOrUpdateBankCard(applyBankCardBO);
     }
 
     @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
-        Integer lenderId = applyBaseInfoBO.getLender_id();
-        if(!lenderService.hasMobileVerified(lenderId)) {
+        Integer applicantId = applyBaseInfoBO.getApplicant_id();
+        if(!applicantService.hasMobileVerified(applicantId)) {
             throw new ServiceException(ApplyErrorCode.MOBILE_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
                     .MOBILE_NOT_VERIFIED.getDesc());
         }
-        if(!lenderService.hasBankCardVerified(lenderId)) {
+        if(!applicantService.hasBankCardVerified(applicantId)) {
             throw new ServiceException(ApplyErrorCode.BANK_CARD_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
                     .BANK_CARD_NOT_VERIFIED.getDesc());
         }
-        if(hasNotSettledApply(lenderId)) {
+        if(hasNotSettledApply(applicantId)) {
             throw new ServiceException(ApplyErrorCode.HAS_NOT_SETTLED_APPLY.getErrorCode(), ApplyErrorCode
                     .HAS_NOT_SETTLED_APPLY.getDesc());
         }

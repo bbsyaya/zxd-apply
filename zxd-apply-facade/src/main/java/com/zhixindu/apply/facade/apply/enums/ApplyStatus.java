@@ -5,7 +5,7 @@
  */
 package com.zhixindu.apply.facade.apply.enums;
 
-import com.zhixindu.apply.facade.lender.enums.ApplyResult;
+import com.zhixindu.apply.facade.applicant.enums.ApplyResult;
 import com.zhixindu.commons.api.IEnum;
 
 import java.util.Arrays;

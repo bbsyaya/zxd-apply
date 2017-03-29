@@ -22,7 +22,7 @@ public class ApplyMgtBO implements Serializable{
     /**申请ID**/
     private Integer apply_id;
     /**申请人ID**/
-    private String lender_id;
+    private String applicant_id;
     /**用户手机号**/
     private String mobile;
     /**用户姓名**/
@@ -52,12 +52,12 @@ public class ApplyMgtBO implements Serializable{
         this.apply_id = apply_id;
     }
 
-    public String getLender_id() {
-        return lender_id;
+    public String getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(String lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(String applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public String getMobile() {

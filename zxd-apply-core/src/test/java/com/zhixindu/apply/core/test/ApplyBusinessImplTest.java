@@ -5,7 +5,7 @@
  */
 package com.zhixindu.apply.core.test;
 
-import com.zhixindu.apply.core.app.WebAppConfig;
+import com.zhixindu.apply.core.app.ApplicationContextConfig;
 import com.zhixindu.apply.core.apply.business.ApplyMgtBusinessImpl;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
@@ -25,7 +25,7 @@ import javax.inject.Inject;
  * @description
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebAppConfig.class})
+@ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
 public class ApplyBusinessImplTest {
 

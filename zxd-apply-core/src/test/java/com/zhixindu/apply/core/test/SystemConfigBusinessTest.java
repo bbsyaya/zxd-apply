@@ -1,6 +1,6 @@
 package com.zhixindu.apply.core.test;
 
-import com.zhixindu.apply.core.app.WebAppConfig;
+import com.zhixindu.apply.core.app.ApplicationContextConfig;
 import com.zhixindu.apply.core.system.business.SystemConfigBusinessImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * Created by SteveGuo on 2017/3/13.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebAppConfig.class})
+@ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
 public class SystemConfigBusinessTest {
 

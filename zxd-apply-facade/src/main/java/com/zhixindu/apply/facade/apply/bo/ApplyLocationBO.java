@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class ApplyLocationBO implements Serializable {
+    private static final long serialVersionUID = -4834418728836590839L;
+    /** 位置ID */
     private Integer location_id;
-
+    /** 申请ID */
     private Integer apply_id;
-
+    /** 微信ID */
     private String open_id;
-
+    /** 地址位置纬度 */
     private BigDecimal latitude;
-
+    /** 地址位置经度 */
     private BigDecimal longitude;
-
+    /** 地址位置精度 */
     private BigDecimal precision;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getLocation_id() {
         return location_id;

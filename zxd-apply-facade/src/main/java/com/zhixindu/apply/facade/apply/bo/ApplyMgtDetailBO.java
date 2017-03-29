@@ -6,8 +6,6 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-import com.zhixindu.apply.facade.apply.enums.ProcessState;
-import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,7 +22,7 @@ public class ApplyMgtDetailBO implements Serializable {
     /**申请ID**/
     private Integer apply_id;
     /**申请人ID**/
-    private String lender_id;
+    private String applicant_id;
     /**用户手机号**/
     private String mobile;
     /**用户姓名**/
@@ -82,12 +80,12 @@ public class ApplyMgtDetailBO implements Serializable {
         this.apply_status_desc = apply_status_desc;
     }
 
-    public String getLender_id() {
-        return lender_id;
+    public String getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(String lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(String applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public String getMobile() {

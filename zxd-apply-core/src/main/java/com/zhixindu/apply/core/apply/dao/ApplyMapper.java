@@ -25,17 +25,17 @@ public interface ApplyMapper {
 
     int updateByPrimaryKey(ApplyPO record);
 
-    ApplyPO selectLatestReviewByLenderId(Integer lender_id);
+    ApplyPO selectLatestReviewByApplicantId(Integer applicant_id);
 
     List<ApplyMgtDetailBO> selectListForMgtByPage(ApplyMgtPageParam applyMgtPageParam);
 
     List<ApplyLoanDetailBO> selectListByPage(ApplyPageParam pageParam);
 
-    int countNotSettledApply(Integer lender_id);
+    int countNotSettledApply(Integer applicant_id);
 
-    Date selectLastApplyTime(Integer lender_id);
+    Date selectLastApplyTime(Integer applicant_id);
 
-    Integer selectLenderIdByPrimaryKey(Integer apply_id);
+    Integer selectApplicantIdByPrimaryKey(Integer apply_id);
 
     int updateStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
 

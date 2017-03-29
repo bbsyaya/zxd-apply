@@ -5,7 +5,7 @@
  */
 package com.zhixindu.apply.core.test;
 
-import com.zhixindu.apply.core.app.WebAppConfig;
+import com.zhixindu.apply.core.app.ApplicationContextConfig;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
  * @description
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebAppConfig.class})
+@ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
 public class ApplyWechatBusinessImpl {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplyWechatBusinessImpl.class);

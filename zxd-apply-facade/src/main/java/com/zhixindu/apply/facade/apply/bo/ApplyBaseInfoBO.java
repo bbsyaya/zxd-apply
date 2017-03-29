@@ -11,10 +11,10 @@ import java.math.BigDecimal;
  */
 public class ApplyBaseInfoBO implements Serializable {
     private static final long serialVersionUID = -8520843938618323270L;
-    /** 申请借款ID */
+    /** 申请ID */
     private Integer apply_id;
-    /** 借款人ID */
-    private Integer lender_id;
+    /** 申请人ID */
+    private Integer applicant_id;
     /** 客户ID */
     private String customer_id;
     /** 微信ID */
@@ -58,12 +58,12 @@ public class ApplyBaseInfoBO implements Serializable {
         this.apply_id = apply_id;
     }
 
-    public Integer getLender_id() {
-        return lender_id;
+    public Integer getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(Integer lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(Integer applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public String getCustomer_id() {

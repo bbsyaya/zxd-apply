@@ -14,9 +14,9 @@
     <dubbo:protocol name="dubbo" port="20788"/>
     <dubbo:consumer check="false" timeout="5000"/>
 
-    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderWechatBusiness"
+    <dubbo:service interface="com.zhixindu.apply.facade.applicant.business.DubboApplyApplicantWechatBusiness"
                    ref="lenderWechatBusiness"/>
-    <dubbo:service interface="com.zhixindu.apply.facade.lender.business.DubboApplyLenderMgtBusiness"
+    <dubbo:service interface="com.zhixindu.apply.facade.applicant.business.DubboApplyApplicantMgtBusiness"
                    ref="lenderMgtBusiness"/>
     <dubbo:service interface="com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness"
                    ref="applyWechatBusiness"/>

@@ -3,7 +3,7 @@ package com.zhixindu.apply.core.apply.service;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
-import com.zhixindu.apply.core.lender.dao.LenderMapper;
+import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
@@ -11,9 +11,9 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
-import com.zhixindu.apply.facade.lender.bo.ApplyResultBO;
-import com.zhixindu.apply.facade.lender.bo.LoanFillStepBO;
-import com.zhixindu.apply.facade.lender.enums.LoanFillStep;
+import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
+import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Inject
     private ApplyLocationMapper applyLocationMapper;
     @Inject
-    private LenderMapper lenderMapper;
+    private ApplicantMapper applicantMapper;
     @Inject
     private ApplyStepService applyStepService;
 
@@ -56,8 +56,8 @@ public class ApplyServiceImpl implements ApplyService {
 
         applyStepService.startStep(applyId, ProcessStep.REVIEW);
 
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getLender_id(), LoanFillStep.COMPLETE);
-        lenderMapper.updateLoanFillStep(loanFillStepBO);
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getApplicant_id(), LoanFillStep.COMPLETE);
+        applicantMapper.updateLoanFillStep(loanFillStepBO);
         return applyPO.getApply_id();
     }
 
@@ -68,14 +68,14 @@ public class ApplyServiceImpl implements ApplyService {
 
         ApplyResultBO applyResultBO = new ApplyResultBO();
         Integer applyId = applyCreditBO.getApply_id();
-        applyResultBO.setLender_id(applyMapper.selectLenderIdByPrimaryKey(applyId));
+        applyResultBO.setApplicant_id(applyMapper.selectApplicantIdByPrimaryKey(applyId));
         applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
         applyResultBO.setApply_result(applyCreditBO.getApply_status().getApplyResult());
         // 审核失败才会更新审核拒绝时间
         if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
             applyResultBO.setReject_time(new Date());
         }
-        rows += lenderMapper.updateApplyResult(applyResultBO);
+        rows += applicantMapper.updateApplyResult(applyResultBO);
 
         ProcessState processState = applyCreditBO.getApply_status().getProcessState();
         applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);

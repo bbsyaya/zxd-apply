@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyAddressMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+        <id column="address_id" jdbcType="INTEGER" property="address_id"/>
+        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
+        <result column="home_address_code" jdbcType="INTEGER" property="home_address_code"/>
+        <result column="home_address" jdbcType="VARCHAR" property="home_address"/>
+        <result column="work_state" jdbcType="INTEGER" property="work_state" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
+        <result column="company_address_code" jdbcType="INTEGER" property="company_address_code"/>
+        <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      address_id, apply_id, applicant_id, home_address_code, home_address, work_state, company_name,
+      company_address_code, company_address
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_address
+        where address_id = #{address_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+        <selectKey keyProperty="address_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_address (apply_id, applicant_id, home_address_code,
+          home_address, work_state, company_name,
+          company_address_code, company_address)
+        values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
+          #{home_address_code,jdbcType=INTEGER}, #{home_address,jdbcType=VARCHAR},
+          #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+          #{company_name,jdbcType=VARCHAR},
+          #{company_address_code,jdbcType=INTEGER}, #{company_address,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+        <selectKey keyProperty="address_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                apply_id,
+            </if>
+            <if test="applicant_id != null">
+                applicant_id,
+            </if>
+            <if test="home_address_code != null">
+                home_address_code,
+            </if>
+            <if test="home_address != null">
+                home_address,
+            </if>
+            <if test="work_state != null">
+                work_state,
+            </if>
+            <if test="company_name != null">
+                company_name,
+            </if>
+            <if test="company_address_code != null">
+                company_address_code,
+            </if>
+            <if test="company_address != null">
+                company_address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="applicant_id != null">
+                #{applicant_id,jdbcType=INTEGER},
+            </if>
+            <if test="home_address_code != null">
+                #{home_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="home_address != null">
+                #{home_address,jdbcType=VARCHAR},
+            </if>
+            <if test="work_state != null">
+                #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="company_name != null">
+                #{company_name,jdbcType=VARCHAR},
+            </if>
+            <if test="company_address_code != null">
+                #{company_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="company_address != null">
+                #{company_address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+        update apply_address
+        <set>
+            <if test="apply_id != null">
+                apply_id = #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="applicant_id != null">
+                applicant_id = #{applicant_id,jdbcType=INTEGER},
+            </if>
+            <if test="home_address_code != null">
+                home_address_code = #{home_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="home_address != null">
+                home_address = #{home_address,jdbcType=VARCHAR},
+            </if>
+            <if test="work_state != null">
+                work_state = #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="company_name != null">
+                company_name = #{company_name,jdbcType=VARCHAR},
+            </if>
+            <if test="company_address_code != null">
+                company_address_code = #{company_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="company_address != null">
+                company_address = #{company_address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where address_id = #{address_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+        update apply_address
+        set apply_id = #{apply_id,jdbcType=INTEGER},
+            applicant_id = #{applicant_id,jdbcType=INTEGER},
+            home_address_code = #{home_address_code,jdbcType=INTEGER},
+            home_address = #{home_address,jdbcType=VARCHAR},
+            work_state = #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            company_name = #{company_name,jdbcType=VARCHAR},
+            company_address_code = #{company_address_code,jdbcType=INTEGER},
+            company_address = #{company_address,jdbcType=VARCHAR}
+        where address_id = #{address_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_address
+        where applicant_id = #{applicant_id,jdbcType=INTEGER} limit 0,1
+    </select>
+
+    <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        address_id
+        from apply_address
+        where applicant_id = #{applicant_id,jdbcType=INTEGER} limit 0,1
+    </select>
+
+    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(address_id)
+        from apply_address
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>
