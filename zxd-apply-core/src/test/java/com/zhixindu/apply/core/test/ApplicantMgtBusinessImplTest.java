@@ -28,13 +28,13 @@ import javax.inject.Inject;
 public class ApplicantMgtBusinessImplTest {
 
     @Inject
-    private ApplicantMgtBusinessImpl lenderMgtBusiness;
+    private ApplicantMgtBusinessImpl applicantMgtBusiness;
 
 
     @Test
-    public void getLenderTest(){
+    public void getApplicantTest(){
         System.out.println("afsdfasfd");
-        System.out.println(JsonUtil.toJsonString(lenderMgtBusiness.findApplicantInfo(1)));
+        System.out.println(JsonUtil.toJsonString(applicantMgtBusiness.findApplicantInfo(1)));
     }
 
 }

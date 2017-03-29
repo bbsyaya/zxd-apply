@@ -10,7 +10,7 @@ import java.util.List;
  * 系统配置类都会默认先从缓存Redis里面查找，如果找不到再去数据库找
  * Created by SteveGuo on 2017/3/3.
  */
-public interface DubboApplySystemConfigBusiness {
+public interface DubboSystemConfigBusiness {
 
     /**
      * 获取所有的行政区域数据

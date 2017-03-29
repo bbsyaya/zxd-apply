@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
-public interface DubboApplyApplicantWechatBusiness {
+public interface DubboApplicantWechatBusiness {
 
     /**
      * 根据客户ID查找申请人信息

@@ -15,7 +15,7 @@ import com.zhixindu.commons.page.PageResult;
  * @date 2017/3/3
  * @description
  */
-public interface DubboApplyApplicantMgtBusiness {
+public interface DubboApplicantMgtBusiness {
 
     /**
      * 申请人列表

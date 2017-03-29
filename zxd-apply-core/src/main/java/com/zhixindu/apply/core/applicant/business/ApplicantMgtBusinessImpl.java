@@ -14,7 +14,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtInfo;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam;
-import com.zhixindu.apply.facade.applicant.business.DubboApplyApplicantMgtBusiness;
+import com.zhixindu.apply.facade.applicant.business.DubboApplicantMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
@@ -28,8 +28,8 @@ import java.util.List;
 /**
  * Created by SteveGuo on 2017/3/3.
  */
-@Business("lenderMgtBusiness")
-public class ApplicantMgtBusinessImpl implements DubboApplyApplicantMgtBusiness {
+@Business("applicantMgtBusiness")
+public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
 
     @Inject
     private ApplicantMapper applicantMapper;
@@ -49,35 +49,35 @@ public class ApplicantMgtBusinessImpl implements DubboApplyApplicantMgtBusiness 
 
     @Override
     public ApplicantMgtInfo findApplicantInfo(Integer applicant_id) throws ServiceException {
-        Parameters.requireNotNull(applicant_id,"findLenderInfo applicant_id illegal_param !");
-        ApplicantBO lender = applicantMapper.selectByPrimaryKey(applicant_id);
-        if(null == lender){
+        Parameters.requireNotNull(applicant_id,"findApplicantInfo applicant_id illegal_param !");
+        ApplicantBO applicantBO = applicantMapper.selectByPrimaryKey(applicant_id);
+        if(null == applicantBO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询的申请信息无结果!!!");
         }
         ApplicantMgtInfo applicantMgtInfo = new ApplicantMgtInfo();
-        BeanUtils.copyProperties(lender, applicantMgtInfo);
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplicantId(lender.getApplicant_id());
+        BeanUtils.copyProperties(applicantBO, applicantMgtInfo);
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplicantId(applicantBO.getApplicant_id());
         if(applyBankCardBO != null){
             applicantMgtInfo.setApplyBankCardBO(applyBankCardBO);
         }
 
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplicantId(lender.getApplicant_id());
+        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplicantId(applicantBO.getApplicant_id());
         if(CollectionUtils.isNotEmpty(applyContactBOList)){
             applicantMgtInfo.setApplyContactBOS(applyContactBOList);
         }
-        ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplicantId(lender.getApplicant_id());
+        ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplicantId(applicantBO.getApplicant_id());
         if(applyAddressBO != null){
-            ApplyAddressMgtBO lenderAddressMgtBO = new ApplyAddressMgtBO();
-            BeanUtils.copyProperties(applyAddressBO,lenderAddressMgtBO);
+            ApplyAddressMgtBO applyAddressMgtBO = new ApplyAddressMgtBO();
+            BeanUtils.copyProperties(applyAddressBO,applyAddressMgtBO);
             if(null != applyAddressBO.getHome_address_code()){
                 String homeAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getHome_address_code());
-                lenderAddressMgtBO.setHome_address_info(homeAddressInfo);
+                applyAddressMgtBO.setHome_address_info(homeAddressInfo);
             }
             if(null != applyAddressBO.getCompany_address_code()) {
                 String companyAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getCompany_address_code());
-                lenderAddressMgtBO.setCompany_address_info(companyAddressInfo);
+                applyAddressMgtBO.setCompany_address_info(companyAddressInfo);
             }
-            applicantMgtInfo.setLenderAddressMgtBO(lenderAddressMgtBO);
+            applicantMgtInfo.setApplyAddressMgtBO(applyAddressMgtBO);
         }
         return applicantMgtInfo;
     }

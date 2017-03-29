@@ -37,7 +37,6 @@ public class ApplicantWechatBusinessTest {
         applicantMobileVerifyBO.setApplicant_id(1);
         applicantMobileVerifyBO.setMobile("17091918167");
         applicantMobileVerifyBO.setMobile_verify(MobileVerify.VERIFIED);
-        //System.out.println(lenderMapper.updateMobileVerify(applicantMobileVerifyBO));
     }
 
     @Test
@@ -58,7 +57,7 @@ public class ApplicantWechatBusinessTest {
     }
 
     @Test
-    public void testSelectPrimaryKeyByLenderId(){
+    public void testSelectPrimaryKeyByApplicantId(){
         System.out.println(applyContactMapper.selectPrimaryKeyByApplicantId(30));
     }
 

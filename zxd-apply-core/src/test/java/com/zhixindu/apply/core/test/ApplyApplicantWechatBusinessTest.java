@@ -13,7 +13,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
-import com.zhixindu.apply.facade.applicant.business.DubboApplyApplicantWechatBusiness;
+import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.WorkState;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import org.junit.Test;
@@ -39,14 +39,14 @@ import java.util.List;
 public class ApplyApplicantWechatBusinessTest {
 
     @Inject
-    private DubboApplyApplicantWechatBusiness lenderWechatBusiness;
+    private DubboApplicantWechatBusiness applicantWechatBusiness;
     @Inject
     private DubboApplyWechatBusiness applyWechatBusiness;
     @Inject
     private ApplyLocationMapper applyLocationMapper;
 
     @Test
-    public void submitLenderAddressTest() {
+    public void submitApplyAddressTest() {
         ApplyAddressBO applyAddressBO = new ApplyAddressBO();
         applyAddressBO.setAddress_id(2);
         applyAddressBO.setApplicant_id(20);
@@ -62,7 +62,7 @@ public class ApplyApplicantWechatBusinessTest {
     }
 
     @Test
-    public void submitLenderContactTest() {
+    public void submitApplyContactTest() {
         ApplyContactBO applyContactBO = new ApplyContactBO();
         applyContactBO.setContact_id(1);
         applyContactBO.setApplicant_id(20);
@@ -93,9 +93,9 @@ public class ApplyApplicantWechatBusinessTest {
     }
 
     @Test
-    public void testFindLender(){
-        ApplicantBO lender = lenderWechatBusiness.findApplicant("201611221147978485279251");
-        System.out.println(JSON.toJSONString(lender));
-        System.out.println("lender.hasNotVerifiedItem():" + lender.hasNotVerifiedItem());
+    public void testFindApplicant(){
+        ApplicantBO applicant = applicantWechatBusiness.findApplicant("201611221147978485279251");
+        System.out.println(JSON.toJSONString(applicant));
+        System.out.println("applicant.hasNotVerifiedItem():" + applicant.hasNotVerifiedItem());
     }
 }

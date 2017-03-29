@@ -26,15 +26,15 @@ public interface ApplicantService {
 
     boolean hasBankCardVerified(Integer applicantId);
 
-    Integer saveApplicantBaseInfo(ApplicantBaseInfoBO lenderBaseInfoBO);
+    Integer saveApplicantBaseInfo(ApplicantBaseInfoBO applicantBaseInfoBO);
 
-    Integer saveOrUpdateAddress(ApplyAddressBO lenderAddressBO);
+    Integer saveOrUpdateAddress(ApplyAddressBO applyAddressBO);
 
-    List<Integer> saveOrUpdateContact(List<ApplyContactBO> lenderContactBOList);
+    List<Integer> saveOrUpdateContact(List<ApplyContactBO> applyContactBOList);
 
-    Integer saveOrUpdateBankCard(ApplyBankCardBO lenderBankCardBO);
+    Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO);
 
-    int saveMobileVerify(ApplicantMobileVerifyBO lenderMobileVerifyBO);
+    int saveMobileVerify(ApplicantMobileVerifyBO applicantMobileVerifyBO);
 
     int resetMobileVerify(Integer applicantId, String mobile);
 

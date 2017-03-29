@@ -324,7 +324,7 @@
         ap.apply_status as apply_status,
         ap.apply_time as apply_time
         from apply ap
-        LEFT JOIN lender le ON le.applicant_id= ap.applicant_id
+        LEFT JOIN applicant le ON le.applicant_id= ap.applicant_id
         <include refid="whereSql"/>
         ORDER BY ap.apply_time DESC
     </select>

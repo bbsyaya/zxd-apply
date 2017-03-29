@@ -54,7 +54,7 @@ public class ApplicantMgtInfo implements Serializable {
     /**
      * 地址
      */
-    private ApplyAddressMgtBO lenderAddressMgtBO;
+    private ApplyAddressMgtBO applyAddressMgtBO;
     /**
      * 联系人
      */
@@ -104,12 +104,12 @@ public class ApplicantMgtInfo implements Serializable {
         this.id_card = id_card;
     }
 
-    public ApplyAddressMgtBO getLenderAddressMgtBO() {
-        return lenderAddressMgtBO;
+    public ApplyAddressMgtBO getApplyAddressMgtBO() {
+        return applyAddressMgtBO;
     }
 
-    public void setLenderAddressMgtBO(ApplyAddressMgtBO lenderAddressMgtBO) {
-        this.lenderAddressMgtBO = lenderAddressMgtBO;
+    public void setApplyAddressMgtBO(ApplyAddressMgtBO applyAddressMgtBO) {
+        this.applyAddressMgtBO = applyAddressMgtBO;
     }
 
     public List<ApplyContactBO> getApplyContactBOS() {

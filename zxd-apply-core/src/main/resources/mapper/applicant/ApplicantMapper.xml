@@ -25,7 +25,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lender
+        from applicant
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </select>
 
@@ -33,7 +33,7 @@
         <selectKey keyProperty="applicant_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, service_password, operator_token, `name`, id_card,
+        insert into applicant (customer_id, mobile, service_password, operator_token, `name`, id_card,
         mobile_verify, bank_card_verify, apply_result, reject_time, loan_fill_step, credit_score)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{service_password,jdbcType=VARCHAR},
         #{operator_token,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
@@ -50,7 +50,7 @@
         <selectKey keyProperty="applicant_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender
+        insert into applicant
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="customer_id != null">
                 customer_id,
@@ -133,7 +133,7 @@
         <selectKey keyProperty="applicant_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into lender (customer_id, mobile, `name`, id_card, loan_fill_step)
+        insert into applicant (customer_id, mobile, `name`, id_card, loan_fill_step)
         values (#{customer_id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
         #{name,jdbcType=VARCHAR}, #{id_card,jdbcType=VARCHAR},
         #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
@@ -141,7 +141,7 @@
     </insert>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.applicant.bo.ApplicantBO">
-        update lender
+        update applicant
         <set>
             <if test="customer_id != null">
                 customer_id = #{customer_id,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.applicant.bo.ApplicantBO">
-        update lender
+        update applicant
         set customer_id = #{customer_id,jdbcType=VARCHAR},
         mobile = #{mobile,jdbcType=VARCHAR},
         service_password = #{service_password,jdbcType=VARCHAR},
@@ -203,40 +203,40 @@
     <select id="selectByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from lender
+        from applicant
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
     <select id="selectPrimaryKeyByCustomerId" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         applicant_id
-        from lender
+        from applicant
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
     <select id="countByCustomerId" parameterType="java.lang.String" resultType="int">
         select
         count(applicant_id)
-        from lender
+        from applicant
         where customer_id = #{customer_id,jdbcType=VARCHAR}
     </select>
 
     <select id="selectMobileVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         mobile_verify
-        from lender
+        from applicant
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </select>
 
     <select id="selectBankCardVerifyByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         bank_card_verify
-        from lender
+        from applicant
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </select>
 
     <update id="updateMobileVerify" parameterType="com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO">
-        update lender
+        update applicant
         set service_password = #{service_password,jdbcType=VARCHAR},
         operator_token = #{operator_token,jdbcType=VARCHAR},
         mobile_verify = #{mobile_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
@@ -244,7 +244,7 @@
     </update>
 
     <update id="resetMobileVerify">
-        update lender
+        update applicant
         set mobile = #{mobile,jdbcType=VARCHAR},
         service_password = null,
         operator_token = null,
@@ -253,19 +253,19 @@
     </update>
 
     <update id="updateBankCardVerify" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBankCardVerifyBO">
-        update lender
+        update applicant
         set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </update>
 
     <update id="updateLoanFillStep" parameterType="com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO">
-        update lender
+        update applicant
         set loan_fill_step = #{loan_fill_step,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </update>
 
     <update id="updateApplyResult" parameterType="com.zhixindu.apply.facade.applicant.bo.ApplyResultBO">
-        update lender
+        update applicant
         set
         <if test="null != reject_time">
             reject_time = #{reject_time,jdbcType=TIMESTAMP},

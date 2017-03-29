@@ -43,7 +43,7 @@ public class ApplyBusinessImplTest {
     }
 
     @Test
-    public void testFindApplyInfoByLenderId(){
+    public void testFindApplyInfoByApplyId(){
         ApplyMgtInfo info = applyMgtBusiness.findApplyInfoByApplyId(1);
         System.out.println(JsonUtil.toJsonString(info));
 

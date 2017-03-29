@@ -10,7 +10,7 @@ import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
-import com.zhixindu.apply.facade.applicant.business.DubboApplyApplicantWechatBusiness;
+import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.commons.annotation.Business;
@@ -28,7 +28,7 @@ import java.util.List;
  * Created by SteveGuo on 2017/3/3.
  */
 @Business("applicantWechatBusiness")
-public class ApplicantWechatBusinessImpl implements DubboApplyApplicantWechatBusiness {
+public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness {
 
     @Inject
     private ApplicantMapper applicantMapper;
@@ -79,7 +79,7 @@ public class ApplicantWechatBusinessImpl implements DubboApplyApplicantWechatBus
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         ApplicantBO applicantBO = applicantMapper.selectByPrimaryKey(applicantId);
         if(null == applicantBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的申请人信息");
         }
         ApplicantVerifyBO applicantVerifyBO = new ApplicantVerifyBO();
         BeanUtils.copyProperties(applicantBO, applicantVerifyBO);
@@ -91,7 +91,7 @@ public class ApplicantWechatBusinessImpl implements DubboApplyApplicantWechatBus
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         ApplicantBO applicantBO = applicantMapper.selectByPrimaryKey(applicantId);
         if(null == applicantBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的借款人信息");
+            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的申请人信息");
         }
         ApplicantMobileVerifyBO applicantMobileVerifyBO = new ApplicantMobileVerifyBO();
         applicantMobileVerifyBO.setApplicant_id(applicantId);

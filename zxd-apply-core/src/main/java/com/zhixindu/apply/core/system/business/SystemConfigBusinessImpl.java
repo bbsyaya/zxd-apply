@@ -9,7 +9,7 @@ import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.system.bo.BankBaseBO;
 import com.zhixindu.apply.facade.system.bo.IdCardAttributionBO;
 import com.zhixindu.apply.facade.system.bo.RegionBaseBO;
-import com.zhixindu.apply.facade.system.business.DubboApplySystemConfigBusiness;
+import com.zhixindu.apply.facade.system.business.DubboSystemConfigBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.utils.Parameters;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
  * Created by SteveGuo on 2017/3/3.
  */
 @Business("systemConfigBusiness")
-public class SystemConfigBusinessImpl implements DubboApplySystemConfigBusiness {
+public class SystemConfigBusinessImpl implements DubboSystemConfigBusiness {
 
     @Inject
     private RegionCacheManager regionCacheManager;

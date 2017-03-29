@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * Created by SteveGuo on 2017/3/6.
  */
-@Service("lenderService")
+@Service("applicantService")
 public class ApplicantServiceImpl implements ApplicantService {
 
     @Inject
@@ -74,33 +74,33 @@ public class ApplicantServiceImpl implements ApplicantService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Integer saveApplicantBaseInfo(ApplicantBaseInfoBO lenderBaseInfoBO) {
+    public Integer saveApplicantBaseInfo(ApplicantBaseInfoBO applicantBaseInfoBO) {
         ApplicantBaseInfoPO applicantBaseInfoPO = new ApplicantBaseInfoPO();
-        BeanUtils.copyProperties(lenderBaseInfoBO, applicantBaseInfoPO);
+        BeanUtils.copyProperties(applicantBaseInfoBO, applicantBaseInfoPO);
         applicantBaseInfoPO.setLoan_fill_step(LoanFillStep.BASIC_INFO);
         applicantMapper.insertBaseInfo(applicantBaseInfoPO);
-        lenderBaseInfoBO.setApplicant_id(applicantBaseInfoPO.getApplicant_id());
+        applicantBaseInfoBO.setApplicant_id(applicantBaseInfoPO.getApplicant_id());
         return applicantBaseInfoPO.getApplicant_id();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Integer saveOrUpdateAddress(ApplyAddressBO lenderAddressBO) {
-        if(null != lenderAddressBO.getAddress_id()) {
-            applyAddressMapper.updateByPrimaryKey(lenderAddressBO);
+    public Integer saveOrUpdateAddress(ApplyAddressBO applyAddressBO) {
+        if(null != applyAddressBO.getAddress_id()) {
+            applyAddressMapper.updateByPrimaryKey(applyAddressBO);
         } else {
-            applyAddressMapper.insert(lenderAddressBO);
+            applyAddressMapper.insert(applyAddressBO);
         }
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderAddressBO.getApplicant_id(), LoanFillStep.CONTACT_INFO);
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyAddressBO.getApplicant_id(), LoanFillStep.CONTACT_INFO);
         applicantMapper.updateLoanFillStep(loanFillStepBO);
-        return lenderAddressBO.getAddress_id();
+        return applyAddressBO.getAddress_id();
 
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public List<Integer> saveOrUpdateContact(List<ApplyContactBO> lenderContactBOList) {
-        List<Integer> contactIdList = lenderContactBOList.stream().map(contactBO -> {
+    public List<Integer> saveOrUpdateContact(List<ApplyContactBO> applyContactBOList) {
+        List<Integer> contactIdList = applyContactBOList.stream().map(contactBO -> {
             if (null != contactBO.getContact_id()) {
                 applyContactMapper.updateByPrimaryKey(contactBO);
             } else {
@@ -113,7 +113,7 @@ public class ApplicantServiceImpl implements ApplicantService {
             }
             return contactBO.getContact_id();
         }).collect(Collectors.toList());
-        Integer applicantId = lenderContactBOList.stream().map(ApplyContactBO::getApplicant_id).distinct().findAny().orElse(null);
+        Integer applicantId = applyContactBOList.stream().map(ApplyContactBO::getApplicant_id).distinct().findAny().orElse(null);
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applicantId, LoanFillStep.CERTIFICATION_INFO);
         applicantMapper.updateLoanFillStep(loanFillStepBO);
         return contactIdList;
@@ -121,22 +121,22 @@ public class ApplicantServiceImpl implements ApplicantService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Integer saveOrUpdateBankCard(ApplyBankCardBO lenderBankCardBO) {
-        if(null != lenderBankCardBO.getBank_card_id()) {
-            applyBankCardMapper.updateByPrimaryKey(lenderBankCardBO);
+    public Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO) {
+        if(null != applyBankCardBO.getBank_card_id()) {
+            applyBankCardMapper.updateByPrimaryKey(applyBankCardBO);
         } else {
-            applyBankCardMapper.insert(lenderBankCardBO);
+            applyBankCardMapper.insert(applyBankCardBO);
         }
-        ApplyBankCardVerifyBO lenderBankCardVerifyBO = new ApplyBankCardVerifyBO();
-        Integer applicantId = lenderBankCardBO.getApplicant_id();
-        lenderBankCardVerifyBO.setApplicant_id(applicantId);
-        lenderBankCardVerifyBO.setBank_card_verify(lenderBankCardBO.getBank_card_verify());
-        applicantMapper.updateBankCardVerify(lenderBankCardVerifyBO);
+        ApplyBankCardVerifyBO applyBankCardVerifyBO = new ApplyBankCardVerifyBO();
+        Integer applicantId = applyBankCardBO.getApplicant_id();
+        applyBankCardVerifyBO.setApplicant_id(applicantId);
+        applyBankCardVerifyBO.setBank_card_verify(applyBankCardBO.getBank_card_verify());
+        applicantMapper.updateBankCardVerify(applyBankCardVerifyBO);
         if(hasMobileVerified(applicantId)) {
-            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(lenderBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
+            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
             applicantMapper.updateLoanFillStep(loanFillStepBO);
         }
-        return lenderBankCardBO.getBank_card_id();
+        return applyBankCardBO.getBank_card_id();
     }
 
     @Transactional(rollbackFor = Exception.class)
