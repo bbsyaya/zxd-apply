@@ -92,11 +92,14 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public ApplyLoanInfoBO applyLoan(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        if(!applicantService.existApplicant(applicantId + "")) {
-            applicantService.saveApplicantBaseInfo(null);
+        Integer applyId;
+        if(hasNotSettledApply(applicantId)) {
+            applyId = applyMapper.selectApplyIdByApplicantId(applicantId);
+        }else {
+            applyId = applyService.startApplyLoan(applicantId);
         }
         ApplyLoanInfoBO applyLoanInfoBO = new ApplyLoanInfoBO();
-
+        applyLoanInfoBO.setApply_id(applyId);
         ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantId);
         if(null != applyAddressBO) {
             applyLoanInfoBO.setApplyAddressBO(applyAddressBO);

@@ -345,6 +345,14 @@
         order by apply_time desc limit 0,1
     </select>
 
+    <select id="selectApplyIdByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        apply_id
+        from apply
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        order by apply_time desc limit 0,1
+    </select>
+
     <select id="countNotSettledApply" parameterType="java.lang.Integer" resultType="int">
         select
         count(apply_id)
