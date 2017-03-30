@@ -138,7 +138,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer submitApplyAddress(ApplyAddressBO applyAddressBO) {
         Parameters.requireNotNull(applyAddressBO.getApply_id(), "applyId不能为空");
         Object[] ignoreProperties = new Object[]{};
-        if(applyService.existApplicantAddress(applyAddressBO.getApplicant_id())) {
+        if(applyService.existApplyAddress(applyAddressBO.getApplicant_id())) {
             if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
                 ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
             }
@@ -161,7 +161,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         applyContactBOList.forEach(applicantContactBO -> {
             Parameters.requireNotNull(applicantContactBO.getApply_id(), "applyId不能为空");
             Object[] ignoreProperties = new Object[]{};
-            if (!applyService.existApplicantBankCard(applicantContactBO.getApplicant_id())) {
+            if (!applyService.existApplyBankCard(applicantContactBO.getApplicant_id())) {
                 ignoreProperties = new Object[]{"contact_id"};
             }
             Parameters.requireAllPropertyNotNull(applicantContactBO, ignoreProperties);
@@ -173,7 +173,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO) {
         Parameters.requireNotNull(applyBankCardBO.getApply_id(), "applyId不能为空");
         Object[] ignoreProperties = new Object[]{};
-        if(!applyService.existApplicantBankCard(applyBankCardBO.getApplicant_id())) {
+        if(!applyService.existApplyBankCard(applyBankCardBO.getApplicant_id())) {
             ignoreProperties = new Object[]{"bank_card_id"};
         }
         Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);

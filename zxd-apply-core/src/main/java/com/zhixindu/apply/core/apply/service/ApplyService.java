@@ -21,16 +21,46 @@ public interface ApplyService {
      */
     Integer startApplyLoan(Integer applicantId);
 
-    boolean existApplicantAddress(Integer applyId);
+    /**
+     * 是否存在申请地址信息
+     * @param applyId
+     * @return
+     */
+    boolean existApplyAddress(Integer applyId);
 
-    boolean existApplicantContact(Integer applyId);
+    /**
+     * 是否存在申请联系人信息
+     * @param applyId
+     * @return
+     */
+    boolean existApplyContact(Integer applyId);
 
-    boolean existApplicantBankCard(Integer applyId);
+    /**
+     * 是否存在申请银行卡信息
+     * @param applyId
+     * @return
+     */
+    boolean existApplyBankCard(Integer applyId);
 
+    /**
+     * 保存或者更新地址信息
+     * @param applyAddressBO
+     * @return
+     */
     Integer saveOrUpdateAddress(ApplyAddressBO applyAddressBO);
 
+    /**
+     * 保存或者更新联系人信息
+     * @param applyContactBOList
+     * @return
+     */
     List<Integer> saveOrUpdateContact(List<ApplyContactBO> applyContactBOList);
 
+    /**
+     * 保存或者更新银行卡信息
+     * @param applyBankCardBO
+     * @return
+     */
     Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO);
 
     /**

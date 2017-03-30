@@ -73,17 +73,17 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
-    public boolean existApplicantAddress(Integer applicantId) {
+    public boolean existApplyAddress(Integer applicantId) {
         return applyAddressMapper.countByApplicantId(applicantId) > 0;
     }
 
     @Override
-    public boolean existApplicantContact(Integer applicantId) {
+    public boolean existApplyContact(Integer applicantId) {
         return applyContactMapper.countByApplicantId(applicantId) > 1;
     }
 
     @Override
-    public boolean existApplicantBankCard(Integer applicantId) {
+    public boolean existApplyBankCard(Integer applicantId) {
         return applyBankCardMapper.countByApplicantId(applicantId) > 0;
     }
 
