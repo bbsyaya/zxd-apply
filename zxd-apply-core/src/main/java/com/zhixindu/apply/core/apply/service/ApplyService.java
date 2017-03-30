@@ -10,6 +10,13 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 public interface ApplyService {
 
     /**
+     * 开启借款申请
+     * @param applicantId
+     * @return
+     */
+    Integer startApplyLoan(Integer applicantId);
+
+    /**
      * 保存申请贷款
      * @param applyBaseInfoBO
      * @return

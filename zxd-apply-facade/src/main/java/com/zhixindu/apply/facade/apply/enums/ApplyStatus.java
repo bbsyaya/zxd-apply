@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public enum ApplyStatus implements IEnum<Integer> {
 
+    PREPARE_SUBMIT(-1, "申请中", ApplyResult.APPROVE, ProcessStep.SUBMIT, ProcessState.PROCESSING),
     SUBMIT_SUCCESS(0, "提交申请", ApplyResult.APPROVE, ProcessStep.SUBMIT, ProcessState.SUCCESS),
     UNDER_REVIEW(1, "审核中", null, ProcessStep.REVIEW, ProcessState.PROCESSING),
     REVIEW_SUCCESS(2, "审核成功", ApplyResult.APPROVE, ProcessStep.REVIEW, ProcessState.SUCCESS),

@@ -20,6 +20,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLoanInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
@@ -86,6 +87,21 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public ApplyBaseInfoBO findLatestReviewApply(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         return applyMapper.selectLatestReviewByApplicantId(applicantId);
+    }
+
+    @Override
+    public ApplyLoanInfoBO applyLoan(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        if(!applicantService.existApplicant(applicantId + "")) {
+            applicantService.saveApplicantBaseInfo(null);
+        }
+        ApplyLoanInfoBO applyLoanInfoBO = new ApplyLoanInfoBO();
+
+        ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantId);
+        if(null != applyAddressBO) {
+            applyLoanInfoBO.setApplyAddressBO(applyAddressBO);
+        }
+        return applyLoanInfoBO;
     }
 
     @Override
@@ -187,7 +203,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
-        Parameters.requireAllPropertyNotNull(applyBaseInfoBO, new Object[]{"apply_id"});
+        Parameters.requireAllPropertyNotNull(applyBaseInfoBO);
         Integer applicantId = applyBaseInfoBO.getApplicant_id();
         if(!applicantService.hasMobileVerified(applicantId)) {
             throw new ServiceException(ApplyErrorCode.MOBILE_NOT_VERIFIED.getErrorCode(), ApplyErrorCode

@@ -8,6 +8,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyLoanInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.commons.api.ServiceException;
@@ -40,6 +41,14 @@ public interface DubboApplyWechatBusiness {
      * @return 申请借款基本信息
      */
     ApplyBaseInfoBO findLatestReviewApply(Integer applicantId) throws ServiceException;
+
+    /**
+     * 申请贷款
+     * @param applicantId
+     * @return
+     * @throws ServiceException
+     */
+    ApplyLoanInfoBO applyLoan(Integer applicantId) throws ServiceException;
 
     /**
      * 根据申请人ID查找最新申请地址信息

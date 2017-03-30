@@ -38,22 +38,36 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public Integer startApplyLoan(Integer applicantId) {
+        ApplyPO applyPO = new ApplyPO();
+        applyPO.setApplicant_id(applicantId);
+        applyPO.setApply_status(ApplyStatus.PREPARE_SUBMIT);
+        applyMapper.insertSelective(applyPO);
+        Integer applyId = applyPO.getApply_id();
+
+        applyStepService.startStep(applyId, ProcessStep.SUBMIT);
+
+        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applicantId, LoanFillStep.BASIC_INFO);
+        applicantMapper.updateLoanFillStep(loanFillStepBO);
+        return applyId;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         ApplyPO applyPO = new ApplyPO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyPO);
-        applyPO.setApply_time(new Date());
+        Date now = new Date();
+        applyPO.setApply_time(now);
         applyPO.setApply_status(ApplyStatus.UNDER_REVIEW);
-        applyMapper.insertSelective(applyPO);
-        Integer applyId = applyPO.getApply_id();
-        applyBaseInfoBO.setApply_id(applyId);
+        applyMapper.updateByPrimaryKeySelective(applyPO);
 
         ApplyLocationBO applyLocationBO = new ApplyLocationBO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyLocationBO);
-        applyLocationBO.setApply_id(applyId);
         applyLocationMapper.insert(applyLocationBO);
 
-        applyStepService.startAndCompleteStep(applyId, ProcessStep.SUBMIT);
-
+        Integer applyId = applyBaseInfoBO.getApply_id();
+        applyStepService.completeStep(applyId, ProcessStep.SUBMIT, now, ProcessState.SUCCESS);
         applyStepService.startStep(applyId, ProcessStep.REVIEW);
 
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getApplicant_id(), LoanFillStep.COMPLETE);

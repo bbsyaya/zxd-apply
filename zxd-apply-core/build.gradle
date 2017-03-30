@@ -1,5 +1,5 @@
 group 'com.zhixindu.apply'
-version '1.0.0.RELEASE'
+version '2.0.0-SNAPSHOT'
 
 apply plugin: 'application'
 apply plugin: 'java'
