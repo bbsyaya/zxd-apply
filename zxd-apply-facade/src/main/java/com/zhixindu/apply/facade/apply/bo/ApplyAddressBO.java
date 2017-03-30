@@ -1,8 +1,8 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.applicant.enums.WorkState;
-import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ public class ApplyAddressBO implements Serializable {
     /** 申请人ID */
     private Integer applicant_id;
     @NotNull(message = "居住地址行政区划代码不能为空")
-    @Length(min = 6, max = 6, message = "居住地址行政区划代码长度不是6位")
+    @Digits(integer=6, fraction=0, message = "居住地址行政区划代码长度不是6位")
     private Integer home_address_code;
     @NotNull(message = "居住详细地址不能为空")
     private String home_address;

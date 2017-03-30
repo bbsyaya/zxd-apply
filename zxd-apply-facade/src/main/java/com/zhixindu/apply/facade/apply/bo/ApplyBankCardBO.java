@@ -2,9 +2,9 @@ package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.commons.api.utils.MaskUtil;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ public class ApplyBankCardBO implements Serializable {
     @NotBlank(message = "开户行不能为空")
     private String bank_name;
     @NotNull(message = "开户行地址行政区划代码不能为空")
-    @Length(min = 6, max = 6, message = "开户行地址行政区划代码长度不是6位")
+    @Digits(integer=6, fraction=0, message = "开户行地址行政区划代码长度不是6位")
     private Integer bank_address_code;
     @NotBlank(message = "预留手机号不能为空")
     private String reserved_mobile;
