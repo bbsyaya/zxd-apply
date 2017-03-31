@@ -21,12 +21,6 @@ public class ApplyBaseInfoBO implements Serializable {
     private String open_id;
     /** 产品ID */
     private String product_id;
-    /** 地址ID */
-    private Integer address_id;
-    /** 联系人ID列表 */
-    private String contact_id_list;
-    /** 银行卡ID */
-    private Integer bank_card_id;
     /** 申请编号 */
     private String apply_no;
     /** 借款金额 */
@@ -80,30 +74,6 @@ public class ApplyBaseInfoBO implements Serializable {
 
     public void setProduct_id(String product_id) {
         this.product_id = product_id;
-    }
-
-    public Integer getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(Integer address_id) {
-        this.address_id = address_id;
-    }
-
-    public String getContact_id_list() {
-        return contact_id_list;
-    }
-
-    public void setContact_id_list(String contact_id_list) {
-        this.contact_id_list = contact_id_list;
-    }
-
-    public Integer getBank_card_id() {
-        return bank_card_id;
-    }
-
-    public void setBank_card_id(Integer bank_card_id) {
-        this.bank_card_id = bank_card_id;
     }
 
     public String getApply_no() {
