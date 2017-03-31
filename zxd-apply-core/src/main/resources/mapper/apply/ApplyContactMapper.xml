@@ -128,18 +128,18 @@
         )
     </select>
 
-    <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         contact_id
         from apply_contact
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
-    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+    <select id="countByApplyId" parameterType="java.lang.Integer" resultType="int">
         select
         count(contact_id)
         from apply_contact
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
 </mapper>

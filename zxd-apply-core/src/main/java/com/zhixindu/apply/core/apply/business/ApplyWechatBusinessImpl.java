@@ -136,9 +136,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public Integer submitApplyAddress(ApplyAddressBO applyAddressBO) {
-        Parameters.requireNotNull(applyAddressBO.getApply_id(), "applyId不能为空");
+        Integer applyId = applyAddressBO.getApply_id();
+        Parameters.requireNotNull(applyId, "applyId不能为空");
         Object[] ignoreProperties = new Object[]{};
-        if(applyService.existApplyAddress(applyAddressBO.getApplicant_id())) {
+        if(applyService.existApplyAddress(applyId)) {
+            applyAddressBO.setAddress_id(applyAddressMapper.selectPrimaryKeyByApplyId(applyId));
             if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
                 ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
             }
@@ -158,22 +160,28 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         if(CollectionUtils.isEmpty(applyContactBOList)) {
             throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "联系人参数不能为空");
         }
-        applyContactBOList.forEach(applicantContactBO -> {
-            Parameters.requireNotNull(applicantContactBO.getApply_id(), "applyId不能为空");
+        applyContactBOList = applyContactBOList.stream()
+                .map(applyContactBO -> {
+            Integer applyId = applyContactBO.getApply_id();
+            Parameters.requireNotNull(applyId, "applyId不能为空");
             Object[] ignoreProperties = new Object[]{};
-            if (!applyService.existApplyBankCard(applicantContactBO.getApplicant_id())) {
+            if (!applyService.existApplyBankCard(applyId)) {
                 ignoreProperties = new Object[]{"contact_id"};
             }
-            Parameters.requireAllPropertyNotNull(applicantContactBO, ignoreProperties);
-        });
+            Parameters.requireAllPropertyNotNull(applyContactBO, ignoreProperties);
+            return applyContactBO;
+        }).collect(Collectors.toList());
         return applyService.saveOrUpdateContact(applyContactBOList);
     }
 
     @Override
     public Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO) {
-        Parameters.requireNotNull(applyBankCardBO.getApply_id(), "applyId不能为空");
+        Integer applyId = applyBankCardBO.getApply_id();
+        Parameters.requireNotNull(applyId, "applyId不能为空");
         Object[] ignoreProperties = new Object[]{};
-        if(!applyService.existApplyBankCard(applyBankCardBO.getApplicant_id())) {
+        if(applyService.existApplyBankCard(applyId)) {
+            applyBankCardBO.setBank_card_id(applyBankCardMapper.selectPrimaryKeyByApplyId(applyId));
+        }else {
             ignoreProperties = new Object[]{"bank_card_id"};
         }
         Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);
@@ -187,21 +195,21 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public Integer findAddressId(Integer applicantId) {
-        Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        return applyAddressMapper.selectPrimaryKeyByApplicantId(applicantId);
+    public Integer findAddressId(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
+        return applyAddressMapper.selectPrimaryKeyByApplyId(applyId);
     }
 
     @Override
-    public List<Integer> findContactIdList(Integer applicantId) {
-        Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        return applyContactMapper.selectPrimaryKeyByApplicantId(applicantId);
+    public List<Integer> findContactIdList(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
+        return applyContactMapper.selectPrimaryKeyByApplyId(applyId);
     }
 
     @Override
-    public Integer findBankCardId(Integer applicantId) {
-        Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        return applyBankCardMapper.selectPrimaryKeyByApplicantId(applicantId);
+    public Integer findBankCardId(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
+        return applyBankCardMapper.selectPrimaryKeyByApplyId(applyId);
     }
 
     @Override

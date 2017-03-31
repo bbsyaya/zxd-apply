@@ -19,9 +19,9 @@ public interface ApplyBankCardMapper {
 
     ApplyBankCardBO selectLatestByApplicantId(Integer applicant_id);
 
-    Integer selectPrimaryKeyByApplicantId(Integer applicant_id);
+    Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
     String selectBankCardNumber(Integer apply_id);
 
-    int countByApplicantId(Integer applicant_id);
+    int countByApplyId(Integer apply_id);
 }

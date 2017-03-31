@@ -161,20 +161,20 @@
         limit 0,1
     </select>
 
-    <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         address_id
         from apply_address
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
         order by create_time desc
         limit 0,1
     </select>
 
-    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+    <select id="countByApplyId" parameterType="java.lang.Integer" resultType="int">
         select
         count(address_id)
         from apply_address
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
 

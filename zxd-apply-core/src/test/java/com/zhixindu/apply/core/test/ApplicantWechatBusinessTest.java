@@ -57,8 +57,8 @@ public class ApplicantWechatBusinessTest {
     }
 
     @Test
-    public void testSelectPrimaryKeyByApplicantId(){
-        System.out.println(applyContactMapper.selectPrimaryKeyByApplicantId(30));
+    public void testSelectPrimaryKeyByApplyId(){
+        System.out.println(applyContactMapper.selectPrimaryKeyByApplyId(30));
     }
 
     @Test

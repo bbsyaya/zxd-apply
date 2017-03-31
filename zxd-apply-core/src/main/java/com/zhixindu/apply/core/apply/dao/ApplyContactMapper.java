@@ -21,8 +21,8 @@ public interface ApplyContactMapper {
 
     List<ApplyContactBO> selectLatestByApplicantId(Integer applicant_id);
 
-    List<Integer> selectPrimaryKeyByApplicantId(Integer applicant_id);
+    List<Integer> selectPrimaryKeyByApplyId(Integer apply_id);
 
-    int countByApplicantId(Integer applicant_id);
+    int countByApplyId(Integer apply_id);
 
 }

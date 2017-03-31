@@ -163,11 +163,11 @@
         limit 0,1
     </select>
 
-    <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         bank_card_id
         from apply_bank_card
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
         order by create_time desc
         limit 0,1
     </select>
@@ -179,11 +179,11 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
-    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+    <select id="countByApplyId" parameterType="java.lang.Integer" resultType="int">
         select
         count(bank_card_id)
         from apply_bank_card
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
 </mapper>
