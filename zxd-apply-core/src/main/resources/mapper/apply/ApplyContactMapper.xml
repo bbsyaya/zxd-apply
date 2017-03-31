@@ -135,6 +135,13 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_contact
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
     <select id="countByApplyId" parameterType="java.lang.Integer" resultType="int">
         select
         count(contact_id)

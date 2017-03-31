@@ -33,14 +33,7 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
 
     @Inject
     private ApplicantMapper applicantMapper;
-    @Inject
-    private ApplyContactMapper applyContactMapper;
-    @Inject
-    private ApplyBankCardMapper applyBankCardMapper;
-    @Inject
-    private ApplyAddressMapper applyAddressMapper;
-    @Inject
-    private SystemConfigService systemConfigService;
+
 
     @Override
     public PageResult<ApplicantInfoBO> findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException {
@@ -56,29 +49,6 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
         }
         ApplicantMgtInfo applicantMgtInfo = new ApplicantMgtInfo();
         BeanUtils.copyProperties(applicantBO, applicantMgtInfo);
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
-        if(applyBankCardBO != null){
-            applicantMgtInfo.setApplyBankCardBO(applyBankCardBO);
-        }
-
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
-        if(CollectionUtils.isNotEmpty(applyContactBOList)){
-            applicantMgtInfo.setApplyContactBOS(applyContactBOList);
-        }
-        ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantBO.getApplicant_id());
-        if(applyAddressBO != null){
-            ApplyAddressMgtBO applyAddressMgtBO = new ApplyAddressMgtBO();
-            BeanUtils.copyProperties(applyAddressBO,applyAddressMgtBO);
-            if(null != applyAddressBO.getHome_address_code()){
-                String homeAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getHome_address_code());
-                applyAddressMgtBO.setHome_address_info(homeAddressInfo);
-            }
-            if(null != applyAddressBO.getCompany_address_code()) {
-                String companyAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getCompany_address_code());
-                applyAddressMgtBO.setCompany_address_info(companyAddressInfo);
-            }
-            applicantMgtInfo.setApplyAddressMgtBO(applyAddressMgtBO);
-        }
         return applicantMgtInfo;
     }
 }

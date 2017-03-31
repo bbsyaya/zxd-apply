@@ -21,5 +21,7 @@ public interface ApplyAddressMapper {
 
     Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
+    ApplyAddressBO selectByApplyId(Integer apply_id);
+
     int countByApplyId(Integer apply_id);
 }
