@@ -172,6 +172,15 @@
         limit 0,1
     </select>
 
+    <select id="selectByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_bank_card
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
+    </select>
+
     <select id="selectBankCardNumber" parameterType="java.lang.Integer" resultType="java.lang.String">
         select
         bank_card_number

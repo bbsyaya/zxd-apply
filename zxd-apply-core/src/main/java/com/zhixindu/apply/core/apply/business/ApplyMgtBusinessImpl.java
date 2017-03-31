@@ -2,9 +2,17 @@ package com.zhixindu.apply.core.apply.business;
 
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.zhixindu.apply.core.apply.dao.ApplyAddressMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
+import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.system.service.SystemConfigService;
+import com.zhixindu.apply.facade.applicant.bo.ApplyAddressMgtBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
@@ -33,22 +41,51 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
 
     @Inject
     private ApplyMapper applyMapper;
-
     @Inject
     private ApplyStepMapper applyStepMapper;
+    @Inject
+    private ApplyContactMapper applyContactMapper;
+    @Inject
+    private ApplyBankCardMapper applyBankCardMapper;
+    @Inject
+    private ApplyAddressMapper applyAddressMapper;
+    @Inject
+    private SystemConfigService systemConfigService;
 
     @Inject
     private PageRepository pageRepository;
 
     @Override
     public ApplyMgtInfo findApplyInfoByApplyId(Integer apply_id) throws ServiceException {
-        Parameters.requireNotNull(apply_id,"getApplyInfoByApplicantId apply_id illargm_param");
+        Parameters.requireNotNull(apply_id,"findApplyInfoByApplyId apply_id illargm_param");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(apply_id);
         if(null == applyPO){
             throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
         }
         ApplyMgtInfo applyMgtInfo = new ApplyMgtInfo();
         BeanUtils.copyProperties(applyPO,applyMgtInfo);
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplyId(applyPO.getApply_id());
+        if(applyBankCardBO != null){
+            applyMgtInfo.setApplyBankCardBO(applyBankCardBO);
+        }
+        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplyId(applyPO.getApply_id());
+        if(CollectionUtils.isNotEmpty(applyContactBOList)){
+            applyMgtInfo.setApplyContactBOS(applyContactBOList);
+        }
+        ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplyId(applyPO.getApply_id());
+        if(applyAddressBO != null){
+            ApplyAddressMgtBO applyAddressMgtBO = new ApplyAddressMgtBO();
+            BeanUtils.copyProperties(applyAddressBO,applyAddressMgtBO);
+            if(null != applyAddressBO.getHome_address_code()){
+                String homeAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getHome_address_code());
+                applyAddressMgtBO.setHome_address_info(homeAddressInfo);
+            }
+            if(null != applyAddressBO.getCompany_address_code()) {
+                String companyAddressInfo = systemConfigService.getRegionFullName(applyAddressBO.getCompany_address_code());
+                applyAddressMgtBO.setCompany_address_info(companyAddressInfo);
+            }
+            applyMgtInfo.setApplyAddressMgtBO(applyAddressMgtBO);
+        }
         return applyMgtInfo;
     }
 

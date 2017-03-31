@@ -51,18 +51,7 @@ public class ApplicantMgtInfo implements Serializable {
      * 银行卡认证信息（0未验证，1已验证）
      */
     private BankCardVerify bank_card_verify;
-    /**
-     * 地址
-     */
-    private ApplyAddressMgtBO applyAddressMgtBO;
-    /**
-     * 联系人
-     */
-    private List<ApplyContactBO> applyContactBOS;
-    /**
-     * 银行卡
-     */
-    private ApplyBankCardBO applyBankCardBO;
+
 
     public Integer getApplicant_id() {
         return applicant_id;
@@ -104,22 +93,6 @@ public class ApplicantMgtInfo implements Serializable {
         this.id_card = id_card;
     }
 
-    public ApplyAddressMgtBO getApplyAddressMgtBO() {
-        return applyAddressMgtBO;
-    }
-
-    public void setApplyAddressMgtBO(ApplyAddressMgtBO applyAddressMgtBO) {
-        this.applyAddressMgtBO = applyAddressMgtBO;
-    }
-
-    public List<ApplyContactBO> getApplyContactBOS() {
-        return applyContactBOS;
-    }
-
-    public void setApplyContactBOS(List<ApplyContactBO> applyContactBOS) {
-        this.applyContactBOS = applyContactBOS;
-    }
-
     public MobileVerify getMobile_verify() {
         return mobile_verify;
     }
@@ -134,13 +107,5 @@ public class ApplicantMgtInfo implements Serializable {
 
     public void setBank_card_verify(BankCardVerify bank_card_verify) {
         this.bank_card_verify = bank_card_verify;
-    }
-
-    public ApplyBankCardBO getApplyBankCardBO() {
-        return applyBankCardBO;
-    }
-
-    public void setApplyBankCardBO(ApplyBankCardBO applyBankCardBO) {
-        this.applyBankCardBO = applyBankCardBO;
     }
 }

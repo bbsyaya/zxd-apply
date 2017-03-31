@@ -21,6 +21,8 @@ public interface ApplyBankCardMapper {
 
     Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
+    ApplyBankCardBO selectByApplyId(Integer apply_id);
+
     String selectBankCardNumber(Integer apply_id);
 
     int countByApplyId(Integer apply_id);

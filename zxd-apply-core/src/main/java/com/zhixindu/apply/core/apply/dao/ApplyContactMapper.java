@@ -23,6 +23,8 @@ public interface ApplyContactMapper {
 
     List<Integer> selectPrimaryKeyByApplyId(Integer apply_id);
 
+    List<ApplyContactBO> selectByApplyId(Integer apply_id);
+
     int countByApplyId(Integer apply_id);
 
 }
