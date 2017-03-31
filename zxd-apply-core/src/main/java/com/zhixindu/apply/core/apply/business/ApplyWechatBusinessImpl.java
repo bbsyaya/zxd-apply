@@ -133,7 +133,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectLatestByApplicantId(applicantId);
         if(null == applyBankCardBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的银行卡信息");
+            throw new ServiceException(ApplyErrorCode.NO_BANK_CARD.getErrorCode(), ApplyErrorCode.NO_BANK_CARD.getDesc());
         }
         applyBankCardBO.setBank_card_number(applyBankCardBO.getBank_card_number());
         return applyBankCardBO;
@@ -265,7 +265,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         ApplyLoanDetailBO applyLoanDetailBO = new ApplyLoanDetailBO();
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(applyId);
         if(null == applyPO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有匹配的申请借款记录");
+            throw new ServiceException(ApplyErrorCode.NO_APPLY.getErrorCode(), ApplyErrorCode.NO_APPLY.getDesc());
         }
         BeanUtils.copyProperties(applyPO, applyLoanDetailBO);
         applyLoanDetailBO.setApply_time(new DateTime(applyPO.getApply_time()).toString("yyyy-MM-dd HH:mm:ss"));

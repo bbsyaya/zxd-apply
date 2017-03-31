@@ -2,6 +2,7 @@ package com.zhixindu.apply.core.applicant.business;
 
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
+import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
@@ -54,7 +55,7 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         ApplicantBO applicantBO = applicantMapper.selectByPrimaryKey(applicantId);
         if(null == applicantBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的申请人信息");
+            throw new ServiceException(ApplyErrorCode.NO_APPLICANT.getErrorCode(), ApplyErrorCode.NO_APPLICANT.getDesc());
         }
         ApplicantVerifyBO applicantVerifyBO = new ApplicantVerifyBO();
         BeanUtils.copyProperties(applicantBO, applicantVerifyBO);
@@ -66,7 +67,7 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         ApplicantBO applicantBO = applicantMapper.selectByPrimaryKey(applicantId);
         if(null == applicantBO) {
-            throw new ServiceException(ServiceCode.NO_RESULT, "没有对应的申请人信息");
+            throw new ServiceException(ApplyErrorCode.NO_APPLICANT.getErrorCode(), ApplyErrorCode.NO_APPLICANT.getDesc());
         }
         ApplicantMobileVerifyBO mobileVerify = new ApplicantMobileVerifyBO();
         mobileVerify.setApplicant_id(applicantId);

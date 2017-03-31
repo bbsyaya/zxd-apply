@@ -8,6 +8,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.applicant.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
@@ -21,7 +22,6 @@ import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
-import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
 import com.zhixindu.commons.repository.PageRepository;
@@ -60,7 +60,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         Parameters.requireNotNull(apply_id,"findApplyInfoByApplyId apply_id illargm_param");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(apply_id);
         if(null == applyPO){
-            throw new ServiceException(ServiceCode.NO_RESULT,"查询不到申请的借款信息!");
+            throw new ServiceException(ApplyErrorCode.NO_APPLY.getErrorCode(), ApplyErrorCode.NO_APPLY.getDesc());
         }
         ApplyMgtInfo applyMgtInfo = new ApplyMgtInfo();
         BeanUtils.copyProperties(applyPO,applyMgtInfo);
