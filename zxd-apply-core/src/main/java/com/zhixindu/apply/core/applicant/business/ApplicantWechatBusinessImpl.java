@@ -12,7 +12,6 @@ import com.zhixindu.commons.api.ServiceCode;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.utils.Parameters;
 import com.zhixindu.commons.utils.StringUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
@@ -41,14 +40,13 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
 
     @Override
     public Integer submitApplicant(ApplicantBaseInfoBO applicantBaseInfoBO) {
-        if(StringUtils.isBlank(applicantBaseInfoBO.getCustomer_id())) {
-            throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "customerId不能为空");
+        String customerId = applicantBaseInfoBO.getCustomer_id();
+        Parameters.requireNotNull(customerId, "customerId不能为空");
+        if(applicantService.existApplicant(customerId)) {
+            throw new ServiceException(ServiceCode.ILLEGAL_REQUEST, "已经存在申请人信息，不能再保存");
         }
-        if(!applicantService.existApplicant(applicantBaseInfoBO.getCustomer_id())) {
-            Parameters.requireAllPropertyNotNull(applicantBaseInfoBO, new Object[]{"applicant_id"});
-            applicantService.saveApplicantBaseInfo(applicantBaseInfoBO);
-        }
-        return applicantBaseInfoBO.getApplicant_id();
+        Parameters.requireAllPropertyNotNull(applicantBaseInfoBO, new Object[]{"applicant_id"});
+        return applicantService.saveApplicantBaseInfo(applicantBaseInfoBO);
     }
 
     @Override
