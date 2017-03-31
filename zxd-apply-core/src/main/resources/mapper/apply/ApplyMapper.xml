@@ -345,11 +345,12 @@
         order by apply_time desc limit 0,1
     </select>
 
-    <select id="selectApplyIdByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="selectPrimaryKeyByApplicantId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         apply_id
         from apply
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        and apply_status in(-1,0,1,2,4,5,7)
         order by apply_time desc limit 0,1
     </select>
 

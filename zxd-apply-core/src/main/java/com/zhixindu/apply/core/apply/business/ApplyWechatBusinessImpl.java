@@ -90,11 +90,16 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
+    public Integer findNotSettledApplyId(Integer applicantId) {
+        return applyMapper.selectPrimaryKeyByApplicantId(applicantId);
+    }
+
+    @Override
     public ApplyLoanInfoBO applyLoan(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         Integer applyId;
         if(hasNotSettledApply(applicantId)) {
-            applyId = applyMapper.selectApplyIdByApplicantId(applicantId);
+            applyId = applyMapper.selectPrimaryKeyByApplicantId(applicantId);
         }else {
             applyId = applyService.startApplyLoan(applicantId);
         }

@@ -37,7 +37,7 @@ public interface ApplyMapper {
 
     Integer selectApplicantIdByPrimaryKey(Integer apply_id);
 
-    Integer selectApplyIdByApplicantId(Integer applicant_id);
+    Integer selectPrimaryKeyByApplicantId(Integer applicant_id);
 
     int updateStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
 
