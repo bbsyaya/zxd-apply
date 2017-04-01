@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyAddressMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         <id column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
@@ -26,7 +26,7 @@
         where address_id = #{address_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -39,7 +39,7 @@
           #{company_address,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -104,7 +104,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         update apply_address
         <set>
             <if test="apply_id != null">
@@ -138,7 +138,7 @@
         where address_id = #{address_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyAddressBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         update apply_address
         set apply_id = #{apply_id,jdbcType=INTEGER},
             applicant_id = #{applicant_id,jdbcType=INTEGER},

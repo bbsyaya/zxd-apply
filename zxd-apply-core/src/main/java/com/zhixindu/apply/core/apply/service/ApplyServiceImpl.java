@@ -7,6 +7,10 @@ import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.po.ApplyAddressPO;
+import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
+import com.zhixindu.apply.core.apply.po.ApplyContactPO;
+import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
@@ -17,7 +21,6 @@ import com.zhixindu.apply.facade.apply.bo.ApplyBankCardVerifyBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
@@ -90,11 +93,14 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveOrUpdateAddress(ApplyAddressBO applyAddressBO) {
-        applyAddressBO.setCreate_time(new Date());
+        ApplyAddressPO applyAddressPO = new ApplyAddressPO();
+        BeanUtils.copyProperties(applyAddressBO, applyAddressPO);
         if(null != applyAddressBO.getAddress_id()) {
-            applyAddressMapper.updateByPrimaryKey(applyAddressBO);
+            applyAddressMapper.updateByPrimaryKey(applyAddressPO);
         } else {
-            applyAddressMapper.insert(applyAddressBO);
+            applyAddressPO.setCreate_time(new Date());
+            applyAddressMapper.insert(applyAddressPO);
+            applyAddressBO.setAddress_id(applyAddressPO.getAddress_id());
         }
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyAddressBO.getApplicant_id(), LoanFillStep.CONTACT_INFO);
         applicantMapper.updateLoanFillStep(loanFillStepBO);
@@ -105,13 +111,16 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public List<Integer> saveOrUpdateContact(List<ApplyContactBO> applyContactBOList) {
         List<Integer> contactIdList = applyContactBOList.stream().map(applyContactBO -> {
-            applyContactBO.setCreate_time(new Date());
+            ApplyContactPO applyContactPO = new ApplyContactPO();
+            BeanUtils.copyProperties(applyContactBO, applyContactPO);
             if (null != applyContactBO.getContact_id()) {
-                applyContactMapper.updateByPrimaryKey(applyContactBO);
+                applyContactMapper.updateByPrimaryKey(applyContactPO);
             } else {
                 int contactCount = applyContactMapper.countByApplyId(applyContactBO.getApplicant_id());
                 if(contactCount < 2){
-                    applyContactMapper.insert(applyContactBO);
+                    applyContactPO.setCreate_time(new Date());
+                    applyContactMapper.insert(applyContactPO);
+                    applyContactBO.setContact_id(applyContactPO.getContact_id());
                 } else {
                     throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "contactId不能为空");
                 }
@@ -127,11 +136,14 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO) {
-        applyBankCardBO.setCreate_time(new Date());
+        ApplyBankCardPO applyBankCardPO = new ApplyBankCardPO();
+        BeanUtils.copyProperties(applyBankCardBO, applyBankCardPO);
         if(null != applyBankCardBO.getBank_card_id()) {
-            applyBankCardMapper.updateByPrimaryKey(applyBankCardBO);
+            applyBankCardMapper.updateByPrimaryKey(applyBankCardPO);
         } else {
-            applyBankCardMapper.insert(applyBankCardBO);
+            applyBankCardPO.setCreate_time(new Date());
+            applyBankCardMapper.insert(applyBankCardPO);
+            applyBankCardBO.setBank_card_id(applyBankCardPO.getBank_card_id());
         }
         ApplyBankCardVerifyBO applyBankCardVerifyBO = new ApplyBankCardVerifyBO();
         Integer applicantId = applyBankCardBO.getApplicant_id();
@@ -155,10 +167,10 @@ public class ApplyServiceImpl implements ApplyService {
         applyPO.setApply_status(ApplyStatus.UNDER_REVIEW);
         applyMapper.updateByPrimaryKeySelective(applyPO);
 
-        ApplyLocationBO applyLocationBO = new ApplyLocationBO();
-        BeanUtils.copyProperties(applyBaseInfoBO, applyLocationBO);
-        applyLocationBO.setCreate_time(new Date());
-        applyLocationMapper.insert(applyLocationBO);
+        ApplyLocationPO applyLocationPO = new ApplyLocationPO();
+        BeanUtils.copyProperties(applyBaseInfoBO, applyLocationPO);
+        applyLocationPO.setCreate_time(new Date());
+        applyLocationMapper.insert(applyLocationPO);
 
         Integer applyId = applyBaseInfoBO.getApply_id();
         applyStepService.completeStep(applyId, ProcessStep.SUBMIT, now, ProcessState.SUCCESS);

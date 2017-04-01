@@ -43,11 +43,11 @@ public interface DubboApplyWechatBusiness {
     ApplyBaseInfoBO findLatestReviewApply(Integer applicantId) throws ServiceException;
 
     /**
-     * 获取没有结清的申请ID
+     * 获取准备提交的申请ID
      * @param applicantId
      * @return
      */
-    Integer findNotSettledApplyId(Integer applicantId);
+    Integer findPrepareApplyId(Integer applicantId);
 
     /**
      * 申请贷款

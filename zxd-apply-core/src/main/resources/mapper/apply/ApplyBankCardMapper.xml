@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
@@ -26,7 +26,7 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -40,7 +40,7 @@
         )
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -106,7 +106,7 @@
     </insert>
 
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO">
+            parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         update apply_bank_card
         <set>
             <if test="apply_id != null">
@@ -140,7 +140,7 @@
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         update apply_bank_card
         set apply_id = #{apply_id,jdbcType=INTEGER},
             applicant_id = #{applicant_id,jdbcType=INTEGER},

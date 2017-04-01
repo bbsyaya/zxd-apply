@@ -1,27 +1,27 @@
 package com.zhixindu.apply.core.apply.dao;
 
 
-import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
+import com.zhixindu.apply.core.apply.po.ApplyAddressPO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplyAddressMapper {
 
-    int insert(ApplyAddressBO record);
+    int insert(ApplyAddressPO record);
 
-    int insertSelective(ApplyAddressBO record);
+    int insertSelective(ApplyAddressPO record);
 
-    ApplyAddressBO selectByPrimaryKey(Integer address_id);
+    ApplyAddressPO selectByPrimaryKey(Integer address_id);
 
-    int updateByPrimaryKey(ApplyAddressBO record);
+    int updateByPrimaryKey(ApplyAddressPO record);
 
-    int updateByPrimaryKeySelective(ApplyAddressBO record);
+    int updateByPrimaryKeySelective(ApplyAddressPO record);
 
-    ApplyAddressBO selectLatestByApplicantId(Integer applicant_id);
+    ApplyAddressPO selectLatestByApplicantId(Integer applicant_id);
 
     Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
-    ApplyAddressBO selectByApplyId(Integer apply_id);
+    ApplyAddressPO selectByApplyId(Integer apply_id);
 
     int countByApplyId(Integer apply_id);
 }

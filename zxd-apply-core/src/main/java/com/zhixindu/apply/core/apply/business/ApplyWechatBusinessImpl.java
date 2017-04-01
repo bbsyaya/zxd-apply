@@ -8,6 +8,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
+import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
@@ -25,7 +26,7 @@ import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
+import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
@@ -90,17 +91,15 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public Integer findNotSettledApplyId(Integer applicantId) {
-        return applyMapper.selectPrimaryKeyByApplicantId(applicantId);
+    public Integer findPrepareApplyId(Integer applicantId) {
+        return applyMapper.selectPreparePrimaryKeyByApplicantId(applicantId);
     }
 
     @Override
     public ApplyLoanInfoBO applyLoan(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        Integer applyId;
-        if(hasNotSettledApply(applicantId)) {
-            applyId = applyMapper.selectPrimaryKeyByApplicantId(applicantId);
-        }else {
+        Integer applyId  = applyMapper.selectPreparePrimaryKeyByApplicantId(applicantId);
+        if(null == applyId) {
             applyId = applyService.startApplyLoan(applicantId);
         }
         ApplyLoanInfoBO applyLoanInfoBO = new ApplyLoanInfoBO();
@@ -121,11 +120,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public List<ApplyContactBO> findLatestApplyContact(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectLatestByApplicantId(applicantId);
-        if(CollectionUtils.isEmpty(applyContactBOList)){
+        List<ApplyContactPO> applyContactPOList = applyContactMapper.selectLatestByApplicantId(applicantId);
+        if(CollectionUtils.isEmpty(applyContactPOList)){
             return Lists.newArrayListWithCapacity(0);
         }
-        return applyContactBOList;
+        return applyContactPOList.stream().collect(Collectors.toList());
     }
 
     @Override
@@ -272,22 +271,22 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         applyLoanDetailBO.setApply_status(applyPO.getApply_status().getDesc());
         applyLoanDetailBO.setApply_status_value(applyPO.getApply_status().getValue());
 
-        List<ApplyStepBO> applyStepBOList = applyStepMapper.selectListByApplyId(applyId);
+        List<ApplyStepPO> applyStepPOList = applyStepMapper.selectListByApplyId(applyId);
         List<ApplyLoanStepBO> applyLoanStepBOList = Lists.newArrayListWithCapacity(0);
-        if(CollectionUtils.isNotEmpty(applyStepBOList)) {
-            applyLoanStepBOList = applyStepBOList.stream().map(instanceBO -> {
-                ApplyLoanStepBO applyWorkflowBO = new ApplyLoanStepBO();
+        if(CollectionUtils.isNotEmpty(applyStepPOList)) {
+            applyLoanStepBOList = applyStepPOList.stream().map(instanceBO -> {
+                ApplyLoanStepBO applyLoanStepBO = new ApplyLoanStepBO();
                 ProcessStep processStep = instanceBO.getProcess_step();
                 ProcessState processState = instanceBO.getProcess_state();
                 ApplyStatus applyStatus = ApplyStatus.resolve(processStep, processState);
-                applyWorkflowBO.setProcess_result(applyStatus.getDesc());
-                applyWorkflowBO.setProcess_result_value(applyStatus.getValue());
+                applyLoanStepBO.setProcess_result(applyStatus.getDesc());
+                applyLoanStepBO.setProcess_result_value(applyStatus.getValue());
                 if(ProcessState.PROCESSING.matches(processState)) {
-                    applyWorkflowBO.setProcess_time(processStep.getProcessDesc());
+                    applyLoanStepBO.setProcess_time(processStep.getProcessDesc());
                 } else {
-                    applyWorkflowBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString("yyyy-MM-dd HH:mm:ss"));
+                    applyLoanStepBO.setProcess_time(new DateTime(instanceBO.getProcess_time()).toString("yyyy-MM-dd HH:mm:ss"));
                 }
-                return applyWorkflowBO;
+                return applyLoanStepBO;
             }).collect(Collectors.toList());
         }
         applyLoanDetailBO.setApplyLoanStepBOList(applyLoanStepBOList);

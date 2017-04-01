@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyContactMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         <id column="contact_id" jdbcType="INTEGER" property="contact_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
@@ -22,7 +22,7 @@
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -32,7 +32,7 @@
           #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
      </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -79,7 +79,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         update apply_contact
         <set>
             <if test="apply_id != null">
@@ -104,7 +104,7 @@
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyContactBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         update apply_contact
         set apply_id = #{apply_id,jdbcType=INTEGER},
             applicant_id = #{applicant_id,jdbcType=INTEGER},

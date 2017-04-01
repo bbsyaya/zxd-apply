@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 public class ApplyContactBO implements Serializable {
     private static final long serialVersionUID = -2075646585551667198L;
@@ -23,8 +22,6 @@ public class ApplyContactBO implements Serializable {
     private String contact_mobile;
     @NotNull(message = "contact_relationship_value不能为空")
     private Integer contact_relationship_value;
-    /** 创建时间 */
-    private Date create_time;
 
     public Integer getContact_id() {
         return contact_id;
@@ -83,11 +80,4 @@ public class ApplyContactBO implements Serializable {
         this.contact_relationship_value = contact_relationship_value;
     }
 
-    public Date getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
-    }
 }

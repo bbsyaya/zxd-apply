@@ -7,18 +7,18 @@ import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
+import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.applicant.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
-import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import com.zhixindu.commons.annotation.Business;
@@ -68,9 +68,9 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         if(applyBankCardBO != null){
             applyMgtInfo.setApplyBankCardBO(applyBankCardBO);
         }
-        List<ApplyContactBO> applyContactBOList = applyContactMapper.selectByApplyId(applyPO.getApply_id());
-        if(CollectionUtils.isNotEmpty(applyContactBOList)){
-            applyMgtInfo.setApplyContactBOS(applyContactBOList);
+        List<ApplyContactPO> applyContactPOList = applyContactMapper.selectByApplyId(applyPO.getApply_id());
+        if(CollectionUtils.isNotEmpty(applyContactPOList)){
+            applyMgtInfo.setApplyContactBOS(applyContactPOList.stream().collect(Collectors.toList()));
         }
         ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplyId(applyPO.getApply_id());
         if(applyAddressBO != null){
@@ -105,11 +105,11 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             applyMgtDetailBOList = applyMgtBOs.stream().map(applyMgtBO -> {
                 ApplyMgtDetailBO applyMgtDetailBO = new ApplyMgtDetailBO();
                 BeanUtils.copyProperties(applyMgtBO, applyMgtDetailBO);
-                ApplyStepBO applyStepBO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.LOAN.getValue());
-                if (applyStepBO == null) {
+                ApplyStepPO applyStepPO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.LOAN.getValue());
+                if (applyStepPO == null) {
                     applyMgtDetailBO.setProcess_time(null);
                 } else {
-                    applyMgtDetailBO.setProcess_time(applyStepBO.getProcess_time());
+                    applyMgtDetailBO.setProcess_time(applyStepPO.getProcess_time());
                 }
                 return applyMgtDetailBO;
             }).collect(Collectors.toList());

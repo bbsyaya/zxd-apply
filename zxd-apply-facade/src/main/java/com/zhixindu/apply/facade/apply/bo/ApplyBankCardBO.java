@@ -7,15 +7,20 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 public class ApplyBankCardBO implements Serializable {
     private static final long serialVersionUID = -4569790136583162019L;
-    /** 银行卡ID */
+    /**
+     * 银行卡ID
+     */
     private Integer bank_card_id;
-    /** 申请ID */
+    /**
+     * 申请ID
+     */
     private Integer apply_id;
-    /** 申请人ID */
+    /**
+     * 申请人ID
+     */
     private Integer applicant_id;
     @NotBlank(message = "银行卡编号不能为空")
     private String bank_card_number;
@@ -24,14 +29,12 @@ public class ApplyBankCardBO implements Serializable {
     @NotBlank(message = "开户行不能为空")
     private String bank_name;
     @NotNull(message = "开户行地址行政区划代码不能为空")
-    @Digits(integer=6, fraction=0, message = "开户行地址行政区划代码长度不是6位")
+    @Digits(integer = 6, fraction = 0, message = "开户行地址行政区划代码长度不是6位")
     private Integer bank_address_code;
     @NotBlank(message = "预留手机号不能为空")
     private String reserved_mobile;
     @NotNull(message = "银行卡验证不能为空")
     private BankCardVerify bank_card_verify;
-    /** 创建时间 */
-    private Date create_time;
 
     public Integer getBank_card_id() {
         return bank_card_id;
@@ -107,13 +110,5 @@ public class ApplyBankCardBO implements Serializable {
 
     public String getMaskBankCardNumber() {
         return MaskUtil.maskBankCard(getBank_card_number());
-    }
-
-    public Date getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
     }
 }

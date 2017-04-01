@@ -2,7 +2,6 @@ package com.zhixindu.apply.facade.apply.bo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class ApplyLocationBO implements Serializable {
     private static final long serialVersionUID = -4834418728836590839L;
@@ -18,8 +17,6 @@ public class ApplyLocationBO implements Serializable {
     private BigDecimal longitude;
     /** 地址位置精度 */
     private BigDecimal precision;
-    /** 创建时间 */
-    private Date create_time;
 
     public Integer getLocation_id() {
         return location_id;
@@ -69,11 +66,4 @@ public class ApplyLocationBO implements Serializable {
         this.precision = precision;
     }
 
-    public Date getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
-    }
 }

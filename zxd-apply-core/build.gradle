@@ -99,6 +99,8 @@ processResources {
     from "src/env/" + project.env
 }
 
+
+
 mainClassName = 'com.alibaba.dubbo.container.Main'
 
 jar{

@@ -1,27 +1,27 @@
 package com.zhixindu.apply.core.apply.dao;
 
 
-import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
+import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplyBankCardMapper {
 
-    int insert(ApplyBankCardBO record);
+    int insert(ApplyBankCardPO record);
 
-    int insertSelective(ApplyBankCardBO record);
+    int insertSelective(ApplyBankCardPO record);
 
-    ApplyBankCardBO selectByPrimaryKey(Integer bank_card_id);
+    ApplyBankCardPO selectByPrimaryKey(Integer bank_card_id);
 
-    int updateByPrimaryKey(ApplyBankCardBO record);
+    int updateByPrimaryKey(ApplyBankCardPO record);
 
-    int updateByPrimaryKeySelective(ApplyBankCardBO record);
+    int updateByPrimaryKeySelective(ApplyBankCardPO record);
 
-    ApplyBankCardBO selectLatestByApplicantId(Integer applicant_id);
+    ApplyBankCardPO selectLatestByApplicantId(Integer applicant_id);
 
     Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
-    ApplyBankCardBO selectByApplyId(Integer apply_id);
+    ApplyBankCardPO selectByApplyId(Integer apply_id);
 
     String selectBankCardNumber(Integer apply_id);
 

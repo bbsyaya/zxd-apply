@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyLocationMapper">
-    <resultMap id="BaseResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyLocationBO">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyLocationPO">
         <id column="location_id" jdbcType="INTEGER" property="location_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="open_id" jdbcType="VARCHAR" property="open_id"/>
@@ -21,7 +21,7 @@
         where location_id = #{location_id,jdbcType=INTEGER}
     </select>
 
-    <insert id="insert" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyLocationBO">
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyLocationPO">
         <selectKey keyProperty="location_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -32,7 +32,7 @@
           )
     </insert>
 
-    <insert id="insertSelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyLocationBO">
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyLocationPO">
         <selectKey keyProperty="apply_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -79,7 +79,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyLocationBO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyLocationPO">
         update apply_location
         <set>
             <if test="apply_id != null">
@@ -104,7 +104,7 @@
         where location_id = #{location_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyLocationBO">
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyLocationPO">
         update apply_location
         set apply_id = #{apply_id,jdbcType=INTEGER},
           open_id = #{open_id,jdbcType=VARCHAR},

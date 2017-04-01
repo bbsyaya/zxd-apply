@@ -6,15 +6,15 @@
 package com.zhixindu.apply.core.test;
 
 import com.alibaba.fastjson.JSON;
-import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
+import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
-import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
+import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.WorkState;
+import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +83,7 @@ public class ApplyApplicantWechatBusinessTest {
 
     @Test
     public void testInsertApplyLocation(){
-        ApplyLocationBO applyLocationBO = new ApplyLocationBO();
+        ApplyLocationPO applyLocationBO = new ApplyLocationPO();
         applyLocationBO.setApply_id(1);
         applyLocationBO.setOpen_id("ozf1Kv_5BoOgKcRuDD2HtWV31bUU");
         applyLocationBO.setLatitude(new BigDecimal(32.12));

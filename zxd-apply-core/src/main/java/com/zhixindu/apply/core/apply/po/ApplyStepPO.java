@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.apply.bo;
+package com.zhixindu.apply.core.apply.po;
 
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
@@ -6,7 +6,7 @@ import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ApplyStepBO implements Serializable {
+public class ApplyStepPO implements Serializable {
 
     private static final long serialVersionUID = -3234057634470113420L;
     /** 申请步骤ID */

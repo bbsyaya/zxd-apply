@@ -5,7 +5,6 @@ import com.zhixindu.apply.facade.applicant.enums.WorkState;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 public class ApplyAddressBO implements Serializable {
 
@@ -31,8 +30,6 @@ public class ApplyAddressBO implements Serializable {
     private String company_address;
     @NotNull(message = "work_state_value不能为空")
     private Integer work_state_value;
-    /** 创建时间 */
-    private Date create_time;
 
     public Integer getAddress_id() {
         return address_id;
@@ -114,11 +111,4 @@ public class ApplyAddressBO implements Serializable {
         this.work_state_value = work_state_value;
     }
 
-    public Date getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
-    }
 }

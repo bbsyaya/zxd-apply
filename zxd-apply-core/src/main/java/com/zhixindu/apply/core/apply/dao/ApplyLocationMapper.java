@@ -1,21 +1,21 @@
 package com.zhixindu.apply.core.apply.dao;
 
-import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
+import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplyLocationMapper {
 
-    int insert(ApplyLocationBO record);
+    int insert(ApplyLocationPO record);
 
-    int insertSelective(ApplyLocationBO record);
+    int insertSelective(ApplyLocationPO record);
 
-    ApplyLocationBO selectByPrimaryKey(Integer location_id);
+    ApplyLocationPO selectByPrimaryKey(Integer location_id);
 
-    int updateByPrimaryKeySelective(ApplyLocationBO record);
+    int updateByPrimaryKeySelective(ApplyLocationPO record);
 
-    int updateByPrimaryKey(ApplyLocationBO record);
+    int updateByPrimaryKey(ApplyLocationPO record);
 
-    ApplyLocationBO selectByApplyId(Integer apply_id);
+    ApplyLocationPO selectByApplyId(Integer apply_id);
 
 }

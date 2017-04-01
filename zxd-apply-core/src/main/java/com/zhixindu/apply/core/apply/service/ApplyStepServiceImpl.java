@@ -3,7 +3,7 @@ package com.zhixindu.apply.core.apply.service;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
+import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
 import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 import org.springframework.stereotype.Service;
@@ -24,15 +24,15 @@ public class ApplyStepServiceImpl implements ApplyStepService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean startAndCompleteStep(Integer applyId, ProcessStep processStep) {
-        ApplyStepBO applyStepBO = new ApplyStepBO();
-        applyStepBO.setApply_id(applyId);
+        ApplyStepPO applyStepPO = new ApplyStepPO();
+        applyStepPO.setApply_id(applyId);
         Date now = new Date();
-        applyStepBO.setStart_time(now);
-        applyStepBO.setEnd_time(now);
-        applyStepBO.setProcess_step(processStep);
-        applyStepBO.setProcess_time(now);
-        applyStepBO.setProcess_state(ProcessState.SUCCESS);
-        return applyStepMapper.insertSelective(applyStepBO) > 0;
+        applyStepPO.setStart_time(now);
+        applyStepPO.setEnd_time(now);
+        applyStepPO.setProcess_step(processStep);
+        applyStepPO.setProcess_time(now);
+        applyStepPO.setProcess_state(ProcessState.SUCCESS);
+        return applyStepMapper.insertSelective(applyStepPO) > 0;
     }
 
     @Transactional(rollbackFor = Exception.class)
