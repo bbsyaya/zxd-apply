@@ -96,7 +96,7 @@ public class ApplyServiceImpl implements ApplyService {
         ApplyAddressPO applyAddressPO = new ApplyAddressPO();
         BeanUtils.copyProperties(applyAddressBO, applyAddressPO);
         if(null != applyAddressBO.getAddress_id()) {
-            applyAddressMapper.updateByPrimaryKey(applyAddressPO);
+            applyAddressMapper.updateByPrimaryKeySelective(applyAddressPO);
         } else {
             applyAddressPO.setCreate_time(new Date());
             applyAddressMapper.insert(applyAddressPO);
@@ -114,7 +114,7 @@ public class ApplyServiceImpl implements ApplyService {
             ApplyContactPO applyContactPO = new ApplyContactPO();
             BeanUtils.copyProperties(applyContactBO, applyContactPO);
             if (null != applyContactBO.getContact_id()) {
-                applyContactMapper.updateByPrimaryKey(applyContactPO);
+                applyContactMapper.updateByPrimaryKeySelective(applyContactPO);
             } else {
                 int contactCount = applyContactMapper.countByApplyId(applyContactBO.getApplicant_id());
                 if(contactCount < 2){
@@ -139,7 +139,7 @@ public class ApplyServiceImpl implements ApplyService {
         ApplyBankCardPO applyBankCardPO = new ApplyBankCardPO();
         BeanUtils.copyProperties(applyBankCardBO, applyBankCardPO);
         if(null != applyBankCardBO.getBank_card_id()) {
-            applyBankCardMapper.updateByPrimaryKey(applyBankCardPO);
+            applyBankCardMapper.updateByPrimaryKeySelective(applyBankCardPO);
         } else {
             applyBankCardPO.setCreate_time(new Date());
             applyBankCardMapper.insert(applyBankCardPO);
