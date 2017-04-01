@@ -96,12 +96,12 @@ def environment = hasProperty('env') ? env : 'test'
 project.ext.set("env", environment)
 
 processResources {
-    from 'src/env/' + project.env
+    from "src/env/" + project.env
 }
 
 mainClassName = 'com.alibaba.dubbo.container.Main'
 
-task copyLicense(type: Copy) {
-    from "../LICENSE"
-    into "$buildDir"
+jar{
+    archiveName 'zxd-apply-service.jar'
 }
+

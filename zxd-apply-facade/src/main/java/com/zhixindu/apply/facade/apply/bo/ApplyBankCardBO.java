@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 public class ApplyBankCardBO implements Serializable {
     private static final long serialVersionUID = -4569790136583162019L;
@@ -29,6 +30,8 @@ public class ApplyBankCardBO implements Serializable {
     private String reserved_mobile;
     @NotNull(message = "银行卡验证不能为空")
     private BankCardVerify bank_card_verify;
+    /** 创建时间 */
+    private Date create_time;
 
     public Integer getBank_card_id() {
         return bank_card_id;
@@ -104,5 +107,13 @@ public class ApplyBankCardBO implements Serializable {
 
     public String getMaskBankCardNumber() {
         return MaskUtil.maskBankCard(getBank_card_number());
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }

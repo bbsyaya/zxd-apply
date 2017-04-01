@@ -90,6 +90,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveOrUpdateAddress(ApplyAddressBO applyAddressBO) {
+        applyAddressBO.setCreate_time(new Date());
         if(null != applyAddressBO.getAddress_id()) {
             applyAddressMapper.updateByPrimaryKey(applyAddressBO);
         } else {
@@ -103,18 +104,19 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public List<Integer> saveOrUpdateContact(List<ApplyContactBO> applyContactBOList) {
-        List<Integer> contactIdList = applyContactBOList.stream().map(contactBO -> {
-            if (null != contactBO.getContact_id()) {
-                applyContactMapper.updateByPrimaryKey(contactBO);
+        List<Integer> contactIdList = applyContactBOList.stream().map(applyContactBO -> {
+            applyContactBO.setCreate_time(new Date());
+            if (null != applyContactBO.getContact_id()) {
+                applyContactMapper.updateByPrimaryKey(applyContactBO);
             } else {
-                int contactCount = applyContactMapper.countByApplyId(contactBO.getApplicant_id());
+                int contactCount = applyContactMapper.countByApplyId(applyContactBO.getApplicant_id());
                 if(contactCount < 2){
-                    applyContactMapper.insert(contactBO);
+                    applyContactMapper.insert(applyContactBO);
                 } else {
                     throw new ServiceException(ServiceCode.ILLEGAL_PARAM, "contactId不能为空");
                 }
             }
-            return contactBO.getContact_id();
+            return applyContactBO.getContact_id();
         }).collect(Collectors.toList());
         Integer applicantId = applyContactBOList.stream().map(ApplyContactBO::getApplicant_id).distinct().findAny().orElse(null);
         LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applicantId, LoanFillStep.CERTIFICATION_INFO);
@@ -125,6 +127,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO) {
+        applyBankCardBO.setCreate_time(new Date());
         if(null != applyBankCardBO.getBank_card_id()) {
             applyBankCardMapper.updateByPrimaryKey(applyBankCardBO);
         } else {
@@ -154,6 +157,7 @@ public class ApplyServiceImpl implements ApplyService {
 
         ApplyLocationBO applyLocationBO = new ApplyLocationBO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyLocationBO);
+        applyLocationBO.setCreate_time(new Date());
         applyLocationMapper.insert(applyLocationBO);
 
         Integer applyId = applyBaseInfoBO.getApply_id();
