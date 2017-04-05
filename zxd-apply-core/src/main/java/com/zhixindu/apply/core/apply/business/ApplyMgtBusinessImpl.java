@@ -12,7 +12,7 @@ import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
-import com.zhixindu.apply.facade.applicant.bo.ApplyAddressMgtBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
