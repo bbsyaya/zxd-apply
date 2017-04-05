@@ -107,27 +107,6 @@ public interface DubboApplyWechatBusiness {
     String findBankCardNumber(Integer applyId) throws ServiceException;
 
     /**
-     * 通过申请ID获取地址ID
-     * @param applyId
-     * @return
-     */
-    Integer findAddressId(Integer applyId) throws ServiceException;
-
-    /**
-     * 通过申请ID获取联系人ID列表
-     * @param applyId
-     * @return
-     */
-    List<Integer> findContactIdList(Integer applyId) throws ServiceException;
-
-    /**
-     * 通过申请ID获取银行卡ID
-     * @param applyId
-     * @return
-     */
-    Integer findBankCardId(Integer applyId) throws ServiceException;
-
-    /**
      * 提交申请借款
      * @param applyBaseInfoBO
      * @return 申请ID
