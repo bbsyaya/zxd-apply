@@ -125,7 +125,7 @@
           group by apply_id, create_time
           order by create_time desc
           limit 0,1
-        )
+        ) limit 0,2
     </select>
 
     <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
