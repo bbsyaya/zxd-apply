@@ -100,11 +100,14 @@ processResources {
     from "src/env/" + project.env
 }
 
+mainClassName = "com.alibaba.dubbo.container.Main"
 
-
-mainClassName = 'com.alibaba.dubbo.container.Main'
-
-jar{
-    archiveName 'zxd-apply-service.jar'
+distTar {
+    archiveName "zxd-apply-service.tar"
 }
+
+distZip {
+    archiveName "zxd-apply-service.zip"
+}
+
 
