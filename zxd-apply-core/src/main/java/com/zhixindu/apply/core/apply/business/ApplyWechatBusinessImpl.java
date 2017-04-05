@@ -124,7 +124,13 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         if(CollectionUtils.isEmpty(applyContactPOList)){
             return Lists.newArrayListWithCapacity(0);
         }
-        return applyContactPOList.stream().map(applyContactPO -> (ApplyContactBO)applyContactPO).collect(Collectors.toList());
+        return applyContactPOList.stream()
+                .map(applyContactPO -> {
+                    ApplyContactBO applyContactBO = new ApplyContactBO();
+                    BeanUtils.copyProperties(applyContactPO, applyContactBO);
+                    return applyContactBO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

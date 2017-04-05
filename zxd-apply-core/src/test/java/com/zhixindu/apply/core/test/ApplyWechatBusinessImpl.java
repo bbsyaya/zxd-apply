@@ -5,7 +5,9 @@
  */
 package com.zhixindu.apply.core.test;
 
+import com.alibaba.fastjson.JSON;
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
+import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
@@ -21,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author Richard Xue
@@ -48,6 +51,12 @@ public class ApplyWechatBusinessImpl {
     public void findApplyLoanDetailTest() {
         ApplyLoanDetailBO applyLoanDetail = applyWechatBusiness.findApplyLoanDetail(36);
         LOGGER.info(JsonUtil.toJsonString(applyLoanDetail));
+    }
+
+    @Test
+    public void testFindLatestApplyContact(){
+        List<ApplyContactBO> applyContactBOList = applyWechatBusiness.findLatestApplyContact(7);
+        applyContactBOList.forEach(applyContactBO -> System.out.println(JSON.toJSON(applyContactBO)));
     }
 
 }
