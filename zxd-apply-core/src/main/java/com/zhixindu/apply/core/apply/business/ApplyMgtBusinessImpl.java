@@ -105,12 +105,19 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             applyMgtDetailBOList = applyMgtBOs.stream().map(applyMgtBO -> {
                 ApplyMgtDetailBO applyMgtDetailBO = new ApplyMgtDetailBO();
                 BeanUtils.copyProperties(applyMgtBO, applyMgtDetailBO);
-                ApplyStepPO applyStepPO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.LOAN.getValue());
-                if (applyStepPO == null) {
-                    applyMgtDetailBO.setProcess_time(null);
+                ApplyStepPO applyReviewStepBO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.REVIEW.getValue());
+                if (applyReviewStepBO == null) {
+                    applyMgtDetailBO.setReview_time(null);
                 } else {
-                    applyMgtDetailBO.setProcess_time(applyStepPO.getProcess_time());
+                    applyMgtDetailBO.setReview_time(applyReviewStepBO.getProcess_time());
                 }
+                ApplyStepPO applyLoanStepBO = applyStepMapper.selectByApplyId(applyMgtBO.getApply_id(), ProcessStep.LOAN.getValue());
+                if (applyLoanStepBO == null) {
+                    applyMgtDetailBO.setLoan_time(null);
+                } else {
+                    applyMgtDetailBO.setLoan_time(applyLoanStepBO.getProcess_time());
+                }
+
                 return applyMgtDetailBO;
             }).collect(Collectors.toList());
         }
