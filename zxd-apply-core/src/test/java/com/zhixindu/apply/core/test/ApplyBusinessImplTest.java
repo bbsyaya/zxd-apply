@@ -7,6 +7,7 @@ package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
 import com.zhixindu.apply.core.apply.business.ApplyMgtBusinessImpl;
+import com.zhixindu.apply.facade.apply.bo.ApplyBankCardMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
@@ -48,6 +49,13 @@ public class ApplyBusinessImplTest {
     public void testFindApplyInfoByApplyId(){
 //        ApplyMgtInfo info = applyMgtBusiness.findApplyInfoByApplyId(1);
 //        System.out.println(JsonUtil.toJsonString(info));
+
+    }
+    @Test
+    public void testFindApplyBankCardByApplyId(){
+        //49
+        ApplyBankCardMgtBO info = applyMgtBusiness.findBankCardByApplyId(50);
+        System.out.println(JsonUtil.toJsonString(info));
 
     }
 }

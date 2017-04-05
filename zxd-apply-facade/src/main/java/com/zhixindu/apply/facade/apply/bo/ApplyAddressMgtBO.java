@@ -3,7 +3,7 @@
  * You can get our information at http://www.zhixindu.com
  * Anyone can't use this file without our permission.
  */
-package com.zhixindu.apply.facade.applicant.bo;
+package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 
