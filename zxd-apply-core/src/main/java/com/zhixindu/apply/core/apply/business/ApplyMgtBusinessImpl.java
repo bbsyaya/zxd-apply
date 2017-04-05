@@ -15,6 +15,7 @@ import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.applicant.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
@@ -69,8 +70,13 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             applyMgtInfo.setApplyBankCardBO(applyBankCardBO);
         }
         List<ApplyContactPO> applyContactPOList = applyContactMapper.selectByApplyId(applyPO.getApply_id());
-        if(CollectionUtils.isNotEmpty(applyContactPOList)){
-            applyMgtInfo.setApplyContactBOS(applyContactPOList.stream().collect(Collectors.toList()));
+        if (CollectionUtils.isNotEmpty(applyContactPOList)) {
+            applyMgtInfo.setApplyContactBOS(applyContactPOList.stream()
+                    .map(applyContactPO -> {
+                        ApplyContactBO applyContactBO = new ApplyContactBO();
+                        BeanUtils.copyProperties(applyContactPO, applyContactBO);
+                        return applyContactBO;
+                    }).collect(Collectors.toList()));
         }
         ApplyAddressBO applyAddressBO = applyAddressMapper.selectByApplyId(applyPO.getApply_id());
         if(applyAddressBO != null){
