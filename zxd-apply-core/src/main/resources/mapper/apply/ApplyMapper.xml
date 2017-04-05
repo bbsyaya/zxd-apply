@@ -293,10 +293,11 @@
 
     <sql id="whereSql">
         <where>
+            and ap.apply_status != -1
             <if test="mobile != null"> AND le.mobile=#{mobile}</if>
             <if test="id_card != null"> AND le.id_card=#{id_card}</if>
             <if test="applicant_id != null"> AND le.applicant_id=#{applicant_id}</if>
-            <if test="apply_status != null "> AND ap.apply_status=#{apply_status,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
+            <if test="apply_status != null"> AND ap.apply_status=#{apply_status,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler} </if>
             <if test="apply_start_time != null"> AND ap.apply_time &gt; #{apply_start_time}</if>
             <if test="apply_end_time != null"> AND ap.apply_time &lt; #{apply_end_time}</if>
         </where>

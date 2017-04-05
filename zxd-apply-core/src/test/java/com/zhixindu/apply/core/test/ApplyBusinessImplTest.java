@@ -9,6 +9,8 @@ import com.zhixindu.apply.core.app.ApplicationContextConfig;
 import com.zhixindu.apply.core.apply.business.ApplyMgtBusinessImpl;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
+import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
+import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.commons.utils.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,22 +32,22 @@ import javax.inject.Inject;
 public class ApplyBusinessImplTest {
 
     @Inject
-    private ApplyMgtBusinessImpl applyMgtBusiness;
+    private DubboApplyMgtBusiness applyMgtBusiness;
 
     @Test
     public void testSelectApplysByPage(){
         ApplyMgtPageParam pageParam = new ApplyMgtPageParam();
-//        pageParam.setPage(0);
-//        pageParam.setCount(10);
-//        //pageParam.setApply_status(ApplyStatus.UNDER_REVIEW);
+        pageParam.setPage(1);
+        pageParam.setCount(10);
+//        pageParam.setApply_status(ApplyStatus.REVIEW_FAIL);
 //        System.out.println(JsonUtil.toJsonString(pageParam));
-//        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.selectApplysByPage(pageParam)));
+        System.out.println(JsonUtil.toJsonString(applyMgtBusiness.selectApplysByPage(pageParam)));
     }
 
     @Test
     public void testFindApplyInfoByApplyId(){
-        ApplyMgtInfo info = applyMgtBusiness.findApplyInfoByApplyId(1);
-        System.out.println(JsonUtil.toJsonString(info));
+//        ApplyMgtInfo info = applyMgtBusiness.findApplyInfoByApplyId(1);
+//        System.out.println(JsonUtil.toJsonString(info));
 
     }
 }
