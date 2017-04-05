@@ -37,8 +37,10 @@ public class ApplyMgtDetailBO implements Serializable {
     private ApplyStatus apply_status;
     /**申请时间**/
     private Date apply_time;
-    /**处理时间**/
-    private Date process_time;
+    /**审核时间**/
+    private Date review_time;
+    /**放款时间**/
+    private Date loan_time;
 
     public BigDecimal getLoan_amount() {
         return loan_amount;
@@ -56,12 +58,20 @@ public class ApplyMgtDetailBO implements Serializable {
         this.apply_status = apply_status;
     }
 
-    public Date getProcess_time() {
-        return process_time;
+    public Date getReview_time() {
+        return review_time;
     }
 
-    public void setProcess_time(Date process_time) {
-        this.process_time = process_time;
+    public void setReview_time(Date review_time) {
+        this.review_time = review_time;
+    }
+
+    public Date getLoan_time() {
+        return loan_time;
+    }
+
+    public void setLoan_time(Date loan_time) {
+        this.loan_time = loan_time;
     }
 
     public Integer getApply_id() {
