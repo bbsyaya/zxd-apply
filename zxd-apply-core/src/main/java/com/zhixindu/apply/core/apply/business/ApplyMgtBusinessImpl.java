@@ -15,6 +15,7 @@ import com.zhixindu.apply.core.system.service.SystemConfigService;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyBankCardMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtDetailBO;
@@ -93,6 +94,19 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
             applyMgtInfo.setApplyAddressMgtBO(applyAddressMgtBO);
         }
         return applyMgtInfo;
+    }
+
+    @Override
+    public ApplyBankCardMgtBO findBankCardByApplyId(Integer apply_id) throws ServiceException {
+        Parameters.requireNotNull(apply_id,"findBankCardByApplyId apply_id illargm_param");
+        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplyId(apply_id);
+        ApplyBankCardMgtBO applyBankCardMgtBO = null;
+        if(applyBankCardBO != null){
+            applyBankCardMgtBO = new ApplyBankCardMgtBO();
+            BeanUtils.copyProperties(applyBankCardMgtBO,applyBankCardBO);
+            applyBankCardMgtBO.setBank_address_info(systemConfigService.getRegionFullName(applyBankCardBO.getBank_address_code()));
+        }
+        return applyBankCardMgtBO;
     }
 
     @Override
