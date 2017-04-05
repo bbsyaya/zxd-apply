@@ -10,6 +10,7 @@ import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
 import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
+import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.core.apply.service.ApplyService;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.enums.WorkState;
@@ -26,7 +27,6 @@ import com.zhixindu.apply.facade.apply.bo.ApplyLoanStepBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLocationBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyPageParam;
 import com.zhixindu.apply.facade.apply.bo.ApplyStatusBO;
-import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.facade.apply.business.DubboApplyWechatBusiness;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.apply.facade.apply.enums.ProcessState;
@@ -96,9 +96,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyLoanInfoBO applyLoan(Integer applicantId) {
+    public ApplyLoanInfoBO startApplyLoan(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        Integer applyId  = applyMapper.selectPreparePrimaryKeyByApplicantId(applicantId);
+        Integer applyId = applyMapper.selectPreparePrimaryKeyByApplicantId(applicantId);
         if(null == applyId) {
             applyId = applyService.startApplyLoan(applicantId);
         }
@@ -196,6 +196,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);
         return applyService.saveOrUpdateBankCard(applyBankCardBO);
+    }
+
+    @Override
+    public boolean prepareApplyLoan(Integer applicantId, Integer applyId) throws ServiceException {
+        return applyService.prepareApplyLoan(applicantId, applyId);
     }
 
     @Override

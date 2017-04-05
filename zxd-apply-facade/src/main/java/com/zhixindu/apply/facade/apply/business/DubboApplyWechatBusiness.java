@@ -50,12 +50,12 @@ public interface DubboApplyWechatBusiness {
     Integer findPrepareApplyId(Integer applicantId);
 
     /**
-     * 申请贷款
+     * 开始申请贷款
      * @param applicantId
      * @return
      * @throws ServiceException
      */
-    ApplyLoanInfoBO applyLoan(Integer applicantId) throws ServiceException;
+    ApplyLoanInfoBO startApplyLoan(Integer applicantId) throws ServiceException;
 
     /**
      * 根据申请人ID查找最新申请地址信息
@@ -98,6 +98,14 @@ public interface DubboApplyWechatBusiness {
      * @return 银行卡ID
      */
     Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO);
+
+    /**
+     * 准备申请借款信息
+     * @param applicantId
+     * @param applyId
+     * @throws ServiceException
+     */
+    boolean prepareApplyLoan(Integer applicantId, Integer applyId) throws ServiceException;
 
     /**
      * 查找银行卡号

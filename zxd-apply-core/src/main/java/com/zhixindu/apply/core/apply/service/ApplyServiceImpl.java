@@ -159,6 +159,59 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public boolean prepareApplyLoan(Integer applicantId, Integer applyId) {
+        return prepareApplyAddress(applicantId, applyId)
+                && prepareApplyContact(applicantId, applyId)
+                && prepareApplyBankCard(applicantId, applyId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean prepareApplyAddress(Integer applicantId, Integer applyId) {
+        boolean result = false;
+        if(!existApplyAddress(applyId)) {
+            ApplyAddressPO applyAddressPO = applyAddressMapper.selectLatestByApplicantId(applicantId);
+            applyAddressPO.setAddress_id(null);
+            applyAddressPO.setApply_id(applyId);
+            applyAddressPO.setCreate_time(new Date());
+            result = applyAddressMapper.insert(applyAddressPO) > 0;
+        }
+        return result;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean prepareApplyContact(Integer applicantId, Integer applyId) {
+        boolean result = false;
+        if(!existApplyContact(applyId)) {
+            List<ApplyContactPO> applyContactPOList = applyContactMapper.selectLatestByApplicantId(applicantId);
+            result = applyContactPOList.stream()
+                    .map(applyContactPO -> {
+                        applyContactPO.setContact_id(null);
+                        applyContactPO.setApply_id(applyId);
+                        applyContactPO.setCreate_time(new Date());
+                        return applyContactMapper.insert(applyContactPO);
+                    }).allMatch(effectRows -> effectRows > 0);
+        }
+        return result;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean prepareApplyBankCard(Integer applicantId, Integer applyId) {
+        boolean result = false;
+        if(!existApplyBankCard(applyId)) {
+            ApplyBankCardPO applyBankCardPO = applyBankCardMapper.selectLatestByApplicantId(applicantId);
+            applyBankCardPO.setBank_card_id(null);
+            applyBankCardPO.setApply_id(applyId);
+            applyBankCardPO.setCreate_time(new Date());
+            result = applyBankCardMapper.insert(applyBankCardPO) > 0;
+        }
+        return result;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public Integer saveApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         ApplyPO applyPO = new ApplyPO();
         BeanUtils.copyProperties(applyBaseInfoBO, applyPO);

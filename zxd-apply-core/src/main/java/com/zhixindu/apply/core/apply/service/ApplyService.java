@@ -64,6 +64,38 @@ public interface ApplyService {
     Integer saveOrUpdateBankCard(ApplyBankCardBO applyBankCardBO);
 
     /**
+     * 准备申请借款信息
+     * @param applicantId
+     * @param applyId
+     * @return
+     */
+    boolean prepareApplyLoan(Integer applicantId, Integer applyId);
+
+    /**
+     * 准备申请地址信息
+     * @param applicantId
+     * @param applyId
+     * @return
+     */
+    boolean prepareApplyAddress(Integer applicantId, Integer applyId);
+
+    /**
+     * 准备申请联系人信息
+     * @param applicantId
+     * @param applyId
+     * @return
+     */
+    boolean prepareApplyContact(Integer applicantId, Integer applyId);
+
+    /**
+     * 准备申请银行卡信息
+     * @param applicantId
+     * @param applyId
+     * @return
+     */
+    boolean prepareApplyBankCard(Integer applicantId, Integer applyId);
+
+    /**
      * 保存申请贷款
      * @param applyBaseInfoBO
      * @return
