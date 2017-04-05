@@ -168,7 +168,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean prepareApplyAddress(Integer applicantId, Integer applyId) {
-        boolean result = false;
+        boolean result = true;
         if(!existApplyAddress(applyId)) {
             ApplyAddressPO applyAddressPO = applyAddressMapper.selectLatestByApplicantId(applicantId);
             applyAddressPO.setAddress_id(null);
@@ -182,7 +182,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean prepareApplyContact(Integer applicantId, Integer applyId) {
-        boolean result = false;
+        boolean result = true;
         if(!existApplyContact(applyId)) {
             List<ApplyContactPO> applyContactPOList = applyContactMapper.selectLatestByApplicantId(applicantId);
             result = applyContactPOList.stream()
@@ -199,7 +199,7 @@ public class ApplyServiceImpl implements ApplyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean prepareApplyBankCard(Integer applicantId, Integer applyId) {
-        boolean result = false;
+        boolean result = true;
         if(!existApplyBankCard(applyId)) {
             ApplyBankCardPO applyBankCardPO = applyBankCardMapper.selectLatestByApplicantId(applicantId);
             applyBankCardPO.setBank_card_id(null);
