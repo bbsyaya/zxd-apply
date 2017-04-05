@@ -103,7 +103,7 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         ApplyBankCardMgtBO applyBankCardMgtBO = null;
         if(applyBankCardBO != null){
             applyBankCardMgtBO = new ApplyBankCardMgtBO();
-            BeanUtils.copyProperties(applyBankCardMgtBO,applyBankCardBO);
+            BeanUtils.copyProperties(applyBankCardBO,applyBankCardMgtBO);
             applyBankCardMgtBO.setBank_address_info(systemConfigService.getRegionFullName(applyBankCardBO.getBank_address_code()));
         }
         return applyBankCardMgtBO;

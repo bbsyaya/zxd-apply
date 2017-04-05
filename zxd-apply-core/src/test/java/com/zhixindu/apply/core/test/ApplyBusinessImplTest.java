@@ -54,7 +54,7 @@ public class ApplyBusinessImplTest {
     @Test
     public void testFindApplyBankCardByApplyId(){
         //49
-        ApplyBankCardMgtBO info = applyMgtBusiness.findBankCardByApplyId(49);
+        ApplyBankCardMgtBO info = applyMgtBusiness.findBankCardByApplyId(50);
         System.out.println(JsonUtil.toJsonString(info));
 
     }
