@@ -205,24 +205,6 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public Integer findAddressId(Integer applyId) {
-        Parameters.requireNotNull(applyId, "applyId不能为空");
-        return applyAddressMapper.selectPrimaryKeyByApplyId(applyId);
-    }
-
-    @Override
-    public List<Integer> findContactIdList(Integer applyId) {
-        Parameters.requireNotNull(applyId, "applyId不能为空");
-        return applyContactMapper.selectPrimaryKeyByApplyId(applyId);
-    }
-
-    @Override
-    public Integer findBankCardId(Integer applyId) {
-        Parameters.requireNotNull(applyId, "applyId不能为空");
-        return applyBankCardMapper.selectPrimaryKeyByApplyId(applyId);
-    }
-
-    @Override
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO);
         Integer applicantId = applyBaseInfoBO.getApplicant_id();
