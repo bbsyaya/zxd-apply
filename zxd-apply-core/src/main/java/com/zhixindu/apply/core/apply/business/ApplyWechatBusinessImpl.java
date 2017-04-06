@@ -70,6 +70,12 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
+    public boolean hasSettledApply(Integer lenderId) throws ServiceException {
+        ApplyPO applyPO = applyMapper.selectLatestByLenderId(lenderId);
+        return null != applyPO && ApplyStatus.REPAYMENT_SETTLED.matches(applyPO.getApply_status());
+    }
+
+    @Override
     public ApplyBaseInfoBO findLatestReviewApply(Integer lenderId) {
         Parameters.requireNotNull(lenderId, "lenderId不能为空");
         return applyMapper.selectLatestReviewByLenderId(lenderId);

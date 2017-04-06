@@ -50,4 +50,9 @@ public class ApplyWechatBusinessImpl {
         LOGGER.info(JsonUtil.toJsonString(applyLoanDetail));
     }
 
+    @Test
+    public void testHasSettledApply(){
+        System.out.println(applyWechatBusiness.hasSettledApply(39));
+    }
+
 }

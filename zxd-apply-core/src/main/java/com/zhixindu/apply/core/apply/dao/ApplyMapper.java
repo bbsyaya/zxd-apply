@@ -33,6 +33,8 @@ public interface ApplyMapper {
 
     int countNotSettledApply(Integer lender_id);
 
+    ApplyPO selectLatestByLenderId(Integer lender_id);
+
     Date selectLastApplyTime(Integer lender_id);
 
     Integer selectLenderIdByPrimaryKey(Integer apply_id);
