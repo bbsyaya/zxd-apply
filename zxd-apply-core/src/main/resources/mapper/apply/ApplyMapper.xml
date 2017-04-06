@@ -363,6 +363,15 @@
         and apply_status in(0,1,2,4,5,7)
     </select>
 
+    <select id="selectLatestByLenderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where lender_id = #{lender_id,jdbcType=INTEGER}
+        order by apply_time DESC
+        limit 0,1
+    </select>
+
     <select id="selectLastApplyTime" parameterType="java.lang.Integer" resultType="java.util.Date">
         select
         apply_time

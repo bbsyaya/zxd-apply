@@ -36,6 +36,13 @@ public interface DubboApplyWechatBusiness {
     boolean hasNotSettledApply(Integer applicantId) throws ServiceException;
 
     /**
+     * 是否有已结清的贷款申请
+     * @param lenderId
+     * @return
+     */
+    boolean hasSettledApply(Integer lenderId) throws ServiceException;
+
+    /**
      * 获取最新的申请记录，状态处于审核中、审核通过
      * @param applicantId
      * @return 申请借款基本信息
