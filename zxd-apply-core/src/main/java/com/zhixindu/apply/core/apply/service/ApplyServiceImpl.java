@@ -14,6 +14,7 @@ import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
@@ -150,7 +151,9 @@ public class ApplyServiceImpl implements ApplyService {
         applyBankCardVerifyBO.setApplicant_id(applicantId);
         applyBankCardVerifyBO.setBank_card_verify(applyBankCardBO.getBank_card_verify());
         applicantMapper.updateBankCardVerify(applyBankCardVerifyBO);
-        if(applicantService.hasMobileVerified(applicantId)) {
+        // 必须是银行卡认证通过且手机号已经认证通过才能更新填写步骤
+        if(BankCardVerify.VERIFIED.matches(applyBankCardVerifyBO.getBank_card_verify())
+            && applicantService.hasMobileVerified(applicantId)) {
             LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
             applicantMapper.updateLoanFillStep(loanFillStepBO);
         }

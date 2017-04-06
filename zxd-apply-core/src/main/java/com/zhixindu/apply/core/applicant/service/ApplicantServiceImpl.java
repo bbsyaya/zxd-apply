@@ -55,7 +55,9 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public int saveMobileVerify(ApplicantMobileVerifyBO mobileVerifyBO) {
         int rows = applicantMapper.updateMobileVerify(mobileVerifyBO);
-        if(rows > 0 && hasBankCardVerified(mobileVerifyBO.getApplicant_id())) {
+        // 必须是手机号认证通过且银行卡已经认证通过才能更新填写步骤
+        if(rows == 1 && MobileVerify.VERIFIED.matches(mobileVerifyBO.getMobile_verify())
+                && hasBankCardVerified(mobileVerifyBO.getApplicant_id())) {
             LoanFillStepBO loanFillStepBO = new LoanFillStepBO(mobileVerifyBO.getApplicant_id(), LoanFillStep.SUBMIT);
             rows += applicantMapper.updateLoanFillStep(loanFillStepBO);
         }
