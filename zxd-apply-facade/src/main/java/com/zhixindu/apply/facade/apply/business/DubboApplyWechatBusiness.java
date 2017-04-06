@@ -79,6 +79,27 @@ public interface DubboApplyWechatBusiness {
     ApplyBankCardBO findLatestApplyBankCard(Integer applicantId);
 
     /**
+     * 根据申请ID查找最新申请地址信息
+     * @param applyId
+     * @return 申请人地址信息
+     */
+    ApplyAddressBO findApplyAddress(Integer applyId);
+
+    /**
+     * 根据申请ID查找最新申请联系人信息
+     * @param applyId
+     * @return 申请人联系人列表
+     */
+    List<ApplyContactBO> findApplyContact(Integer applyId);
+
+    /**
+     * 根据申请ID查找最新银行卡信息
+     * @param applyId
+     * @return 申请人银行卡信息
+     */
+    ApplyBankCardBO findApplyBankCard(Integer applyId);
+
+    /**
      * 提交申请人地址信息
      * @param applyAddressBO
      * @return 地址ID

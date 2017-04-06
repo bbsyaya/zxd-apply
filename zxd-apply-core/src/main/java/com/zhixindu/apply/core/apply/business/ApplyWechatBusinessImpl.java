@@ -145,6 +145,33 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
+    public ApplyAddressBO findApplyAddress(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
+        return applyAddressMapper.selectByApplyId(applyId);
+    }
+
+    @Override
+    public List<ApplyContactBO> findApplyContact(Integer applyId) {
+        Parameters.requireNotNull(applyId, "applyId不能为空");
+        List<ApplyContactPO> applyContactPOList = applyContactMapper.selectByApplyId(applyId);
+        if(CollectionUtils.isEmpty(applyContactPOList)) {
+            return Lists.newArrayListWithCapacity(0);
+        }
+        return applyContactPOList.stream()
+                .map(applyContactPO -> {
+                    ApplyContactBO applyContactBO = new ApplyContactBO();
+                    BeanUtils.copyProperties(applyContactPO, applyContactBO);
+                    return applyContactBO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ApplyBankCardBO findApplyBankCard(Integer applyId) {
+        return applyBankCardMapper.selectByApplyId(applyId);
+    }
+
+    @Override
     public Integer submitApplyAddress(ApplyAddressBO applyAddressBO) {
         Integer applyId = applyAddressBO.getApply_id();
         Parameters.requireNotNull(applyId, "applyId不能为空");
