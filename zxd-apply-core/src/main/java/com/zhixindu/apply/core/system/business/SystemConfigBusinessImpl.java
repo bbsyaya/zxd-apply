@@ -79,7 +79,7 @@ public class SystemConfigBusinessImpl implements DubboSystemConfigBusiness {
         Integer regionCode = Integer.valueOf(idCardNumber.substring(0, 6));
         Optional<IdCardAttributionBO> optional = idCardAttributionCacheManager.getIdCardAttribution(regionCode);
         if(optional.isPresent()) {
-            return optional.get().getCity_name();
+            return optional.get().getRegion_name();
         }
         return getRegionFullName(Integer.valueOf(idCardNumber.substring(0, 4)));
     }
