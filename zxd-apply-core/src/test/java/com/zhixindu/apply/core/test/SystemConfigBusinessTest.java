@@ -1,7 +1,7 @@
 package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
-import com.zhixindu.apply.core.system.business.SystemConfigBusinessImpl;
+import com.zhixindu.apply.facade.system.business.DubboSystemConfigBusiness;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,11 +19,16 @@ import javax.inject.Inject;
 public class SystemConfigBusinessTest {
 
     @Inject
-    private SystemConfigBusinessImpl systemConfigBusiness;
+    private DubboSystemConfigBusiness systemConfigBusiness;
 
     @Test
     public void testGetRegionFullName(){
         System.out.println(systemConfigBusiness.getRegionFullName(3101));
+    }
+
+    @Test
+    public void testGetRegionList(){
+        System.out.println(systemConfigBusiness.getRegionList(3101));
     }
 
 }
