@@ -2,11 +2,11 @@ package com.zhixindu.apply.core.applicant.dao;
 
 
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
-import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyBankCardVerifyBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.core.apply.po.ApplyResultPO;
 import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
+import com.zhixindu.apply.core.applicant.po.ApplicantBankCardVerifyPO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -39,10 +39,10 @@ public interface ApplicantMapper {
 
     int resetMobileVerify(@Param("applicant_id") Integer applicant_id, @Param("mobile") String mobile);
 
-    int updateBankCardVerify(ApplyBankCardVerifyBO applyBankCardVerifyBO);
+    int updateBankCardVerify(ApplicantBankCardVerifyPO applicantBankCardVerifyPO);
 
     int updateLoanFillStep(LoanFillStepBO loanFillStepBO);
 
-    int updateApplyResult(ApplyResultBO applyResultBO);
+    int updateApplyResult(ApplyResultPO applyResultPO);
 
 }

@@ -9,16 +9,17 @@ import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.po.ApplyAddressPO;
 import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
+import com.zhixindu.apply.core.apply.po.ApplyBankCardVerifyPO;
 import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
-import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
+import com.zhixindu.apply.core.apply.po.ApplyResultPO;
 import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyBankCardVerifyBO;
+import com.zhixindu.apply.core.applicant.po.ApplicantBankCardVerifyPO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBaseInfoBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyCreditBO;
@@ -146,13 +147,13 @@ public class ApplyServiceImpl implements ApplyService {
             applyBankCardMapper.insert(applyBankCardPO);
             applyBankCardBO.setBank_card_id(applyBankCardPO.getBank_card_id());
         }
-        ApplyBankCardVerifyBO applyBankCardVerifyBO = new ApplyBankCardVerifyBO();
+        ApplicantBankCardVerifyPO bankCardVerifyPO = new ApplicantBankCardVerifyPO();
         Integer applicantId = applyBankCardBO.getApplicant_id();
-        applyBankCardVerifyBO.setApplicant_id(applicantId);
-        applyBankCardVerifyBO.setBank_card_verify(applyBankCardBO.getBank_card_verify());
-        applicantMapper.updateBankCardVerify(applyBankCardVerifyBO);
-        // 必须是银行卡认证通过且手机号已经认证通过才能更新填写步骤
-        if(BankCardVerify.VERIFIED.matches(applyBankCardVerifyBO.getBank_card_verify())
+        bankCardVerifyPO.setApplicant_id(applicantId);
+        bankCardVerifyPO.setBank_card_verify(applyBankCardBO.getBank_card_verify());
+        applicantMapper.updateBankCardVerify(bankCardVerifyPO);
+        // 银行卡填写且手机号已经认证通过才能更新填写步骤
+        if(BankCardVerify.FILLED.matches(bankCardVerifyPO.getBank_card_verify())
             && applicantService.hasMobileVerified(applicantId)) {
             LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
             applicantMapper.updateLoanFillStep(loanFillStepBO);
@@ -242,17 +243,27 @@ public class ApplyServiceImpl implements ApplyService {
     public int updateApplyCredit(ApplyCreditBO applyCreditBO) {
         int rows = applyMapper.updateCreditByPrimaryKey(applyCreditBO);
 
-        ApplyResultBO applyResultBO = new ApplyResultBO();
+        ApplyResultPO applyResultPO = new ApplyResultPO();
         Integer applyId = applyCreditBO.getApply_id();
-        applyResultBO.setApplicant_id(applyMapper.selectApplicantIdByPrimaryKey(applyId));
-        applyResultBO.setCredit_score(applyCreditBO.getCredit_score());
-        applyResultBO.setApply_result(applyCreditBO.getApply_status().getApplyResult());
+        applyResultPO.setApplicant_id(applyCreditBO.getApplicant_id());
+        applyResultPO.setCredit_score(applyCreditBO.getCredit_score());
+        applyResultPO.setApply_result(applyCreditBO.getApply_status().getApplyResult());
+        applyResultPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         // 审核失败才会更新审核拒绝时间
         if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
-            applyResultBO.setReject_time(new Date());
+            applyResultPO.setReject_time(new Date());
         }
-        rows += applicantMapper.updateApplyResult(applyResultBO);
+        // 银行卡认证失败的就回到第三步认证信息
+        if(BankCardVerify.UNVERIFIED.matches(applyCreditBO.getBank_card_verify())) {
+            applyResultPO.setLoan_fill_step(LoanFillStep.CERTIFICATION_INFO);
+        }
+        rows += applicantMapper.updateApplyResult(applyResultPO);
 
+        ApplyBankCardVerifyPO bankCardVerifyPO = new ApplyBankCardVerifyPO();
+        bankCardVerifyPO.setApply_id(applyId);
+        bankCardVerifyPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
+        rows += applyBankCardMapper.updateBankCardVerifyByApplyId(bankCardVerifyPO);
+        // TODO 银行卡认证失败怎么处理步骤？
         ProcessState processState = applyCreditBO.getApply_status().getProcessState();
         applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
         // 审核成功才有下一步放款

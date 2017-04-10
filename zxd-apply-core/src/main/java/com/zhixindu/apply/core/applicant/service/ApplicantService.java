@@ -31,6 +31,13 @@ public interface ApplicantService {
     boolean hasBankCardVerified(Integer applicantId);
 
     /**
+     * 银行卡是否填写
+     * @param applicantId
+     * @return
+     */
+    boolean hasBankCardFilled(Integer applicantId);
+
+    /**
      * 保存申请人基本信息
      * @param applicantBaseInfoBO
      * @return

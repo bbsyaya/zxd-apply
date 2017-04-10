@@ -2,6 +2,7 @@ package com.zhixindu.apply.core.apply.dao;
 
 
 import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
+import com.zhixindu.apply.core.apply.po.ApplyBankCardVerifyPO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -26,4 +27,6 @@ public interface ApplyBankCardMapper {
     String selectBankCardNumber(Integer apply_id);
 
     int countByApplyId(Integer apply_id);
+
+    int updateBankCardVerifyByApplyId(ApplyBankCardVerifyPO bankCardVerifyPO);
 }

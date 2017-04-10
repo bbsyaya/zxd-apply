@@ -1,6 +1,5 @@
-package com.zhixindu.apply.facade.apply.bo;
+package com.zhixindu.apply.core.applicant.po;
 
-import com.zhixindu.apply.facade.applicant.bo.IBankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 
 import java.io.Serializable;
@@ -8,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/8.
  */
-public class ApplyBankCardVerifyBO implements IBankCardVerify, Serializable {
+public class ApplicantBankCardVerifyPO implements Serializable {
     private static final long serialVersionUID = -8829720976239552424L;
 
     /** 申请人ID */
@@ -32,8 +31,4 @@ public class ApplyBankCardVerifyBO implements IBankCardVerify, Serializable {
         this.bank_card_verify = bank_card_verify;
     }
 
-    @Override
-    public boolean isBankCardVerified() {
-        return BankCardVerify.VERIFIED.matches(getBank_card_verify());
-    }
 }

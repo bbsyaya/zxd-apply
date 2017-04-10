@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         <id column="address_id" jdbcType="INTEGER" property="address_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
-        <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
+        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="home_address_code" jdbcType="INTEGER" property="home_address_code"/>
         <result column="home_address" jdbcType="VARCHAR" property="home_address"/>
         <result column="work_state" jdbcType="INTEGER" property="work_state" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
@@ -15,7 +15,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      address_id, apply_id, applicant_id, home_address_code, home_address, work_state, company_name,
+      address_id, apply_id, apply_id, home_address_code, home_address, work_state, company_name,
       company_address_code, company_address, create_time
     </sql>
 
@@ -30,9 +30,9 @@
         <selectKey keyProperty="address_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_address (apply_id, applicant_id, home_address_code, home_address, work_state,
+        insert into apply_address (apply_id, apply_id, home_address_code, home_address, work_state,
           company_name, company_address_code, company_address, create_time)
-        values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
+        values (#{apply_id,jdbcType=INTEGER}, #{apply_id,jdbcType=INTEGER},
           #{home_address_code,jdbcType=INTEGER}, #{home_address,jdbcType=VARCHAR},
           #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
           #{company_name,jdbcType=VARCHAR}, #{company_address_code,jdbcType=INTEGER},
@@ -48,8 +48,8 @@
             <if test="apply_id != null">
                 apply_id,
             </if>
-            <if test="applicant_id != null">
-                applicant_id,
+            <if test="apply_id != null">
+                apply_id,
             </if>
             <if test="home_address_code != null">
                 home_address_code,
@@ -77,8 +77,8 @@
             <if test="apply_id != null">
                 #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="applicant_id != null">
-                #{applicant_id,jdbcType=INTEGER},
+            <if test="apply_id != null">
+                #{apply_id,jdbcType=INTEGER},
             </if>
             <if test="home_address_code != null">
                 #{home_address_code,jdbcType=INTEGER},
@@ -110,8 +110,8 @@
             <if test="apply_id != null">
                 apply_id = #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="applicant_id != null">
-                applicant_id = #{applicant_id,jdbcType=INTEGER},
+            <if test="apply_id != null">
+                apply_id = #{apply_id,jdbcType=INTEGER},
             </if>
             <if test="home_address_code != null">
                 home_address_code = #{home_address_code,jdbcType=INTEGER},
@@ -141,7 +141,7 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyAddressPO">
         update apply_address
         set apply_id = #{apply_id,jdbcType=INTEGER},
-            applicant_id = #{applicant_id,jdbcType=INTEGER},
+            apply_id = #{apply_id,jdbcType=INTEGER},
             home_address_code = #{home_address_code,jdbcType=INTEGER},
             home_address = #{home_address,jdbcType=VARCHAR},
             work_state = #{work_state,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -156,7 +156,7 @@
         select
         <include refid="Base_Column_List"/>
         from apply_address
-        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
         order by create_time desc
         limit 0,1
     </select>

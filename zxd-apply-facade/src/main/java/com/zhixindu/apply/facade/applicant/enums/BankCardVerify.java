@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by SteveGuo on 2017/3/6.
  */
 public enum BankCardVerify implements IEnum<Integer> {
-    UNVERIFIED(0, "未验证"), VERIFIED(1, "已验证");
+    UNVERIFIED(0, "未验证"), VERIFIED(1, "已验证"), FILLED(2, "已填写");
 
     private int value;
     private String desc;

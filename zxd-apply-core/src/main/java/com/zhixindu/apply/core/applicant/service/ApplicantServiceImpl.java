@@ -40,6 +40,12 @@ public class ApplicantServiceImpl implements ApplicantService {
         return null != bankCardVerify && BankCardVerify.VERIFIED.matches(bankCardVerify);
     }
 
+    @Override
+    public boolean hasBankCardFilled(Integer applicantId) {
+        Integer bankCardVerify = applicantMapper.selectBankCardVerifyByPrimaryKey(applicantId);
+        return null != bankCardVerify && BankCardVerify.FILLED.matches(bankCardVerify);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer saveApplicantBaseInfo(ApplicantBaseInfoBO applicantBaseInfoBO) {
@@ -55,9 +61,9 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public int saveMobileVerify(ApplicantMobileVerifyBO mobileVerifyBO) {
         int rows = applicantMapper.updateMobileVerify(mobileVerifyBO);
-        // 必须是手机号认证通过且银行卡已经认证通过才能更新填写步骤
+        // 必须是手机号认证通过且银行卡已经填写才能更新填写步骤
         if(rows == 1 && MobileVerify.VERIFIED.matches(mobileVerifyBO.getMobile_verify())
-                && hasBankCardVerified(mobileVerifyBO.getApplicant_id())) {
+                && hasBankCardFilled(mobileVerifyBO.getApplicant_id())) {
             LoanFillStepBO loanFillStepBO = new LoanFillStepBO(mobileVerifyBO.getApplicant_id(), LoanFillStep.SUBMIT);
             rows += applicantMapper.updateLoanFillStep(loanFillStepBO);
         }
