@@ -245,12 +245,13 @@ public class ApplyServiceImpl implements ApplyService {
 
         ApplyResultPO applyResultPO = new ApplyResultPO();
         Integer applyId = applyCreditBO.getApply_id();
+        ApplyStatus applyStatus = applyCreditBO.getApply_status();
         applyResultPO.setApplicant_id(applyCreditBO.getApplicant_id());
         applyResultPO.setCredit_score(applyCreditBO.getCredit_score());
-        applyResultPO.setApply_result(applyCreditBO.getApply_status().getApplyResult());
+        applyResultPO.setApply_result(applyStatus.getApplyResult());
         applyResultPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         // 审核失败才会更新审核拒绝时间
-        if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
+        if(ApplyStatus.REVIEW_FAIL.matches(applyStatus)) {
             applyResultPO.setReject_time(new Date());
         }
         // 银行卡认证失败的就回到第三步认证信息
@@ -263,14 +264,12 @@ public class ApplyServiceImpl implements ApplyService {
         bankCardVerifyPO.setApply_id(applyId);
         bankCardVerifyPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         rows += applyBankCardMapper.updateBankCardVerifyByApplyId(bankCardVerifyPO);
-        // 银行卡认证成功才会更新审核步骤信息
-        if(BankCardVerify.VERIFIED.matches(applyCreditBO.getBank_card_verify())) {
-            ProcessState processState = applyCreditBO.getApply_status().getProcessState();
-            applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
-            // 审核成功才有下一步放款
-            if(ApplyStatus.REVIEW_SUCCESS.matches(applyCreditBO.getApply_status())) {
-                applyStepService.startStep(applyId, ProcessStep.LOAN);
-            }
+
+        ProcessState processState = applyStatus.getProcessState();
+        applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
+        // 审核成功才有下一步放款
+        if(ApplyStatus.REVIEW_SUCCESS.matches(applyStatus)) {
+            applyStepService.startStep(applyId, ProcessStep.LOAN);
         }
         return rows;
     }
