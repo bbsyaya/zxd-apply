@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         <id column="contact_id" jdbcType="INTEGER" property="contact_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
-        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
         <result column="contact_relationship" jdbcType="INTEGER" property="contact_relationship" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
         <result column="contact_name" jdbcType="VARCHAR" property="contact_name"/>
         <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile"/>
@@ -12,7 +12,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      contact_id, apply_id, apply_id, contact_relationship, contact_name, contact_mobile, create_time
+        contact_id, apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -26,11 +26,11 @@
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_contact (apply_id, apply_id, contact_relationship, contact_name, contact_mobile, create_time)
-        values (#{apply_id,jdbcType=INTEGER}, #{apply_id,jdbcType=INTEGER},
-          #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-          #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
-     </insert>
+        insert into apply_contact (apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time)
+        values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
+        #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
+    </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
@@ -41,8 +41,8 @@
             <if test="apply_id != null">
                 apply_id,
             </if>
-            <if test="apply_id != null">
-                apply_id,
+            <if test="applicant_id != null">
+                applicant_id,
             </if>
             <if test="contact_relationship != null">
                 contact_relationship,
@@ -61,8 +61,8 @@
             <if test="apply_id != null">
                 #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="apply_id != null">
-                #{apply_id,jdbcType=INTEGER},
+            <if test="applicant_id != null">
+                #{applicant_id,jdbcType=INTEGER},
             </if>
             <if test="contact_relationship != null">
                 #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -85,8 +85,8 @@
             <if test="apply_id != null">
                 apply_id = #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="apply_id != null">
-                apply_id = #{apply_id,jdbcType=INTEGER},
+            <if test="applicant_id != null">
+                applicant_id = #{applicant_id,jdbcType=INTEGER},
             </if>
             <if test="contact_relationship != null">
                 contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -107,11 +107,11 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         update apply_contact
         set apply_id = #{apply_id,jdbcType=INTEGER},
-            apply_id = #{apply_id,jdbcType=INTEGER},
-            contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-            contact_name = #{contact_name,jdbcType=VARCHAR},
-            contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
-            create_time = #{create_time,jdbcType=TIMESTAMP}
+        applicant_id = #{applicant_id,jdbcType=INTEGER},
+        contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        contact_name = #{contact_name,jdbcType=VARCHAR},
+        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+        create_time = #{create_time,jdbcType=TIMESTAMP}
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
 
@@ -120,11 +120,11 @@
         <include refid="Base_Column_List"/>
         from apply_contact
         where apply_id = (
-          select apply_id from apply_contact
-          where apply_id = #{apply_id,jdbcType=INTEGER}
-          group by apply_id, create_time
-          order by create_time desc
-          limit 0,1
+        select apply_id from apply_contact
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        group by apply_id, create_time
+        order by create_time desc
+        limit 0,1
         ) limit 0,2
     </select>
 

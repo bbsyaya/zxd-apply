@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
         <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
-        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
         <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
         <result column="bank_id" jdbcType="INTEGER" property="bank_id" />
         <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
@@ -15,8 +15,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      bank_card_id, apply_id, apply_id, bank_card_number, bank_id, bank_name, bank_address_code, reserved_mobile,
-      bank_card_verify, create_time
+        bank_card_id, apply_id, applicant_id, bank_card_number, bank_id, bank_name, bank_address_code, reserved_mobile,
+        bank_card_verify, create_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,9 +30,9 @@
         <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_bank_card (apply_id, apply_id, bank_card_number, bank_id, bank_name,
-          bank_address_code, reserved_mobile, bank_card_verify, create_time)
-        values (#{apply_id,jdbcType=INTEGER}, #{apply_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
+        insert into apply_bank_card (apply_id, applicant_id, bank_card_number, bank_id, bank_name,
+        bank_address_code, reserved_mobile, bank_card_verify, create_time)
+        values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
         #{bank_id,jdbcType=INTEGER}, #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},
         #{reserved_mobile,jdbcType=VARCHAR},
         #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
@@ -49,8 +49,8 @@
             <if test="apply_id != null">
                 apply_id,
             </if>
-            <if test="apply_id != null">
-                apply_id,
+            <if test="applicant_id != null">
+                applicant_id,
             </if>
             <if test="bank_card_number != null">
                 bank_card_number,
@@ -78,8 +78,8 @@
             <if test="apply_id != null">
                 #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="apply_id != null">
-                #{apply_id,jdbcType=INTEGER},
+            <if test="applicant_id != null">
+                #{applicant_id,jdbcType=INTEGER},
             </if>
             <if test="bank_card_number != null">
                 #{bank_card_number,jdbcType=VARCHAR},
@@ -112,8 +112,8 @@
             <if test="apply_id != null">
                 apply_id = #{apply_id,jdbcType=INTEGER},
             </if>
-            <if test="apply_id != null">
-                apply_id = #{apply_id,jdbcType=INTEGER},
+            <if test="applicant_id != null">
+                applicant_id = #{applicant_id,jdbcType=INTEGER},
             </if>
             <if test="bank_card_number != null">
                 bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
@@ -143,14 +143,14 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
         update apply_bank_card
         set apply_id = #{apply_id,jdbcType=INTEGER},
-            apply_id = #{apply_id,jdbcType=INTEGER},
-            bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
-            bank_id = #{bank_id,jdbcType=INTEGER},
-            bank_name = #{bank_name,jdbcType=VARCHAR},
-            bank_address_code = #{bank_address_code,jdbcType=INTEGER},
-            reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
-            bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-            create_time = #{create_time,jdbcType=TIMESTAMP}
+        applicant_id = #{applicant_id,jdbcType=INTEGER},
+        bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+        bank_id = #{bank_id,jdbcType=INTEGER},
+        bank_name = #{bank_name,jdbcType=VARCHAR},
+        bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+        reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
+        bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        create_time = #{create_time,jdbcType=TIMESTAMP}
         where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
     </update>
 
@@ -158,7 +158,7 @@
         select
         <include refid="Base_Column_List"/>
         from apply_bank_card
-        where apply_id = #{apply_id,jdbcType=INTEGER}
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
         order by create_time desc
         limit 0,1
     </select>
