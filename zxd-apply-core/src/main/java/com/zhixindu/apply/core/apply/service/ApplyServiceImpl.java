@@ -265,8 +265,7 @@ public class ApplyServiceImpl implements ApplyService {
         bankCardVerifyPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         rows += applyBankCardMapper.updateBankCardVerifyByApplyId(bankCardVerifyPO);
 
-        ProcessState processState = applyStatus.getProcessState();
-        applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
+        applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), applyStatus.getProcessState());
         // 审核成功才有下一步放款
         if(ApplyStatus.REVIEW_SUCCESS.matches(applyStatus)) {
             applyStepService.startStep(applyId, ProcessStep.LOAN);

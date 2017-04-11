@@ -142,12 +142,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     @Override
     public ApplyBankCardBO findLatestApplyBankCard(Integer applicantId) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectLatestByApplicantId(applicantId);
-        if(null == applyBankCardBO) {
-            throw new ServiceException(ApplyErrorCode.NO_BANK_CARD.getErrorCode(), ApplyErrorCode.NO_BANK_CARD.getDesc());
-        }
-        applyBankCardBO.setBank_card_number(applyBankCardBO.getBank_card_number());
-        return applyBankCardBO;
+        return applyBankCardMapper.selectLatestByApplicantId(applicantId);
     }
 
     @Override
