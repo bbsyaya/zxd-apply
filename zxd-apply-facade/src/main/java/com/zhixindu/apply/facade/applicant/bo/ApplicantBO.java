@@ -98,7 +98,8 @@ public class ApplicantBO extends ApplicantBaseInfoBO implements IApplicantVerify
     public boolean isLowCredit() {
         return  null != getApply_result() && null != getReject_time()
                 && ApplyResult.REJECT.matches(getApply_result())
-                && DateTime.now().minusMonths(1).isBefore(getReject_time().getTime());
+                && DateTime.now().minusMonths(1).isBefore(getReject_time().getTime())
+                && null != getBank_card_verify() && isBankCardVerified();
     }
 
     @Override
