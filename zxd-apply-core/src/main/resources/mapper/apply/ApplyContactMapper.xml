@@ -9,10 +9,11 @@
         <result column="contact_name" jdbcType="VARCHAR" property="contact_name"/>
         <result column="contact_mobile" jdbcType="VARCHAR" property="contact_mobile"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        contact_id, apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time
+        contact_id, apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time, update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -26,10 +27,12 @@
         <selectKey keyProperty="contact_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into apply_contact (apply_id, applicant_id, contact_relationship, contact_name, contact_mobile, create_time)
+        insert into apply_contact (apply_id, applicant_id, contact_relationship, contact_name, contact_mobile,
+        create_time, update_time)
         values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER},
         #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-        #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP})
+        #{contact_name,jdbcType=VARCHAR}, #{contact_mobile,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}
+        , #{update_time,jdbcType=TIMESTAMP})
     </insert>
 
     <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
@@ -56,6 +59,9 @@
             <if test="create_time != null">
                 create_time,
             </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="apply_id != null">
@@ -75,6 +81,9 @@
             </if>
             <if test="create_time != null">
                 #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -100,6 +109,9 @@
             <if test="create_time != null">
                 create_time = #{create_time,jdbcType=TIMESTAMP},
             </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
@@ -107,11 +119,12 @@
     <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyContactPO">
         update apply_contact
         set apply_id = #{apply_id,jdbcType=INTEGER},
-        applicant_id = #{applicant_id,jdbcType=INTEGER},
-        contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-        contact_name = #{contact_name,jdbcType=VARCHAR},
-        contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
-        create_time = #{create_time,jdbcType=TIMESTAMP}
+            applicant_id = #{applicant_id,jdbcType=INTEGER},
+            contact_relationship = #{contact_relationship,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            contact_name = #{contact_name,jdbcType=VARCHAR},
+            contact_mobile = #{contact_mobile,jdbcType=VARCHAR},
+            create_time = #{create_time,jdbcType=TIMESTAMP},
+            update_time = #{update_time,jdbcType=TIMESTAMP}
         where contact_id = #{contact_id,jdbcType=INTEGER}
     </update>
 
