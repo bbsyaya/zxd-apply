@@ -197,7 +197,7 @@
 
     <update id="updateBankCardVerifyByApplyId" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardVerifyPO">
         update apply_bank_card
-        set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
