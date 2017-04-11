@@ -263,12 +263,14 @@ public class ApplyServiceImpl implements ApplyService {
         bankCardVerifyPO.setApply_id(applyId);
         bankCardVerifyPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         rows += applyBankCardMapper.updateBankCardVerifyByApplyId(bankCardVerifyPO);
-        // TODO 银行卡认证失败怎么处理步骤？
-        ProcessState processState = applyCreditBO.getApply_status().getProcessState();
-        applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
-        // 审核成功才有下一步放款
-        if(ApplyStatus.REVIEW_SUCCESS.matches(applyCreditBO.getApply_status())) {
-            applyStepService.startStep(applyId, ProcessStep.LOAN);
+        // 银行卡认证成功才会更新审核步骤信息
+        if(BankCardVerify.VERIFIED.matches(applyCreditBO.getBank_card_verify())) {
+            ProcessState processState = applyCreditBO.getApply_status().getProcessState();
+            applyStepService.completeStep(applyId, ProcessStep.REVIEW, applyCreditBO.getReview_time(), processState);
+            // 审核成功才有下一步放款
+            if(ApplyStatus.REVIEW_SUCCESS.matches(applyCreditBO.getApply_status())) {
+                applyStepService.startStep(applyId, ProcessStep.LOAN);
+            }
         }
         return rows;
     }
