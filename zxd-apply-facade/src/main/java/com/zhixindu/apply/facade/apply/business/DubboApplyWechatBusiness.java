@@ -58,11 +58,12 @@ public interface DubboApplyWechatBusiness {
 
     /**
      * 开始申请贷款
-     * @param applicantId
+     * @param applicantId 申请人ID
+     * @param isQueryAddress 是否查询地址信息
      * @return
      * @throws ServiceException
      */
-    ApplyLoanInfoBO startApplyLoan(Integer applicantId) throws ServiceException;
+    ApplyLoanInfoBO startApplyLoan(Integer applicantId, boolean isQueryAddress) throws ServiceException;
 
     /**
      * 根据申请人ID查找最新申请地址信息

@@ -102,7 +102,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public ApplyLoanInfoBO startApplyLoan(Integer applicantId) {
+    public ApplyLoanInfoBO startApplyLoan(Integer applicantId, boolean isQueryAddress) {
         Parameters.requireNotNull(applicantId, "applicantId不能为空");
         Integer applyId = applyMapper.selectPreparePrimaryKeyByApplicantId(applicantId);
         if(null == applyId) {
@@ -110,9 +110,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         }
         ApplyLoanInfoBO applyLoanInfoBO = new ApplyLoanInfoBO();
         applyLoanInfoBO.setApply_id(applyId);
-        ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantId);
-        if(null != applyAddressBO) {
-            applyLoanInfoBO.setApplyAddressBO(applyAddressBO);
+        if(isQueryAddress) {
+            ApplyAddressBO applyAddressBO = applyAddressMapper.selectLatestByApplicantId(applicantId);
+            if(null != applyAddressBO) {
+                applyLoanInfoBO.setApplyAddressBO(applyAddressBO);
+            }
         }
         return applyLoanInfoBO;
     }
