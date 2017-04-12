@@ -284,4 +284,21 @@
         where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </update>
 
+    <sql id="whereSql">
+        <where>
+            <if test="name != null"> AND `name` =#{name}</if>
+            <if test="mobile != null"> AND mobile=#{mobile}</if>
+            <if test="id_card != null"> AND id_card=#{id_card}</if>
+            <if test="applicant_id != null"> AND applicant_id=#{applicant_id}</if>
+        </where>
+    </sql>
+
+    <select id="selectListForMgtByPage" parameterType="com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from applicant
+        <include refid="whereSql"/>
+        ORDER BY applicant_id DESC
+    </select>
+
 </mapper>

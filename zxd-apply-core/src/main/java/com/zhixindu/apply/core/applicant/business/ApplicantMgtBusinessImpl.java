@@ -12,10 +12,12 @@ import com.zhixindu.apply.facade.applicant.business.DubboApplicantMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceException;
 import com.zhixindu.commons.page.PageResult;
+import com.zhixindu.commons.repository.PageRepository;
 import com.zhixindu.commons.utils.Parameters;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -27,10 +29,18 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
     private ApplicantMapper applicantMapper;
     @Inject
     private ApplicantService applicantService;
+    @Inject
+    private PageRepository pageRepository;
 
     @Override
-    public PageResult<ApplicantInfoBO> findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException {
-        return null;
+    public PageResult<ApplicantBO> findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException {
+        Parameters.requireNotNull(param.getPage(),"分页查询参数page不能为空");
+        Parameters.requireNotNull(param.getCount(),"分页查询参数count不能为空");
+        PageResult<ApplicantBO> pageResult = pageRepository.selectPaging(ApplicantMapper.class,"selectListForMgtByPage",param);
+        if(pageResult == null){
+            return new PageResult<>(new ArrayList<>(0), 0);
+        }
+        return pageResult;
     }
 
     @Override

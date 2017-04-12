@@ -5,10 +5,13 @@ import com.zhixindu.apply.core.applicant.po.ApplicantBankCardVerifyPO;
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
 import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
 import com.zhixindu.apply.core.applicant.po.LoanFillStepPO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ApplicantMapper {
@@ -44,5 +47,7 @@ public interface ApplicantMapper {
     int updateLoanFillStep(LoanFillStepPO loanFillStepPO);
 
     int updateApplyResult(ApplyResultPO applyResultPO);
+
+    List<ApplicantBO> selectListForMgtByPage(ApplicantMgtQueryParam param);
 
 }

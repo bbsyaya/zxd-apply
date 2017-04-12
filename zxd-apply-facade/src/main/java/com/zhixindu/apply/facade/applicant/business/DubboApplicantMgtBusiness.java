@@ -4,7 +4,7 @@ package com.zhixindu.apply.facade.applicant.business;
  * Created by SteveGuo on 2017/3/3.
  */
 
-import com.zhixindu.apply.facade.applicant.bo.ApplicantInfoBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtInfo;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam;
 import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
@@ -21,7 +21,7 @@ public interface DubboApplicantMgtBusiness {
     /**
      * 申请人列表
      */
-    PageResult<ApplicantInfoBO>  findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException;
+    PageResult<ApplicantBO>  findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException;
 
     /**
      * 通过applicant_id获取申请基本信息

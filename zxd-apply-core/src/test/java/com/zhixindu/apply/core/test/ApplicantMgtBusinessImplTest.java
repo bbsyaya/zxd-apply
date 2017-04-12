@@ -6,7 +6,8 @@
 package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
-import com.zhixindu.apply.core.applicant.business.ApplicantMgtBusinessImpl;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam;
+import com.zhixindu.apply.facade.applicant.business.DubboApplicantMgtBusiness;
 import com.zhixindu.commons.utils.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,13 +29,20 @@ import javax.inject.Inject;
 public class ApplicantMgtBusinessImplTest {
 
     @Inject
-    private ApplicantMgtBusinessImpl applicantMgtBusiness;
+    private DubboApplicantMgtBusiness applicantMgtBusiness;
 
 
     @Test
     public void getApplicantTest(){
         System.out.println("afsdfasfd");
         System.out.println(JsonUtil.toJsonString(applicantMgtBusiness.findApplicantInfo(1)));
+    }
+
+    @Test
+    public void selectListByPageTest(){
+        ApplicantMgtQueryParam param = new ApplicantMgtQueryParam();
+        param.setMobile("18017504560");
+        System.out.println(JsonUtil.toJsonString(applicantMgtBusiness.findApplicantInfoByPage(param)));
     }
 
 }
