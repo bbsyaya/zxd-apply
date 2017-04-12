@@ -7,6 +7,8 @@ package com.zhixindu.apply.core.test;
 
 import com.alibaba.fastjson.JSON;
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
+import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
+import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyLoanDetailBO;
@@ -38,6 +40,8 @@ public class ApplyWechatBusinessImpl {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplyWechatBusinessImpl.class);
     @Inject
     private DubboApplyWechatBusiness applyWechatBusiness;
+    @Inject
+    private ApplyBankCardMapper applyBankCardMapper;
 
     @Test
     public void findApplyLoanListTest() {
@@ -58,5 +62,13 @@ public class ApplyWechatBusinessImpl {
         List<ApplyContactBO> applyContactBOList = applyWechatBusiness.findLatestApplyContact(7);
         applyContactBOList.forEach(applyContactBO -> System.out.println(JSON.toJSON(applyContactBO)));
     }
+
+    @Test
+    public void testFindBankCard(){
+        ApplyBankCardBO applyBankCardPO = applyBankCardMapper.selectByApplyId(49);
+        System.out.println(JSON.toJSONString(applyBankCardPO));
+    }
+
+
 
 }

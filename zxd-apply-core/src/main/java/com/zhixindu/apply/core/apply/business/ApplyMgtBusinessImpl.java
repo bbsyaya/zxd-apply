@@ -7,13 +7,14 @@ import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyStepMapper;
+import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
 import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.core.system.service.SystemConfigService;
-import com.zhixindu.apply.facade.apply.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
+import com.zhixindu.apply.facade.apply.bo.ApplyAddressMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardMgtBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
@@ -99,12 +100,12 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
     @Override
     public ApplyBankCardMgtBO findBankCardByApplyId(Integer apply_id) throws ServiceException {
         Parameters.requireNotNull(apply_id,"findBankCardByApplyId apply_id illargm_param");
-        ApplyBankCardBO applyBankCardBO = applyBankCardMapper.selectByApplyId(apply_id);
+        ApplyBankCardPO applyBankCardPO = applyBankCardMapper.selectByApplyId(apply_id);
         ApplyBankCardMgtBO applyBankCardMgtBO = null;
-        if(applyBankCardBO != null){
+        if(applyBankCardPO != null){
             applyBankCardMgtBO = new ApplyBankCardMgtBO();
-            BeanUtils.copyProperties(applyBankCardBO,applyBankCardMgtBO);
-            applyBankCardMgtBO.setBank_address_info(systemConfigService.getRegionFullName(applyBankCardBO.getBank_address_code()));
+            BeanUtils.copyProperties(applyBankCardPO,applyBankCardMgtBO);
+            applyBankCardMgtBO.setBank_address_info(systemConfigService.getRegionFullName(applyBankCardPO.getBank_address_code()));
         }
         return applyBankCardMgtBO;
     }

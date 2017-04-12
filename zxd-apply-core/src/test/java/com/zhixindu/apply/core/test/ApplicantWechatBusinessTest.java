@@ -1,11 +1,13 @@
 package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
+import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.enums.ApplyResult;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.applicant.enums.MobileVerify;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 /**
  * Created by SteveGuo on 2017/3/8.
@@ -64,5 +67,14 @@ public class ApplicantWechatBusinessTest {
     @Test
     public void testResetMobileVerify(){
         System.out.println(applicantMapper.resetMobileVerify(83, "18765434567"));
+    }
+
+    @Test
+    public void testUpdateApplyResult(){
+        ApplyResultPO applyResultPO = new ApplyResultPO();
+        applyResultPO.setApplicant_id(43);
+        applyResultPO.setApply_result(ApplyResult.REJECT);
+        applyResultPO.setReject_time(new Date());
+        applicantMapper.updateApplyResult(applyResultPO);
     }
 }
