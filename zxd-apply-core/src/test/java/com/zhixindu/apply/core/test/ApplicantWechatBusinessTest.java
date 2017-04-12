@@ -1,12 +1,15 @@
 package com.zhixindu.apply.core.test;
 
+import com.alibaba.fastjson.JSON;
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
-import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
-import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
+import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
+import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.ApplyResult;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.applicant.enums.MobileVerify;
@@ -33,6 +36,8 @@ public class ApplicantWechatBusinessTest {
     private ApplicantService applicantService;
     @Inject
     private ApplyContactMapper applyContactMapper;
+    @Inject
+    private DubboApplicantWechatBusiness applicantWechatBusiness;
 
     @Test
     public void testUpdateMobileVerify(){
@@ -76,5 +81,12 @@ public class ApplicantWechatBusinessTest {
         applyResultPO.setApply_result(ApplyResult.REJECT);
         applyResultPO.setReject_time(new Date());
         applicantMapper.updateApplyResult(applyResultPO);
+    }
+
+    @Test
+    public void testFindApplicant(){
+        ApplicantBO applicant = applicantWechatBusiness.findApplicant("201611221147978485279251");
+        System.out.println(JSON.toJSONString(applicant));
+        System.out.println("applicant.hasNotVerifiedItem():" + applicant.hasNotVerifiedItem());
     }
 }

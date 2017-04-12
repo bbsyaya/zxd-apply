@@ -6,15 +6,14 @@
 package com.zhixindu.apply.core.test;
 
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
-import com.zhixindu.apply.core.apply.business.ApplyMgtBusinessImpl;
 import com.zhixindu.apply.facade.apply.bo.ApplyBankCardMgtBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyMgtInfo;
 import com.zhixindu.apply.facade.apply.bo.ApplyMgtPageParam;
 import com.zhixindu.apply.facade.apply.business.DubboApplyMgtBusiness;
-import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 import com.zhixindu.commons.utils.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -22,15 +21,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.inject.Inject;
 
 /**
- * @author Yulei
+ * @author Richard Xue
  * @version 1.0
- * @date 2017/3/8
+ * @date 03/16/2017
  * @description
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
-public class ApplyBusinessImplTest {
+public class ApplyMgtBusinessTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplyMgtBusinessTest.class);
 
     @Inject
     private DubboApplyMgtBusiness applyMgtBusiness;
@@ -58,4 +58,12 @@ public class ApplyBusinessImplTest {
         System.out.println(JsonUtil.toJsonString(info));
 
     }
+
+    @Test
+    public void testFindBankCardByApplyId(){
+        applyMgtBusiness.findBankCardByApplyId(49);
+    }
+
+
+
 }

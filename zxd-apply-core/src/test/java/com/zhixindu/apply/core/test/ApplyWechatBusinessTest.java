@@ -5,13 +5,9 @@
  */
 package com.zhixindu.apply.core.test;
 
-import com.alibaba.fastjson.JSON;
 import com.zhixindu.apply.core.app.ApplicationContextConfig;
-import com.zhixindu.apply.core.app.DatabaseConfig;
 import com.zhixindu.apply.core.apply.dao.ApplyLocationMapper;
 import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
-import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
-import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.WorkState;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
 import com.zhixindu.apply.facade.apply.bo.ApplyContactBO;
@@ -28,18 +24,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Richard Xue
+ * @author Yulei
  * @version 1.0
- * @date 03/15/2017
+ * @date 2017/3/8
  * @description
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationContextConfig.class, DatabaseConfig.class})
+@ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
-public class ApplyApplicantWechatBusinessTest {
+public class ApplyWechatBusinessTest {
 
-    @Inject
-    private DubboApplicantWechatBusiness applicantWechatBusiness;
     @Inject
     private DubboApplyWechatBusiness applyWechatBusiness;
     @Inject
@@ -92,10 +86,4 @@ public class ApplyApplicantWechatBusinessTest {
         applyLocationMapper.insert(applyLocationBO);
     }
 
-    @Test
-    public void testFindApplicant(){
-        ApplicantBO applicant = applicantWechatBusiness.findApplicant("201611221147978485279251");
-        System.out.println(JSON.toJSONString(applicant));
-        System.out.println("applicant.hasNotVerifiedItem():" + applicant.hasNotVerifiedItem());
-    }
 }

@@ -26,7 +26,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationContextConfig.class})
 @WebAppConfiguration
-public class ApplicantMgtBusinessImplTest {
+public class ApplicantMgtBusinessTest {
 
     @Inject
     private DubboApplicantMgtBusiness applicantMgtBusiness;
