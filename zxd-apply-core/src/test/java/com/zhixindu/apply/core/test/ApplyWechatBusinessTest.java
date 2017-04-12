@@ -50,7 +50,7 @@ public class ApplyWechatBusinessTest {
         applyAddressBO.setCompany_address_code(110101);
         applyAddressBO.setCompany_address("xxx");
         applyAddressBO.setWork_state_value(3);
-        applyAddressBO.setWork_state(WorkState.STUDENT); // TODO
+        applyAddressBO.setWork_state(WorkState.STUDENT);
         Integer addressId = applyWechatBusiness.submitApplyAddress(applyAddressBO);
         System.out.println(addressId);
     }
