@@ -1,11 +1,13 @@
 package com.zhixindu.apply.core.applicant.business;
 
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
+import com.zhixindu.apply.core.applicant.service.ApplicantService;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtInfo;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMgtQueryParam;
+import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
 import com.zhixindu.apply.facade.applicant.business.DubboApplicantMgtBusiness;
 import com.zhixindu.commons.annotation.Business;
 import com.zhixindu.commons.api.ServiceException;
@@ -23,7 +25,8 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
 
     @Inject
     private ApplicantMapper applicantMapper;
-
+    @Inject
+    private ApplicantService applicantService;
 
     @Override
     public PageResult<ApplicantInfoBO> findApplicantInfoByPage(ApplicantMgtQueryParam param) throws ServiceException {
@@ -40,5 +43,11 @@ public class ApplicantMgtBusinessImpl implements DubboApplicantMgtBusiness {
         ApplicantMgtInfo applicantMgtInfo = new ApplicantMgtInfo();
         BeanUtils.copyProperties(applicantBO, applicantMgtInfo);
         return applicantMgtInfo;
+    }
+
+    @Override
+    public boolean updateApplyResult(ApplyResultBO applyResultBO) throws ServiceException {
+        Parameters.requireAllPropertyNotNull(applyResultBO);
+        return applicantService.updateApplyResult(applyResultBO) > 0;
     }
 }

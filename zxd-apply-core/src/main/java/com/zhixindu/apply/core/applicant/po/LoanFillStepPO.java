@@ -1,4 +1,4 @@
-package com.zhixindu.apply.facade.applicant.bo;
+package com.zhixindu.apply.core.applicant.po;
 
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by SteveGuo on 2017/3/10.
  */
-public class LoanFillStepBO implements Serializable {
+public class LoanFillStepPO implements Serializable {
     private static final long serialVersionUID = -2873703555509810673L;
 
     /** 申请人ID */
@@ -15,7 +15,7 @@ public class LoanFillStepBO implements Serializable {
     /** 填写步骤 */
     private LoanFillStep loan_fill_step;
 
-    public LoanFillStepBO(Integer applicant_id, LoanFillStep loan_fill_step) {
+    public LoanFillStepPO(Integer applicant_id, LoanFillStep loan_fill_step) {
         this.applicant_id = applicant_id;
         this.loan_fill_step = loan_fill_step;
     }

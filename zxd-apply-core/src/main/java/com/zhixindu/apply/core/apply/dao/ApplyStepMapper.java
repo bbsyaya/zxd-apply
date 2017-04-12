@@ -1,7 +1,7 @@
 package com.zhixindu.apply.core.apply.dao;
 
-import com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
+import com.zhixindu.apply.core.apply.po.ApplyCompleteStepPO;
+import com.zhixindu.apply.core.apply.po.ApplyStartStepPO;
 import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,9 +19,9 @@ public interface ApplyStepMapper {
 
     int updateByPrimaryKey(ApplyStepPO record);
 
-    int startStep(ApplyStartStepBO startStepBO);
+    int startStep(ApplyStartStepPO startStepBO);
 
-    int completeStep(ApplyCompleteStepBO completeStepBO);
+    int completeStep(ApplyCompleteStepPO completeStepPO);
 
     List<ApplyStepPO> selectListByApplyId(Integer apply_id);
 

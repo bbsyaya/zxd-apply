@@ -13,8 +13,8 @@ import com.zhixindu.apply.core.apply.po.ApplyBankCardVerifyPO;
 import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyLocationPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
-import com.zhixindu.apply.core.apply.po.ApplyResultPO;
-import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
+import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
+import com.zhixindu.apply.core.applicant.po.LoanFillStepPO;
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.apply.bo.ApplyAddressBO;
@@ -72,8 +72,8 @@ public class ApplyServiceImpl implements ApplyService {
 
         applyStepService.startStep(applyId, ProcessStep.SUBMIT);
 
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applicantId, LoanFillStep.BASIC_INFO);
-        applicantMapper.updateLoanFillStep(loanFillStepBO);
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applicantId, LoanFillStep.BASIC_INFO);
+        applicantMapper.updateLoanFillStep(loanFillStepPO);
         return applyId;
     }
 
@@ -105,8 +105,8 @@ public class ApplyServiceImpl implements ApplyService {
             applyAddressMapper.insert(applyAddressPO);
             applyAddressBO.setAddress_id(applyAddressPO.getAddress_id());
         }
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyAddressBO.getApplicant_id(), LoanFillStep.CONTACT_INFO);
-        applicantMapper.updateLoanFillStep(loanFillStepBO);
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applyAddressBO.getApplicant_id(), LoanFillStep.CONTACT_INFO);
+        applicantMapper.updateLoanFillStep(loanFillStepPO);
         return applyAddressBO.getAddress_id();
     }
 
@@ -132,8 +132,8 @@ public class ApplyServiceImpl implements ApplyService {
             return applyContactBO.getContact_id();
         }).collect(Collectors.toList());
         Integer applicantId = applyContactBOList.stream().map(ApplyContactBO::getApplicant_id).distinct().findAny().orElse(null);
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applicantId, LoanFillStep.CERTIFICATION_INFO);
-        applicantMapper.updateLoanFillStep(loanFillStepBO);
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applicantId, LoanFillStep.CERTIFICATION_INFO);
+        applicantMapper.updateLoanFillStep(loanFillStepPO);
         return contactIdList;
     }
 
@@ -158,8 +158,8 @@ public class ApplyServiceImpl implements ApplyService {
         // 银行卡填写且手机号已经认证通过才能更新填写步骤
         if(BankCardVerify.FILLED.matches(bankCardVerifyPO.getBank_card_verify())
             && applicantService.hasMobileVerified(applicantId)) {
-            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
-            applicantMapper.updateLoanFillStep(loanFillStepBO);
+            LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
+            applicantMapper.updateLoanFillStep(loanFillStepPO);
         }
         return applyBankCardBO.getBank_card_id();
     }
@@ -240,8 +240,8 @@ public class ApplyServiceImpl implements ApplyService {
         applyStepService.completeStep(applyId, ProcessStep.SUBMIT, now, ProcessState.SUCCESS);
         applyStepService.startStep(applyId, ProcessStep.REVIEW);
 
-        LoanFillStepBO loanFillStepBO = new LoanFillStepBO(applyPO.getApplicant_id(), LoanFillStep.COMPLETE);
-        applicantMapper.updateLoanFillStep(loanFillStepBO);
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applyPO.getApplicant_id(), LoanFillStep.COMPLETE);
+        applicantMapper.updateLoanFillStep(loanFillStepPO);
         return applyPO.getApply_id();
     }
 

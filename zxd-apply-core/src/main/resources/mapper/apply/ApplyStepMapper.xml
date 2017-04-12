@@ -119,7 +119,7 @@
         where step_id = #{step_id,jdbcType=INTEGER}
     </update>
 
-    <insert id="startStep" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO">
+    <insert id="startStep" parameterType="com.zhixindu.apply.core.apply.po.ApplyStartStepPO">
         <selectKey keyProperty="step_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
@@ -129,7 +129,7 @@
         #{process_state,jdbcType=INTEGER,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler})
     </insert>
 
-    <update id="completeStep" parameterType="com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO">
+    <update id="completeStep" parameterType="com.zhixindu.apply.core.apply.po.ApplyCompleteStepPO">
         update apply_step
         set end_time = #{end_time,jdbcType=TIMESTAMP},
         process_time = #{process_time,jdbcType=TIMESTAMP},

@@ -3,6 +3,8 @@ package com.zhixindu.apply.core.applicant.service;
 
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
+import com.zhixindu.commons.api.ServiceException;
 
 /**
  * Created by SteveGuo on 2017/3/6.
@@ -58,5 +60,13 @@ public interface ApplicantService {
      * @return
      */
     int resetMobileVerify(Integer applicantId, String mobile);
+
+    /**
+     * 更新申請結果
+     * @param applyResultBO
+     * @return
+     * @throws ServiceException
+     */
+    int updateApplyResult(ApplyResultBO applyResultBO) throws ServiceException;
 
 }

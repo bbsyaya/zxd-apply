@@ -2,12 +2,15 @@ package com.zhixindu.apply.core.applicant.service;
 
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
+import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
-import com.zhixindu.apply.facade.applicant.bo.LoanFillStepBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
+import com.zhixindu.apply.core.applicant.po.LoanFillStepPO;
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.applicant.enums.MobileVerify;
+import com.zhixindu.commons.api.ServiceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,8 +67,8 @@ public class ApplicantServiceImpl implements ApplicantService {
         // 必须是手机号认证通过且银行卡已经填写才能更新填写步骤
         if(rows == 1 && MobileVerify.VERIFIED.matches(mobileVerifyBO.getMobile_verify())
                 && hasBankCardFilled(mobileVerifyBO.getApplicant_id())) {
-            LoanFillStepBO loanFillStepBO = new LoanFillStepBO(mobileVerifyBO.getApplicant_id(), LoanFillStep.SUBMIT);
-            rows += applicantMapper.updateLoanFillStep(loanFillStepBO);
+            LoanFillStepPO loanFillStepPO = new LoanFillStepPO(mobileVerifyBO.getApplicant_id(), LoanFillStep.SUBMIT);
+            rows += applicantMapper.updateLoanFillStep(loanFillStepPO);
         }
         return rows;
     }
@@ -74,6 +77,13 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public int resetMobileVerify(Integer applicantId, String mobile) {
         return applicantMapper.resetMobileVerify(applicantId, mobile);
+    }
+
+    @Override
+    public int updateApplyResult(ApplyResultBO applyResultBO) throws ServiceException {
+        ApplyResultPO applyResultPO = new ApplyResultPO();
+        BeanUtils.copyProperties(applyResultBO, applyResultPO);
+        return applicantMapper.updateApplyResult(applyResultPO);
     }
 
 }
