@@ -294,6 +294,7 @@
     <sql id="whereSql">
         <where>
             and ap.apply_status != -1
+            <if test="apply_id != null"> AND ap.apply_id=#{apply_id}</if>
             <if test="mobile != null"> AND le.mobile=#{mobile}</if>
             <if test="id_card != null"> AND le.id_card=#{id_card}</if>
             <if test="applicant_id != null"> AND le.applicant_id=#{applicant_id}</if>

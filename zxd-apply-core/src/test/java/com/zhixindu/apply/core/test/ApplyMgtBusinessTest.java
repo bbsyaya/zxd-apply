@@ -40,6 +40,8 @@ public class ApplyMgtBusinessTest {
         ApplyMgtPageParam pageParam = new ApplyMgtPageParam();
         pageParam.setPage(1);
         pageParam.setCount(10);
+//        pageParam.setApply_id("46");
+        pageParam.setApplicant_id("46");
 //        pageParam.setApply_status(ApplyStatus.REVIEW_FAIL);
 //        System.out.println(JsonUtil.toJsonString(pageParam));
         System.out.println(JsonUtil.toJsonString(applyMgtBusiness.selectApplysByPage(pageParam)));

@@ -20,6 +20,10 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
 
     private static final long serialVersionUID = -3851235801784011500L;
     /**
+     * 申请ID
+     **/
+    private String apply_id;
+    /**
      * 用户手机号
      **/
     private String mobile;
@@ -43,6 +47,14 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
      * 申请结束时间
      **/
     private Date apply_end_time;
+
+    public String getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(String apply_id) {
+        this.apply_id = apply_id;
+    }
 
     public String getMobile() {
         return mobile;
