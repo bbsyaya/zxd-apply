@@ -44,4 +44,6 @@ public interface ApplyMapper {
     int updateStatusByPrimaryKey(ApplyStatusBO applyStatusBO);
 
     int updateCreditByPrimaryKey(ApplyCreditBO applyCreditBO);
+
+    List<ApplyPO> selectByApplyTime(Date apply_time);
 }

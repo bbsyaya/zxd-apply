@@ -4,6 +4,8 @@ package com.zhixindu.apply.core.apply.dao;
 import com.zhixindu.apply.core.apply.po.ApplyAddressPO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ApplyAddressMapper {
 
@@ -19,9 +21,13 @@ public interface ApplyAddressMapper {
 
     ApplyAddressPO selectLatestByApplicantId(Integer applicant_id);
 
+    List<ApplyAddressPO> selectByApplicantId(Integer applicant_id);
+
     Integer selectPrimaryKeyByApplyId(Integer apply_id);
 
     ApplyAddressPO selectByApplyId(Integer apply_id);
 
     int countByApplyId(Integer apply_id);
+
+    int countByApplicantId(Integer applicant_id);
 }

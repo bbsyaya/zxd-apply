@@ -395,4 +395,13 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </update>
 
+    <select id="selectByApplyTime" parameterType="java.util.Date" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from apply
+        where 1=1
+        <![CDATA[ AND DATE_FORMAT(apply_time,'%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#{apply_time},'%Y-%m-%d %H:%i:%s') ]]>
+        order by apply_time
+    </select>
+
 </mapper>

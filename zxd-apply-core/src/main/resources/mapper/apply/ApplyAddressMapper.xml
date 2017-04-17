@@ -173,6 +173,15 @@
         limit 0,1
     </select>
 
+    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_address
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        and apply_id is NULL
+        order by address_id
+    </select>
+
     <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         address_id
@@ -198,5 +207,11 @@
         where apply_id = #{apply_id,jdbcType=INTEGER}
     </select>
 
+    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(apply_id)
+        from apply_address
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+    </select>
 
 </mapper>

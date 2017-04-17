@@ -141,6 +141,15 @@
         ) limit 0,2
     </select>
 
+    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_contact
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        and apply_id is NULL
+        order by contact_id
+    </select>
+
     <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select
         contact_id
@@ -160,6 +169,13 @@
         count(contact_id)
         from apply_contact
         where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(apply_id)
+        from apply_contact
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
     </select>
 
 </mapper>
