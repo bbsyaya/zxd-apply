@@ -30,7 +30,7 @@ public enum ApplyStatus implements IEnum<Integer> {
     LOAN_FAIL(6, "放款失败", ApplyResult.REJECT, ProcessStep.LOAN, ProcessState.FAIL),
     UNDER_REPAYMENT(7, "待还款", null, ProcessStep.REPAYMENT, ProcessState.PROCESSING),
     REPAYMENT_SETTLED(8, "已结清", ApplyResult.APPROVE, ProcessStep.REPAYMENT, ProcessState.SUCCESS),
-    HAS_BEAN_OVERDUE(9, "已逾期", null, ProcessStep.OVERDUE, ProcessState.SUCCESS);
+    HAS_BEAN_OVERDUE(9, "已逾期", null, ProcessStep.REPAYMENT, ProcessState.TIMEOUT);
 
     private int value;
     private String desc;

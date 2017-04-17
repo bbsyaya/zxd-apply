@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by SteveGuo on 2017/3/6.
  */
 public enum ProcessState implements IEnum<Integer> {
-    FAIL(0, "失败"), SUCCESS(1, "成功"), PROCESSING(2, "中");
+    FAIL(0, "失败"), SUCCESS(1, "成功"), PROCESSING(2, "中"), TIMEOUT(3, "超时");
 
     private int value;
     private String desc;
