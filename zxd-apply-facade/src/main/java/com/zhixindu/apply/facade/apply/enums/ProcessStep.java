@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public enum ProcessStep implements IEnum<Integer> {
     SUBMIT(1, "提交申请", ""), REVIEW(2, "审核", "审核时间最多5分钟"),
-    LOAN(3, "放款", "工作日最快2小时"), REPAYMENT(4, "还款", "");
+    LOAN(3, "放款", "工作日最快2小时"), REPAYMENT(4, "还款", ""), OVERDUE(5, "逾期", "");
 
     private int value;
     private String desc;
