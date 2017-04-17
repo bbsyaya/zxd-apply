@@ -9,6 +9,7 @@ import com.zhixindu.apply.core.apply.po.ApplyBankCardPO;
 import com.zhixindu.apply.core.apply.po.ApplyContactPO;
 import com.zhixindu.apply.core.apply.po.ApplyPO;
 import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,10 +30,10 @@ public class ApplicationPatchBean implements InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationPatchBean.class);
 
-    /*private static final Date PATCH_DATA_TIME = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
-                                                    .parseDateTime("2017-04-15 23:59:59")
-                                                    .toDate();*/
-    private static final Date PATCH_DATA_TIME = new Date();
+    private static final Date PATCH_DATA_TIME = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
+                                                    .parseDateTime("2016-04-15 23:59:59")
+                                                    .toDate();
+    //private static final Date PATCH_DATA_TIME = new Date();
 
     @Autowired
     private ApplyMapper applyMapper;
