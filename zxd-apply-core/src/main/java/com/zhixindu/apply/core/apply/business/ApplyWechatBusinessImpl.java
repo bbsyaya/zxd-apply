@@ -334,12 +334,13 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public ApplyBO findApply(Integer applyId) {
         Parameters.requireNotNull(applyId, "applyId不能为空");
         ApplyPO applyPO = applyMapper.selectByPrimaryKey(applyId);
-        if(null != applyPO) {
-            ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyPO.getApply_id());
-            applyPO.setLatitude(applyLocationBO.getLatitude());
-            applyPO.setLongitude(applyLocationBO.getLongitude());
-            applyPO.setPrecision(applyLocationBO.getPrecision());
+        if(null == applyPO) {
+            throw new ServiceException(ApplyErrorCode.NO_APPLY.getErrorCode(), ApplyErrorCode.NO_APPLY.getDesc());
         }
+        ApplyLocationBO applyLocationBO = applyLocationMapper.selectByApplyId(applyPO.getApply_id());
+        applyPO.setLatitude(applyLocationBO.getLatitude());
+        applyPO.setLongitude(applyLocationBO.getLongitude());
+        applyPO.setPrecision(applyLocationBO.getPrecision());
         ApplyBO applyBO = new ApplyBO();
         BeanUtils.copyProperties(applyPO, applyBO);
         return applyBO;
