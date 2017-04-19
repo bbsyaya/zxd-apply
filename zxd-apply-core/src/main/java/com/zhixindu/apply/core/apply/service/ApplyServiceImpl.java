@@ -78,18 +78,18 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
-    public boolean existApplyAddress(Integer applicantId) {
-        return applyAddressMapper.countByApplyId(applicantId) > 0;
+    public boolean existApplyAddress(Integer applyId) {
+        return applyAddressMapper.countByApplyId(applyId) > 0;
     }
 
     @Override
-    public boolean existApplyContact(Integer applicantId) {
-        return applyContactMapper.countByApplyId(applicantId) > 1;
+    public boolean existApplyContact(Integer applyId) {
+        return applyContactMapper.countByApplyId(applyId) > 1;
     }
 
     @Override
-    public boolean existApplyBankCard(Integer applicantId) {
-        return applyBankCardMapper.countByApplyId(applicantId) > 0;
+    public boolean existApplyBankCard(Integer applyId) {
+        return applyBankCardMapper.countByApplyId(applyId) > 0;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -120,7 +120,7 @@ public class ApplyServiceImpl implements ApplyService {
             if (null != applyContactBO.getContact_id()) {
                 applyContactMapper.updateByPrimaryKeySelective(applyContactPO);
             } else {
-                int contactCount = applyContactMapper.countByApplyId(applyContactBO.getApplicant_id());
+                int contactCount = applyContactMapper.countByApplyId(applyContactBO.getApply_id());
                 if(contactCount < 2){
                     applyContactPO.setCreate_time(new Date());
                     applyContactMapper.insert(applyContactPO);
