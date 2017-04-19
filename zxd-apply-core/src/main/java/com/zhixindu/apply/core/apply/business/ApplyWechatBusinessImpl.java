@@ -205,7 +205,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             Integer applyId = applyContactBO.getApply_id();
             Parameters.requireNotNull(applyId, "applyId不能为空");
             Object[] ignoreProperties = new Object[]{};
-            if (!applyService.existApplyBankCard(applyId)) {
+            if (!applyService.existApplyContact(applyId)) {
                 ignoreProperties = new Object[]{"contact_id"};
             }
             Parameters.requireAllPropertyNotNull(applyContactBO, ignoreProperties);
