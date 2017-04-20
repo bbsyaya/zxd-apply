@@ -104,11 +104,11 @@ processResources {
 mainClassName = "com.alibaba.dubbo.container.Main"
 
 distTar {
-    archiveName "zxd-apply-service.tar"
+    archiveName "apply.tar"
 }
 
 distZip {
-    archiveName "zxd-apply-service.zip"
+    archiveName "apply.zip"
 }
 
 
