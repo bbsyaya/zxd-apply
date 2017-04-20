@@ -6,8 +6,6 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-import com.zhixindu.apply.facade.apply.enums.ProcessState;
-import com.zhixindu.apply.facade.apply.enums.ProcessStep;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,7 +22,7 @@ public class ApplyMgtDetailBO implements Serializable {
     /**申请ID**/
     private Integer apply_id;
     /**申请人ID**/
-    private String lender_id;
+    private String applicant_id;
     /**用户手机号**/
     private String mobile;
     /**用户姓名**/
@@ -39,8 +37,10 @@ public class ApplyMgtDetailBO implements Serializable {
     private ApplyStatus apply_status;
     /**申请时间**/
     private Date apply_time;
-    /**处理时间**/
-    private Date process_time;
+    /**审核时间**/
+    private Date review_time;
+    /**放款时间**/
+    private Date loan_time;
 
     public BigDecimal getLoan_amount() {
         return loan_amount;
@@ -58,12 +58,20 @@ public class ApplyMgtDetailBO implements Serializable {
         this.apply_status = apply_status;
     }
 
-    public Date getProcess_time() {
-        return process_time;
+    public Date getReview_time() {
+        return review_time;
     }
 
-    public void setProcess_time(Date process_time) {
-        this.process_time = process_time;
+    public void setReview_time(Date review_time) {
+        this.review_time = review_time;
+    }
+
+    public Date getLoan_time() {
+        return loan_time;
+    }
+
+    public void setLoan_time(Date loan_time) {
+        this.loan_time = loan_time;
     }
 
     public Integer getApply_id() {
@@ -82,12 +90,12 @@ public class ApplyMgtDetailBO implements Serializable {
         this.apply_status_desc = apply_status_desc;
     }
 
-    public String getLender_id() {
-        return lender_id;
+    public String getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(String lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(String applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public String getMobile() {

@@ -1,32 +1,32 @@
 package com.zhixindu.apply.core.apply.dao;
 
-import com.zhixindu.apply.facade.apply.bo.ApplyCompleteStepBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyStartStepBO;
-import com.zhixindu.apply.facade.apply.bo.ApplyStepBO;
+import com.zhixindu.apply.core.apply.po.ApplyCompleteStepPO;
+import com.zhixindu.apply.core.apply.po.ApplyStartStepPO;
+import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ApplyStepMapper {
 
-    int insert(ApplyStepBO record);
+    int insert(ApplyStepPO record);
 
-    int insertSelective(ApplyStepBO record);
+    int insertSelective(ApplyStepPO record);
 
-    ApplyStepBO selectByPrimaryKey(Integer step_id);
+    ApplyStepPO selectByPrimaryKey(Integer step_id);
 
-    int updateByPrimaryKeySelective(ApplyStepBO record);
+    int updateByPrimaryKeySelective(ApplyStepPO record);
 
-    int updateByPrimaryKey(ApplyStepBO record);
+    int updateByPrimaryKey(ApplyStepPO record);
 
-    int startStep(ApplyStartStepBO startStepBO);
+    int startStep(ApplyStartStepPO startStepBO);
 
-    int completeStep(ApplyCompleteStepBO completeStepBO);
+    int completeStep(ApplyCompleteStepPO completeStepPO);
 
-    List<ApplyStepBO> selectListByApplyId(Integer apply_id);
+    List<ApplyStepPO> selectListByApplyId(Integer apply_id);
 
-    ApplyStepBO selectLatestByApplyId(Integer apply_id);
+    ApplyStepPO selectLatestByApplyId(Integer apply_id);
 
-    ApplyStepBO selectByApplyId(@Param("apply_id") Integer apply_id, @Param("process_step") Integer process_step);
+    ApplyStepPO selectByApplyId(@Param("apply_id") Integer apply_id, @Param("process_step") Integer process_step);
 
 }

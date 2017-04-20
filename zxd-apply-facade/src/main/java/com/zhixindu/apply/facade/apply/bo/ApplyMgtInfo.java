@@ -6,8 +6,8 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Yulei
@@ -20,6 +20,43 @@ public class ApplyMgtInfo extends ApplyBaseInfoBO implements Serializable {
 
     /**申请时间**/
     private Date apply_time;
+
+    /**
+     * 地址
+     */
+    private ApplyAddressMgtBO applyAddressMgtBO;
+    /**
+     * 联系人
+     */
+    private List<ApplyContactBO> applyContactBOS;
+    /**
+     * 银行卡
+     */
+    private ApplyBankCardBO applyBankCardBO;
+
+    public ApplyAddressMgtBO getApplyAddressMgtBO() {
+        return applyAddressMgtBO;
+    }
+
+    public void setApplyAddressMgtBO(ApplyAddressMgtBO applyAddressMgtBO) {
+        this.applyAddressMgtBO = applyAddressMgtBO;
+    }
+
+    public List<ApplyContactBO> getApplyContactBOS() {
+        return applyContactBOS;
+    }
+
+    public void setApplyContactBOS(List<ApplyContactBO> applyContactBOS) {
+        this.applyContactBOS = applyContactBOS;
+    }
+
+    public ApplyBankCardBO getApplyBankCardBO() {
+        return applyBankCardBO;
+    }
+
+    public void setApplyBankCardBO(ApplyBankCardBO applyBankCardBO) {
+        this.applyBankCardBO = applyBankCardBO;
+    }
 
     public Date getApply_time() {
         return apply_time;

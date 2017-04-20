@@ -11,22 +11,16 @@ import java.math.BigDecimal;
  */
 public class ApplyBaseInfoBO implements Serializable {
     private static final long serialVersionUID = -8520843938618323270L;
-    /** 申请借款ID */
+    /** 申请ID */
     private Integer apply_id;
-    /** 借款人ID */
-    private Integer lender_id;
+    /** 申请人ID */
+    private Integer applicant_id;
     /** 客户ID */
     private String customer_id;
     /** 微信ID */
     private String open_id;
     /** 产品ID */
     private String product_id;
-    /** 地址ID */
-    private Integer address_id;
-    /** 联系人ID列表 */
-    private String contact_id_list;
-    /** 银行卡ID */
-    private Integer bank_card_id;
     /** 申请编号 */
     private String apply_no;
     /** 借款金额 */
@@ -58,12 +52,12 @@ public class ApplyBaseInfoBO implements Serializable {
         this.apply_id = apply_id;
     }
 
-    public Integer getLender_id() {
-        return lender_id;
+    public Integer getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(Integer lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(Integer applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public String getCustomer_id() {
@@ -80,30 +74,6 @@ public class ApplyBaseInfoBO implements Serializable {
 
     public void setProduct_id(String product_id) {
         this.product_id = product_id;
-    }
-
-    public Integer getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(Integer address_id) {
-        this.address_id = address_id;
-    }
-
-    public String getContact_id_list() {
-        return contact_id_list;
-    }
-
-    public void setContact_id_list(String contact_id_list) {
-        this.contact_id_list = contact_id_list;
-    }
-
-    public Integer getBank_card_id() {
-        return bank_card_id;
-    }
-
-    public void setBank_card_id(Integer bank_card_id) {
-        this.bank_card_id = bank_card_id;
     }
 
     public String getApply_no() {

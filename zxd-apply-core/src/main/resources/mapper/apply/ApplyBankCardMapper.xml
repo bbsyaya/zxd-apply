@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper">
+    <resultMap id="BaseResultMap" type="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
+        <id column="bank_card_id" jdbcType="INTEGER" property="bank_card_id"/>
+        <result column="apply_id" jdbcType="INTEGER" property="apply_id"/>
+        <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
+        <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number"/>
+        <result column="bank_id" jdbcType="INTEGER" property="bank_id" />
+        <result column="bank_name" jdbcType="VARCHAR" property="bank_name"/>
+        <result column="bank_address_code" jdbcType="INTEGER" property="bank_address_code"/>
+        <result column="reserved_mobile" jdbcType="VARCHAR" property="reserved_mobile" />
+        <result column="bank_card_verify" jdbcType="INTEGER" property="bank_card_verify" typeHandler="com.zhixindu.commons.handler.type.EnumValueTypeHandler"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bank_card_id, apply_id, applicant_id, bank_card_number, bank_id, bank_name, bank_address_code, reserved_mobile,
+        bank_card_verify, create_time, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_bank_card
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
+        <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_bank_card (apply_id, applicant_id, bank_card_number, bank_id, bank_name,
+        bank_address_code, reserved_mobile, bank_card_verify, create_time, update_time)
+        values (#{apply_id,jdbcType=INTEGER}, #{applicant_id,jdbcType=INTEGER}, #{bank_card_number,jdbcType=VARCHAR},
+        #{bank_id,jdbcType=INTEGER}, #{bank_name,jdbcType=VARCHAR}, #{bank_address_code,jdbcType=INTEGER},
+        #{reserved_mobile,jdbcType=VARCHAR},
+        #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+        #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
+        <selectKey keyProperty="bank_card_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into apply_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                apply_id,
+            </if>
+            <if test="applicant_id != null">
+                applicant_id,
+            </if>
+            <if test="bank_card_number != null">
+                bank_card_number,
+            </if>
+            <if test="bank_id != null">
+                bank_id,
+            </if>
+            <if test="bank_name != null">
+                bank_name,
+            </if>
+            <if test="bank_address_code != null">
+                bank_address_code,
+            </if>
+            <if test="reserved_mobile != null">
+                reserved_mobile,
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="apply_id != null">
+                #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="applicant_id != null">
+                #{applicant_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_number != null">
+                #{bank_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_id != null">
+                #{bank_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_name != null">
+                #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_address_code != null">
+                #{bank_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="reserved_mobile != null">
+                #{reserved_mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_card_verify != null">
+                #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
+        update apply_bank_card
+        <set>
+            <if test="apply_id != null">
+                apply_id = #{apply_id,jdbcType=INTEGER},
+            </if>
+            <if test="applicant_id != null">
+                applicant_id = #{applicant_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_card_number != null">
+                bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_id != null">
+                bank_id = #{bank_id,jdbcType=INTEGER},
+            </if>
+            <if test="bank_name != null">
+                bank_name = #{bank_name,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_address_code != null">
+                bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+            </if>
+            <if test="reserved_mobile != null">
+                reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="bank_card_verify != null">
+                bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardPO">
+        update apply_bank_card
+        set apply_id = #{apply_id,jdbcType=INTEGER},
+            applicant_id = #{applicant_id,jdbcType=INTEGER},
+            bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+            bank_id = #{bank_id,jdbcType=INTEGER},
+            bank_name = #{bank_name,jdbcType=VARCHAR},
+            bank_address_code = #{bank_address_code,jdbcType=INTEGER},
+            reserved_mobile = #{reserved_mobile,jdbcType=VARCHAR},
+            bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            create_time = #{create_time,jdbcType=TIMESTAMP},
+            update_time = #{update_time,jdbcType=TIMESTAMP}
+        where bank_card_id = #{bank_card_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectLatestByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_bank_card
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
+    </select>
+
+    <select id="selectByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_bank_card
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+        and apply_id is NULL
+        order by bank_card_id
+    </select>
+
+    <select id="selectPrimaryKeyByApplyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        bank_card_id
+        from apply_bank_card
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
+    </select>
+
+    <select id="selectByApplyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_bank_card
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+        order by create_time desc
+        limit 0,1
+    </select>
+
+    <select id="selectBankCardNumber" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select
+        bank_card_number
+        from apply_bank_card
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countByApplyId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(bank_card_id)
+        from apply_bank_card
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateBankCardVerifyByApplyId" parameterType="com.zhixindu.apply.core.apply.po.ApplyBankCardVerifyPO">
+        update apply_bank_card
+        set bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler}
+        where apply_id = #{apply_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="countByApplicantId" parameterType="java.lang.Integer" resultType="int">
+        select
+        count(apply_id)
+        from apply_bank_card
+        where applicant_id = #{applicant_id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

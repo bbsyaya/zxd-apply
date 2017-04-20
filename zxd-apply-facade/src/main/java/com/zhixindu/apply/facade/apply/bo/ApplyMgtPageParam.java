@@ -6,8 +6,6 @@
 package com.zhixindu.apply.facade.apply.bo;
 
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
-import com.zhixindu.apply.facade.apply.enums.ProcessStep;
-import com.zhixindu.apply.facade.apply.enums.ProcessState;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +20,10 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
 
     private static final long serialVersionUID = -3851235801784011500L;
     /**
+     * 申请ID
+     **/
+    private String apply_id;
+    /**
      * 用户手机号
      **/
     private String mobile;
@@ -30,9 +32,9 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
      **/
     private String id_card;
     /**
-     * 申请ID
+     * 申请人ID
      **/
-    private String lender_id;
+    private String applicant_id;
     /**
      * 申请状态 1审核中，2审核成功，3审核失败，4放款成功，5放款失败
      **/
@@ -45,6 +47,14 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
      * 申请结束时间
      **/
     private Date apply_end_time;
+
+    public String getApply_id() {
+        return apply_id;
+    }
+
+    public void setApply_id(String apply_id) {
+        this.apply_id = apply_id;
+    }
 
     public String getMobile() {
         return mobile;
@@ -62,12 +72,12 @@ public class ApplyMgtPageParam extends ApplyPageParam implements Serializable {
         this.id_card = id_card;
     }
 
-    public String getLender_id() {
-        return lender_id;
+    public String getApplicant_id() {
+        return applicant_id;
     }
 
-    public void setLender_id(String lender_id) {
-        this.lender_id = lender_id;
+    public void setApplicant_id(String applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
     public ApplyStatus getApply_status() {

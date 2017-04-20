@@ -11,7 +11,7 @@ public class ApplyLoanBO implements Serializable {
     private static final long serialVersionUID = 6811852626457403898L;
 
     /**
-     * 申请贷款ID
+     * 申请ID
      */
     private Integer apply_id;
     /**

@@ -7,8 +7,8 @@ package com.zhixindu.apply.core.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.zhixindu.commons.utils.CommonUtil;
+import com.zhixindu.commons.utils.JsonUtil;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,6 +17,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.text.MessageFormat;
 
 /**
  * 业务层参数输出切面
@@ -37,24 +39,27 @@ public class BusinessParameterAspect {
         String name = joinPoint.getSignature().getDeclaringType().getSimpleName();
         String method = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-        LOGGER.info("before :: {}.{} >>>>> {}", name, method, JSON.toJSONString(args));
-    }
-
-    @After("query()")
-    public void doAfterTask(JoinPoint joinPoint) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("before :: {}.{} >>>>> {}", name, method, JSON.toJSONString(args));
+        }
     }
 
     @AfterReturning(pointcut = "query()", returning = "result")
     public void doAfterReturningTask(JoinPoint joinPoint, Object result) {
         String name = joinPoint.getSignature().getDeclaringType().getSimpleName();
         String method = joinPoint.getSignature().getName();
-        LOGGER.info("after :: {}.{} >>>>> {}", name, method, CommonUtil.convert(result));
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("after :: {}.{} >>>>> {}", name, method, CommonUtil.convert(result));
+        }
     }
 
     @AfterThrowing(pointcut = "query()", throwing = "ex")
     public void doAfterThrowingTask(JoinPoint joinPoint, Exception ex) {
         String name = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        LOGGER.error(name, ex);
+        String method = joinPoint.getSignature().getName();
+        Object[] args = joinPoint.getArgs();
+        String key = MessageFormat.format("{0}.{1} >>>>> {2}", name, method, JsonUtil.toJsonString(args));
+        LOGGER.error(key, ex);
     }
 
 }

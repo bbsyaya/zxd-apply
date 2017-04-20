@@ -55,7 +55,8 @@ public class RegionCacheManager {
      */
     public List<RegionBaseBO> getRegionList(Integer parentCode){
         return getAllRegion().parallelStream()
-                .filter(regionBaseBO -> parentCode.intValue() == regionBaseBO.getParent_code()
+                .filter(regionBaseBO -> null != regionBaseBO.getParent_code()
+                        && regionBaseBO.getParent_code().intValue() == parentCode.intValue()
                 ).collect(Collectors.toList());
     }
 
