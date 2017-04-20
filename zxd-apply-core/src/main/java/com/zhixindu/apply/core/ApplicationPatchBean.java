@@ -31,7 +31,7 @@ public class ApplicationPatchBean implements InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationPatchBean.class);
 
     private static final Date PATCH_DATA_TIME = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
-                                                    .parseDateTime("2017-04-20 23:59:59")
+                                                    .parseDateTime("2016-04-20 23:59:59")
                                                     .toDate();
     //private static final Date PATCH_DATA_TIME = new Date();
 
