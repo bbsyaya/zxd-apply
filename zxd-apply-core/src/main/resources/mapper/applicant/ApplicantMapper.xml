@@ -267,15 +267,9 @@
     <update id="updateApplyResult" parameterType="com.zhixindu.apply.core.applicant.po.ApplyResultPO">
         update applicant
         <set>
-            <if test="null != bank_card_verify">
-                bank_card_verify = #{bank_card_verify,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
-            </if>
-              apply_result = #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
+            apply_result = #{apply_result,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             <if test="null != reject_time">
                 reject_time = #{reject_time,jdbcType=TIMESTAMP},
-            </if>
-            <if test="null != loan_fill_step">
-                loan_fill_step = #{loan_fill_step,typeHandler=com.zhixindu.commons.handler.type.EnumValueTypeHandler},
             </if>
             <if test="null != credit_score">
                 credit_score = #{credit_score,jdbcType=VARCHAR},

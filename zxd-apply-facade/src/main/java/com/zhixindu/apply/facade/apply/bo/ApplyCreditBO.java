@@ -1,6 +1,5 @@
 package com.zhixindu.apply.facade.apply.bo;
 
-import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.apply.enums.ApplyStatus;
 
 import java.io.Serializable;
@@ -26,8 +25,6 @@ public class ApplyCreditBO implements Serializable{
     private Integer credit_score;
     /** 信用备忘录 */
     private String credit_memo;
-    /** 银行卡认证状态 */
-    private BankCardVerify bank_card_verify;
 
     public Integer getApply_id() {
         return apply_id;
@@ -85,11 +82,4 @@ public class ApplyCreditBO implements Serializable{
         this.credit_memo = credit_memo;
     }
 
-    public BankCardVerify getBank_card_verify() {
-        return bank_card_verify;
-    }
-
-    public void setBank_card_verify(BankCardVerify bank_card_verify) {
-        this.bank_card_verify = bank_card_verify;
-    }
 }

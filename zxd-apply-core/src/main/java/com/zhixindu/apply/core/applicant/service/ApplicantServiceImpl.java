@@ -3,10 +3,10 @@ package com.zhixindu.apply.core.applicant.service;
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.po.ApplicantBaseInfoPO;
 import com.zhixindu.apply.core.applicant.po.ApplyResultPO;
+import com.zhixindu.apply.core.applicant.po.LoanFillStepPO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplyResultBO;
-import com.zhixindu.apply.core.applicant.po.LoanFillStepPO;
 import com.zhixindu.apply.facade.applicant.enums.BankCardVerify;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
 import com.zhixindu.apply.facade.applicant.enums.MobileVerify;
@@ -64,12 +64,14 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public int saveMobileVerify(ApplicantMobileVerifyBO mobileVerifyBO) {
         int rows = applicantMapper.updateMobileVerify(mobileVerifyBO);
-        // 必须是手机号认证通过且银行卡已经填写才能更新填写步骤
+        LoanFillStep loanFillStep = LoanFillStep.CERTIFICATION_INFO;
+        // 必须是手机号认证通过且银行卡已经认证通过才能更新填写步骤
         if(rows == 1 && MobileVerify.VERIFIED.matches(mobileVerifyBO.getMobile_verify())
-                && hasBankCardFilled(mobileVerifyBO.getApplicant_id())) {
-            LoanFillStepPO loanFillStepPO = new LoanFillStepPO(mobileVerifyBO.getApplicant_id(), LoanFillStep.SUBMIT);
-            rows += applicantMapper.updateLoanFillStep(loanFillStepPO);
+                && hasBankCardVerified(mobileVerifyBO.getApplicant_id())) {
+            loanFillStep = LoanFillStep.SUBMIT;
         }
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(mobileVerifyBO.getApplicant_id(), loanFillStep);
+        rows += applicantMapper.updateLoanFillStep(loanFillStepPO);
         return rows;
     }
 
