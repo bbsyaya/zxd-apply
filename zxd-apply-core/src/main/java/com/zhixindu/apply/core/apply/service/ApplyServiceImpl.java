@@ -154,12 +154,14 @@ public class ApplyServiceImpl implements ApplyService {
         bankCardVerifyPO.setApplicant_id(applicantId);
         bankCardVerifyPO.setBank_card_verify(applyBankCardBO.getBank_card_verify());
         applicantMapper.updateBankCardVerify(bankCardVerifyPO);
+        LoanFillStep loanFillStep = LoanFillStep.CERTIFICATION_INFO;
         // 必须是银行卡认证通过且手机号已经认证通过才能更新填写步骤
         if(BankCardVerify.VERIFIED.matches(bankCardVerifyPO.getBank_card_verify())
             && applicantService.hasMobileVerified(applicantId)) {
-            LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applyBankCardBO.getApplicant_id(), LoanFillStep.SUBMIT);
-            applicantMapper.updateLoanFillStep(loanFillStepPO);
+            loanFillStep = LoanFillStep.SUBMIT;
         }
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applyBankCardBO.getApplicant_id(), loanFillStep);
+        applicantMapper.updateLoanFillStep(loanFillStepPO);
         return applyBankCardBO.getBank_card_id();
     }
 
