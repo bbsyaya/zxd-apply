@@ -265,6 +265,10 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             throw new ServiceException(ApplyErrorCode.MOBILE_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
                     .MOBILE_NOT_VERIFIED.getDesc());
         }
+        if(!applicantService.hasBankCardVerified(applicantId)) {
+            throw new ServiceException(ApplyErrorCode.BANK_CARD_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
+                    .BANK_CARD_NOT_VERIFIED.getDesc());
+        }
         if(hasNotSettledApply(applicantId)) {
             throw new ServiceException(ApplyErrorCode.HAS_NOT_SETTLED_APPLY.getErrorCode(), ApplyErrorCode
                     .HAS_NOT_SETTLED_APPLY.getDesc());
