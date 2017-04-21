@@ -255,7 +255,6 @@ public class ApplyServiceImpl implements ApplyService {
         applyResultPO.setApplicant_id(applyCreditBO.getApplicant_id());
         applyResultPO.setCredit_score(applyCreditBO.getCredit_score());
         applyResultPO.setApply_result(applyStatus.getApplyResult());
-        applyResultPO.setBank_card_verify(applyCreditBO.getBank_card_verify());
         // 审核失败才会更新审核拒绝时间
         if(ApplyStatus.REVIEW_FAIL.matches(applyStatus)) {
             applyResultPO.setReject_time(new Date());
