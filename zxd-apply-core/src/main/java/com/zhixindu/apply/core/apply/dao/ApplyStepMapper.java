@@ -4,9 +4,11 @@ import com.zhixindu.apply.core.apply.po.ApplyCompleteStepPO;
 import com.zhixindu.apply.core.apply.po.ApplyStartStepPO;
 import com.zhixindu.apply.core.apply.po.ApplyStepPO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ApplyStepMapper {
 
     int insert(ApplyStepPO record);

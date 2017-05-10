@@ -213,4 +213,12 @@ public interface DubboApplyWechatBusiness {
      */
     boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO) throws ServiceException;
 
+    /**
+     * 查找最新的申请ID
+     * @param customerId
+     * @return
+     * @throws ServiceException
+     */
+    Integer findLatestApplyId(String customerId) throws ServiceException;
+
 }

@@ -371,4 +371,10 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
         Parameters.requireAllPropertyNotNull(applyStatusBO, new Object[]{"apply_status"});
         return applyService.updateRepaymentStatus(applyStatusBO) > 0;
     }
+
+    @Override
+    public Integer findLatestApplyId(String customerId) throws ServiceException {
+        Parameters.requireNotNull(customerId, "customerId不能为空");
+        return applyMapper.selectLatestPrimaryKeyByCustomerId(customerId);
+    }
 }

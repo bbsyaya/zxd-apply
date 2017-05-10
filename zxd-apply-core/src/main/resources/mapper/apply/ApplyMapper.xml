@@ -405,4 +405,12 @@
         order by apply_time
     </select>
 
+    <select id="selectLatestPrimaryKeyByCustomerId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        apply_id
+        from apply
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+        order by apply_time desc limit 0,1
+    </select>
+
 </mapper>
