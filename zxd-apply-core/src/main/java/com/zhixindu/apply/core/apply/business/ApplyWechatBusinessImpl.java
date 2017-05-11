@@ -1,7 +1,6 @@
 package com.zhixindu.apply.core.apply.business;
 
 import com.google.common.collect.Lists;
-import com.zhixindu.apply.core.applicant.service.ApplicantService;
 import com.zhixindu.apply.core.apply.dao.ApplyAddressMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyBankCardMapper;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
@@ -54,8 +53,6 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Inject
     private ApplyService applyService;
-    @Inject
-    private ApplicantService applicantService;
     @Inject
     private ApplyMapper applyMapper;
     @Inject
@@ -229,6 +226,12 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
+    public boolean completeCertification(Integer applicantId) {
+        Parameters.requireNotNull(applicantId, "applicantId不能为空");
+        return applyService.completeCertification(applicantId);
+    }
+
+    @Override
     public boolean prepareApplyLoan(Integer applicantId, Integer applyId) throws ServiceException {
         return applyService.prepareApplyLoan(applicantId, applyId);
     }
@@ -261,14 +264,6 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer submitApplyLoan(ApplyBaseInfoBO applyBaseInfoBO) {
         Parameters.requireAllPropertyNotNull(applyBaseInfoBO);
         Integer applicantId = applyBaseInfoBO.getApplicant_id();
-        if(!applicantService.hasMobileVerified(applicantId)) {
-            throw new ServiceException(ApplyErrorCode.MOBILE_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
-                    .MOBILE_NOT_VERIFIED.getDesc());
-        }
-        if(!applicantService.hasBankCardVerified(applicantId)) {
-            throw new ServiceException(ApplyErrorCode.BANK_CARD_NOT_VERIFIED.getErrorCode(), ApplyErrorCode
-                    .BANK_CARD_NOT_VERIFIED.getDesc());
-        }
         if(hasNotSettledApply(applicantId)) {
             throw new ServiceException(ApplyErrorCode.HAS_NOT_SETTLED_APPLY.getErrorCode(), ApplyErrorCode
                     .HAS_NOT_SETTLED_APPLY.getDesc());

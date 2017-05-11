@@ -129,6 +129,13 @@ public interface DubboApplyWechatBusiness {
     Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO);
 
     /**
+     * 完成信用认证
+     * @param applicantId
+     * @return
+     */
+    boolean completeCertification(Integer applicantId);
+
+    /**
      * 准备申请借款信息
      * @param applicantId
      * @param applyId
