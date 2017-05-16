@@ -307,6 +307,7 @@
     <resultMap id="ApplyMgtBOResultMap" type="com.zhixindu.apply.facade.apply.bo.ApplyMgtBO">
         <id column="apply_id" jdbcType="INTEGER" property="apply_id"/>
         <result column="applicant_id" jdbcType="INTEGER" property="applicant_id"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customer_id"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="id_card" jdbcType="VARCHAR" property="id_card"/>
@@ -319,6 +320,7 @@
         select
         ap.apply_id as apply_id,
         le.applicant_id as applicant_id,
+        le.customer_id as customer_id,
         le.mobile as mobile,
         le.name as name,
         le.id_card as id_card,
