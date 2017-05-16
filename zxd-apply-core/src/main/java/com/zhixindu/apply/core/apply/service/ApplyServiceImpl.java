@@ -165,12 +165,17 @@ public class ApplyServiceImpl implements ApplyService {
         return applyBankCardBO.getBank_card_id();
     }
 
+    @Override
+    public boolean completeCertification(Integer applicantId) {
+        LoanFillStepPO loanFillStepPO = new LoanFillStepPO(applicantId, LoanFillStep.SUBMIT);
+        return applicantMapper.updateLoanFillStep(loanFillStepPO) > 0;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean prepareApplyLoan(Integer applicantId, Integer applyId) {
         return prepareApplyAddress(applicantId, applyId)
-                && prepareApplyContact(applicantId, applyId)
-                && prepareApplyBankCard(applicantId, applyId);
+                && prepareApplyContact(applicantId, applyId);
     }
 
     @Transactional(rollbackFor = Exception.class)
