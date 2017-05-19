@@ -9,6 +9,7 @@ import com.zhixindu.apply.core.applicant.service.ApplicantService;
 import com.zhixindu.apply.core.apply.dao.ApplyContactMapper;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMoveBO;
 import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.apply.facade.applicant.enums.ApplyResult;
 import com.zhixindu.apply.facade.applicant.enums.LoanFillStep;
@@ -21,6 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by SteveGuo on 2017/3/8.
@@ -88,5 +90,13 @@ public class ApplicantWechatBusinessTest {
         ApplicantBO applicant = applicantWechatBusiness.findApplicant("201611221147978485279251");
         System.out.println(JSON.toJSONString(applicant));
         System.out.println("applicant.hasNotVerifiedItem():" + applicant.hasNotVerifiedItem());
+    }
+
+    @Test
+    public void testFindNoCertificationList(){
+        List<ApplicantMoveBO> applicantBOList = applicantWechatBusiness.findNoCertificationList();
+        for(ApplicantMoveBO applicantBO :applicantBOList){
+            System.out.println("safd:"+JSON.toJSONString(applicantBO.getApply_id()));
+        }
     }
 }

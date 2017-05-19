@@ -2,10 +2,12 @@ package com.zhixindu.apply.core.applicant.business;
 
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
+import com.zhixindu.apply.core.apply.dao.ApplyMapper;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMoveBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
 import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.commons.annotation.Business;
@@ -17,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -28,6 +31,8 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
     private ApplicantMapper applicantMapper;
     @Inject
     private ApplicantService applicantService;
+    @Inject
+    private ApplyMapper applyMapper;
 
     @Override
     public ApplicantBO findApplicant(Integer applicantId) {
@@ -97,8 +102,15 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
     }
 
     @Override
-    public List<ApplicantBO> findNoCertificationList() throws ServiceException {
-        return applicantMapper.selectNoCertificationList();
+    public List<ApplicantMoveBO> findNoCertificationList() throws ServiceException {
+        List<ApplicantBO> applicantBOList = applicantMapper.selectNoCertificationList();
+        return applicantBOList.stream()
+                .map(applicantBO -> {
+                    ApplicantMoveBO applicantMoveBO = new ApplicantMoveBO();
+                    BeanUtils.copyProperties(applicantBO,applicantMoveBO);
+                    applicantMoveBO.setApply_id(applyMapper.selectLatestPrimaryKeyByCustomerId(applicantBO.getCustomer_id()));
+                    return applicantMoveBO;
+                }).collect(Collectors.toList());
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.zhixindu.apply.facade.applicant.business;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMoveBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
 import com.zhixindu.commons.api.ServiceException;
 
@@ -75,7 +76,7 @@ public interface DubboApplicantWechatBusiness {
      * @return
      * @throws ServiceException
      */
-    List<ApplicantBO> findNoCertificationList()throws ServiceException;
+    List<ApplicantMoveBO> findNoCertificationList()throws ServiceException;
 
     /**
      * 更新信用认证标识
