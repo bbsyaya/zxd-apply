@@ -299,7 +299,7 @@
         select
         <include refid="Base_Column_List"/>
         from applicant
-        where certification_flag = 0 and bank_card_verify = 1 or mobile_verify = 1
+        where certification_flag = 0
         order by applicant_id desc
     </select>
 
