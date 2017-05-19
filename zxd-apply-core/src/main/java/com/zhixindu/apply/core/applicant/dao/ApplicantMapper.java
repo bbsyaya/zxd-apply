@@ -50,4 +50,8 @@ public interface ApplicantMapper {
 
     List<ApplicantBO> selectListForMgtByPage(ApplicantMgtQueryParam param);
 
+    List<ApplicantBO> selectNoCertificationList();
+
+    int updateCertificationFlag(String customer_id);
+
 }

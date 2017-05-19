@@ -16,6 +16,7 @@ import com.zhixindu.commons.utils.StringUtil;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -93,6 +94,17 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
     public Integer findApplicantId(String customerId) {
         Parameters.requireNotNull(customerId, "customerId不能为空");
         return applicantMapper.selectPrimaryKeyByCustomerId(customerId);
+    }
+
+    @Override
+    public List<ApplicantBO> findNoCertificationList() throws ServiceException {
+        return applicantMapper.selectNoCertificationList();
+    }
+
+    @Override
+    public boolean updateCreditCertificationFlag(String customerId) throws ServiceException {
+        Parameters.requireNotNull(customerId,"customerId不能为空");
+        return applicantService.updateCertificationFlag(customerId)>0;
     }
 
 }
