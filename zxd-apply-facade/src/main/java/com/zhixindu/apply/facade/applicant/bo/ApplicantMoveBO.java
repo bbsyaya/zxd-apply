@@ -6,6 +6,7 @@
 package com.zhixindu.apply.facade.applicant.bo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Yulei
@@ -17,6 +18,16 @@ public class ApplicantMoveBO  extends ApplicantBO implements Serializable {
     private static final long serialVersionUID = -7510309567533053696L;
     /**申请ID**/
     private Integer apply_id;
+    /** 申请时间 */
+    private Date apply_time;
+
+    public Date getApply_time() {
+        return apply_time;
+    }
+
+    public void setApply_time(Date apply_time) {
+        this.apply_time = apply_time;
+    }
 
     public Integer getApply_id() {
         return apply_id;

@@ -415,4 +415,12 @@
         order by apply_time desc limit 0,1
     </select>
 
+    <select id="selectLatestByCustomerId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+        order by apply_time desc limit 0,1
+    </select>
+
 </mapper>

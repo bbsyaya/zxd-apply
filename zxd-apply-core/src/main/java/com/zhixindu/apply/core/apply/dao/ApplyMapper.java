@@ -48,4 +48,6 @@ public interface ApplyMapper {
     List<ApplyPO> selectByApplyTime(Date apply_time);
 
     Integer selectLatestPrimaryKeyByCustomerId(String customer_id);
+
+    ApplyPO selectLatestByCustomerId(String customer_id);
 }

@@ -3,6 +3,7 @@ package com.zhixindu.apply.core.applicant.business;
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
 import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
@@ -107,8 +108,12 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
         return applicantBOList.stream()
                 .map(applicantBO -> {
                     ApplicantMoveBO applicantMoveBO = new ApplicantMoveBO();
-                    BeanUtils.copyProperties(applicantBO,applicantMoveBO);
-                    applicantMoveBO.setApply_id(applyMapper.selectLatestPrimaryKeyByCustomerId(applicantBO.getCustomer_id()));
+                    BeanUtils.copyProperties(applicantBO, applicantMoveBO);
+                    ApplyPO applyPO = applyMapper.selectLatestByCustomerId(applicantBO.getCustomer_id());
+                    if (null != applyPO) {
+                        applicantMoveBO.setApply_id(applyPO.getApply_id());
+                        applicantMoveBO.setApply_time(applyPO.getApply_time());
+                    }
                     return applicantMoveBO;
                 }).collect(Collectors.toList());
     }
