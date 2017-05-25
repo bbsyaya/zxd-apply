@@ -3,8 +3,11 @@ package com.zhixindu.apply.facade.applicant.business;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMoveBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
 import com.zhixindu.commons.api.ServiceException;
+
+import java.util.List;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -67,5 +70,19 @@ public interface DubboApplicantWechatBusiness {
      * @return
      */
     Integer findApplicantId(String customerId) throws ServiceException;
+
+    /**
+     * 查询需要迁移的申请数据
+     * @return
+     * @throws ServiceException
+     */
+    List<ApplicantMoveBO> findNoCertificationList()throws ServiceException;
+
+    /**
+     * 更新信用认证标识
+     * @param customerId
+     * @return
+     */
+    boolean updateCreditCertificationFlag(String customerId) throws ServiceException;
 
 }

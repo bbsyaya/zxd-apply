@@ -2,10 +2,13 @@ package com.zhixindu.apply.core.applicant.business;
 
 import com.zhixindu.apply.core.applicant.dao.ApplicantMapper;
 import com.zhixindu.apply.core.applicant.service.ApplicantService;
+import com.zhixindu.apply.core.apply.dao.ApplyMapper;
+import com.zhixindu.apply.core.apply.po.ApplyPO;
 import com.zhixindu.apply.core.constant.ApplyErrorCode;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantBaseInfoBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantMobileVerifyBO;
+import com.zhixindu.apply.facade.applicant.bo.ApplicantMoveBO;
 import com.zhixindu.apply.facade.applicant.bo.ApplicantVerifyBO;
 import com.zhixindu.apply.facade.applicant.business.DubboApplicantWechatBusiness;
 import com.zhixindu.commons.annotation.Business;
@@ -16,6 +19,8 @@ import com.zhixindu.commons.utils.StringUtil;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by SteveGuo on 2017/3/3.
@@ -27,6 +32,8 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
     private ApplicantMapper applicantMapper;
     @Inject
     private ApplicantService applicantService;
+    @Inject
+    private ApplyMapper applyMapper;
 
     @Override
     public ApplicantBO findApplicant(Integer applicantId) {
@@ -93,6 +100,28 @@ public class ApplicantWechatBusinessImpl implements DubboApplicantWechatBusiness
     public Integer findApplicantId(String customerId) {
         Parameters.requireNotNull(customerId, "customerId不能为空");
         return applicantMapper.selectPrimaryKeyByCustomerId(customerId);
+    }
+
+    @Override
+    public List<ApplicantMoveBO> findNoCertificationList() throws ServiceException {
+        List<ApplicantBO> applicantBOList = applicantMapper.selectNoCertificationList();
+        return applicantBOList.stream()
+                .map(applicantBO -> {
+                    ApplicantMoveBO applicantMoveBO = new ApplicantMoveBO();
+                    BeanUtils.copyProperties(applicantBO, applicantMoveBO);
+                    ApplyPO applyPO = applyMapper.selectLatestByCustomerId(applicantBO.getCustomer_id());
+                    if (null != applyPO) {
+                        applicantMoveBO.setApply_id(applyPO.getApply_id());
+                        applicantMoveBO.setApply_time(applyPO.getApply_time());
+                    }
+                    return applicantMoveBO;
+                }).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean updateCreditCertificationFlag(String customerId) throws ServiceException {
+        Parameters.requireNotNull(customerId,"customerId不能为空");
+        return applicantService.updateCertificationFlag(customerId)>0;
     }
 
 }

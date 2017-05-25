@@ -69,4 +69,12 @@ public interface ApplicantService {
      */
     int updateApplyResult(ApplyResultBO applyResultBO) throws ServiceException;
 
+    /**
+     * 更新信用认证flag
+     * @param customerId
+     * @return
+     * @throws ServiceException
+     */
+    int updateCertificationFlag(String customerId) throws ServiceException;
+
 }

@@ -46,4 +46,8 @@ public interface ApplyMapper {
     int updateCreditByPrimaryKey(ApplyCreditBO applyCreditBO);
 
     List<ApplyPO> selectByApplyTime(Date apply_time);
+
+    Integer selectLatestPrimaryKeyByCustomerId(String customer_id);
+
+    ApplyPO selectLatestByCustomerId(String customer_id);
 }

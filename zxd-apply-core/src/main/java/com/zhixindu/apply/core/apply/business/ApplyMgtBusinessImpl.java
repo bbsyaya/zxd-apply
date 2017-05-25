@@ -97,18 +97,6 @@ public class ApplyMgtBusinessImpl implements DubboApplyMgtBusiness {
         return applyMgtInfo;
     }
 
-    @Override
-    public ApplyBankCardMgtBO findBankCardByApplyId(Integer apply_id) throws ServiceException {
-        Parameters.requireNotNull(apply_id,"findBankCardByApplyId apply_id illargm_param");
-        ApplyBankCardPO applyBankCardPO = applyBankCardMapper.selectByApplyId(apply_id);
-        ApplyBankCardMgtBO applyBankCardMgtBO = null;
-        if(applyBankCardPO != null){
-            applyBankCardMgtBO = new ApplyBankCardMgtBO();
-            BeanUtils.copyProperties(applyBankCardPO,applyBankCardMgtBO);
-            applyBankCardMgtBO.setBank_address_info(systemConfigService.getRegionFullName(applyBankCardPO.getBank_address_code()));
-        }
-        return applyBankCardMgtBO;
-    }
 
     @Override
     public PageResult<ApplyMgtDetailBO> selectApplysByPage(ApplyMgtPageParam pageParam) throws ServiceException {

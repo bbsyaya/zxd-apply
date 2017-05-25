@@ -129,6 +129,13 @@ public interface DubboApplyWechatBusiness {
     Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO);
 
     /**
+     * 完成信用认证
+     * @param applicantId
+     * @return
+     */
+    boolean completeCertification(Integer applicantId);
+
+    /**
      * 准备申请借款信息
      * @param applicantId
      * @param applyId
@@ -212,5 +219,13 @@ public interface DubboApplyWechatBusiness {
      * @return
      */
     boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO) throws ServiceException;
+
+    /**
+     * 查找最新的申请ID
+     * @param customerId
+     * @return
+     * @throws ServiceException
+     */
+    Integer findLatestApplyId(String customerId) throws ServiceException;
 
 }

@@ -295,4 +295,17 @@
         ORDER BY applicant_id DESC
     </select>
 
+    <select id="selectNoCertificationList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from applicant
+        where certification_flag = 0
+        order by applicant_id desc
+    </select>
+
+    <update id="updateCertificationFlag" parameterType="java.lang.String">
+        update applicant
+        set certification_flag = 1
+        where customer_id = #{customer_id,jdbcType=VARCHAR}
+    </update>
 </mapper>

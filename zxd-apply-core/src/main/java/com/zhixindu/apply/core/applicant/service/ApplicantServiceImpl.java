@@ -88,4 +88,9 @@ public class ApplicantServiceImpl implements ApplicantService {
         return applicantMapper.updateApplyResult(applyResultPO);
     }
 
+    @Override
+    public int updateCertificationFlag(String customerId) throws ServiceException {
+        return applicantMapper.updateCertificationFlag(customerId);
+    }
+
 }

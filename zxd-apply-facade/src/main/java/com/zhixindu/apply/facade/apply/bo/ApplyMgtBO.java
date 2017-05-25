@@ -23,6 +23,8 @@ public class ApplyMgtBO implements Serializable{
     private Integer apply_id;
     /**申请人ID**/
     private String applicant_id;
+    /**客户ID**/
+    private String customer_id;
     /**用户手机号**/
     private String mobile;
     /**用户姓名**/
@@ -35,6 +37,14 @@ public class ApplyMgtBO implements Serializable{
     private ApplyStatus apply_status;
     /**申请时间**/
     private Date apply_time;
+
+    public String getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(String customer_id) {
+        this.customer_id = customer_id;
+    }
 
     public ApplyStatus getApply_status() {
         return apply_status;

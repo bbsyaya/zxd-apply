@@ -20,13 +20,7 @@ public interface DubboApplyMgtBusiness {
      */
     ApplyMgtInfo findApplyInfoByApplyId(Integer apply_id) throws ServiceException;
 
-    /**
-     * 获取银行卡信息
-     * @param apply_id
-     * @return
-     * @throws ServiceException
-     */
-    ApplyBankCardMgtBO findBankCardByApplyId(Integer apply_id) throws ServiceException;
+
 
     /**
      * 获取申请借款列表
