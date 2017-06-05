@@ -41,6 +41,8 @@ import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -175,17 +177,20 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer submitApplyAddress(ApplyAddressBO applyAddressBO) {
         Integer applyId = applyAddressBO.getApply_id();
         Parameters.requireNotNull(applyId, "applyId不能为空");
-        Object[] ignoreProperties = new Object[]{};
+        List<String> ignoreProperties = new ArrayList<>();
         if(applyService.existApplyAddress(applyId)) {
             applyAddressBO.setAddress_id(applyAddressMapper.selectPrimaryKeyByApplyId(applyId));
             if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
-                ignoreProperties = new Object[]{"company_name", "company_address_code", "company_address"};
+                ignoreProperties.add("company_name");
+                ignoreProperties.add("company_address_code");
+                ignoreProperties.add("company_address");
             }
         } else {
-            if(!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
-                ignoreProperties = new Object[]{"address_id", "company_name", "company_address_code", "company_address"};
-            } else {
-                ignoreProperties = new Object[]{"address_id"};
+            ignoreProperties.add("address_id");
+            if (!WorkState.EMPLOYEE.matches(applyAddressBO.getWork_state())) {
+                ignoreProperties.add("company_name");
+                ignoreProperties.add("company_address_code");
+                ignoreProperties.add("company_address");
             }
         }
         Parameters.requireAllPropertyNotNull(applyAddressBO, ignoreProperties);
@@ -201,9 +206,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                 .map(applyContactBO -> {
             Integer applyId = applyContactBO.getApply_id();
             Parameters.requireNotNull(applyId, "applyId不能为空");
-            Object[] ignoreProperties = new Object[]{};
+            List<String> ignoreProperties = new ArrayList<>();
             if (!applyService.existApplyContact(applyId)) {
-                ignoreProperties = new Object[]{"contact_id"};
+                ignoreProperties.add("contact_id");
             }
             Parameters.requireAllPropertyNotNull(applyContactBO, ignoreProperties);
             return applyContactBO;
@@ -215,11 +220,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer submitApplyBankCard(ApplyBankCardBO applyBankCardBO) {
         Integer applyId = applyBankCardBO.getApply_id();
         Parameters.requireNotNull(applyId, "applyId不能为空");
-        Object[] ignoreProperties = new Object[]{};
+        List<String> ignoreProperties = new ArrayList<>();
         if(applyService.existApplyBankCard(applyId)) {
             applyBankCardBO.setBank_card_id(applyBankCardMapper.selectPrimaryKeyByApplyId(applyId));
         }else {
-            ignoreProperties = new Object[]{"bank_card_id"};
+            ignoreProperties.add("bank_card_id");
         }
         Parameters.requireAllPropertyNotNull(applyBankCardBO, ignoreProperties);
         return applyService.saveOrUpdateBankCard(applyBankCardBO);
@@ -347,9 +352,9 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean submitApplyCredit(ApplyCreditBO applyCreditBO) {
-        Object[] ignoreProperties = new Object[]{};
+        List<String> ignoreProperties = new ArrayList<>();
         if(ApplyStatus.REVIEW_FAIL.matches(applyCreditBO.getApply_status())) {
-            ignoreProperties = new Object[]{"credit_score"};
+            ignoreProperties.add("credit_score");
         }
         Parameters.requireAllPropertyNotNull(applyCreditBO, ignoreProperties);
         return applyService.updateApplyCredit(applyCreditBO) > 0;
@@ -363,7 +368,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
 
     @Override
     public boolean submitRepaymentStatus(ApplyStatusBO applyStatusBO) {
-        Parameters.requireAllPropertyNotNull(applyStatusBO, new Object[]{"apply_status"});
+        Parameters.requireAllPropertyNotNull(applyStatusBO, Arrays.asList("apply_status"));
         return applyService.updateRepaymentStatus(applyStatusBO) > 0;
     }
 
