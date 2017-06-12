@@ -269,12 +269,7 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
                     .HAS_NOT_SETTLED_APPLY.getDesc());
         }
         Integer applyId = applyBaseInfoBO.getApply_id();
-        if(!applyService.prepareApplyAddress(applicantId,applyId)){
-            throw new ServiceException(ApplyErrorCode.NO_APPLY_ADDRESS.getErrorCode(), ApplyErrorCode.NO_APPLY_ADDRESS.getDesc());
-        }
-        if(!applyService.prepareApplyContact(applicantId, applyId)){
-            throw new ServiceException(ApplyErrorCode.NO_APPLY_CONTACT.getErrorCode(), ApplyErrorCode.NO_APPLY_CONTACT.getDesc());
-        }
+        checkApplyLoan(applyId);
         return applyService.saveApplyLoan(applyBaseInfoBO);
     }
 
@@ -381,11 +376,11 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     }
 
     @Override
-    public boolean checkApplyLoan(Integer applicantId, Integer applyId) throws ServiceException {
-        if(!applyService.prepareApplyAddress(applicantId,applyId)){
+    public boolean checkApplyLoan(Integer applyId) throws ServiceException {
+        if(!applyService.existApplyAddress(applyId)){
             throw new ServiceException(ApplyErrorCode.NO_APPLY_ADDRESS.getErrorCode(), ApplyErrorCode.NO_APPLY_ADDRESS.getDesc());
         }
-        if(!applyService.prepareApplyContact(applicantId, applyId)){
+        if(!applyService.existApplyContact(applyId)){
             throw new ServiceException(ApplyErrorCode.NO_APPLY_CONTACT.getErrorCode(), ApplyErrorCode.NO_APPLY_CONTACT.getDesc());
         }
         return true;

@@ -231,9 +231,8 @@ public interface DubboApplyWechatBusiness {
 
     /**
      * 检测申请借款信息
-     * @param applicantId
      * @param applyId
      * @throws ServiceException
      */
-    boolean checkApplyLoan(Integer applicantId, Integer applyId) throws ServiceException;
+    boolean checkApplyLoan(Integer applyId) throws ServiceException;
 }
