@@ -184,6 +184,9 @@ public class ApplyServiceImpl implements ApplyService {
         boolean result = true;
         if(!existApplyAddress(applyId)) {
             ApplyAddressPO applyAddressPO = applyAddressMapper.selectLatestByApplicantId(applicantId);
+            if(applyAddressPO == null){
+                return false;
+            }
             applyAddressPO.setAddress_id(null);
             applyAddressPO.setApply_id(applyId);
             applyAddressPO.setCreate_time(new Date());
