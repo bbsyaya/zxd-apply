@@ -86,4 +86,9 @@ public class ApplyWechatBusinessTest {
         applyLocationMapper.insert(applyLocationBO);
     }
 
+    @Test
+    public void testCheckApplyLoan(){
+        System.out.println(applyWechatBusiness.checkApplyLoan(56));
+    }
+
 }

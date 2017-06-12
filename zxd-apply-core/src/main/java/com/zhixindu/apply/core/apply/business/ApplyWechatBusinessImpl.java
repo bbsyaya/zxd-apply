@@ -273,6 +273,8 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
             throw new ServiceException(ApplyErrorCode.HAS_NOT_SETTLED_APPLY.getErrorCode(), ApplyErrorCode
                     .HAS_NOT_SETTLED_APPLY.getDesc());
         }
+        Integer applyId = applyBaseInfoBO.getApply_id();
+        checkApplyLoan(applyId);
         return applyService.saveApplyLoan(applyBaseInfoBO);
     }
 
@@ -376,5 +378,16 @@ public class ApplyWechatBusinessImpl implements DubboApplyWechatBusiness {
     public Integer findLatestApplyId(String customerId) throws ServiceException {
         Parameters.requireNotNull(customerId, "customerId不能为空");
         return applyMapper.selectLatestPrimaryKeyByCustomerId(customerId);
+    }
+
+    @Override
+    public boolean checkApplyLoan(Integer applyId) throws ServiceException {
+        if(!applyService.existApplyAddress(applyId)){
+            throw new ServiceException(ApplyErrorCode.NO_APPLY_ADDRESS.getErrorCode(), ApplyErrorCode.NO_APPLY_ADDRESS.getDesc());
+        }
+        if(!applyService.existApplyContact(applyId)){
+            throw new ServiceException(ApplyErrorCode.NO_APPLY_CONTACT.getErrorCode(), ApplyErrorCode.NO_APPLY_CONTACT.getDesc());
+        }
+        return true;
     }
 }

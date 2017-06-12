@@ -228,4 +228,11 @@ public interface DubboApplyWechatBusiness {
      */
     Integer findLatestApplyId(String customerId) throws ServiceException;
 
+
+    /**
+     * 检测申请借款信息
+     * @param applyId
+     * @throws ServiceException
+     */
+    boolean checkApplyLoan(Integer applyId) throws ServiceException;
 }

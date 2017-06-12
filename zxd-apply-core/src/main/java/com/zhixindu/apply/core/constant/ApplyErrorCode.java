@@ -7,7 +7,8 @@ public enum ApplyErrorCode {
 
     MOBILE_NOT_VERIFIED(2001, "手机号未通过验证"), BANK_CARD_NOT_VERIFIED(2002, "银行卡号未通过验证"),
     HAS_NOT_SETTLED_APPLY(2003, "有未结清贷款申请"), NO_APPLICANT(2004, "没有对应的申请人信息"),
-    NO_BANK_CARD(2005, "没有对应的银行卡信息"), NO_APPLY(2006, "没有对应的申请借款信息"), NO_REGION(2007, "没有对应的行政区划数据");
+    NO_BANK_CARD(2005, "没有对应的银行卡信息"), NO_APPLY(2006, "没有对应的申请借款信息"), NO_REGION(2007, "没有对应的行政区划数据"),
+    NO_APPLY_ADDRESS(2008, "没有对应的申请地址信息"),NO_APPLY_CONTACT(2009, "没有对应的申请联系人信息");
 
     private int errorCode;
     private String desc;
