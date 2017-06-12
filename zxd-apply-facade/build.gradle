@@ -1,5 +1,5 @@
 group 'com.zhixindu.apply'
-version '2.2.1.RELEASE'
+version '2.2.2.RELEASE'
 
 apply plugin: 'java'
 apply plugin: 'maven'
