@@ -1,5 +1,5 @@
 group 'com.zhixindu.apply'
-version '2.2.3-SNAPSHOT'
+version '2.2.3.RELEASE'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -41,7 +41,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             configuration = configurations.deployerJars
-            repository(url: "http://99.48.18.230:8081/repository/zxd-snapshots/") {
+            repository(url: "http://99.48.18.230:8081/repository/zxd-releases/") {
                 authentication(userName: "develop", password: "develop")
             }
             pom.version = version
